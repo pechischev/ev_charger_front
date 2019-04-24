@@ -5,6 +5,10 @@
   "dependencies": {
     "@babel/core": "7.4.3",
     "@svgr/webpack": "4.1.0",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.13.7",
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
     "babel-eslint": "10.0.1",
@@ -50,6 +54,7 @@
     "semver": "6.0.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
+    "typescript": "^3.4.5",
     "url-loader": "1.1.2",
     "webpack": "4.29.6",
     "webpack-dev-server": "3.2.1",
