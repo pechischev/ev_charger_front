@@ -1,0 +1,101 @@
+$screen-min-width: 1366px;
+$screen-min-height: 768px;
+
+$font-weight: (
+    light: 300,
+    normal: 400,
+    medium: 500,
+    semi-bold: 600,
+    bold: 700,
+    extra-bold: 900,
+);
+
+$base: (
+    font-path: "fonts/",
+    font-family: Roboto,
+    line-height: normal,
+    font-size: 16px,
+    font-weight: 400,
+);
+
+$z-index: (
+    popup: 5,
+    sidebar: 2,
+    overlay: 3,
+    footer: 1,
+    container: 10,
+    popup-container: 11,
+    popup-window: 12,
+    border: 1,
+    blueprint-settings: 2,
+    photo-edit: 2,
+    canvas: 2,
+);
+
+$width-content-container: (
+    default: 790px,
+    big: 1320px,
+    large: 1160px,
+    small: 490px,
+);
+
+$padding: 30px;
+$margin: 20px;
+
+$height-item: 60px;
+$height-items-tabs: 54px;
+
+$width-sidebar: 310px;
+$size-icon: 32px;
+$size-avatar: 220px;
+$size-avatar-small: 40px;
+
+$color-border: #d8e2eb;
+$color-border-input: #ccdbe7;
+$border-color-light-blue: #e8f2fe;
+$box-shadow-color: #e9eef3;
+$box-shadow-popup-color: #e9eef3;
+
+$button-color: #4da1ff;
+$button-color-hover: #3072e5;
+$button-color-disabled: #c6cdcf;
+
+$color-black: #4a4a4a;
+$color-blue: #4da1ff;
+$color-light-blue: #e8f2fe;
+$color-light-grey: #f7fbfc;
+$color-black-header: #484848;
+$color-grey: #808fa3;
+$color-red: #f67878;
+$color-light-green: #cdf87e;
+$color-green: #cdf87e;
+
+$window-header-bg: #ccd8e7;
+
+$font-size-little: 12px;
+$font-size-small: 14px;
+$font-size-medium: 16px;
+$font-size-large: 18px;
+$font-size-high: 24px;
+$font-size-big: 36px;
+$font-size-question: 20px;
+
+$title-font-family: Montserrat;
+$title-color: #484848;
+$title-letter-spacing: 3px;
+$title-font-size: 36px;
+
+$letter-spacing-header: 3px;
+$letter-spacing-text: 0.8px;
+
+$line-height: 1.25;
+
+$border-radius: 4px;
+
+$time-animation-default: 0.25s;
+
+$question-container-small: 1024px;
+$question-container-padding: 122px;
+
+$col-gap: $margin / 2;
+$row-gap: (-$col-gap);

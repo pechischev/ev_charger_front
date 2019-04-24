@@ -1,0 +1,41 @@
+@import "~styles/utils/variables.scss";
+@import "~styles/utils/functions.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html, #root, .app {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    min-width: $screen-min-width;
+    min-height: $screen-min-height;
+    font-family: base(font-family), sans-serif;
+    line-height: base(line-height);
+    font-size: base(font-size);
+    font-weight: base(font-weight);
+    color: $color-black;
+}
+
+html {
+    overflow: auto;
+}
+
+a, input, .button {
+    &:hover {
+        outline: none;
+    }
+    &:focus {
+        outline: none;
+    }
+    &:visited {
+        outline: none;
+    }
+    &:active {
+        outline: none;
+    }
+}

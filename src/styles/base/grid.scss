@@ -1,0 +1,31 @@
+.row {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: $row-gap;
+    margin-right: $row-gap;
+
+    &--with-vertical-gap {
+        margin-top: $row-gap;
+        margin-bottom: $row-gap;
+
+        > .col {
+            padding-top: $col-gap;
+            padding-bottom: $col-gap;
+        }
+    }
+}
+
+.col {
+    padding: 0 $col-gap;
+
+    $columns-length: 12;
+
+    @for $idx from 1 to $columns-length {
+        &-#{$idx} {
+            $width: (100% / $columns-length * $idx);
+
+            flex-basis: $width;
+            max-width: $width;
+        }
+    }
+}
