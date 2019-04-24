@@ -1,0 +1,18 @@
+@import "~styles/utils/variables.scss";
+
+@function font-weight($key) {
+    @return map-get($font-weight, $key);
+}
+
+@function base($key) {
+    @return map-get($base, $key);
+}
+
+@function z-index($key) {
+    @return map-get($z-index, $key)
+}
+
+@function width-content-container($key) {
+    @return map-get($width-content-container, $key);
+}
+

@@ -1,0 +1,33 @@
+@import "~styles/utils/variables.scss";
+
+.context-menu {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-items: center;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 20px 0 $box-shadow-color;
+    border: 1px solid $border-color-light-blue;
+    min-width: 310px;
+    border-radius: 6px;
+    z-index: 100000;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        height: $height-item;
+        padding: 0 $padding;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background-color: $color-light-grey;
+        }
+        outline: none;
+    }
+
+    .disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+}

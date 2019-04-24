@@ -1,0 +1,121 @@
+@import "~styles/utils/variables.scss";
+@import "~styles/utils/functions.scss";
+
+@mixin crop-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin square($size) {
+    height: $size;
+    width: $size;
+}
+
+@mixin set-size($width: null, $height: null) {
+    height: $height;
+    width: $width;
+}
+
+@mixin hidden() {
+    display: none;
+    height: 0;
+}
+
+@mixin apply-hover-state() {
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.65;
+    }
+}
+
+@mixin position($position: null, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+@mixin set-image($url, $position: center, $bg-color: null) {
+    background-image: url($url);
+    background-position: $position;
+    background-repeat: no-repeat;
+    background-color: $bg-color;
+}
+
+@mixin min-size() {
+    min-width: $screen-min-width;
+    min-height: $screen-min-height;
+}
+
+@mixin set-size($width: null, $height: null) {
+    width: $width;
+    height: $height;
+}
+
+@mixin apply-transparent-border() {
+    border-color: rgba(0, 0, 0, 0);
+}
+
+@mixin content-container($width) {
+    width: $width;
+
+    &[data-hidden="true"] {
+        transform: translateX($width);
+    }
+}
+
+@mixin underline-node($level) {
+    position: relative;
+    &:before {
+        content: "";
+        position: absolute;
+        height: 1px;
+        background-color: $border-color-light-blue;
+        bottom: 0;
+        // Hack to have full width borders always
+        left: -100vw;
+        right: 100vw;
+        width: 300vw;
+    }
+}
+
+@mixin exclude-first-node-underline() {
+    .tree-node:first-child {
+        .trigger-line.first .trigger-line__underline:before {
+            content: none;
+        }
+    }
+}
+
+@mixin set-font(
+    $font-family: null,
+    $font-size: null,
+    $line-height: null,
+    $font-weight: null,
+    $letter-spacing: null,
+    $color: null
+) {
+    font-family: $font-family;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing;
+    color: $color;
+}
+
+@mixin set-font-app {
+    font-size: $font-size-medium;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing-text;
+}
+
+@mixin circle-icon($img: null, $size: 40px) {
+    @include square($size: $size);
+
+    border-radius: 50%;
+    background: url($img) center center no-repeat;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}

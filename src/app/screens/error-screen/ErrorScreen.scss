@@ -1,0 +1,31 @@
+@import "~styles/utils/variables.scss";
+@import "~styles/utils/mixins.scss";
+
+.error-screen {
+    background-color: #FFFFFF;
+    background-position: bottom left, top right;
+    background-repeat: no-repeat;
+
+    .error-message {
+        max-width: 560px;
+        margin: auto;
+        line-height: 1.33;
+
+        &__title {
+            margin-bottom: $margin;
+            font-size: $font-size-high;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        &__description {
+            font-size: $font-size-large;
+        }
+
+        &__button {
+            display: flex;
+            margin-top: $padding;
+            justify-content: center;
+        }
+    }
+}

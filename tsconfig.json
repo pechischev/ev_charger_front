@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "build",
+        "module": "commonjs",
+        "target": "es5",
+        "lib": ["es5", "es6", "es7", "es2017", "dom"],
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "allowJs": false,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "rootDir": "src",
+        "strictPropertyInitialization": true,
+        "noStrictGenericChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true,
+        "experimentalDecorators": true,
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@app/*": ["src/app/*"],
+            "@config/*": ["src/config/*"],
+            "@services/*": ["src/services/*"],
+            "@entities/*": ["src/entities/*"],
+            "@styles/*": ["src/styles/*"],
+            "@utils": ["src/utils"],
+            "@utils/*": ["src/utils/*"],
+            "@context": ["src/context"],
+            "@tests/*": ["src/tests/*"],
+            "@lib/*": ["src/lib/*"]
+        }
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"]
+}
