@@ -29,7 +29,6 @@
             height: 32px;
             width: 32px;
             margin: -16px 0 0 0;
-            @include set-image("~components/tree/img/right.svg");
         }
     }
 
@@ -76,8 +75,6 @@
 .user {
     $size-user-icon: 40px;
     $size-dropdown-user-icon: 32px;
-
-    @include set-image($url: "./img/combined-shape.svg");
 
     display: flex;
     position: relative;
