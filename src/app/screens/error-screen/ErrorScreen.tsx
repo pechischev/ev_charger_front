@@ -1,5 +1,4 @@
 import { ErrorMessages } from "@app/config";
-import { Wrapper } from "@app/layouts/wrapper";
 import { EErrorState } from "@app/screens/error-screen";
 import * as React from "react";
 import { FC } from "react";
@@ -10,17 +9,13 @@ export const ErrorScreen: FC<RouteProps> = ({
                                                 location = {state: EErrorState.NOT_FOUND},
                                              }) => {
     const errorMessage = ErrorMessages.getMessageByState(location.state);
+
     return (
-        <Wrapper className={"error-screen"}>
-            <div className={"error-message"}>
-                <div className={"error-message__title"}>{errorMessage.title}</div>
-                <p className={"error-message__description"}>
-                    {errorMessage.description}
-                </p>
-                <div className={"error-message__button"}>
-                    {errorMessage.button}
-                </div>
-            </div>
-        </Wrapper>
+        <div className="container text-center">
+            <div className="display-1 mb-5">400</div>
+            <h1 className="h2  mb-3">{errorMessage.title}</h1>
+            <p className="h4 font-weight-normal mb-7 leading-normal ">{errorMessage.description}</p>
+            {errorMessage.button}
+        </div>
     );
 };

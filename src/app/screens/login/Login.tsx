@@ -1,23 +1,26 @@
-import { Component, ReactNode } from "react";
 import * as React from "react";
+import { Component, ReactNode } from "react";
 import "./Login.scss";
 import { autobind } from "core-decorators";
 import { EPaths } from "@app/config";
+import { Page } from "@layouts/page";
 
 @autobind
 export class Login extends Component {
     render(): ReactNode {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col col-login mx-auto">
-                        <div className="text-center mb-6">
-                            <img src="./img/logo.png" className="h-6" alt=""/>
+            <Page layer={"page-simple"}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col col-login mx-auto">
+                            <div className="text-center mb-6">
+                                <img src="./img/logo.png" className="h-6" alt=""/>
+                            </div>
+                            {this.renderForm()}
                         </div>
-                        {this.renderForm()}
                     </div>
                 </div>
-            </div>
+            </Page>
         );
     }
 
@@ -28,7 +31,7 @@ export class Login extends Component {
                     <div className="card-title text-center">Login to Loop CMS</div>
                     <div className="form-group">
                         <label className="form-label">Email address</label>
-                        <input type="email" className="form-control"  placeholder="Enter email"/>
+                        <input type="email" className="form-control" placeholder="Enter email"/>
                     </div>
                     <div className="form-group">
                         <label className="form-label">Password</label>

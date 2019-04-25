@@ -1,0 +1,59 @@
+.header {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+
+    &-brand {
+        color: inherit;
+        margin-right: 0;
+        font-size: 1.25rem;
+        white-space: nowrap;
+        font-weight: 600;
+        padding: 0;
+        transition: .3s opacity;
+        line-height: 2.9rem;
+        min-width: 200px;
+        text-align: center;
+
+        &-img {
+            height: 2.5rem;
+            line-height: 2rem;
+            vertical-align: bottom;
+            margin-right: 0;
+            width: auto;
+        }
+    }
+}
+
+.app-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    background-color: #ffffff;
+    z-index: 1030;
+    padding: 10px 0;
+}
+
+@media (min-width: 768px) {
+    .app-header {
+        padding-right: 30px;
+    }
+}
+
+/* Sidebar */
+
+.app-sidebar__toggle {
+    padding: 0 15px;
+    color: #3e4b5b;
+    line-height: 2.4;
+    transition: background-color 0.3s ease;
+
+    &:before {
+        content: "\f0c9";
+        font-size: 21px;
+    }
+}

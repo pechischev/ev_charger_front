@@ -32,7 +32,7 @@
             "@utils/*": ["src/utils/*"],
             "@context": ["src/context"],
             "@tests/*": ["src/tests/*"],
-            "@layout/*": ["src/layout/*"],
+            "@layouts/*": ["src/layouts/*"],
             "@lib/*": ["src/lib/*"]
         }
     },
