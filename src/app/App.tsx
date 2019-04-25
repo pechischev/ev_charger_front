@@ -24,26 +24,30 @@ export class App extends Component {
             <Provider {...stores}>
                 <Router history={AppContext.getHistory()}>
                     <div className={"app"}>
-                        <Page>
-                            <DevTools/>
-                            <Switch>
-                                <PublicRoute exact={true} path={`/${EPaths.LOGIN}`} component={Login}/>
-                                <PrivateRoute
-                                    exact={true}
-                                    path={`/${EPaths.DASHBOARD}`}
-                                    component={() => <Stub title={"dashboard"}/>}
-                                />
-                                <PrivateRoute
-                                    exact={true}
-                                    path={`/${EPaths.SETTINGS}`}
-                                    component={() => <Stub title={"Settings"}/>}
-                                />
-                                <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
-                            </Switch>
-                        </Page>
+                        <DevTools/>
+                        <Page>{this.renderRoutes()}</Page>
                     </div>
                 </Router>
             </Provider>
+        );
+    }
+
+    private renderRoutes() {
+        return (
+            <Switch>
+                <PrivateRoute
+                    exact={true}
+                    path={`/${EPaths.DASHBOARD}`}
+                    component={() => <Stub title={"dashboard"}/>}
+                />
+                <PrivateRoute
+                    exact={true}
+                    path={`/${EPaths.SETTINGS}`}
+                    component={() => <Stub title={"Settings"}/>}
+                />
+                <PublicRoute path={`/${EPaths.LOGIN}`} component={Login}/>
+                <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
+            </Switch>
         );
     }
 }

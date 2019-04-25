@@ -1,7 +1,10 @@
 import { Component, ReactNode } from "react";
 import * as React from "react";
 import "./Login.scss";
+import { autobind } from "core-decorators";
+import { EPaths } from "@app/config";
 
+@autobind
 export class Login extends Component {
     render(): ReactNode {
         return (
@@ -20,17 +23,16 @@ export class Login extends Component {
 
     private renderForm(): ReactNode {
         return (
-            <form className="card" method="post">
+            <div className="card">
                 <div className="card-body p-6">
                     <div className="card-title text-center">Login to Loop CMS</div>
                     <div className="form-group">
                         <label className="form-label">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1"
-                               placeholder="Enter email"/>
+                        <input type="email" className="form-control"  placeholder="Enter email"/>
                     </div>
                     <div className="form-group">
-                        <input type="password" className="form-control" id="exampleInputPassword1"
-                               placeholder="Password"/>
+                        <label className="form-label">Password</label>
+                        <input type="password" className="form-control" placeholder="Password"/>
                     </div>
                     <div className="form-group">
                         <label className="custom-control custom-checkbox">
@@ -39,10 +41,14 @@ export class Login extends Component {
                         </label>
                     </div>
                     <div className="form-footer">
-                        <button type="submit" className="btn btn-primary btn-block">Sign in</button>
+                        <button className="btn btn-primary btn-block" onClick={this.onSignIn}>Sign in</button>
                     </div>
                 </div>
-            </form>
+            </div>
         );
+    }
+
+    private onSignIn() {
+        window.location.pathname = `/${EPaths.DASHBOARD}`;
     }
 }

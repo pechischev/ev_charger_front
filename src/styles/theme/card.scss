@@ -1,0 +1,144 @@
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    box-shadow: 0 0 10px rgba(69, 101, 173, 0.1);
+    border-radius: 7px;
+
+    &:hover {
+        box-shadow: 0 16px 26px 0 rgba(40, 40, 90, .09), 0 3px 6px 0 rgba(0, 0, 0, .065);
+    }
+
+    > hr {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    > .list-group:first-child {
+        .list-group-item:first-child {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+    }
+
+    > .list-group:last-child {
+        .list-group-item:last-child {
+            border-bottom-right-radius: 7px;
+            border-bottom-left-radius: 7px;
+        }
+    }
+
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.5rem;
+}
+
+.card-title {
+    margin-bottom: 1.5rem;
+}
+
+.card-subtitle {
+    margin-top: -0.75rem;
+    margin-bottom: 0;
+}
+
+.card-text:last-child {
+    margin-bottom: 0;
+}
+
+.card-link {
+    &:hover {
+        text-decoration: none;
+    }
+
+    & + .card-link {
+        margin-left: 1.5rem;
+    }
+}
+
+.card-header {
+    padding: 1.5rem 1.5rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+
+    &:first-child {
+        border-radius: calc(3px - 1px) calc(3px - 1px) 0 0;
+    }
+
+    & + .list-group .list-group-item:first-child {
+        border-top: 0;
+    }
+}
+
+.card-footer {
+    padding: 1.5rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-top: 1px solid rgba(0, 40, 100, 0.12);
+
+    &:last-child {
+        border-radius: 0 0 calc(3px - 1px) calc(3px - 1px);
+    }
+}
+
+.card-header {
+    &-tabs {
+        margin-right: -0.75rem;
+        margin-bottom: -1.5rem;
+        margin-left: -0.75rem;
+        border-bottom: 0;
+    }
+
+    &-pills {
+        margin-right: -0.75rem;
+        margin-left: -0.75rem;
+    }
+}
+
+.card-img {
+    width: 100%;
+    border-radius: calc(3px - 1px);
+
+    &-overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 1.25rem;
+    }
+
+    &-top, &-bottom {
+        width: 100%;
+        border-bottom-right-radius: calc(3px - 1px);
+        border-bottom-left-radius: calc(3px - 1px);
+    }
+}
+
+.card-deck {
+    display: flex;
+    flex-direction: column;
+
+    .card {
+        margin-bottom: 0.75rem;
+    }
+}
+
+.card-group {
+    display: flex;
+    flex-direction: column;
+
+    > .card {
+        margin-bottom: 0.75rem;
+    }
+}
+
+.card-columns .card {
+    margin-bottom: 1.5rem;
+}
