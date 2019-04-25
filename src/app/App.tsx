@@ -9,6 +9,9 @@ import { Component, ReactNode } from "react";
 import { Route, Router, Switch } from "react-router";
 import "./App.scss";
 import { Provider } from "mobx-react";
+import { Login } from "@app/screen/login";
+import { PublicRoute } from "@components/public-route";
+import { Page } from "@layout/page";
 
 export class App extends Component {
     constructor(props: object) {
@@ -21,21 +24,23 @@ export class App extends Component {
             <Provider {...stores}>
                 <Router history={AppContext.getHistory()}>
                     <div className={"app"}>
-                        <DevTools/>
-                        <Switch>
-                            {/*<PublicRoute exact={true} path={`/${EPaths.LOGIN}`} component={Login}/>*/}
-                            <PrivateRoute
-                                exact={true}
-                                path={`/${EPaths.DASHBOARD}`}
-                                component={() => <Stub title={"dashboard"}/>}
-                            />
-                            <PrivateRoute
-                                exact={true}
-                                path={`/${EPaths.SETTINGS}`}
-                                component={() => <Stub title={"Settings"}/>}
-                            />
-                            <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
-                        </Switch>
+                        <Page>
+                            <DevTools/>
+                            <Switch>
+                                <PublicRoute exact={true} path={`/${EPaths.LOGIN}`} component={Login}/>
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.DASHBOARD}`}
+                                    component={() => <Stub title={"dashboard"}/>}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.SETTINGS}`}
+                                    component={() => <Stub title={"Settings"}/>}
+                                />
+                                <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
+                            </Switch>
+                        </Page>
                     </div>
                 </Router>
             </Provider>
