@@ -81,4 +81,5 @@ module.exports = {
     publicUrl: getPublicUrl(resolveApp("package.json")),
     servedPath: getServedPath(resolveApp("package.json")),
     appAliases: getAppAliases(resolveApp("tsconfig.json")),
+    appStyles: resolveApp('src/styles')
 };

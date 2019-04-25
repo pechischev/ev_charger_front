@@ -8,3 +8,6 @@
 @import "~styles/base/reset.scss";
 @import "~styles/base/base.scss";
 @import "~styles/base/grid.scss";
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';

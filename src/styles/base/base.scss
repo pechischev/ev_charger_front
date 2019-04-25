@@ -39,8 +39,3 @@ a, input, .button {
         outline: none;
     }
 }
-
-.wrapper {
-    width: calc(100% - #{$width-sidebar});
-    min-height: 100%;
-}
