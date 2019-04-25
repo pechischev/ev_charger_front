@@ -9,7 +9,6 @@ export const ErrorScreen: FC<RouteProps> = ({
                                                 location = {state: EErrorState.NOT_FOUND},
                                              }) => {
     const errorMessage = ErrorMessages.getMessageByState(location.state);
-
     return (
         <div className="container text-center">
             <div className="display-1 mb-5">400</div>
