@@ -9,7 +9,7 @@ import { Component, ReactNode } from "react";
 import { Route, Router, Switch } from "react-router";
 import "./App.scss";
 import { Provider } from "mobx-react";
-import { Login } from "@app/screen/login";
+import { Login } from "@app/screens/login";
 import { PublicRoute } from "@components/public-route";
 import { Page } from "@layout/page";
 
