@@ -1,0 +1,76 @@
+@import "~styles/utils/variables.scss";
+
+.button {
+    display: inline-block;
+    min-width: 180px;
+    height: $height-item;
+    padding: 0 $padding;
+    cursor: pointer;
+    border-radius: 2px;
+    font-weight: 500;
+    background-color: $button-color;
+    color: #ffffff;
+    transition: all $time-animation-default ease-in-out;
+
+    &__text {
+        font-size: $font-size-medium;
+        text-align: center;
+        line-height: $height-item;
+        user-select: none;
+    }
+
+    &:hover {
+        transition: all $time-animation-default ease-in-out;
+        background-color: $button-color-hover;
+        box-shadow: 0 6px 10px 0 rgba(48, 114, 229, 0.5);
+    }
+
+    &:active {
+        transition: all $time-animation-default ease-in-out;
+        background-color: $button-color;
+        box-shadow: 0 6px 10px 0 rgba(48, 114, 229, 0.5);
+    }
+
+    &-border,
+    &.back-button {
+        border: 1px solid $button-color;
+        color: $button-color;
+        background: none;
+
+        &:hover {
+            border-color: $button-color-hover;
+            box-shadow: 0 6px 10px 0 rgba(48, 114, 229, 0.5);
+            color: $button-color-hover;
+            background: none;
+        }
+
+        &:active {
+            border-color: $button-color;
+            color: $button-color;
+            box-shadow: 0 6px 10px 0 rgba(48, 114, 229, 0.5);
+            background: none;
+        }
+    }
+
+    &[data-disabled="true"] {
+        color: #fff;
+        background-color: #c6cdcf;
+        border: 0;
+        pointer-events: none;
+
+        .button:hover {
+            cursor: default;
+            box-shadow: none;
+        }
+    }
+
+    &-border[data-disabled="true"] {
+        border: 2px solid #c6cdcf;
+        background-color: transparent;
+        color: #c6cdcf;
+    }
+
+    &[data-hidden="true"] {
+        display: none;
+    }
+}

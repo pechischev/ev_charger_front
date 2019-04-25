@@ -1,0 +1,26 @@
+@import "~styles/utils/variables.scss";
+
+%input-field {
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: $height-item;
+    min-height: $height-item;
+    padding: 1px;
+    border: 1px solid $color-border-input;
+    border-radius: 4px;
+    color: $color-black;
+    font-size: $font-size-large;
+    margin-bottom: $margin;
+}
+
+%tooltip {
+    padding: 13px 30px;
+    box-shadow: 0 0 20px 0 $box-shadow-popup-color;
+    font-size: $font-size-medium;
+
+    &.show {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,24 @@
+@import "~styles/utils/mixins.scss";
+@import "~styles/utils/variables.scss";
+
+.stub-container {
+    $height-icon: 600px;
+
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+
+    &__icon {
+        @include square($height-icon);
+
+        background-size: contain;
+        margin: auto;
+    }
+
+    &__text {
+        margin: 70px auto;
+        font-size: $font-size-big;
+        font-weight: bold;
+        color: $color-black;
+    }
+}
