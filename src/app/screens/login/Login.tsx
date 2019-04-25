@@ -51,7 +51,7 @@ export class Login extends Component {
         );
     }
 
-    private onSignIn() {
+    private onSignIn(): void {
         window.location.pathname = `/${EPaths.DASHBOARD}`;
     }
 }

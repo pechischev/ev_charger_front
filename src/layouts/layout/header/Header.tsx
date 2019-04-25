@@ -8,7 +8,7 @@ interface IHeaderProps {
 }
 
 export class Header extends Component<IHeaderProps> {
-    render() {
+    render(): ReactNode {
         return (
             <header className="header py-4">
                 <div className="container-fluid">
@@ -68,7 +68,7 @@ export class Header extends Component<IHeaderProps> {
         );
     }
 
-    private renderMessageBox() {
+    private renderMessageBox(): ReactNode {
         return (
             <Dropdown className={"d-none d-md-flex"}>
                 <DropdownTrigger className={"nav-link icon"}>

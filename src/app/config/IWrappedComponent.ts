@@ -1,5 +1,5 @@
 import { Nullable } from ".";
 
 export interface IWrappedComponent {
-    unwrap(): Nullable<any>;
+    unwrap(): Nullable<object>;
 }

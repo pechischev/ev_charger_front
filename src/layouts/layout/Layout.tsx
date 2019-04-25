@@ -4,15 +4,13 @@ import { Page } from "@layouts/page";
 import { Header } from "@layouts/layout/header";
 import { Footer } from "@layouts/layout/footer";
 import { Content } from "@layouts/layout/content";
+import { Sidebar } from "@layouts/sidebar";
 
-interface ILayoutProps {
-
-}
-
-export const Layout: FC<ILayoutProps> = ({children}) => {
+export const Layout: FC = ({ children }) => {
     return (
         <Page>
             <Header/>
+            <Sidebar/>
             <Content>
                 {children}
             </Content>
