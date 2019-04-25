@@ -1,23 +1,20 @@
 import { Component, ReactNode } from "react";
 import * as React from "react";
 import "./Login.scss";
-import { Page } from "../../../layout/page";
 
 export class Login extends Component {
     render(): ReactNode {
         return (
-            <Page>
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-login mx-auto">
-                            <div className="text-center mb-6">
-                                <img src="./img/logo.png" className="h-6" alt=""/>
-                            </div>
-                            {this.renderForm()}
+            <div className="container">
+                <div className="row">
+                    <div className="col col-login mx-auto">
+                        <div className="text-center mb-6">
+                            <img src="./img/logo.png" className="h-6" alt=""/>
                         </div>
+                        {this.renderForm()}
                     </div>
                 </div>
-            </Page>
+            </div>
         );
     }
 
@@ -32,7 +29,8 @@ export class Login extends Component {
                                placeholder="Enter email"/>
                     </div>
                     <div className="form-group">
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                        <input type="password" className="form-control" id="exampleInputPassword1"
+                               placeholder="Password"/>
                     </div>
                     <div className="form-group">
                         <label className="custom-control custom-checkbox">
