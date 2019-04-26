@@ -19,7 +19,7 @@ export const DropdownContent = observer<FC<IDropdownContent>>(
             <div className={`dropdown-menu dropdown-menu-right dropdown-menu-arrow ${className}`} ref={contentRef}>
                 {options.map((option: IDropdownOption, index: number) => {
                     if (option.divider) {
-                        return <div className="dropdown-divider"/>;
+                        return <div className="dropdown-divider" key={index}/>;
                     }
                     return (
                         <a

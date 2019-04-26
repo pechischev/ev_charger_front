@@ -1,5 +1,4 @@
 import { EPaths } from "@app/config";
-import { Stub } from "@app/screens/stub";
 import { PrivateRoute } from "@components/private-route";
 import { AppContext, stores } from "@context";
 import * as React from "react";
@@ -12,6 +11,7 @@ import { Layout } from "@layouts/layout";
 import { PublicRoute } from "@components/public-route";
 import { ErrorScreen } from "@app/screens/error-screen";
 import { Login } from "@app/screens/login";
+import { UserList } from "@app/screens/users";
 
 export class App extends Component {
     constructor(props: object) {
@@ -51,7 +51,7 @@ export class App extends Component {
                                 <PrivateRoute
                                     exact={true}
                                     path={`/${EPaths.USER_LIST}`}
-                                    component={Stub}
+                                    component={UserList}
                                 />
                             </Switch>
                         </Layout>

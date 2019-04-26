@@ -4,7 +4,7 @@ import "./Login.scss";
 import { autobind } from "core-decorators";
 import { EPaths } from "@app/config";
 import { Page } from "@layouts/page";
-import { CustomForm } from "@components/custom-form/CustomForm";
+import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { InputField } from "@components/fields";
 
@@ -53,7 +53,12 @@ export class Login extends Component {
                         </label>
                     </div>
                     <div className="form-footer">
-                        <button className="btn btn-primary btn-block" onClick={() => api.handleSubmit()}>Sign in</button>
+                        <button
+                            className="btn btn-primary btn-block"
+                            onClick={() => api.handleSubmit()}
+                        >
+                            Sign in
+                        </button>
                     </div>
                 </div>
             </div>

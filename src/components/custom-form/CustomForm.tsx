@@ -36,7 +36,9 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
         );
     }
 
-    private onSubmit(values: FormData, form: FormApi, callback?: (errors?: object) => void): Promise<Nullable<object>> | object | void {
+    private onSubmit(values: FormData, form: FormApi, callback?: (errors?: object) => void):
+        Promise<Nullable<object>> | object | void
+    {
         const {submit} = this.props;
         return submit(values as T, form);
     }
