@@ -4,6 +4,9 @@ import "./Login.scss";
 import { autobind } from "core-decorators";
 import { EPaths } from "@app/config";
 import { Page } from "@layouts/page";
+import { CustomForm } from "@components/custom-form/CustomForm";
+import { FormRenderProps } from "react-final-form";
+import { InputField } from "@components/fields";
 
 @autobind
 export class Login extends Component {
@@ -16,7 +19,10 @@ export class Login extends Component {
                             <div className="text-center mb-6">
                                 <img src="./img/logo.png" className="h-6" alt=""/>
                             </div>
-                            {this.renderForm()}
+                            <CustomForm
+                                submit={this.onSignIn}
+                                render={(api, submitting) => this.renderForm(api, submitting)}
+                            />
                         </div>
                     </div>
                 </div>
@@ -24,19 +30,22 @@ export class Login extends Component {
         );
     }
 
-    private renderForm(): ReactNode {
+    private renderForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <div className="card">
                 <div className="card-body p-6">
                     <div className="card-title text-center">Login to Loop CMS</div>
-                    <div className="form-group">
-                        <label className="form-label">Email address</label>
-                        <input type="email" className="form-control" placeholder="Enter email"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label">Password</label>
-                        <input type="password" className="form-control" placeholder="Password"/>
-                    </div>
+                    <InputField
+                        label={"Email address"}
+                        name={"email"}
+                        placeholder={"Enter email"}
+                    />
+                    <InputField
+                        label={"Password"}
+                        name={"password"}
+                        placeholder={"Password"}
+                        type={"password"}
+                    />
                     <div className="form-group">
                         <label className="custom-control custom-checkbox">
                             <input type="checkbox" className="custom-control-input"/>
@@ -44,7 +53,7 @@ export class Login extends Component {
                         </label>
                     </div>
                     <div className="form-footer">
-                        <button className="btn btn-primary btn-block" onClick={this.onSignIn}>Sign in</button>
+                        <button className="btn btn-primary btn-block" onClick={() => api.handleSubmit()}>Sign in</button>
                     </div>
                 </div>
             </div>
