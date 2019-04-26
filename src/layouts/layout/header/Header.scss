@@ -1,0 +1,30 @@
+@import "~styles/utils/mixins.scss";
+
+.header {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+    margin-left: 230px;
+
+    &-brand {
+        color: inherit;
+        margin-right: 0;
+        font-size: 1.25rem;
+        white-space: nowrap;
+        font-weight: 600;
+        padding: 0;
+        transition: .3s opacity;
+        line-height: 2.9rem;
+        min-width: 200px;
+        text-align: center;
+
+        &-img {
+            height: 2.5rem;
+            line-height: 2rem;
+            vertical-align: bottom;
+            margin-right: 0;
+            width: auto;
+        }
+    }
+}

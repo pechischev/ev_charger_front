@@ -1,0 +1,69 @@
+@import "~styles/utils/mixins.scss";
+
+.app-sidebar {
+    @include position(fixed, $top: 0, $bottom: 0, $left: 0);
+
+    padding-top: 90px;
+    width: 230px;
+    max-height: 100%;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 0 8px 17px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease,
+    width 0.3s ease;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__toggle {
+        padding: 0 15px;
+        color: #3e4b5b;
+        line-height: 2.4;
+        transition: background-color 0.3s ease;
+
+        &:before {
+            content: "\f0c9";
+            font-size: 21px;
+        }
+    }
+}
+
+.side-menu {
+    margin-bottom: 0;
+    padding-bottom: 40px;
+    border-top: 1px solid rgba(0, 40, 100, 0.12);
+
+    &__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        font-size: 1.0em;
+        text-transform: uppercase;
+        font-weight: 400;
+        border-left: 3px solid transparent;
+        transition: border-left-color 0.3s ease,
+        background-color 0.3s ease;
+        color: #3e4b5b;
+
+        &.active {
+            background: #0061da;
+            border-left-color: #0061da;
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+
+    &__icon {
+        flex: 0 0 auto;
+        width: 25px;
+    }
+
+    &__label {
+        white-space: nowrap;
+        flex: 1 1 auto;
+    }
+}

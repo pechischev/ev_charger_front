@@ -1,17 +1,17 @@
 import { EPaths } from "@app/config";
-import { ErrorScreen } from "@app/screens/error-screen";
-import { Stub } from "@app/screens/stub";
 import { PrivateRoute } from "@components/private-route";
 import { AppContext, stores } from "@context";
-import DevTools from "mobx-react-devtools";
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { Route, Router, Switch } from "react-router";
+import { Redirect, Route, Router, Switch } from "react-router";
 import "./App.scss";
 import { Provider } from "mobx-react";
-import { Login } from "@app/screen/login";
+import { Dashboard } from "@app/screens/dashboard";
+import { Layout } from "@layouts/layout";
 import { PublicRoute } from "@components/public-route";
-import { Page } from "@layout/page";
+import { ErrorScreen } from "@app/screens/error-screen";
+import { Login } from "@app/screens/login";
+import { UserList } from "@app/screens/users";
 
 export class App extends Component {
     constructor(props: object) {
@@ -23,31 +23,41 @@ export class App extends Component {
         return (
             <Provider {...stores}>
                 <Router history={AppContext.getHistory()}>
-                    <div className={"app"}>
-                        <DevTools/>
-                        <Page>{this.renderRoutes()}</Page>
-                    </div>
+                    {this.renderRoutes()}
                 </Router>
             </Provider>
         );
     }
 
-    private renderRoutes() {
+    private renderRoutes(): ReactNode {
         return (
-            <Switch>
-                <PrivateRoute
-                    exact={true}
-                    path={`/${EPaths.DASHBOARD}`}
-                    component={() => <Stub title={"dashboard"}/>}
-                />
-                <PrivateRoute
-                    exact={true}
-                    path={`/${EPaths.SETTINGS}`}
-                    component={() => <Stub title={"Settings"}/>}
-                />
-                <PublicRoute path={`/${EPaths.LOGIN}`} component={Login}/>
-                <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
-            </Switch>
+            <div className={"app"}>
+                <Switch>
+                    <PublicRoute exact={true} path={`/${EPaths.LOGIN}`} component={Login}/>
+                    <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
+                    <Route path={"/"}>
+                        <Layout>
+                            <Switch>
+                                <PrivateRoute
+                                    exact={true}
+                                    path={"/"}
+                                    component={() => <Redirect to={`/${EPaths.DASHBOARD}`}/>}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.DASHBOARD}`}
+                                    component={Dashboard}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.USER_LIST}`}
+                                    component={UserList}
+                                />
+                            </Switch>
+                        </Layout>
+                    </Route>
+                </Switch>
+            </div>
         );
     }
 }

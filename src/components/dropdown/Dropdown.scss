@@ -1,0 +1,78 @@
+@import "~styles/utils/variables.scss";
+@import "~styles/utils/mixins.scss";
+
+.dropdown {
+    &__triger {
+        cursor: pointer;
+    }
+
+    &-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        min-width: 10rem;
+        padding: 0.5rem 0;
+        margin: 0.125rem 0 0;
+        font-size: 0.9375rem;
+        color: #495057;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 40, 100, 0.12);
+        border-radius: 3px;
+
+        &-right {
+            right: 0;
+            left: auto;
+        }
+    }
+
+    &-divider {
+        height: 0;
+        margin: 0.5rem 0;
+        overflow: hidden;
+        border-top: 1px solid #e9ecef;
+    }
+
+    &--opened {
+        .dropdown-menu {
+            display: block;
+            margin: 0;
+        }
+    }
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+
+    &:hover, &:focus {
+        color: #000;
+        text-decoration: none;
+        background-color: #f5f7fb;
+    }
+
+    &.active, &:active {
+        color: #fff;
+        text-decoration: none;
+        background-color: #0061da;
+    }
+
+    &.disabled, &:disabled {
+        color: #fff;
+        background-color: transparent;
+    }
+}
+
