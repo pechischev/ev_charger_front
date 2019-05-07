@@ -2,11 +2,12 @@
 
 .main-body {
     display: flex;
-    height: 100%;
+    height: calc(100vh - 70px);
+    margin-top: 70px;
 
     &-container {
         overflow-y: auto;
         width: calc(100% - 230px);
-        height: 100vh;
+        height: 100%;
     }
 }

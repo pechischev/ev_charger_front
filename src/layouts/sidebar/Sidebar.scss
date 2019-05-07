@@ -1,9 +1,8 @@
 @import "~styles/utils/mixins.scss";
 
 .app-sidebar {
-    padding-top: 70px;
     width: 230px;
-    height: 100vh;
+    height: 100%;
     z-index: 10;
     background-color: #fff;
     box-shadow: 0 8px 17px rgba(0, 0, 0, 0.2);
