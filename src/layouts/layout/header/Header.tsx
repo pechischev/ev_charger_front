@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import {Component, ReactNode} from "react";
 import "./Header.scss";
-import { Dropdown, DropdownContent, DropdownTrigger } from "@components/dropdown";
+import {Dropdown, DropdownContent, DropdownTrigger} from "@components/dropdown";
 
 interface IHeaderProps {
     userName?: string;
@@ -10,12 +10,13 @@ interface IHeaderProps {
 export class Header extends Component<IHeaderProps> {
     render(): ReactNode {
         return (
-            <header className="header py-4">
+            <header className="header">
                 <div className="container-fluid">
                     <div className="d-flex">
                         {this.renderLogo()}
-
-                        <a aria-label="Hide Sidebar" className="app-sidebar__toggle" data-toggle="sidebar" href="#"/>
+                        <a aria-label="Hide Sidebar" className="app-sidebar__toggle" data-toggle="sidebar" href="#">
+                            <span/><span/><span/>
+                        </a>
                         <div className="d-flex order-lg-2 ml-auto">
                             {this.renderMessageBox()}
                             {this.renderUserAvatar()}
@@ -29,7 +30,7 @@ export class Header extends Component<IHeaderProps> {
     private renderLogo(): ReactNode {
         return (
             <a className="header-brand" href={"/"}>
-                <img alt="loop logo" className="header-brand-img" src="./img/logo.png"/>
+                <div className="header-brand-img"/>
             </a>
         );
     }
@@ -37,8 +38,8 @@ export class Header extends Component<IHeaderProps> {
     private renderUserAvatar(): ReactNode {
         return (
             <Dropdown>
-                <DropdownTrigger className={"nav-link pr-0 leading-none d-flex"}>
-                    <span className="avatar avatar-md brround" style={{ backgroundImage: "url(./img/25.jpg)" }}/>
+                <DropdownTrigger className="nav-link pr-0 leading-none d-flex header-bar-person">
+                    <span className="avatar avatar-md brround" style={{backgroundImage: "url(./img/25.jpg)"}}/>
                     <span className="ml-2 d-none d-lg-block">
                         <span className="text-dark">Simon Russell</span>
                     </span>
@@ -62,7 +63,7 @@ export class Header extends Component<IHeaderProps> {
                             onClick: () => void 0,
                         },
                     ]}
-                    className={"option__menu"}
+                    className="option__menu"
                 />
             </Dropdown>
         );
@@ -70,10 +71,10 @@ export class Header extends Component<IHeaderProps> {
 
     private renderMessageBox(): ReactNode {
         return (
-            <Dropdown className={"d-none d-md-flex"}>
-                <DropdownTrigger className={"nav-link icon"}>
-                    <i className="fa fa-envelope-o"/>
-                    <span className=" nav-unread badge badge-info badge-pill">2</span>
+            <Dropdown className="d-none d-md-flex">
+                <DropdownTrigger className="nav-link icon">
+                    <i className="icon_mail"/>
+                    <span className="nav-unread badge badge-info badge-pill">2</span>
                 </DropdownTrigger>
                 <DropdownContent
                     options={[
@@ -87,7 +88,7 @@ export class Header extends Component<IHeaderProps> {
                             onClick: () => void 0,
                         },
                     ]}
-                    className={"option__menu"}
+                    className="option__menu"
                 />
             </Dropdown>
         );

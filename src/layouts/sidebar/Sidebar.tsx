@@ -13,7 +13,7 @@ export class Sidebar extends Component {
 
     render(): ReactNode {
         return (
-            <div className={"app-sidebar"}>
+            <div className="app-sidebar">
                 <ul className="side-menu">
                     {
                         this.options.map((link, index) => this.renderLink(link, index))
@@ -27,7 +27,7 @@ export class Sidebar extends Component {
         const {path, value, iconName} = link;
         return (
             <li key={index}>
-                <NavLink className={"side-menu__item"} activeClassName={"active"} to={`/${path}`}>
+                <NavLink className="side-menu__item" activeClassName={"active"} to={`/${path}`}>
                     {!!iconName && <i className={`side-menu__icon fa ${iconName}`}/>}
                     <span className="side-menu__label">{value}</span>
                 </NavLink>

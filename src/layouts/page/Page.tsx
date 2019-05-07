@@ -9,7 +9,7 @@ export const Page: React.FC<IPageProps> = ({
                                                children,
                                                layer = "page-main"
                                            }) => (
-    <div className={"page"}>
+    <div className="page">
         <div className={layer}>
             {children}
         </div>

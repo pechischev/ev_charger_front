@@ -1,0 +1,12 @@
+@import "~styles/utils/mixins.scss";
+
+.main-body {
+    display: flex;
+    height: 100%;
+
+    &-container {
+        overflow-y: auto;
+        width: calc(100% - 230px);
+        height: 100vh;
+    }
+}

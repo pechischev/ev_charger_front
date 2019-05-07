@@ -18,6 +18,7 @@ export class Table<T> extends Component<ITable<T>> {
     constructor(props: ITable<T>) {
         super(props);
         this.store.setData(props.data);
+        this.paginationStore.setTotalCount(props.totalCount || props.data.length);
     }
 
     componentWillReceiveProps(nextProps: ITable<T>): void {

@@ -1,0 +1,7 @@
+@import "~styles/utils/mixins.scss";
+
+.app-content {
+    margin: 90px 0 0;
+    padding: 0 30px;
+    min-height: calc(100vh - 133px);
+}

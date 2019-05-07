@@ -23,7 +23,7 @@ export const DropdownContent = observer<FC<IDropdownContent>>(
                     }
                     return (
                         <a
-                            className={"dropdown-item"}
+                            className="dropdown-item"
                             key={index}
                             onMouseDown={onMouseDownHandler(onClick$, option.value)}
                             onClick={option.onClick}

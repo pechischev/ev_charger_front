@@ -1,11 +1,16 @@
 @import "~styles/utils/mixins.scss";
 
 .header {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    background: #fff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    background-color: #ffffff;
+    z-index: 1000;
+    padding: 10px 0;
     border-bottom: 1px solid rgba(0, 40, 100, 0.12);
-    margin-left: 230px;
 
     &-brand {
         color: inherit;
@@ -18,13 +23,60 @@
         line-height: 2.9rem;
         min-width: 200px;
         text-align: center;
+        display: flex;
 
         &-img {
-            height: 2.5rem;
-            line-height: 2rem;
-            vertical-align: bottom;
-            margin-right: 0;
-            width: auto;
+            background-image: url("./img/logo-loop.svg");
+            background-size: 120px 39px;
+            background-repeat: no-repeat;
+            margin: auto;
+            width: 120px;
+            height: 39px;
         }
+    }
+
+    &-bar {
+        &-person {
+            margin: 10px;
+        }
+    }
+
+    .icon {
+        @include square(40px);
+
+        background-color: #f7f7f7;
+        border-radius: 50%;
+        margin: 5px;
+        position: relative;
+        display: flex;
+        padding: 0;
+
+        &_mail {
+            display: flex;
+            margin: auto;
+            width: 18px;
+            height: 14px;
+            background-image: url("img/envelope-of-white-paper.svg");
+            background-size: 18px 14px;
+            background-repeat: no-repeat;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            padding: 3px 6px;
+        }
+
+        &:hover {
+            transition: 0.25s;
+            background-color: #ebeff5;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding-right: 15px;
     }
 }
