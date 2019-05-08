@@ -1,0 +1,45 @@
+$tabsHeight: 48px;
+$icon-size: 30px;
+
+.tabs-container {
+    display: flex;
+    position: relative;
+    height: 100%;
+
+    .tabs {
+        background-color: transparent;
+
+        &__item {
+            height: $tabsHeight !important;
+            color: rgba(74, 74, 74, 0.5) !important;
+            text-transform: none;
+        }
+
+        &__item, .indicator {
+            &_short {
+                width: 64px !important;
+                min-width: 64px;
+            }
+        }
+
+        .indicator {
+            background-color: #53a0fd;
+            height: 4px;
+        }
+    }
+
+    .tabs-item {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .tab-item {
+        &_selected {
+            color: #53a0fd !important;
+        }
+
+        &__label {
+            font-size: 12px !important;
+        }
+    }
+}

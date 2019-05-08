@@ -9,6 +9,7 @@ export enum EPaths {
     COMPANIES = "companies",
     USER_LIST = "users",
     PROFILE = "profile",
+    CUSTOMER_PROFILE = "customer_profile",
     SETTINGS = "settings",
 
 }
