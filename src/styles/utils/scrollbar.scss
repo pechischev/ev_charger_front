@@ -1,0 +1,12 @@
+@import "~styles/utils/mixins.scss";
+
+*::-webkit-scrollbar {
+    @include square(10px);
+
+    background-color: rgba(187,187,187,0.5);
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #888888;
+}

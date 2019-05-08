@@ -31,7 +31,7 @@ export class App extends Component {
 
     private renderRoutes(): ReactNode {
         return (
-            <div className={"app"}>
+            <div className="app">
                 <Switch>
                     <PublicRoute exact={true} path={`/${EPaths.LOGIN}`} component={Login}/>
                     <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>

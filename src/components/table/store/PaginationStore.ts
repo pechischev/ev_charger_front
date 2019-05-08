@@ -2,7 +2,7 @@ import { action, observable } from "mobx";
 import { IRange } from "./IPaginationData";
 
 export class PaginationStore {
-    private static readonly STEP = 25;
+    private static readonly STEP = 50;
     @observable private step = PaginationStore.STEP;
     @observable private position = 0;
     @observable private totalCount = 0;

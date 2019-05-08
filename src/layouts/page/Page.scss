@@ -1,3 +1,5 @@
+@import "~styles/utils/mixins.scss";
+
 .page {
 	display: flex;
 	flex-direction: column;
@@ -11,7 +13,15 @@
 		justify-content: center;
 	}
 
+    &-header {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 2.5rem;
+        margin: 24px 0;
+    }
+
 	&-main {
+        background-color: #edeff3;
 		flex: 1 1 auto;
 	}
 

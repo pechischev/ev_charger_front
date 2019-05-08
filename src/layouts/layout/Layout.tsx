@@ -1,20 +1,14 @@
-import { FC } from "react";
 import * as React from "react";
-import { Page } from "@layouts/page";
-import { Header } from "@layouts/layout/header";
-import { Footer } from "@layouts/layout/footer";
-import { Content } from "@layouts/layout/content";
-import { Sidebar } from "@layouts/sidebar";
+import {FC} from "react";
+import {Page} from "@layouts/page";
+import {Header} from "@layouts/layout/header";
+import {MainBody} from "@layouts/layout/main-body/MainBody";
 
-export const Layout: FC = ({ children }) => {
+export const Layout: FC = ({children}) => {
     return (
         <Page>
             <Header/>
-            <Sidebar/>
-            <Content>
-                {children}
-            </Content>
-            <Footer/>
+            <MainBody children={children}/>
         </Page>
     );
 };

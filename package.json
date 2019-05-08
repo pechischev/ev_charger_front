@@ -107,9 +107,9 @@
     },
     "devDependencies": {
         "husky": "^1.2.1",
+        "lint-staged": "^8.1.0",
         "prettier": "^1.15.3",
-        "pretty-quick": "^1.8.0",
-        "lint-staged": "^8.1.0"
+        "pretty-quick": "^1.8.0"
     },
     "scripts": {
         "start": "cross-env NODE_ENV=development node scripts/start.js",

@@ -4,7 +4,7 @@ import "./Content.scss";
 
 export const Content: FC = ({children}) => {
     return (
-        <div className={"app-content"}>
+        <div className="app-content">
             {children}
         </div>
     );

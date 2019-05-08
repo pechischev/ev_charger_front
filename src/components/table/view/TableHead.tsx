@@ -1,18 +1,22 @@
+import * as React from "react";
 import { Component, ReactNode } from "react";
 import { IColumn, ITableHead } from "../interfaces";
-import * as React from "react";
 import { autobind } from "core-decorators";
 import * as classNames from "classnames";
+import { Table } from "@components/table";
 
 @autobind
 export class TableHead extends Component<ITableHead> {
     render(): ReactNode {
-        const { columns} = this.props;
+        const {columns} = this.props;
         return (
             <thead>
-                <tr>
-                    {columns.map(this.renderCell)}
-                </tr>
+            <tr
+                className="row_header"
+                style={{display: "grid", gridTemplateColumns: Table.getRowSize(columns)}}
+            >
+                {columns.map(this.renderCell)}
+            </tr>
             </thead>
         );
     }
@@ -24,7 +28,7 @@ export class TableHead extends Component<ITableHead> {
         });
         return (
             <th
-                className={classes}
+                className={`cell cell_header ${classes}`}
                 key={id}
                 onClick={() => this.sorted(id, canSort)}
             >

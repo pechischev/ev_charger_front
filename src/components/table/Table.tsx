@@ -1,11 +1,12 @@
 import { Component, ReactNode } from "react";
-import { ITable } from "@components/table/interfaces";
+import { IColumn, ITable } from "@components/table/interfaces";
 import { autobind } from "core-decorators";
 import { observer } from "mobx-react";
 import { PaginationStore, SelectedStore, SortStore, TableStore } from "./store";
 import * as React from "react";
 import { TableBody, TableHead, TablePagination } from "@components/table/view";
 import "./Table.scss";
+import * as _ from "lodash";
 
 @autobind
 @observer
@@ -18,11 +19,21 @@ export class Table<T> extends Component<ITable<T>> {
     constructor(props: ITable<T>) {
         super(props);
         this.store.setData(props.data);
+        this.paginationStore.setTotalCount(props.totalCount || props.data.length);
     }
 
     componentWillReceiveProps(nextProps: ITable<T>): void {
         this.store.setData(nextProps.data);
         this.paginationStore.setTotalCount(nextProps.totalCount || nextProps.data.length);
+    }
+
+    static getRowSize(columns: IColumn[]): string {
+        let sizesRow = "";
+        columns.map((value: object) => {
+            const size = _.get(value, "size", "1fr");
+            sizesRow = sizesRow + `minmax(${!!~size.indexOf("fr") ? "100px" : size}, ${size})` + " ";
+        });
+        return sizesRow;
     }
 
     render(): ReactNode {

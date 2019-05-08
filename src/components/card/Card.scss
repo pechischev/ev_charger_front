@@ -1,0 +1,26 @@
+@import "~styles/utils/mixins.scss";
+
+.page-card {
+    border-radius: 7px;
+    background-color: #ffffff;
+
+    &-header {
+        min-height: 55px;
+        padding: 16px 24px;
+        border-bottom: 1px solid #e0e5ec;
+
+        &__title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #3e4b5b;
+        }
+
+        &[data-hidden=true] {
+            display: none;
+        }
+    }
+
+    &-body {
+        padding: 16px 24px;
+    }
+}
