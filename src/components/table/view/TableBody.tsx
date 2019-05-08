@@ -1,12 +1,12 @@
-import {Component, ReactNode} from "react";
 import * as React from "react";
-import {IColumn, ITableData} from "../interfaces";
-import {autobind} from "core-decorators";
-import {SelectedStore} from "@components/table/store";
-import {get, isNull, isNil} from "lodash";
+import { Component, ReactNode } from "react";
+import { IColumn, ITableData } from "../interfaces";
+import { autobind } from "core-decorators";
+import { SelectedStore } from "@components/table/store";
+import { get, isNil, isNull } from "lodash";
 import * as classNames from "classnames";
-import {observer} from "mobx-react";
-import * as _ from "lodash";
+import { observer } from "mobx-react";
+import { Table } from "@components/table";
 
 interface ITableBodyProps<T> {
     data: Array<ITableData<T>>;
@@ -37,20 +37,11 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
                 onClick={(event) => this.onClickRow(event, data)}
                 data-selected={canSelect && isSelected}
                 className="row_body"
-                style={{display: "grid", gridTemplateColumns: this.getRowSize(columns)}}
+                style={{display: "grid", gridTemplateColumns: Table.getRowSize(columns)}}
             >
                 {columns.map((column, index) => this.renderCell(data.item, column, index))}
             </tr>
         );
-    }
-
-    private getRowSize(columns: IColumn[]): string {
-        let sizesRow = "";
-        columns.map((value: object) => {
-            const size = _.get(value, "size", "1fr");
-            sizesRow = sizesRow + `minmax(${!!~size.indexOf("fr") ? "100px" : size}, ${size})` + " ";
-        });
-        return sizesRow;
     }
 
     private renderCell(item: T, column: IColumn, key: number): ReactNode {

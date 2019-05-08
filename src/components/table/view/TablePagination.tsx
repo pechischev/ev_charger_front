@@ -19,7 +19,7 @@ export class TablePagination extends Component<ITablePaginationProps> {
         return (
             <div className="table-pagination clearfix">
                 <div className="table-pagination-indicator float-left">
-                    <div className="dataTables_info">
+                    <div className="data-tables_info">
                         {`Showing ${start} to ${end} of ${totalCount} entries`}
                     </div>
                 </div>
