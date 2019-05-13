@@ -18,10 +18,10 @@ export class Transport<T extends object = object> implements ITransport, Subscri
     constructor(tokens?: ITokens) {
         Transport.BASE_URL = get(config, "url.base", Transport.DEFAULT_URL);
         const options: AxiosRequestConfig = { baseURL: Transport.BASE_URL };
-        if (tokens && tokens.accessToken && tokens.refreshToken) {
+        if (tokens && tokens.accessToken/* && tokens.refreshToken*/) {
             options.headers = {
                 access_token: tokens.accessToken,
-                refresh_token: tokens.refreshToken,
+                /*refresh_token: tokens.refreshToken,*/
             };
         }
         this.client = axios.create(options);
@@ -51,12 +51,12 @@ export class Transport<T extends object = object> implements ITransport, Subscri
         this.observers.push(
             void 0,
             (error: AxiosError) => {
-                const data = get(error, "response.data.errors[0]");
+                const data = get(error, "response.data.error");
                 if (!data) {
                     return;
                 }
                 // tslint:disable-next-line:no-magic-numbers
-                const authErrorCodes = new Set([406, 407]);
+                const authErrorCodes = new Set([5, 12, 13]);
                 const isAuthError = authErrorCodes.has(data.code);
                 if (!isAuthError || !AppContext.getUserStore().isLoggedIn()) {
                     return;

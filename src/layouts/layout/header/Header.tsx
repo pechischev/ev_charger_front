@@ -2,12 +2,15 @@ import * as React from "react";
 import {Component, ReactNode} from "react";
 import "./Header.scss";
 import {Dropdown, DropdownContent, DropdownTrigger} from "@components/dropdown";
+import { HeaderStore } from "./HeaderStore";
 
 interface IHeaderProps {
     userName?: string;
 }
 
 export class Header extends Component<IHeaderProps> {
+    private readonly store = new HeaderStore();
+
     render(): ReactNode {
         return (
             <header className="header">
@@ -60,7 +63,7 @@ export class Header extends Component<IHeaderProps> {
                         {divider: true},
                         {
                             value: <><i className="dropdown-icon mdi mdi-logout-variant"/>Sign out</>,
-                            onClick: () => void 0,
+                            onClick: () => this.store.logout(),
                         },
                     ]}
                     className="option__menu"
