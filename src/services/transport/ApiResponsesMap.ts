@@ -1,12 +1,14 @@
 import { AxiosResponse } from "axios";
 import { EApiMethods } from "./EApiMethods";
 import {
-    IResponse
+    ILoginResponse,
+    IResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
+import { EApiRoutes } from "./EApiRoutes";
 
-export interface IApiRoutesResponsesMap extends TMap<IResponse> {
-    /*[EApiRoutes.SIGN_IN]: ILoginResponse;*/
+export interface IApiRoutesResponsesMap extends TMap<object> {
+    [EApiRoutes.SIGN_IN]: ILoginResponse;
 }
 
 // @ts-ignore:2344

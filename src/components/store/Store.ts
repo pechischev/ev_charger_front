@@ -1,14 +1,13 @@
 import { IError } from "@entities/error";
-import { IErrorResponse, Transport } from "@services/transport";
+import { Transport } from "@services/transport";
 import { AxiosError, AxiosResponse } from "axios";
 import { attempt, get } from "lodash";
-import { observable } from "mobx";
 import { Subject } from "rxjs";
 import { autobind } from "core-decorators";
 
 @autobind
 export class Store {
-    private readonly _error$ = new Subject<IError[]>();
+    private readonly _error$ = new Subject<IError>();
 
     private _transport = new Transport();
 
@@ -20,27 +19,10 @@ export class Store {
         this._transport = value;
     }
 
-    get error$(): Subject<IError[]> {
+    get error$(): Subject<IError> {
         return this._error$;
     }
 
-    @observable
-    private _isCorrectData = false;
-
-    get isCorrectData(): boolean {
-        return this._isCorrectData;
-    }
-
-    set isCorrectData(value: boolean) {
-        this._isCorrectData = value;
-    }
-
-    /** @deprecated Use getter! */
-    getTransport(): Transport {
-        return this._transport;
-    }
-
-    /** @deprecated Use promises! */
     call<T extends AxiosResponse>(
         promise: Promise<T>,
         onSuccess: (response: T) => void,
@@ -67,13 +49,12 @@ export class Store {
     onError(error: AxiosError): void {
         console.error("[Store.onError]", error);
         attempt(this.onErrorImpl!);
-        const response = error.response as AxiosResponse<IErrorResponse>;
+        const response = error.response as AxiosResponse<IError>;
         if (!response) {
             return;
         }
-        const data = get<AxiosResponse<IErrorResponse>, "data">(response, "data");
-        const errors = get<AxiosResponse<IErrorResponse>["data"], "errors">(data, "errors");
-        this._error$.next(errors || []);
+        const errorResponse = get<AxiosResponse<IError>, "data">(response, "data");
+        this._error$.next(errorResponse);
     }
 
     protected onErrorImpl?(): void;
