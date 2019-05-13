@@ -14,77 +14,119 @@ export class Profile extends Component<IProfileProps> {
     render(): ReactNode {
         return (
             <div className="tab-container-profile">
-                <div className="profile-settings">
-                    <div className="profile-settings__title">Profile settings</div>
-                    <div className="profile-settings__container">
-                        <CustomForm
-                            submit={this.onChangeMainInfo}
-                            render={(api, submitting) => this.getMainSettingsForm(api, submitting)}
-                        />
-                    </div>
-                </div>
-                <div className="profile-settings">
-                    <div className="profile-settings__title">Change Password</div>
-                    <div className="profile-settings__container">
-                        <CustomForm
-                            submit={this.onChangePassword}
-                            render={(api, submitting) => this.getPasswordSettingsForm(api, submitting)}
-                        />
-                    </div>
-                </div>
+                <CustomForm
+                    submit={this.onSave}
+                    render={(api, submitting) => this.getSettingsForm(api, submitting)}
+                />
             </div>
         );
     }
 
-    private getMainSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
+    private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <>
-                <InputField
-                    label={"First name"}
-                    name={"firstName"}
-                    placeholder={"Enter first name"}
-                />
-                <InputField
-                    label={"Last name"}
-                    name={"lastName"}
-                    placeholder={"Enter email"}
-                />
-                <InputField
-                    label={"Email address"}
-                    name={"email"}
-                    placeholder={"Enter email"}
-                />
+                <div className="profile-settings">
+                    <div className="profile-settings__title">Profile info</div>
+                    <div className="profile-settings__container">
+                        <InputField
+                            label={"First name"}
+                            name={"firstName"}
+                            placeholder={"Enter first name"}
+                        />
+                        <InputField
+                            label={"Last name"}
+                            name={"lastName"}
+                            placeholder={"Enter email"}
+                        />
+                        <InputField
+                            label={"Email address"}
+                            name={"email"}
+                            placeholder={"Enter email"}
+                        />
+                        <InputField
+                            label={"Phone number"}
+                            name={"phone"}
+                            placeholder={"Enter phone"}
+                        />
+                        <InputField
+                            label={"Residence"}
+                            name={"residence"}
+                            placeholder={"Enter residence"}
+                        />
+                        <InputField
+                            label={"New password"}
+                            name={"newPassword"}
+                            type={"password"}
+                            placeholder={"Enter new password"}
+                        />
+                        <InputField
+                            label={"Confirm Password"}
+                            name={"confPassword"}
+                            type={"password"}
+                            placeholder={"Enter confirm password"}
+                        />
+                    </div>
+                </div>
+                <div className="profile-settings">
+                    <div className="profile-settings__title">Mailing address</div>
+                    <div className="profile-settings__container">
+                        <InputField
+                            label={"Address"}
+                            name={"address"}
+                            placeholder={"Enter address"}
+                        />
+                        <InputField
+                            label={"Apt/Unit"}
+                            name={"aptUnit"}
+                            placeholder={"Enter apt/unit"}
+                        />
+                        <InputField
+                            label={"City"}
+                            name={"city"}
+                            placeholder={"Enter city"}
+                        />
+                        <InputField
+                            label={"Zip code"}
+                            name={"zipCode"}
+                            placeholder={"Enter zip code"}
+                        />
+                        <InputField
+                            label={"State"}
+                            name={"state"}
+                            placeholder={"Enter state"}
+                        />
+                    </div>
+                </div>
+                <div className="profile-settings">
+                    <div className="profile-settings__title">Vehicle</div>
+                    <div className="profile-settings__container">
+                        <InputField
+                            label={"Make"}
+                            name={"make"}
+                            placeholder={"Enter make"}
+                        />
+                        <InputField
+                            label={"Model"}
+                            name={"model"}
+                            placeholder={"Enter model"}
+                        />
+                        <InputField
+                            label={"Year"}
+                            name={"year"}
+                            placeholder={"Enter year"}
+                        />
+                        <InputField
+                            label={"Licence plate"}
+                            name={"licencePlate"}
+                            placeholder={"Enter licence plate"}
+                        />
+                    </div>
+                </div>
             </>
         );
     }
 
-    private onChangeMainInfo() {
-
-    }
-
-    private getPasswordSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
-        return (
-            <>
-                <InputField
-                    label={"Current password"}
-                    name={"curPassword"}
-                    placeholder={"Enter current password"}
-                />
-                <InputField
-                    label={"New password"}
-                    name={"newPassword"}
-                    placeholder={"Enter new password"}
-                />
-                <InputField
-                    label={"Confirmation password"}
-                    name={"confirmPassword"}
-                    placeholder={"Enter confirmation password"}
-                />
-            </>
-        );
-    }
-
-    private onChangePassword() {
+    private onSave() {
 
     }
 }

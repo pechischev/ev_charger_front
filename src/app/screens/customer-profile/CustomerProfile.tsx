@@ -8,7 +8,7 @@ import { ETabsType, TabLabels } from "@components/tab/ETabsType";
 import { observer } from "mobx-react";
 import "./CustomProfile.scss";
 import { Tab } from "@components/tab";
-import { Profile, BillingInfo } from "./tabs";
+import { BillingInfo, Profile } from "./tabs";
 
 @observer
 export class CustomerProfile extends Component {
@@ -69,9 +69,10 @@ export class CustomerProfile extends Component {
         return (
             <div className="customer-info_main main-info">
                 <div className="main-info_image">
-        <span className="main-info_image__initial" data-hidden={_.isEmpty(photo)}>
-        {this.getInitialCharacterCustomer(data)}
-        </span>
+                    <span className="main-info_image__initial" data-hidden={_.isEmpty(photo)}>
+                        {this.getInitialCharacter(firstName)}
+                        {this.getInitialCharacter(lastName)}
+                    </span>
                 </div>
                 <div className="main-info_content">
                     <div className="main-info_content__name">
@@ -118,7 +119,7 @@ export class CustomerProfile extends Component {
         }
     }
 
-    private getInitialCharacterCustomer(data: IUser): string {
-        return `${_.get(data, "firstName", "").charAt(0)}${_.get(data, "lastName", "").charAt(0)}`;
+    private getInitialCharacter(line: string): string {
+        return line.charAt(0);
     }
 }
