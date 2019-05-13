@@ -3,12 +3,12 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { EStatus, IUser, StatusLabels } from "@entities/user";
 import { CustomerProfileStore } from "./CustomerProfileStore";
-import { BillingInfo, Profile } from "./tabs";
-import { Tab } from "@components/tab";
 import * as _ from "lodash";
 import { ETabsType, TabLabels } from "@components/tab/ETabsType";
 import { observer } from "mobx-react";
 import "./CustomProfile.scss";
+import { Tab } from "@components/tab";
+import { Profile, BillingInfo } from "./tabs";
 
 @observer
 export class CustomerProfile extends Component {
@@ -39,19 +39,39 @@ export class CustomerProfile extends Component {
         return (
             <>
                 {this.getMainInfo(data)}
-                {this.getTabInfo(data)}
+                <div className="customer-tabs">
+                    <ul className="nav nav-tabs" role="tablist">
+                        <li className="nav-item">
+                            <a className="nav-link active" data-toggle="tab" href="#profile">Profile</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" data-toggle="tab" href="#billingInfo">Billing info</a>
+                        </li>
+                    </ul>
+                    <div className="tab-content">
+                        <div id="profile" className="container tab-pane active">
+                            <Profile data={data}/>
+                        </div>
+                        <div id="billingInfo" className="container tab-pane fade">
+                            <BillingInfo data={data}/>
+                        </div>
+                    </div>
+                </div>
+                <div style={{display: "none"}}>
+                    {this.getTabInfo(data)}
+                </div>
             </>
         );
     }
 
     private getMainInfo(data: IUser): ReactNode {
-        const {firstName="", lastName="", email="", photo = "", status =""} = data;
+        const {firstName = "", lastName = "", email = "", photo = "", status = ""} = data;
         return (
             <div className="customer-info_main main-info">
                 <div className="main-info_image">
-                    <span className="main-info_image__initial" data-hidden={_.isEmpty(photo)}>
-                        {this.getInitialCharacterCustomer(data)}
-                    </span>
+        <span className="main-info_image__initial" data-hidden={_.isEmpty(photo)}>
+        {this.getInitialCharacterCustomer(data)}
+        </span>
                 </div>
                 <div className="main-info_content">
                     <div className="main-info_content__name">

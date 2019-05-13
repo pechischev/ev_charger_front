@@ -49,7 +49,7 @@ export class Tab extends Component<ICustomTabProps> {
                         })
                     }
                 </div>
-                <div className="tabs-item">
+                <div className="tabs-item tab-content">
                     {children}
                 </div>
             </div>
