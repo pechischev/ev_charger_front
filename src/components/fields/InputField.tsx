@@ -12,7 +12,11 @@ export const InputField: FC<IField> = ({name, label, placeholder, type, ...rest}
                 {...rest}
             >
                 {
-                    (props) => <input className="form-control" {...props.input} {...{placeholder, type}} />
+                    (props) =>
+                        <>
+                            <input className="form-control" {...props.input} {...{placeholder, type}} />
+                            <span className="form-text text-danger">{props.meta.error || props.meta.submitError}</span>
+                        </>
                 }
             </Field>
         </div>

@@ -1,8 +1,9 @@
 import { ITokens, Nullable } from "@app/config";
 import { Store } from "@components/store";
-import { Transport } from "@services/transport";
+import { EApiRoutes, TApiResponse, Transport } from "@services/transport";
 import { autobind } from "core-decorators";
 import { observable } from "mobx";
+import { get } from "lodash";
 
 @autobind
 export class UserStore extends Store {
@@ -16,6 +17,18 @@ export class UserStore extends Store {
 
     getAdminTokens(): Nullable<ITokens> {
         return this.tokens;
+    }
+
+    /**
+     * @throws SyntaxError
+     */
+    fetchAdminTokens(response: TApiResponse<EApiRoutes.SIGN_IN>): void {
+        type TResponseData = TApiResponse<EApiRoutes.SIGN_IN>;
+        const accessToken = get<TResponseData, "accessToken">(response, "accessToken");
+        /*const refreshToken = get<TResponseData, "refreshToken">(data, "refreshToken");*/
+        const tokens: ITokens = { accessToken };
+        localStorage.setItem(UserStore.TOKENS, JSON.stringify(tokens));
+        this.login();
     }
 
     logout(): void {
