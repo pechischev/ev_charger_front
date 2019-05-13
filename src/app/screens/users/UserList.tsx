@@ -27,6 +27,10 @@ export class UserList extends Component {
             <>
                 <div className="users-actions clearfix">
                     <div className="users-actions__tabs activity-tabs float-left">
+                        <span className="tab" data-active={this.store.getActivityType() === EStatus.ALL}
+                              onClick={this.store.setActivityType(EStatus.ALL)}>
+                            {StatusLabels.get(EStatus.ALL)}
+                        </span>
                         <span className="tab" data-active={this.store.getActivityType() === EStatus.ACTIVE}
                               onClick={this.store.setActivityType(EStatus.ACTIVE)}>
                             {StatusLabels.get(EStatus.ACTIVE)}
@@ -34,10 +38,6 @@ export class UserList extends Component {
                         <span className="tab" data-active={this.store.getActivityType() === EStatus.INACTIVE}
                               onClick={this.store.setActivityType(EStatus.INACTIVE)}>
                             {StatusLabels.get(EStatus.INACTIVE)}
-                        </span>
-                        <span className="tab" data-active={this.store.getActivityType() === EStatus.PAST_DUE}
-                              onClick={this.store.setActivityType(EStatus.PAST_DUE)}>
-                            {StatusLabels.get(EStatus.PAST_DUE)}
                         </span>
                     </div>
                     <div className="users-actions__search float-right">
@@ -67,24 +67,22 @@ export class UserList extends Component {
         for (let i = 0; i < 50; i++) {
             dataTable.push(
                 {
+                    id: i + 1,
                     first_name: "Adrian",
                     last_name: "Terry",
-                    position: "Marketing Officer",
-                    start_date: "2013/04/21",
-                    salary: "$543,769",
-                    email: "a.terry@datatables.net",
+                    residence: "residence",
+                    status: "status",
                 }
             )
         }
         return (
             <Table
                 columns={[
-                    {id: "first_name", label: "FIRST NAME"},
-                    {id: "last_name", label: "LAST NAME"},
-                    {id: "position", label: "POSITION", size: "2fr"},
-                    {id: "start_date", label: "START DATE"},
-                    {id: "salary", label: "SALARY"},
-                    {id: "email", label: "EMAIL", size: "2fr"},
+                    {id: "id", label: "Id"},
+                    {id: "first_name", label: "First name"},
+                    {id: "last_name", label: "Last name"},
+                    {id: "residence", label: "Residence"},
+                    {id: "status", label: "Status"},
                 ]}
                 totalCount={dataTable.length}
                 data={dataTable}
