@@ -1,0 +1,34 @@
+@import "~styles/utils/mixins.scss";
+
+.users-actions {
+    margin: 10px 0;
+
+    &__tabs {
+        margin-top: 10px;
+        display: flex;
+
+        .tab {
+            display: block;
+            margin-right: 20px;
+            font-size: 18px;
+            font-weight: 400;
+            color: rgb(62, 75, 91);
+            width: 70px;
+            cursor: pointer;
+
+            &[data-active=true] {
+                font-weight: 600;
+                color: rgb(99, 117, 163);
+                cursor: default;
+            }
+        }
+    }
+
+    &__search {
+        width: 300px;
+
+        .form-label {
+            display: none;
+        }
+    }
+}

@@ -12,6 +12,7 @@ import { PublicRoute } from "@components/public-route";
 import { ErrorScreen } from "@app/screens/error-screen";
 import { Login } from "@app/screens/login";
 import { UserList } from "@app/screens/users";
+import { CustomerProfile } from "./screens/customer-profile";
 
 export class App extends Component {
     constructor(props: object) {
@@ -52,6 +53,11 @@ export class App extends Component {
                                     exact={true}
                                     path={`/${EPaths.USER_LIST}`}
                                     component={UserList}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.USER_LIST}/${EPaths.CUSTOMER_PROFILE}`}
+                                    component={CustomerProfile}
                                 />
                             </Switch>
                         </Layout>
