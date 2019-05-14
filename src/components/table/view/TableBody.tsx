@@ -22,22 +22,22 @@ interface ITableBodyProps<T> {
 @observer
 export class TableBody<T> extends Component<ITableBodyProps<T>> {
     render(): ReactNode {
-        const {data} = this.props;
+        const { data } = this.props;
         return (
             <tbody>{data.map(this.renderRow)}</tbody>
         );
     }
 
     private renderRow(data: ITableData<T>): ReactNode {
-        const {columns, canSelect, selectStore} = this.props;
-        const isSelected = selectStore.isSelected(data.counter);
+        const { columns, canSelect, selectStore } = this.props;
+        const isSelected = selectStore.isSelected(data.counter );
         return (
             <tr
                 key={data.counter}
                 onClick={(event) => this.onClickRow(event, data)}
                 data-selected={canSelect && isSelected}
                 className="row_body"
-                style={{display: "grid", gridTemplateColumns: Table.getRowSize(columns)}}
+                style={{ display: "grid", gridTemplateColumns: Table.getRowSize(columns) }}
             >
                 {columns.map((column, index) => this.renderCell(data.item, column, index))}
             </tr>
@@ -45,7 +45,7 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
     }
 
     private renderCell(item: T, column: IColumn, key: number): ReactNode {
-        const {position, id, cellClass = ""} = column;
+        const { position, id, cellClass = "" } = column;
         const label = get(item, id, null);
         const node = !!column.handler && column.handler!(item) || void 0;
         const value = !isNull(label) || !isNull(node) ? node || label : "(none)";
@@ -66,7 +66,7 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
     }
 
     private onClickRow(event: React.MouseEvent<HTMLElement>, line: ITableData<T>): void {
-        const {onClickRow, canSelect, selectStore} = this.props;
+        const { onClickRow, canSelect, selectStore } = this.props;
         if (onClickRow) {
             onClickRow(line.item, event);
             return;

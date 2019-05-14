@@ -1,8 +1,8 @@
-import { action, observable } from "mobx";
+import { action, computed, observable } from "mobx";
 import { IRange } from "./IPaginationData";
 
 export class PaginationStore {
-    private static readonly STEP = 50;
+    static readonly STEP = 50;
     @observable private step = PaginationStore.STEP;
     @observable private position = 0;
     @observable private totalCount = 0;
@@ -17,7 +17,7 @@ export class PaginationStore {
     }
 
     getCountPages(): number {
-        return Math.floor(this.totalCount / this.step);
+        return Math.round(this.totalCount / this.step);
     }
 
     @action.bound
@@ -73,13 +73,13 @@ export class PaginationStore {
         this.position = position === this.totalCount ? position - this.step : position;
     }
 
-    getCurrentPage(): number {
-        return Math.floor(this.totalCount / this.step);
+    @computed get getCurrentPage(): number {
+        return Math.floor(this.position / this.step);
     }
 
     @action.bound
     selectPage(page: number): void {
-        const currentPage = this.getCurrentPage();
+        const currentPage = this.getCurrentPage;
         if (currentPage === page) {
             return;
         }

@@ -1,7 +1,8 @@
 import { action, observable } from "mobx";
 import { EStatus } from "@entities/user";
+import { Store } from "@components/store";
 
-export class UserListStore {
+export class UserListStore extends Store {
     @observable private typeActivity: EStatus = EStatus.ALL;
 
     @action.bound

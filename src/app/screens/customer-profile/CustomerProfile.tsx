@@ -20,9 +20,7 @@ export class CustomerProfile extends Component {
             firstName: "Rustam",
             lastName: "Fatyhov",
             email: "rustam.fatyhov@omega-r.com",
-            photo: {
-                preview_link: ""
-            },
+            photo: "",
             status: EStatus.INACTIVE,
         };
         return (
