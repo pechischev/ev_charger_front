@@ -1,15 +1,15 @@
 import { action, observable } from "mobx";
-import { ITab } from "./ITab";
+import { ITabItem } from "./ITab";
 
 export class TabStore {
     @observable private activeTab = 0;
-    private items: ITab.IItem[] = [];
+    private items: ITabItem[] = [];
 
-    setItems(items: ITab.IItem[]) {
+    setItems(items: ITabItem[]) {
         this.items = items;
     }
 
-    getItems(): ITab.IItem[] {
+    getItems(): ITabItem[] {
         return this.items;
     }
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { EStatus, IUser, StatusLabels } from "@entities/user";
+import { EStatus, IUser } from "@entities/user";
 import { CustomerProfileStore } from "./CustomerProfileStore";
 import * as _ from "lodash";
 import { ETabsType, TabLabels } from "@components/tab/ETabsType";
@@ -20,9 +20,7 @@ export class CustomerProfile extends Component {
             firstName: "Rustam",
             lastName: "Fatyhov",
             email: "rustam.fatyhov@omega-r.com",
-            photo: {
-                preview_link: ""
-            },
+            photo: "",
             status: EStatus.INACTIVE,
         };
         return (
@@ -82,7 +80,7 @@ export class CustomerProfile extends Component {
                         {email}
                     </div>
                     <div className="main-info_content__status" data-status={status}>
-                        {StatusLabels.get(status as EStatus)}
+                        {status}
                     </div>
                 </div>
             </div>

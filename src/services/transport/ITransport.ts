@@ -7,4 +7,6 @@ import { TApiParams } from "./ApiParamsMap";
 export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
 
     login(loginParams: TApiParams<EApiRoutes.SIGN_IN>): Promise<TAxiosResponse<EApiRoutes.SIGN_IN>>;
+
+    getUsers(params: TApiParams<EApiRoutes.GET_USERS>): Promise<TAxiosResponse<EApiRoutes.GET_USERS>>;
 }
