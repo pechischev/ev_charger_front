@@ -2,16 +2,18 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { UserListStore } from "@app/screens/users/UserListStore";
-import { EStatus, StatusLabels } from "@entities/user";
+import { EStatus } from "@entities/user";
 import "./UserList.scss";
 import { CustomForm } from "@components/custom-form";
 import { InputField } from "@components/fields";
 import { AppContext } from "@context";
 import { Transport } from "@services/transport";
 import { List } from "@components/list";
-import { Subject } from "rxjs";
 import { autobind } from "core-decorators";
 import { observer } from "mobx-react";
+import { Tab } from "@components/tab";
+import { IListParams } from "@services/transport/params";
+import * as _ from "lodash";
 
 @observer
 @autobind
@@ -38,20 +40,13 @@ export class UserList extends Component {
         return (
             <>
                 <div className="users-actions clearfix">
-                    <div className="users-actions__tabs activity-tabs float-left">
-                        <span className="tab" data-active={this.store.getActivityType() === EStatus.ALL}
-                              onClick={() => this.store.setActivityType(EStatus.ALL)}>
-                            {StatusLabels.get(EStatus.ALL)}
-                        </span>
-                        <span className="tab" data-active={this.store.getActivityType() === EStatus.ACTIVE}
-                              onClick={() => this.store.setActivityType(EStatus.ACTIVE)}>
-                            {StatusLabels.get(EStatus.ACTIVE)}
-                        </span>
-                        <span className="tab" data-active={this.store.getActivityType() === EStatus.INACTIVE}
-                              onClick={() => this.store.setActivityType(EStatus.INACTIVE)}>
-                            {StatusLabels.get(EStatus.INACTIVE)}
-                        </span>
-                    </div>
+                    <Tab
+                        items={[
+                            {text: "All", handler: () => this.store.setActivityType(void 0)},
+                            {text: "Active", handler: () => this.store.setActivityType(EStatus.ACTIVE)},
+                            {text: "Inactive", handler: () => this.store.setActivityType(EStatus.INACTIVE)},
+                        ]}
+                    />
                     <div className="users-actions__search float-right">
                         <CustomForm
                             submit={this.search}
@@ -84,13 +79,17 @@ export class UserList extends Component {
                     {id: "residence.title", label: "Residence"},
                     {id: "status", label: "Status"},
                 ]}
+                type={this.store.getActivityType()}
+                search={this.store.getSearch()}
                 getList={(params) => this.store.transport.getUsers(params)}
-                updateList$={new Subject<void>()}
+                updateList$={this.store.updateList$}
             />
         );
     }
 
-    private search() {
-
+    private search(data: Pick<IListParams, "search">) {
+        console.log(data);
+        const search = _.get<Pick<IListParams, "search">, "search">(data, "search");
+        this.store.setSearch(search);
     }
 }

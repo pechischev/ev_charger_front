@@ -7,7 +7,6 @@ import { Table } from "@components/table";
 import { IList } from "@components/list/interfaces";
 import { Transport } from "@services/transport";
 import { AppContext } from "@context";
-import { Nullable } from "@app/config";
 
 @observer
 @autobind
@@ -43,12 +42,17 @@ export class List<T> extends Component<IList<T>> {
         this.store.getListData$.unsubscribe();
     }
 
-    protected onClickRowImpl(item: T, event: React.MouseEvent<HTMLElement>): void {
-        // can override
+    componentDidUpdate(prevProps: IList<T>) {
+        if (prevProps.type !== this.props.type) {
+            this.updateList();
+        }
+        if (prevProps.search !== this.props.search) {
+            this.updateList();
+        }
     }
 
-    protected getType(): Nullable<string> {
-        return void 0;
+    protected onClickRowImpl(item: T, event: React.MouseEvent<HTMLElement>): void {
+        // can override
     }
 
     private onChangePage(newPage: number) {
@@ -74,6 +78,7 @@ export class List<T> extends Component<IList<T>> {
     }
 
     private getListData() {
-        this.store.updateData(this.props.getList, this.getType());
+        const { type, search } = this.props;
+        this.store.updateData(this.props.getList, type, search);
     }
 }

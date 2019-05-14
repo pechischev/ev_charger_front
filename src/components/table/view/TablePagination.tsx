@@ -18,11 +18,12 @@ export class TablePagination extends Component<ITablePaginationProps> {
         const { store } = this.props;
         const totalCount = store.getTotalCount();
         const { start, end } = store.getRange();
+
         return (
             <div className="table-pagination clearfix">
                 <div className="table-pagination-indicator float-left">
                     <div className="data-tables_info">
-                        {`Showing ${start + 1} to ${end} of ${totalCount} entries`}
+                        {`Showing ${!!totalCount ? start + 1 : 0} to ${end} of ${totalCount} entries`}
                     </div>
                 </div>
                 <div className="table-pagination-main float-right">

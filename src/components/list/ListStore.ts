@@ -57,10 +57,11 @@ export class ListStore<T> extends Store {
         return this.listItem as Nullable<T>;
     }
 
-    async updateData<U extends AxiosResponse>(action: (params: IListParams) => Promise<U>, type?: string): Promise<void> {
+    async updateData<U extends AxiosResponse>(action: (params: IListParams) => Promise<U>, type?: string, search?: string): Promise<void> {
         const params: IListParams = {
             ...this.listData,
             type,
+            search
         };
         return this.asyncCall(action(params), this.onError).then(this.onSuccessUpdateData);
     }

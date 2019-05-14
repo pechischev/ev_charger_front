@@ -29,20 +29,19 @@ export class Tab extends Component<ICustomTabProps> {
     }
 
     render() {
-        const {className = "", children} = this.props;
+        const { children } = this.props;
         const items = this.store.getItems();
         const classes = classnames({
             ["tabs-container"]: true,
-            [className]: true
         });
         return (
             <div className={classes}>
                 <div className="tabs">
                     {
                         items.map((item: ITab.IItem, index) => {
-                            const {text} = item;
+                            const { text } = item;
                             return (
-                                <div key={index} className="tab-item_selected tab-item__label" onClick={this.onChange.bind(this, index)}>
+                                <div key={index} className=" tab-item__label" onClick={this.onChange.bind(this, index)}>
                                     {text}
                                 </div>
                             );
@@ -56,7 +55,7 @@ export class Tab extends Component<ICustomTabProps> {
         );
     }
 
-    private onChange(event: ChangeEvent<HTMLElement>, value: number) {
+    private onChange(value: number, event: ChangeEvent<HTMLElement>) {
         this.store.setActiveTab(value);
     }
 

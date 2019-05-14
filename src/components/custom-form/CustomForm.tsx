@@ -5,10 +5,11 @@ import { FormApi, FormState } from "final-form";
 import { FieldErrors, Nullable } from "@app/config";
 import { autobind } from "core-decorators";
 import { toJS } from "mobx";
-import { stubObject, isEmpty, isObject, merge, values } from "lodash";
+import { stubObject, isEmpty, isObject, merge, values, toLower } from "lodash";
 import { IValidateData } from "./IValidateData";
 import { Subject } from "rxjs";
 import { IError } from "@entities/error";
+import EventListener from "react-event-listener";
 
 export interface ICustomFormProps<T extends object> {
     data?: T;
@@ -31,14 +32,14 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
     componentDidMount(): void {
         const {error$} = this.props;
         if (error$) {
-            error$.subscribe(this.setError)
+            error$.subscribe(this.setError);
         }
     }
 
     componentWillUnmount(): void {
         const {error$} = this.props;
         if (error$) {
-            error$.unsubscribe()
+            error$.unsubscribe();
         }
     }
 
@@ -50,7 +51,14 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
                 onSubmit={this.onSubmit}
                 validate={this.onValidate}
                 initialValues={toJS(data || stubObject())}
-                render={(api: FormRenderProps) => render(api, this.submitting(api.form.getState()))}
+                render={(api: FormRenderProps) => {
+                    return (
+                        <>
+                            {render(api, this.submitting(api.form.getState()))}
+                            <EventListener target={document} onKeyPress={this.onKeyPress.bind(this, api)}/>
+                        </>
+                    );
+                }}
                 {...{validateOnBlur, keepDirtyOnReinitialize}}
             />
         );
@@ -96,5 +104,14 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
             errors[type] = FieldErrors.getTextError(error.code) || error.title;
         }
         this.errors = errors;
+    }
+
+    private onKeyPress(api: FormRenderProps, event: KeyboardEvent) {
+        if (toLower(event.code ) !== "enter") {
+            return;
+        }
+        if (api.active) {
+            api.handleSubmit();
+        }
     }
 }

@@ -7,6 +7,9 @@ export interface IList<T> {
 
     updateList$: Subject<void>;
 
+    type?: string;
+    search?: string;
+
     getList(data: IListParams): Promise<any>;
 
     onChangeSelectionItem?(item: T): void;
