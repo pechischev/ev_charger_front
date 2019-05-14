@@ -5,10 +5,10 @@ import { observer } from "mobx-react";
 import * as classnames from "classnames";
 import * as _ from "lodash";
 import "./tabs.scss";
-import { ETabsType, ITab } from "@components/tab";
+import { ETabsType, ITabItem } from "@components/tab";
 
 export interface ICustomTabProps {
-    items: ITab.IItem[];
+    items: ITabItem[];
     className?: string;
     type?: ETabsType;
 }
@@ -38,7 +38,7 @@ export class Tab extends Component<ICustomTabProps> {
             <div className={classes}>
                 <div className="tabs">
                     {
-                        items.map((item: ITab.IItem, index) => {
+                        items.map((item: ITabItem, index) => {
                             const { text } = item;
                             return (
                                 <div key={index} className=" tab-item__label" onClick={this.onChange.bind(this, index)}>

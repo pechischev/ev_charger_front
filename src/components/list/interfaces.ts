@@ -1,16 +1,16 @@
-import { IColumn } from "@components/table";
-import { IListParams } from "@services/transport/params";
-import { Subject } from "rxjs";
+import { ListStore } from "@components/list/ListStore";
 
 export interface IList<T> {
-    columns: IColumn[];
 
-    updateList$: Subject<void>;
+}
 
-    type?: string;
-    search?: string;
+export interface IFilter {
+    text: string;
+    value?: string;
+}
 
-    getList(data: IListParams): Promise<any>;
+export interface IListActions<T> {
+    filters: IFilter[];
 
-    onChangeSelectionItem?(item: T): void;
+    store: ListStore<T>;
 }

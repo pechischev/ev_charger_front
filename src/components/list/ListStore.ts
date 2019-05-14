@@ -49,6 +49,23 @@ export class ListStore<T> extends Store {
     }
 
     @action.bound
+    setSearch(newSearch?: string): void {
+        const {search} = this.listData;
+        this.setListData({...this.listData, search: newSearch});
+        if (search !== newSearch) {
+            this._getListData$.next();
+        }
+    }
+
+    setFilter(newType?: string): void {
+        const {type} = this.listData;
+        this.setListData({...this.listData, type: newType});
+        if (type !== newType) {
+            this._getListData$.next();
+        }
+    }
+
+    @action.bound
     setSelectedItem(listItem?: T): void {
         this.listItem = listItem;
     }
@@ -57,11 +74,9 @@ export class ListStore<T> extends Store {
         return this.listItem as Nullable<T>;
     }
 
-    async updateData<U extends AxiosResponse>(action: (params: IListParams) => Promise<U>, type?: string, search?: string): Promise<void> {
+    async updateData<U extends AxiosResponse>(action: (params: IListParams) => Promise<U>): Promise<void> {
         const params: IListParams = {
             ...this.listData,
-            type,
-            search
         };
         return this.asyncCall(action(params), this.onError).then(this.onSuccessUpdateData);
     }
