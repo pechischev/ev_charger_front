@@ -19,13 +19,14 @@ export abstract class List<T> extends Component<IList<T>> {
     }
 
     render(): ReactNode {
-        const { canSearch = true } = this.props;
+        const { canSearch = true, actionElement } = this.props;
         return (
             <div>
                 <ListActions
                     filters={this.getFilterItems()}
                     store={this.store}
                     canSearch={canSearch}
+                    actionElement={actionElement}
                 />
                 {this.renderList()}
             </div>

@@ -34,6 +34,7 @@ export class Tab extends Component<ICustomTabProps> {
         const classes = classnames({
             ["tabs-container"]: true,
             [className]: true,
+            ["float-left"]: true,
         });
         return (
             <div className={classes}>
