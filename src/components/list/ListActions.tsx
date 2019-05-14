@@ -19,22 +19,32 @@ export class ListActions<T> extends Component<IListActions<T>> {
         return (
             <div className="users-actions clearfix">
                 {this.renderFilters()}
-                <div className="users-actions__search float-right">
-                    <CustomForm
-                        submit={this.onSearch}
-                        render={(api, submitting) => {
-                            return (
-                                <div className="search-field">
-                                    <InputField
-                                        label={"Search"}
-                                        name={"search"}
-                                        placeholder={"Search"}
-                                    />
-                                </div>
-                            );
-                        }}
-                    />
-                </div>
+                {this.renderSearchField()}
+            </div>
+        );
+    }
+
+    private renderSearchField(): Nullable<ReactNode> {
+        const {canSearch} = this.props;
+        if (!canSearch) {
+            return void 0;
+        }
+        return (
+            <div className="users-actions__search float-right">
+                <CustomForm
+                    submit={this.onSearch}
+                    render={(api, submitting) => {
+                        return (
+                            <div className="search-field">
+                                <InputField
+                                    label={"Search"}
+                                    name={"search"}
+                                    placeholder={"Search"}
+                                />
+                            </div>
+                        );
+                    }}
+                />
             </div>
         );
     }

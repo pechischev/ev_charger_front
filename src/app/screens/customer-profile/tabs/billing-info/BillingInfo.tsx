@@ -12,7 +12,7 @@ export class BillingInfo extends Component<IBillingInfoProps> {
     render(): ReactNode {
         return (
             <div className="billing-list">
-                <BillingList />
+                <BillingList canSearch={false} />
             </div>
         );
     }
