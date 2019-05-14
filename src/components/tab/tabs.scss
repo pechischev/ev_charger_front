@@ -2,30 +2,12 @@ $tabsHeight: 48px;
 $icon-size: 30px;
 
 .tabs-container {
-    display: flex;
     position: relative;
     height: 100%;
 
     .tabs {
         background-color: transparent;
-
-        &__item {
-            height: $tabsHeight !important;
-            color: rgba(74, 74, 74, 0.5) !important;
-            text-transform: none;
-        }
-
-        &__item, .indicator {
-            &_short {
-                width: 64px !important;
-                min-width: 64px;
-            }
-        }
-
-        .indicator {
-            background-color: #53a0fd;
-            height: 4px;
-        }
+        display: flex;
     }
 
     .tabs-item {
@@ -34,12 +16,21 @@ $icon-size: 30px;
     }
 
     .tab-item {
-        &_selected {
-            color: #53a0fd !important;
-        }
-
         &__label {
-            font-size: 12px !important;
+            display: block;
+            padding: 5px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: rgb(62, 75, 91);
+            cursor: pointer;
+            text-align: center;
+            min-width: 100px;
+
+            &[data-active=true] {
+                color: #00d8c7;
+                cursor: default;
+                border-bottom: 2px solid #00d8c7;
+            }
         }
     }
 }

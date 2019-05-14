@@ -8,21 +8,7 @@
         display: flex;
 
         .tab {
-            display: block;
-            margin-right: 20px;
-            font-size: 18px;
-            font-weight: 400;
-            color: rgb(62, 75, 91);
-            width: 70px;
-            cursor: pointer;
-            text-align: center;
 
-            &[data-active=true] {
-                font-weight: 600;
-                color: #00d8c7;
-                cursor: default;
-                border-bottom: 2px solid #00d8c7;
-            }
         }
     }
 

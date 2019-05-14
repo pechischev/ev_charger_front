@@ -17,7 +17,7 @@ export class PaginationStore {
     }
 
     getCountPages(): number {
-        return Math.round(this.totalCount / this.step);
+        return Math.ceil(this.totalCount / this.step);
     }
 
     @action.bound

@@ -2,10 +2,6 @@
 
 .table {
     .row {
-        &_header {
-
-        }
-
         &_body {
             &:last-child {
                 .cell {
@@ -61,10 +57,35 @@
 
         &-main {
             display: block;
-            
+
             .pagination {
                 &[data-hidden=true] {
                     display: none;
+                }
+
+                .page-item {
+                    .page-link {
+                        cursor: pointer;
+                    }
+
+                    &[data-active=true] {
+                        > a {
+                            background-color: #00d8c7;
+                            color: #ffffff;
+                            font-weight: 600;
+                            cursor: default;
+                        }
+                    }
+
+                    &.disabled {
+                        > a {
+                            color: #ced4da;
+                            pointer-events: none;
+                            cursor: default;
+                            background-color: #fff;
+                            border-color: #dee2e6;
+                        }
+                    }
                 }
             }
         }
