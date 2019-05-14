@@ -45,7 +45,7 @@ export abstract class List<T> extends Component<IList<T>> {
                 data={this.store.getData()}
                 columns={this.getColumns()}
                 totalCount={this.store.getCount()}
-                onClickRow={this.onClickRow}
+                onClickRow={this.onClickRowImpl}
                 onChangePage={this.onChangePage}
             />
         );
@@ -59,7 +59,7 @@ export abstract class List<T> extends Component<IList<T>> {
 
     protected abstract getAction(data: IListParams): Promise<TAxiosResponse<EApiRoutes>>;
 
-    protected onClickRowImpl(item: T, event: React.MouseEvent<HTMLElement>): void {
+    protected onClickRow(item: T, event: React.MouseEvent<HTMLElement>): void {
         // can override
     }
 
@@ -69,12 +69,12 @@ export abstract class List<T> extends Component<IList<T>> {
         this.updateList();
     }
 
-    private onClickRow(item: T, event: React.MouseEvent<HTMLElement>): void {
+    private onClickRowImpl(item: T, event: React.MouseEvent<HTMLElement>): void {
         this.store.setSelectedItem(item);
         if (event.defaultPrevented) {
             return;
         }
-        this.onClickRowImpl(item, event);
+        this.onClickRow(item, event);
     }
 
     private updateList(): void {

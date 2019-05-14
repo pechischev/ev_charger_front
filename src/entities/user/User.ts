@@ -1,7 +1,7 @@
 import { EStatus, IUser } from "@entities/user";
 
 export class User {
-    private readonly id: string;
+    private readonly id: number;
     private readonly firstName: string;
     private readonly lastName: string;
     private readonly email: string;

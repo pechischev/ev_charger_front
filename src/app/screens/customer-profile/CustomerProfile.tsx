@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { EStatus, IUser } from "@entities/user";
 import { CustomerProfileStore } from "./CustomerProfileStore";
 import * as _ from "lodash";
 import { ETabsType, TabLabels } from "@components/tab/ETabsType";
@@ -9,34 +8,43 @@ import { observer } from "mobx-react";
 import "./CustomProfile.scss";
 import { Tab } from "@components/tab";
 import { BillingInfo, Profile } from "./tabs";
+import { Transport } from "@services/transport";
+import { AppContext } from "@context";
+import { RouteProps } from "react-router";
+import * as qs from "query-string";
+import { autobind } from "core-decorators";
 
 @observer
-export class CustomerProfile extends Component {
+@autobind
+export class CustomerProfile extends Component<RouteProps> {
     private readonly store = new CustomerProfileStore();
 
+    constructor(props: RouteProps) {
+        super(props);
+        this.store.transport = new Transport(AppContext.getUserStore().getAdminTokens());
+
+        if (this.props.location) {
+            const {id} = qs.parse(this.props.location.search);
+            this.store.getUserData(id as string);
+        }
+    }
+
     render(): ReactNode {
-        const data: IUser = {
-            id: "1",
-            firstName: "Rustam",
-            lastName: "Fatyhov",
-            email: "rustam.fatyhov@omega-r.com",
-            photo: "",
-            status: EStatus.INACTIVE,
-        };
+
         return (
             <div className="side-app">
                 <div className="page-header">Customer Profile</div>
                 <div className="page-content">
-                    <Card className="customer-info" content={this.getCustomerProfile(data)}/>
+                    <Card className="customer-info" content={this.getCustomerProfile()}/>
                 </div>
             </div>
         );
     }
 
-    private getCustomerProfile(data: IUser): ReactNode {
+    private getCustomerProfile(): ReactNode {
         return (
             <>
-                {this.getMainInfo(data)}
+                {this.getMainInfo()}
                 <div className="customer-tabs">
                     <ul className="nav nav-tabs" role="tablist">
                         <li className="nav-item">
@@ -48,26 +56,31 @@ export class CustomerProfile extends Component {
                     </ul>
                     <div className="tab-content">
                         <div id="profile" className="container tab-pane active">
-                            <Profile data={data}/>
+                            <Profile data={this.store.getData()}/>
                         </div>
                         <div id="billingInfo" className="container tab-pane fade">
-                            <BillingInfo data={data}/>
+                            <BillingInfo/>
                         </div>
                     </div>
                 </div>
                 <div style={{display: "none"}}>
-                    {this.getTabInfo(data)}
+                    {this.getTabInfo()}
                 </div>
             </>
         );
     }
 
-    private getMainInfo(data: IUser): ReactNode {
-        const {firstName = "", lastName = "", email = "", photo = "", status = ""} = data;
+    private getMainInfo(): ReactNode {
+        const data = this.store.getData();
+        if (_.isEmpty(data)) {
+            return null;
+        }
+        const {userData, status} = data;
+        const {firstName, lastName, photo, email} = userData;
         return (
             <div className="customer-info_main main-info">
                 <div className="main-info_image">
-                    <span className="main-info_image__initial" data-hidden={_.isEmpty(photo)}>
+                    <span className="main-info_image__initial" data-shown={!!photo}>
                         {this.getInitialCharacter(firstName)}
                         {this.getInitialCharacter(lastName)}
                     </span>
@@ -87,7 +100,7 @@ export class CustomerProfile extends Component {
         );
     }
 
-    private getTabInfo(data: IUser): ReactNode {
+    private getTabInfo(): ReactNode {
         return (
             <Tab
                 items={[
@@ -101,23 +114,23 @@ export class CustomerProfile extends Component {
                     },
                 ]}
             >
-                {this.getContentByType(data)}
+                {this.getContentByType()}
             </Tab>
         );
     }
 
-    private getContentByType(data: IUser): ReactNode {
+    private getContentByType(): ReactNode {
         switch (this.store.getTypeTab()) {
             case ETabsType.CUSTOMER_PROFILE:
-                return <Profile data={data}/>;
+                return <Profile data={this.store.getData()}/>;
             case ETabsType.BILLING_INFO:
-                return <BillingInfo data={data}/>;
+                return <BillingInfo/>;
             default:
                 return void 0;
         }
     }
 
-    private getInitialCharacter(line: string): string {
+    private getInitialCharacter(line: string = ""): string {
         return line.charAt(0);
     }
 }

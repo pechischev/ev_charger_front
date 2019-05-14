@@ -7,6 +7,7 @@ import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
+import { redirectOnCustomerProfile } from "@utils/history";
 
 @observer
 @autobind
@@ -28,6 +29,10 @@ export class UserList extends List<IUserListItem> {
             { id: "residence.title", label: "Residence" },
             { id: "status", label: "Status" },
         ];
+    }
+
+    protected onClickRow(item: IUserListItem): void {
+        redirectOnCustomerProfile(item.user.id);
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
