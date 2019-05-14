@@ -1,14 +1,14 @@
-import { Component, ReactNode } from "react";
 import * as React from "react";
+import { Component, ReactNode } from "react";
 import { Form, FormRenderProps } from "react-final-form";
 import { FormApi, FormState } from "final-form";
 import { FieldErrors, Nullable } from "@app/config";
 import { autobind } from "core-decorators";
 import { toJS } from "mobx";
-import { stubObject, isEmpty, isObject, merge, values } from "lodash";
-import { IValidateData } from "./IValidateData";
+import { isEmpty, isObject, merge, stubObject, values } from "lodash";
 import { Subject } from "rxjs";
 import { IError } from "@entities/error";
+import { IFieldError } from "@app/config/IFieldError";
 
 export interface ICustomFormProps<T extends object> {
     data?: T;
@@ -18,9 +18,11 @@ export interface ICustomFormProps<T extends object> {
     error$?: Subject<IError>;
 
     render(api: FormRenderProps, submitting?: boolean): ReactNode;
+
     submit(data: T, form?: FormApi): Promise<Nullable<object>> | object | void;
 
-    validateData?(values: object): IValidateData[];
+    validateData?(values: object): IFieldError[];
+
     validate?(errors: object, values: object): object;
 }
 
@@ -57,8 +59,7 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
     }
 
     private onSubmit(values: FormData, form: FormApi, callback?: (errors?: object) => void):
-        Promise<Nullable<object>> | object | void
-    {
+        Promise<Nullable<object>> | object | void {
         const {submit} = this.props;
         return new Promise((resolve) => resolve(values)).then(async (data) => {
             return submit(data as T, form);
