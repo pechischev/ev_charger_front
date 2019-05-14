@@ -1,15 +1,17 @@
 import { EApiMethods } from "./EApiMethods";
 import { EApiRoutes } from "./EApiRoutes";
 import {
+    IListParams,
     ILoginParams,
 } from "./params";
 import { IMethodMap, TMap } from "./TMap";
 
-export type TParamsUnion =
-    ILoginParams;
+export type TParamsUnion = ILoginParams
+    | IListParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.SIGN_IN]: ILoginParams;
+    [EApiRoutes.GET_USERS]: IListParams;
 }
 
 // @ts-ignore:2344

@@ -11,8 +11,8 @@ import { Layout } from "@layouts/layout";
 import { PublicRoute } from "@components/public-route";
 import { ErrorScreen } from "@app/screens/error-screen";
 import { Login } from "@app/screens/login";
-import { UserList } from "@app/screens/users";
 import { CustomerProfile } from "./screens/customer-profile";
+import { Users } from "@app/screens/users/Users";
 
 export class App extends Component {
     constructor(props: object) {
@@ -52,7 +52,7 @@ export class App extends Component {
                                 <PrivateRoute
                                     exact={true}
                                     path={`/${EPaths.USER_LIST}`}
-                                    component={UserList}
+                                    component={Users}
                                 />
                                 <PrivateRoute
                                     exact={true}

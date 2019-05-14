@@ -1,4 +1,4 @@
-import { EStatus, IAvatar, IUser } from "@entities/user";
+import { EStatus, IUser } from "@entities/user";
 
 export class User {
     private readonly id: string;
@@ -6,9 +6,7 @@ export class User {
     private readonly lastName: string;
     private readonly email: string;
     private readonly status?: EStatus;
-    private readonly photo?: IAvatar;
-    private readonly password?: string;
-    private readonly confirmPassword?: string;
+    private readonly photo?: string;
 
     constructor(params: IUser) {
         this.id = params.id;
@@ -17,8 +15,6 @@ export class User {
         this.email = params.email;
         this.status = params.status;
         this.photo = params.photo;
-        this.password = params.password;
-        this.confirmPassword = params.confirmPassword;
     }
 
     /**
@@ -43,8 +39,6 @@ export class User {
             email: this.email,
             status: this.status,
             photo: this.photo,
-            password: this.password,
-            confirmPassword: this.confirmPassword
         };
     }
 }
