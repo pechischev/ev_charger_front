@@ -4,6 +4,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { attempt, get } from "lodash";
 import { Subject } from "rxjs";
 import { autobind } from "core-decorators";
+import { AppContext } from "@context";
 
 @autobind
 export class Store {
@@ -21,6 +22,10 @@ export class Store {
 
     get error$(): Subject<IError> {
         return this._error$;
+    }
+
+    init(): void {
+        this._transport = new Transport(AppContext.getUserStore().getAdminTokens());
     }
 
     call<T extends AxiosResponse>(

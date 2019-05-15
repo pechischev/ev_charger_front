@@ -1,8 +1,8 @@
 import { Component, ReactNode, Fragment } from "react";
 import * as React from "react";
 import { Card } from "@components/card";
-import { InputField } from "@components/fields";
-import { FormRenderProps } from "react-final-form";
+import { InputField, SelectField } from "@components/fields";
+import { FormRenderProps, FormSpy } from "react-final-form";
 import { redirectToUsersList } from "@utils/history";
 import { CustomForm } from "@components/custom-form";
 import { Button } from "@components/button";
@@ -10,11 +10,23 @@ import { AddUserFormStore } from "./AddUserFormStore";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { EFieldTypes } from "./constants";
+import { AppContext } from "@context";
+import { FormState } from "final-form";
+import { get } from "lodash";
 
 @observer
 @autobind
-export class AddUserForm extends Component {
+export class AddUserForm extends Component<{}> {
     private readonly store = new AddUserFormStore();
+
+    constructor(props: {}) {
+        super(props);
+        this.store.init();
+
+        AppContext.getInfoStore().getResidences();
+        AppContext.getInfoStore().getStates();
+        AppContext.getInfoStore().getMakes();
+    }
 
     render(): ReactNode {
         return (
@@ -39,6 +51,13 @@ export class AddUserForm extends Component {
         );
     }
 
+    private onChangeData(state: FormState): void {
+        const makesId = get(state.values, EFieldTypes.MAKES);
+        if (!!makesId) {
+            AppContext.getInfoStore().getModels(makesId);
+        }
+    }
+
     private renderUserForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <Fragment>
@@ -46,6 +65,13 @@ export class AddUserForm extends Component {
                     {this.renderContainer("Profile Information", this.getProfileInfoFields())}
                     {this.renderContainer("Mailing address", this.getMailingAddressFields())}
                     {this.renderContainer("Vehicle", this.getVehicleFields())}
+                    <FormSpy
+                        onChange={this.onChangeData}
+                        subscription={{
+                            values: true,
+                            modified: true,
+                        }}
+                    />
                 </div>
                 <div className="profile-form-button clearfix">
                     <Button
@@ -90,10 +116,11 @@ export class AddUserForm extends Component {
                     name={EFieldTypes.PHONE}
                     placeholder={"Enter phone"}
                 />
-                <InputField
+                <SelectField
                     label={"Residence"}
                     name={EFieldTypes.RESIDENCE}
-                    placeholder={"Enter residence"}
+                    placeholder={"Select residence"}
+                    options={AppContext.getInfoStore().residences}
                 />
                 <InputField
                     label={"Password"}
@@ -128,10 +155,11 @@ export class AddUserForm extends Component {
                     name={EFieldTypes.ZIP_CODE}
                     placeholder={"Enter zip code"}
                 />
-                <InputField
+                <SelectField
                     label={"State"}
                     name={EFieldTypes.STATE}
-                    placeholder={"Enter state"}
+                    placeholder={"Select state"}
+                    options={AppContext.getInfoStore().states}
                 />
             </Fragment>
         );
@@ -140,15 +168,17 @@ export class AddUserForm extends Component {
     private getVehicleFields(): ReactNode {
         return (
             <Fragment>
-                <InputField
+                <SelectField
                     label={"Makes"}
                     name={EFieldTypes.MAKES}
-                    placeholder={"Enter makes"}
+                    placeholder={"Select make"}
+                    options={AppContext.getInfoStore().makes}
                 />
-                <InputField
+                <SelectField
                     label={"Model"}
                     name={EFieldTypes.MODEL}
-                    placeholder={"Enter model"}
+                    placeholder={"Select model"}
+                    options={AppContext.getInfoStore().models}
                 />
                 <InputField
                     label={"Year"}

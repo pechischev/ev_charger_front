@@ -69,8 +69,8 @@ export class Transport<T extends object = object> implements ITransport {
     }
 
     subscribe(
-        observer?: ((value: T) => void) | PartialObserver<T>,
-        error?: (error: any) => void, // tslint:disable-line:no-any
+        observer: Nullable<((value: T) => void) | PartialObserver<T> | null>,
+        error?: Nullable<((error: any) => void) | null> , // tslint:disable-line:no-any
         complete?: () => void,
     ): Unsubscribable {
         if (!observer) {
@@ -79,14 +79,30 @@ export class Transport<T extends object = object> implements ITransport {
         if (typeof observer === "object") {
             return this.interceptor$;
         }
-        this.interceptor$.subscribe(observer, error, complete);
-        this.observers = [...this.observers, observer, error, complete];
+        this.interceptor$.subscribe(observer, error || void 0, complete);
+        this.observers = [...this.observers, observer, error || void 0, complete];
         return this.interceptor$;
     }
 
     unsubscribe(): void {
         this.interceptor$.unsubscribe();
         this.observers = [];
+    }
+
+    async getStates(): Promise<TAxiosResponse<EApiRoutes.GET_STATES>> {
+        return this.client.get(EApiRoutes.GET_STATES);
+    }
+
+    async getResidences(): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES>> {
+        return this.client.get(EApiRoutes.GET_RESIDENCES);
+    }
+
+    async getMakes(): Promise<TAxiosResponse<EApiRoutes.GET_MAKES>> {
+        return this.client.get(EApiRoutes.GET_MAKES);
+    }
+
+    async getModels(makeId: string): Promise<TAxiosResponse<EApiRoutes.GET_MODELS>> {
+        return this.client.get(`${EApiRoutes.GET_MODELS.replace("{makeId}", makeId)}`);
     }
 
     async login(params: TApiParams<EApiRoutes.SIGN_IN>): Promise<TAxiosResponse<EApiRoutes.SIGN_IN>> {
