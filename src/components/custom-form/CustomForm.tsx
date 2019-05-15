@@ -72,10 +72,11 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
         const {submit} = this.props;
         return new Promise((resolve) => resolve(values)).then(async (data) => {
             return submit(data as T, form);
-        }).catch(() => {
+        }).catch((err) => {
             if (callback && !isEmpty(this.errors)) {
                 return callback(this.errors);
             }
+            console.error(err); // for logging
         });
     }
 

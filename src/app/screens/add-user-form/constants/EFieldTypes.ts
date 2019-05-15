@@ -3,19 +3,18 @@ export enum EFieldTypes {
     EMAIL = "userData.email",
     LAST_NAME = "userData.lastName",
     PASSWORD = "userData.password",
+    PHONE = "userData.phone",
 
-    PHONE = "phone",
-
-    RESIDENCE = "contactData.residence",
-    ADDRESS = "contactData.address",
-    APT_UNIT = "contactData.aptUnit",
-    CITY = "contactData.city",
-    ZIP_CODE = "contactData.zipCode",
-    STATE = "contactData.state",
+    RESIDENCE = "contactInfo.residenceId",
+    ADDRESS = "contactInfo.address",
+    APT_UNIT = "contactInfo.aptUnit",
+    CITY = "contactInfo.city",
+    ZIP_CODE = "contactInfo.zipCode",
+    STATE = "contactInfo.stateId",
 
     // vehicle
-    MAKES = "vehicle.makes",
-    MODEL = "vehicle.model",
+    MAKES = "vehicle.makesId",
+    MODEL = "vehicle.modelId",
     YEAR = "vehicle.year",
     LICENSE_PLATE = "vehicle.licensePlate"
 }

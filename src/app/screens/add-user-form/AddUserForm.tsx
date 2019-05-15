@@ -52,8 +52,8 @@ export class AddUserForm extends Component<{}> {
     }
 
     private onChangeData(state: FormState): void {
-        const makesId = get(state.values, EFieldTypes.MAKES);
-        if (!!makesId) {
+        if (get(state.modified, EFieldTypes.MAKES)) {
+            const makesId = get(state.values, EFieldTypes.MAKES);
             AppContext.getInfoStore().getModels(makesId);
         }
     }
@@ -104,7 +104,7 @@ export class AddUserForm extends Component<{}> {
                 <InputField
                     label={"Last name"}
                     name={EFieldTypes.LAST_NAME}
-                    placeholder={"Enter email"}
+                    placeholder={"Enter last name"}
                 />
                 <InputField
                     label={"Email address"}

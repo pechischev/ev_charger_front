@@ -1,8 +1,14 @@
 import { Store } from "@components/store";
 import { IFieldError } from "@app/config/IFieldError";
-import { EFieldTypes } from "@app/screens/add-user-form/constants";
-import { ICustomer } from "@entities/customer";
+import { EFieldTypes } from "./constants";
+import { IUserParams } from "@services/transport/params";
+import { EApiRoutes, TAxiosResponse } from "@services/transport";
+import { AppContext } from "@context";
+import { EPaths } from "@app/config";
+import { autobind } from "core-decorators";
+import { toNumber } from "lodash";
 
+@autobind
 export class AddUserFormStore extends Store {
     validateData(): IFieldError[] {
         return ([
@@ -23,7 +29,19 @@ export class AddUserFormStore extends Store {
         ]);
     }
 
-    async createUser(data: ICustomer): Promise<void> {
+    async createUser(data: IUserParams): Promise<void> {
+        const { contactInfo, vehicle, ...rest } = data;
+        const { residenceId, stateId } = contactInfo;
+        const { makesId, modelId } = vehicle;
+        return this.asyncCall(this.transport.createUser({
+            ...rest,
+            contactInfo: { ...contactInfo, residenceId: toNumber(residenceId), stateId: toNumber(stateId) },
+            vehicle: { ...vehicle, modelId: toNumber(modelId), makesId: toNumber(makesId) }
+        }), this.onError).then(this.onCreateUser);
+    }
 
+    private onCreateUser(response: TAxiosResponse<EApiRoutes.CREATE_USER>): void {
+        console.info("[AddUserFormStore.onCreateUser]", response);
+        AppContext.getHistory().push(`/${EPaths.USER_LIST}`);
     }
 }

@@ -116,4 +116,8 @@ export class Transport<T extends object = object> implements ITransport {
     async getUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.GET_USER_DATA, EApiMethods.GET>> {
         return this.client.get(`${EApiRoutes.GET_USER_DATA.replace("{customerId}", userId)}`);
     }
+
+    async createUser(params: TApiParams<EApiRoutes.CREATE_USER>): Promise<TAxiosResponse<EApiRoutes.CREATE_USER>> {
+        return this.client.post(EApiRoutes.CREATE_USER, params);
+    }
 }

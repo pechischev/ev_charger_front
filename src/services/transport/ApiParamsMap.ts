@@ -3,15 +3,18 @@ import { EApiRoutes } from "./EApiRoutes";
 import {
     IListParams,
     ILoginParams,
+    IUserParams,
 } from "./params";
 import { IMethodMap, TMap } from "./TMap";
 
 export type TParamsUnion = ILoginParams
-    | IListParams;
+    | IListParams
+    | IUserParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.SIGN_IN]: ILoginParams;
     [EApiRoutes.GET_USERS]: IListParams;
+    [EApiRoutes.CREATE_USER]: IUserParams;
 }
 
 // @ts-ignore:2344

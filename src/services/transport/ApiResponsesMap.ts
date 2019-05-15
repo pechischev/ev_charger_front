@@ -4,6 +4,7 @@ import {
     ICustomerResponse,
     IListResponse,
     ILoginResponse,
+    IUserResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
@@ -17,6 +18,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_MODELS]: IItem[];
     [EApiRoutes.SIGN_IN]: ILoginResponse;
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
+    [EApiRoutes.CREATE_USER]: IUserResponse;
     [EApiRoutes.GET_USER_DATA]: {
         [EApiMethods.GET]: ICustomerResponse;
     };
