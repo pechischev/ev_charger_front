@@ -3,4 +3,7 @@ export enum EApiRoutes {
 
     GET_USERS = "/v1.0/cms/customers",
     GET_USER_DATA = "/v1.0/cms/customer/{customerId}",
+
+    GET_RESIDENCES = "/v1.0/cms/residences",
+    GET_RESIDENCE_DATA = "/v1.0/cms/residence/{residenceId}"
 }
