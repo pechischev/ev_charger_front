@@ -3,15 +3,23 @@ import { EApiMethods } from "./EApiMethods";
 import {
     ICustomerResponse,
     IListResponse,
-    ILoginResponse, IResidenceResponse,
+    ILoginResponse,
+    IUserResponse,
+    IResidenceResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
 import { IUserListItem } from "@entities/user";
+import { IItem } from "@entities/_common";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
+    [EApiRoutes.GET_STATES]: IItem[];
+    [EApiRoutes.GET_RESIDENCES]: IItem[];
+    [EApiRoutes.GET_MAKES]: IItem[];
+    [EApiRoutes.GET_MODELS]: IItem[];
     [EApiRoutes.SIGN_IN]: ILoginResponse;
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
+    [EApiRoutes.CREATE_USER]: IUserResponse;
     [EApiRoutes.GET_USER_DATA]: {
         [EApiMethods.GET]: ICustomerResponse;
     };

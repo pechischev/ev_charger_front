@@ -4,10 +4,10 @@ import { config } from "@services/config";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { get } from "lodash";
-import { Subject, Subscribable, Unsubscribable, PartialObserver } from "rxjs";
+import { Subject, Unsubscribable, PartialObserver } from "rxjs";
 import { ITransport } from "./ITransport";
 
-export class Transport<T extends object = object> implements ITransport, Subscribable<T>, Unsubscribable {
+export class Transport<T extends object = object> implements ITransport {
     private static BASE_URL: string;
     private static readonly DEFAULT_URL = "localhost:3000";
     private readonly client = axios.create({ baseURL: Transport.BASE_URL });
@@ -69,8 +69,8 @@ export class Transport<T extends object = object> implements ITransport, Subscri
     }
 
     subscribe(
-        observer?: ((value: T) => void) | PartialObserver<T>,
-        error?: (error: any) => void, // tslint:disable-line:no-any
+        observer: Nullable<((value: T) => void) | PartialObserver<T> | null>,
+        error?: Nullable<((error: any) => void) | null> , // tslint:disable-line:no-any
         complete?: () => void,
     ): Unsubscribable {
         if (!observer) {
@@ -79,14 +79,30 @@ export class Transport<T extends object = object> implements ITransport, Subscri
         if (typeof observer === "object") {
             return this.interceptor$;
         }
-        this.interceptor$.subscribe(observer, error, complete);
-        this.observers = [...this.observers, observer, error, complete];
+        this.interceptor$.subscribe(observer, error || void 0, complete);
+        this.observers = [...this.observers, observer, error || void 0, complete];
         return this.interceptor$;
     }
 
     unsubscribe(): void {
         this.interceptor$.unsubscribe();
         this.observers = [];
+    }
+
+    async getStates(): Promise<TAxiosResponse<EApiRoutes.GET_STATES>> {
+        return this.client.get(EApiRoutes.GET_STATES);
+    }
+
+    async getResidences(): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES>> {
+        return this.client.get(EApiRoutes.GET_RESIDENCES);
+    }
+
+    async getMakes(): Promise<TAxiosResponse<EApiRoutes.GET_MAKES>> {
+        return this.client.get(EApiRoutes.GET_MAKES);
+    }
+
+    async getModels(makeId: string): Promise<TAxiosResponse<EApiRoutes.GET_MODELS>> {
+        return this.client.get(`${EApiRoutes.GET_MODELS.replace("{makeId}", makeId)}`);
     }
 
     async login(params: TApiParams<EApiRoutes.SIGN_IN>): Promise<TAxiosResponse<EApiRoutes.SIGN_IN>> {
@@ -99,6 +115,10 @@ export class Transport<T extends object = object> implements ITransport, Subscri
 
     async getUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.GET_USER_DATA, EApiMethods.GET>> {
         return this.client.get(`${EApiRoutes.GET_USER_DATA.replace("{customerId}", userId)}`);
+    }
+
+    async createUser(params: TApiParams<EApiRoutes.CREATE_USER>): Promise<TAxiosResponse<EApiRoutes.CREATE_USER>> {
+        return this.client.post(EApiRoutes.CREATE_USER, params);
     }
 
     async getResidences(params: TApiParams<EApiRoutes.GET_RESIDENCES>): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES>> {

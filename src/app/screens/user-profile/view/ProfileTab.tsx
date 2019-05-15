@@ -12,6 +12,7 @@ import { Transport } from "@services/transport";
 import { AppContext } from "@context";
 import { EFieldTypes } from "../constants";
 import { IFieldError } from "@app/config/IFieldError";
+import { Button } from "@components/button";
 
 interface IProfileProps {
     data?: ICustomer;
@@ -87,12 +88,12 @@ export class ProfileTab extends Component<IProfileProps> {
                     </div>
                 </div>
                 <div className="profile-form-button clearfix">
-                    <button
-                        className="btn btn-secondary btn-block float-right"
+                    <Button
+                        className="btn-primary btn-block float-right"
+                        disabled={!submitting}
                         onClick={() => api.handleSubmit()}
-                    >
-                        Save
-                    </button>
+                        text={"Save"}
+                    />
                 </div>
             </>
         );
