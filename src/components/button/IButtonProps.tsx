@@ -1,10 +1,9 @@
-import { MouseEvent } from "react";
+import { HTMLProps, MouseEvent } from "react";
 
-export interface IButtonProps {
+export interface IButtonProps extends HTMLProps<HTMLButtonElement> {
     className?: string;
-    textContent?: string;
+    text?: string;
     disabled?: boolean;
-    hidden?: boolean;
 
-    onClick?(event: MouseEvent<HTMLDivElement>): void;
+    onClick?(event: MouseEvent<HTMLElement>): void;
 }

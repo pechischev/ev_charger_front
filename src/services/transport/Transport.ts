@@ -4,10 +4,10 @@ import { config } from "@services/config";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { get } from "lodash";
-import { Subject, Subscribable, Unsubscribable, PartialObserver } from "rxjs";
+import { Subject, Unsubscribable, PartialObserver } from "rxjs";
 import { ITransport } from "./ITransport";
 
-export class Transport<T extends object = object> implements ITransport, Subscribable<T>, Unsubscribable {
+export class Transport<T extends object = object> implements ITransport {
     private static BASE_URL: string;
     private static readonly DEFAULT_URL = "localhost:3000";
     private readonly client = axios.create({ baseURL: Transport.BASE_URL });

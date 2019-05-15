@@ -1,15 +1,16 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, Fragment } from "react";
 import { Form, FormRenderProps } from "react-final-form";
 import { FormApi, FormState } from "final-form";
 import { FieldErrors, Nullable } from "@app/config";
 import { autobind } from "core-decorators";
 import { toJS } from "mobx";
-import { isEmpty, isObject, merge, stubObject, values, toLower } from "lodash";
+import { isEmpty, isObject, merge, stubObject, values, toLower, set, get } from "lodash";
 import { Subject } from "rxjs";
 import { IError } from "@entities/error";
 import { IFieldError } from "@app/config/IFieldError";
 import EventListener from "react-event-listener";
+import { getFieldErrorByCode } from "@utils";
 
 export interface ICustomFormProps<T extends object> {
     data?: T;
@@ -55,10 +56,10 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
                 initialValues={toJS(data || stubObject())}
                 render={(api: FormRenderProps) => {
                     return (
-                        <>
+                        <Fragment>
                             {render(api, this.submitting(api.form.getState()))}
                             <EventListener target={document} onKeyPress={this.onKeyPress.bind(this, api)}/>
-                        </>
+                        </Fragment>
                     );
                 }}
                 {...{validateOnBlur, keepDirtyOnReinitialize}}
@@ -80,7 +81,16 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
 
     private onValidate(values: object): object | Promise<object> {
         let errors = {};
-        const {validate} = this.props;
+        const {validate, validateData} = this.props;
+        const requiredFields = validateData && validateData(values) || [];
+        for (const field of requiredFields) {
+            const value = get(values, field.type);
+            const codes = field.codes;
+            const error = getFieldErrorByCode(codes, value);
+            if (!!error) {
+                set(errors, field.type, error);
+            }
+        }
         if (validate) {
             errors = merge(errors, validate(errors, values));
         }

@@ -5,22 +5,22 @@ import "./Button.scss";
 import { IButtonProps } from "./IButtonProps";
 import { observer } from "mobx-react";
 
-export const Button: FC<IButtonProps> = observer(({ className = "", textContent, disabled, onClick, hidden }) => {
+export const Button: FC<IButtonProps> = observer(({ className = "", text, disabled, onClick, ...rest }) => {
     const classes = classNames({
         [className]: true,
-        button: true,
+        btn: true,
+        disabled: disabled
     });
     return (
-        <div className={classes} data-disabled={disabled} data-hidden={hidden} onClick={onClick}>
-            <div className={"button__text"}>{textContent}</div>
-        </div>
+        <button {...rest} className={classes} onClick={onClick}>
+            {text}
+        </button>
     );
 });
 
 Button.defaultProps = {
     className: "",
-    textContent: "",
+    text: "",
     disabled: false,
-    hidden: false,
     onClick: void 0,
 };
