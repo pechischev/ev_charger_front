@@ -3,7 +3,7 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import * as _ from "lodash";
 import { observer } from "mobx-react";
-import "./UserProfile.scss";
+import "./ResidenceProfile.scss";
 import { Transport } from "@services/transport";
 import { AppContext } from "@context";
 import { RouteProps } from "react-router";
@@ -23,21 +23,44 @@ export class ResidenceProfile extends Component<RouteProps> {
         if (this.props.location) {
             const {id} = qs.parse(this.props.location.search);
             this.store.getResidenceData(id as string);
+            this.store.setResidenceId(parseInt(id as string, 10));
         }
     }
 
     render(): ReactNode {
-
+        const actionElement = this.getActionElement();
         return (
             <div className="side-app">
                 <div className="page-header">Residence</div>
                 <div className="page-content">
-                    <Card className="resident-info" title="Residence Profile" content={this.getResidenceProfile()}/>
-                    <div className="">
-                        <Card className="resident-info" title="EV Chargers" content={<ChargersList canSearch={false} actionElement={() => this.getActionElement()}/>}/>
-                        <Card className="resident-info" title="Users" content={<UsersList canSearch={false}/>}/>
+                    <Card className="residence-card" title="Residence Profile" content={this.getResidenceProfile()}/>
+                    <div className="residence-card_in-row-two clearfix">
+                        <Card className="residence-card float-left" title="EV Chargers"
+                              content={
+                                  <ChargersList
+                                      residenceId={this.store.getResidenceId()}
+                                      canSearch={false}
+                                      actionElement={actionElement}
+                                  />
+                              }
+                        />
+                        <Card className="residence-card float-right" title="Users"
+                              content={
+                                  <UsersList
+                                      residenceId={this.store.getResidenceId()}
+                                      canSearch={false}
+                                  />
+                              }
+                        />
                     </div>
-                    <Card className="resident-info" title="Billing History" content={<BillingList canSearch={false} />}/>
+                    <Card className="residence-card" title="Billing History"
+                          content={
+                              <BillingList
+                                  residenceId={this.store.getResidenceId()}
+                                  canSearch={false}
+                              />
+                          }
+                    />
                 </div>
             </div>
         );
@@ -49,7 +72,11 @@ export class ResidenceProfile extends Component<RouteProps> {
             return null;
         }
         return (
-            <div>
+            <div className="residence-main-info">
+                <div className="">
+                </div>
+                <div className="">
+                </div>
             </div>
         );
     }

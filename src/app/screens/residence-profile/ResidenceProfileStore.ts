@@ -8,6 +8,7 @@ import { IResidence } from "@entities/residence";
 @autobind
 export class ResidenceProfileStore extends Store {
     @observable private data: IResidence = _.stubObject();
+    private residenceId: number = 0;
 
     getResidenceData(residenceId: string): void {
         this.call(this.transport.getResidenceData(residenceId), this.onSuccessGetData, this.onError);
@@ -20,6 +21,15 @@ export class ResidenceProfileStore extends Store {
 
     getData(): IResidence {
         return this.data;
+    }
+
+    @action.bound
+    setResidenceId(data: number): void {
+        this.residenceId = data;
+    }
+
+    getResidenceId(): number {
+        return this.residenceId;
     }
 
     private onSuccessGetData(response: TAxiosResponse<EApiRoutes.GET_RESIDENCE_DATA, EApiMethods.GET>): void {

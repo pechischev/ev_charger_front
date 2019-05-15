@@ -1,0 +1,14 @@
+.list-actions {
+    &__add-button {
+        width: 150px;
+        margin-right: 30px;
+    }
+
+    &__search {
+        width: 300px;
+
+        .form-label {
+            display: none;
+        }
+    }
+}

@@ -15,3 +15,8 @@ export function redirectToUsersList(): void {
     const link = `/${EPaths.USER_LIST}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectOnResidenceProfile(resideceId: number): void {
+    const link = `/${EPaths.RESIDENCE_PROFILE}?id=${resideceId}`;
+    AppContext.getHistory().push(link);
+}
