@@ -108,4 +108,12 @@ export class Transport<T extends object = object> implements ITransport, Subscri
     async getResidenceData(residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_DATA, EApiMethods.GET>> {
         return this.client.get(`${EApiRoutes.GET_RESIDENCE_DATA.replace("{residenceId}", residenceId)}`);
     }
+
+    async getResidenceChargesData(params: TApiParams<EApiRoutes.GET_RESIDENCE_CHARGES>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_CHARGES, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.GET_RESIDENCE_CHARGES.replace("{residenceId}", residenceId)}`);
+    }
+
+    async getResidenceUsersData(params: TApiParams<EApiRoutes.GET_RESIDENCE_USERS>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_USERS, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.GET_RESIDENCE_USERS.replace("{residenceId}", residenceId)}`);
+    }
 }
