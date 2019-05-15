@@ -1,8 +1,8 @@
+import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Tab } from "@components/tab";
 import { CustomForm } from "@components/custom-form";
 import { InputField } from "@components/fields";
-import * as React from "react";
 import { IListActions } from "@components/list/interfaces";
 import * as _ from "lodash";
 import { IListParams } from "@services/transport/params";
@@ -19,22 +19,45 @@ export class ListActions<T> extends Component<IListActions<T>> {
         return (
             <div className="users-actions clearfix">
                 {this.renderFilters()}
-                <div className="users-actions__search float-right">
-                    <CustomForm
-                        submit={this.onSearch}
-                        render={(api, submitting) => {
-                            return (
-                                <div className="search-field">
-                                    <InputField
-                                        label={"Search"}
-                                        name={"search"}
-                                        placeholder={"Search"}
-                                    />
-                                </div>
-                            );
-                        }}
-                    />
-                </div>
+                {this.renderSearchField()}
+                {this.renderActionElement()}
+            </div>
+        );
+    }
+
+    private renderActionElement(): Nullable<ReactNode> {
+        const {actionElement} = this.props;
+        if (!actionElement) {
+            return void 0;
+        }
+        return (
+            <div className="users-actions__add-button float-right">
+                {actionElement}
+            </div>
+        );
+    }
+
+    private renderSearchField(): Nullable<ReactNode> {
+        const {canSearch} = this.props;
+        if (!canSearch) {
+            return void 0;
+        }
+        return (
+            <div className="users-actions__search float-right">
+                <CustomForm
+                    submit={this.onSearch}
+                    render={(api, submitting) => {
+                        return (
+                            <div className="search-field">
+                                <InputField
+                                    label={"Search"}
+                                    name={"search"}
+                                    placeholder={"Search"}
+                                />
+                            </div>
+                        );
+                    }}
+                />
             </div>
         );
     }
