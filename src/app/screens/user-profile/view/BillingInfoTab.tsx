@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { BillingList } from "./BillingList";
-import "./BillingInfo.scss";
+import "./BillingInfoTab.scss";
 
-export class BillingInfo extends Component {
+export class BillingInfoTab extends Component {
     render(): ReactNode {
         return (
             <div className="billing-list">

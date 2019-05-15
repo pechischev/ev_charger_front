@@ -3,12 +3,15 @@ import { Component, ReactNode } from "react";
 import { InputField } from "@components/fields";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
-import "./Profile.scss";
+import "./ProfileTab.scss";
 import { ICustomer } from "@entities/customer";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
-import { ProfileStore } from "./ProfileStore";
-import { EFormTypes } from "@app/config";
+import { ProfileTabStore } from "./ProfileTabStore";
+import { Transport } from "@services/transport";
+import { AppContext } from "@context";
+import { EFieldTypes } from "../constants";
+import { IFieldError } from "@app/config/IFieldError";
 
 interface IProfileProps {
     data?: ICustomer;
@@ -16,8 +19,13 @@ interface IProfileProps {
 
 @observer
 @autobind
-export class Profile extends Component<IProfileProps> {
-    private readonly store = new ProfileStore();
+export class ProfileTab extends Component<IProfileProps> {
+    private readonly store = new ProfileTabStore();
+
+    constructor(props: IProfileProps) {
+        super(props);
+        this.store.transport = new Transport(AppContext.getUserStore().getAdminTokens());
+    }
 
     render(): ReactNode {
         return (
@@ -34,24 +42,24 @@ export class Profile extends Component<IProfileProps> {
         );
     }
 
-    private validateData() {
+    private validateData(): IFieldError[] {
         return ([
-            {type: EFormTypes.FIRST_NAME, codes: []},
-            {type: EFormTypes.LAST_NAME, codes: []},
-            {type: EFormTypes.EMAIL, codes: [15]},
-            {type: EFormTypes.PHONE, codes: [19]},
-            {type: EFormTypes.RESIDENCE, codes: []},
-            {type: EFormTypes.NEW_PASSWORD, codes: [17, 20]},
-            {type: EFormTypes.CONFIRM_PASSWORD, codes: [20]},
-            {type: EFormTypes.ADDRESS, codes: []},
-            {type: EFormTypes.APT_UNIT, codes: []},
-            {type: EFormTypes.CITY, codes: []},
-            {type: EFormTypes.ZIP_CODE, codes: []},
-            {type: EFormTypes.STATE, codes: []},
-            {type: EFormTypes.MAKES, codes: []},
-            {type: EFormTypes.MODEL, codes: []},
-            {type: EFormTypes.YEAR, codes: []},
-            {type: EFormTypes.LICENSE_PLATE, codes: []},
+            {type: EFieldTypes.FIRST_NAME, codes: []},
+            {type: EFieldTypes.LAST_NAME, codes: []},
+            {type: EFieldTypes.EMAIL, codes: [15]},
+            {type: EFieldTypes.PHONE, codes: [19]},
+            {type: EFieldTypes.RESIDENCE, codes: []},
+            {type: EFieldTypes.NEW_PASSWORD, codes: [17, 20]},
+            {type: EFieldTypes.CONFIRM_PASSWORD, codes: [20]},
+            {type: EFieldTypes.ADDRESS, codes: []},
+            {type: EFieldTypes.APT_UNIT, codes: []},
+            {type: EFieldTypes.CITY, codes: []},
+            {type: EFieldTypes.ZIP_CODE, codes: []},
+            {type: EFieldTypes.STATE, codes: []},
+            {type: EFieldTypes.MAKES, codes: []},
+            {type: EFieldTypes.MODEL, codes: []},
+            {type: EFieldTypes.YEAR, codes: []},
+            {type: EFieldTypes.LICENSE_PLATE, codes: []},
         ]);
     }
 
@@ -95,38 +103,38 @@ export class Profile extends Component<IProfileProps> {
             <>
                 <InputField
                     label={"First name"}
-                    name={EFormTypes.FIRST_NAME}
+                    name={EFieldTypes.FIRST_NAME}
                     placeholder={"Enter first name"}
                 />
                 <InputField
                     label={"Last name"}
-                    name={EFormTypes.LAST_NAME}
+                    name={EFieldTypes.LAST_NAME}
                     placeholder={"Enter email"}
                 />
                 <InputField
                     label={"Email address"}
-                    name={EFormTypes.EMAIL}
+                    name={EFieldTypes.EMAIL}
                     placeholder={"Enter email"}
                 />
                 <InputField
                     label={"Phone number"}
-                    name={EFormTypes.PHONE}
+                    name={EFieldTypes.PHONE}
                     placeholder={"Enter phone"}
                 />
                 <InputField
                     label={"Residence"}
-                    name={EFormTypes.RESIDENCE}
+                    name={EFieldTypes.RESIDENCE}
                     placeholder={"Enter residence"}
                 />
                 <InputField
                     label={"New password"}
-                    name={EFormTypes.NEW_PASSWORD}
+                    name={EFieldTypes.NEW_PASSWORD}
                     type={"password"}
                     placeholder={"Enter new password"}
                 />
                 <InputField
                     label={"Confirm Password"}
-                    name={EFormTypes.CONFIRM_PASSWORD}
+                    name={EFieldTypes.CONFIRM_PASSWORD}
                     type={"password"}
                     placeholder={"Enter confirm password"}
                 />
@@ -139,27 +147,27 @@ export class Profile extends Component<IProfileProps> {
             <>
                 <InputField
                     label={"Address"}
-                    name={EFormTypes.ADDRESS}
+                    name={EFieldTypes.ADDRESS}
                     placeholder={"Enter address"}
                 />
                 <InputField
                     label={"Apt/Unit"}
-                    name={EFormTypes.APT_UNIT}
+                    name={EFieldTypes.APT_UNIT}
                     placeholder={"Enter apt/unit"}
                 />
                 <InputField
                     label={"City"}
-                    name={EFormTypes.CITY}
+                    name={EFieldTypes.CITY}
                     placeholder={"Enter city"}
                 />
                 <InputField
                     label={"Zip code"}
-                    name={EFormTypes.ZIP_CODE}
+                    name={EFieldTypes.ZIP_CODE}
                     placeholder={"Enter zip code"}
                 />
                 <InputField
                     label={"State"}
-                    name={EFormTypes.STATE}
+                    name={EFieldTypes.STATE}
                     placeholder={"Enter state"}
                 />
             </>
@@ -171,22 +179,22 @@ export class Profile extends Component<IProfileProps> {
             <>
                 <InputField
                     label={"Makes"}
-                    name={EFormTypes.MAKES}
+                    name={EFieldTypes.MAKES}
                     placeholder={"Enter makes"}
                 />
                 <InputField
                     label={"Model"}
-                    name={EFormTypes.MODEL}
+                    name={EFieldTypes.MODEL}
                     placeholder={"Enter model"}
                 />
                 <InputField
                     label={"Year"}
-                    name={EFormTypes.YEAR}
+                    name={EFieldTypes.YEAR}
                     placeholder={"Enter year"}
                 />
                 <InputField
                     label={"Licence plate"}
-                    name={EFormTypes.LICENSE_PLATE}
+                    name={EFieldTypes.LICENSE_PLATE}
                     placeholder={"Enter licence plate"}
                 />
             </>

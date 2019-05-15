@@ -7,7 +7,7 @@ import { autobind } from "core-decorators";
 import { ICustomer } from "@entities/customer";
 
 @autobind
-export class CustomerProfileStore extends Store {
+export class UserProfileStore extends Store {
     @observable private typeTab = ETabsType.CUSTOMER_PROFILE;
     @observable private data: ICustomer = _.stubObject();
 

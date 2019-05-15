@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { CustomerProfileStore } from "./CustomerProfileStore";
+import { UserProfileStore } from "./UserProfileStore";
 import * as _ from "lodash";
 import { ETabsType } from "@components/tab/ETabsType";
 import { observer } from "mobx-react";
-import "./CustomProfile.scss";
+import "./UserProfile.scss";
 import { Tab } from "@components/tab";
-import { BillingInfo, Profile } from "./tabs";
+import { BillingInfoTab, ProfileTab } from "./view";
 import { Transport } from "@services/transport";
 import { AppContext } from "@context";
 import { RouteProps } from "react-router";
@@ -16,8 +16,8 @@ import { autobind } from "core-decorators";
 
 @observer
 @autobind
-export class CustomerProfile extends Component<RouteProps> {
-    private readonly store = new CustomerProfileStore();
+export class UserProfile extends Component<RouteProps> {
+    private readonly store = new UserProfileStore();
 
     constructor(props: RouteProps) {
         super(props);
@@ -97,9 +97,9 @@ export class CustomerProfile extends Component<RouteProps> {
     private getContentByType(): ReactNode {
         switch (this.store.getTypeTab()) {
             case ETabsType.CUSTOMER_PROFILE:
-                return <Profile data={this.store.getData()}/>;
+                return <ProfileTab data={this.store.getData()}/>;
             case ETabsType.BILLING_INFO:
-                return <BillingInfo/>;
+                return <BillingInfoTab/>;
             default:
                 return void 0;
         }
