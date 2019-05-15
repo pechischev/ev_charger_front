@@ -9,6 +9,7 @@ export class Sidebar extends Component {
     private readonly options: ILink[] = [
         {value: "Dashboard", path: EPaths.DASHBOARD, iconName: "fa-dashboard"},
         {value: "Users", path: EPaths.USER_LIST, iconName: "fa-dashboard"},
+        {value: "Residences", path: EPaths.RESIDENCE_LIST, iconName: "fa-dashboard"},
     ];
 
     render(): ReactNode {
