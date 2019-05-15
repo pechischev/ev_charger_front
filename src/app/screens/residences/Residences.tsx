@@ -10,7 +10,7 @@ export class Residences extends Component {
             <div className="side-app">
                 <div className="page-header">Residences</div>
                 <div className="page-content">
-                    <Card title="Users table" content={<ResidencesList actionElement={actionElement}/>}/>
+                    <Card title="Residence list" content={<ResidencesList actionElement={actionElement}/>}/>
                 </div>
             </div>
         );
