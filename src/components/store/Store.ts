@@ -34,7 +34,6 @@ export class Store {
         promise.then(onSuccess).catch(onError);
     }
 
-    /** @deprecated Use promises! */
     async asyncCall<T extends AxiosResponse>(promise: Promise<T>, onError?: (err: AxiosError) => void): Promise<T> {
         return promise.catch(async (error: AxiosError) => {
             if (onError) {

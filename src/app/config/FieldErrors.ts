@@ -9,8 +9,8 @@ export class FieldErrors {
         { type: EFormTypes.PASSWORD, codes: [14, 20] },
     ];
 
-    static getTypesByCode(code: number): EFormTypes[] {
-        const types: EFormTypes[] = [];
+    static getTypesByCode(code: number): Array<EFormTypes | string> {
+        const types: Array<EFormTypes | string> = [];
         FieldErrors.errors.forEach((value: IFieldError) => {
             if (value.codes.indexOf(code) === -1) {
                 return;

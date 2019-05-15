@@ -1,5 +1,5 @@
 import { ErrorMessages } from "@app/config";
-import { EErrorState } from "@app/screens/error-screen";
+import { EErrorState } from "./EErrorState";
 import * as React from "react";
 import { FC } from "react";
 import { RouteProps } from "react-router";

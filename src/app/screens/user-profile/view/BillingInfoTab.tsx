@@ -1,14 +1,9 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { IUser } from "@entities/user";
 import { BillingList } from "./BillingList";
-import "./BillingInfo.scss";
+import "./BillingInfoTab.scss";
 
-interface IBillingInfoProps {
-    data: IUser;
-}
-
-export class BillingInfo extends Component<IBillingInfoProps> {
+export class BillingInfoTab extends Component {
     render(): ReactNode {
         return (
             <div className="billing-list">

@@ -3,4 +3,3 @@ export enum EStatus {
     INACTIVE = "inactive",
     PAST_DUE = "past_due",
 }
-

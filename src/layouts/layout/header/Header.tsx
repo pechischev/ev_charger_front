@@ -1,7 +1,7 @@
 import * as React from "react";
-import {Component, ReactNode} from "react";
+import { Component, ReactNode } from "react";
 import "./Header.scss";
-import {Dropdown, DropdownContent, DropdownTrigger} from "@components/dropdown";
+import { Dropdown, DropdownContent, DropdownTrigger } from "@components/dropdown";
 import { HeaderStore } from "./HeaderStore";
 
 interface IHeaderProps {
@@ -42,7 +42,7 @@ export class Header extends Component<IHeaderProps> {
         return (
             <Dropdown>
                 <DropdownTrigger className="nav-link pr-0 leading-none d-flex header-bar-person">
-                    <span className="avatar avatar-md brround" style={{backgroundImage: "url(./img/25.jpg)"}}/>
+                    <span className="avatar avatar-md brround" style={{ backgroundImage: "url(./img/25.jpg)" }}/>
                     <span className="ml-2 d-none d-lg-block">
                         <span className="text-dark">Simon Russell</span>
                     </span>
@@ -60,7 +60,7 @@ export class Header extends Component<IHeaderProps> {
                             </>,
                             onClick: () => void 0,
                         },
-                        {divider: true},
+                        { divider: true },
                         {
                             value: <><i className="dropdown-icon mdi mdi-logout-variant"/>Sign out</>,
                             onClick: () => this.store.logout(),
@@ -85,7 +85,7 @@ export class Header extends Component<IHeaderProps> {
                             value: "2 New Messages",
                             onClick: () => void 0,
                         },
-                        {divider: true},
+                        { divider: true },
                         {
                             value: "See all Messages",
                             onClick: () => void 0,

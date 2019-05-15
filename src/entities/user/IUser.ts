@@ -1,7 +1,7 @@
 import { EStatus, } from "@entities/user";
 
 export interface IUser {
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     email: string;

@@ -1,5 +1,5 @@
 import { EPaths } from "@app/config";
-import { EErrorState } from "@app/screens/error-screen";
+import { EErrorState } from "@layouts/error-screen";
 import { Button } from "@components/button";
 import { AppContext } from "@context";
 import * as React from "react";

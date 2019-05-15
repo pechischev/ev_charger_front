@@ -9,9 +9,9 @@ import { Provider } from "mobx-react";
 import { Dashboard } from "@app/screens/dashboard";
 import { Layout } from "@layouts/layout";
 import { PublicRoute } from "@components/public-route";
-import { ErrorScreen } from "@app/screens/error-screen";
+import { ErrorScreen } from "@layouts/error-screen";
 import { Login } from "@app/screens/login";
-import { CustomerProfile } from "./screens/customer-profile";
+import { UserProfile } from "./screens/user-profile";
 import { Users } from "@app/screens/users/Users";
 
 export class App extends Component {
@@ -56,8 +56,8 @@ export class App extends Component {
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.USER_LIST}/${EPaths.CUSTOMER_PROFILE}`}
-                                    component={CustomerProfile}
+                                    path={`/${EPaths.USER_PROFILE}`}
+                                    component={UserProfile}
                                 />
                             </Switch>
                         </Layout>

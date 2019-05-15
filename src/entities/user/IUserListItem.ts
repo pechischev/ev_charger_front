@@ -6,6 +6,6 @@ export interface IUserListItem {
     residence: {
         id: number;
         title: string;
-    },
+    };
     user: Pick<IUser, "id" | "firstName" | "lastName">;
 }

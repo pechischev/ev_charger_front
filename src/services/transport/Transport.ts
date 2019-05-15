@@ -1,7 +1,7 @@
 import { EPaths, ITokens, Nullable } from "@app/config";
 import { AppContext } from "@context";
 import { config } from "@services/config";
-import { EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
+import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { get } from "lodash";
 import { Subject, Subscribable, Unsubscribable, PartialObserver } from "rxjs";
@@ -95,5 +95,9 @@ export class Transport<T extends object = object> implements ITransport, Subscri
 
     async getUsers(params: TApiParams<EApiRoutes.GET_USERS>): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
         return this.client.get(EApiRoutes.GET_USERS, {params});
+    }
+
+    async getUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.GET_USER_DATA, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.GET_USER_DATA.replace("{customerId}", userId)}`);
     }
 }
