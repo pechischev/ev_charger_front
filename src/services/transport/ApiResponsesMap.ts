@@ -13,7 +13,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.SIGN_IN]: ILoginResponse;
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
     [EApiRoutes.GET_USER_DATA]: {
-        [EApiMethods.GET]: ICustomerResponse
+        [EApiMethods.GET]: ICustomerResponse;
     };
 }
 

@@ -33,7 +33,7 @@ export class UserProfile extends Component<RouteProps> {
 
         return (
             <div className="side-app">
-                <div className="page-header">Customer Profile</div>
+                <div className="page-header">User Profile</div>
                 <div className="page-content">
                     <Card className="customer-info" content={this.getCustomerProfile()}/>
                 </div>
