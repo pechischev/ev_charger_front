@@ -19,14 +19,17 @@ export abstract class List<T> extends Component<IList<T>> {
     }
 
     render(): ReactNode {
+        const { canSearch = true, actionElement } = this.props;
         return (
-           <div>
-               <ListActions
-                   filters={this.getFilterItems()}
-                   store={this.store}
-               />
-               {this.renderList()}
-           </div>
+            <div>
+                <ListActions
+                    filters={this.getFilterItems()}
+                    store={this.store}
+                    canSearch={canSearch}
+                    actionElement={actionElement}
+                />
+                {this.renderList()}
+            </div>
         );
     }
 
@@ -64,8 +67,8 @@ export abstract class List<T> extends Component<IList<T>> {
     }
 
     private onChangePage(newPage: number) {
-        const { page, ...rest } = this.store.getListData();
-        this.store.setListData({ ...rest, page: newPage });
+        const {page, ...rest} = this.store.getListData();
+        this.store.setListData({...rest, page: newPage});
         this.updateList();
     }
 

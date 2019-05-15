@@ -45,27 +45,7 @@ export class CustomerProfile extends Component<RouteProps> {
         return (
             <>
                 {this.getMainInfo()}
-                <div className="customer-tabs">
-                    <ul className="nav nav-tabs" role="tablist">
-                        <li className="nav-item">
-                            <a className="nav-link active" data-toggle="tab" href="#profile">Profile</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" data-toggle="tab" href="#billingInfo">Billing info</a>
-                        </li>
-                    </ul>
-                    <div className="tab-content">
-                        <div id="profile" className="container tab-pane active">
-                            <Profile data={this.store.getData()}/>
-                        </div>
-                        <div id="billingInfo" className="container tab-pane fade">
-                            <BillingInfo/>
-                        </div>
-                    </div>
-                </div>
-                <div style={{display: "none"}}>
-                    {this.getTabInfo()}
-                </div>
+                {this.getTabInfo()}
             </>
         );
     }
@@ -103,6 +83,7 @@ export class CustomerProfile extends Component<RouteProps> {
     private getTabInfo(): ReactNode {
         return (
             <Tab
+                className="profile-tab"
                 items={[
                     {
                         text: TabLabels.get(ETabsType.CUSTOMER_PROFILE) as string,
