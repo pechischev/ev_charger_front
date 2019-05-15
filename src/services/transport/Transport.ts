@@ -120,4 +120,12 @@ export class Transport<T extends object = object> implements ITransport {
     async createUser(params: TApiParams<EApiRoutes.CREATE_USER>): Promise<TAxiosResponse<EApiRoutes.CREATE_USER>> {
         return this.client.post(EApiRoutes.CREATE_USER, params);
     }
+
+    async getResidences(params: TApiParams<EApiRoutes.GET_RESIDENCES>): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES>> {
+        return this.client.get(EApiRoutes.GET_RESIDENCES, {params});
+    }
+
+    async getResidenceData(residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_DATA, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.GET_RESIDENCE_DATA.replace("{residenceId}", residenceId)}`);
+    }
 }
