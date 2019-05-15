@@ -3,7 +3,7 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { CustomerProfileStore } from "./CustomerProfileStore";
 import * as _ from "lodash";
-import { ETabsType, TabLabels } from "@components/tab/ETabsType";
+import { ETabsType } from "@components/tab/ETabsType";
 import { observer } from "mobx-react";
 import "./CustomProfile.scss";
 import { Tab } from "@components/tab";
@@ -43,10 +43,10 @@ export class CustomerProfile extends Component<RouteProps> {
 
     private getCustomerProfile(): ReactNode {
         return (
-            <>
+            <div>
                 {this.getMainInfo()}
                 {this.getTabInfo()}
-            </>
+            </div>
         );
     }
 
@@ -85,14 +85,8 @@ export class CustomerProfile extends Component<RouteProps> {
             <Tab
                 className="profile-tab"
                 items={[
-                    {
-                        text: TabLabels.get(ETabsType.CUSTOMER_PROFILE) as string,
-                        handler: this.store.setTypeTab.bind(this, ETabsType.CUSTOMER_PROFILE)
-                    },
-                    {
-                        text: TabLabels.get(ETabsType.BILLING_INFO) as string,
-                        handler: this.store.setTypeTab.bind(this, ETabsType.BILLING_INFO)
-                    },
+                    { text: "Profile", handler: this.store.setTypeTab.bind(this, ETabsType.CUSTOMER_PROFILE) },
+                    { text: "Billing Info", handler: this.store.setTypeTab.bind(this, ETabsType.BILLING_INFO) },
                 ]}
             >
                 {this.getContentByType()}

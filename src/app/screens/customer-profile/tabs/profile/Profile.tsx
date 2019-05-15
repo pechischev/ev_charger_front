@@ -27,7 +27,7 @@ export class Profile extends Component<IProfileProps> {
                     validateData={this.validateData}
                     keepDirtyOnReinitialize={false}
                     data={this.props.data}
-                    submit={this.onSave}
+                    submit={this.store.edit}
                     render={(api, submitting) => this.getSettingsForm(api, submitting)}
                 />
             </div>
