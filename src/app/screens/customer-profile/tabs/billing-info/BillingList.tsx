@@ -23,6 +23,6 @@ export class BillingList extends List<any> {
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
-        return this.store.transport.getUsers(params);
+        return new Promise((resolve) => resolve);
     }
 }

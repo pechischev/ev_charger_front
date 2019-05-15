@@ -45,7 +45,7 @@ export class Profile extends Component<IProfileProps> {
             {type: EFormTypes.MAKES, codes: []},
             {type: EFormTypes.MODEL, codes: []},
             {type: EFormTypes.YEAR, codes: []},
-            {type: EFormTypes.LICENCE_PLATE, codes: []},
+            {type: EFormTypes.LICENSE_PLATE, codes: []},
         ]);
     }
 
@@ -180,7 +180,7 @@ export class Profile extends Component<IProfileProps> {
                 />
                 <InputField
                     label={"Licence plate"}
-                    name={EFormTypes.LICENCE_PLATE}
+                    name={EFormTypes.LICENSE_PLATE}
                     placeholder={"Enter licence plate"}
                 />
             </>

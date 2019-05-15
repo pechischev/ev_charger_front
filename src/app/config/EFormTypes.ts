@@ -21,5 +21,5 @@ export enum EFormTypes {
     MAKES = "makes",
     MODEL = "model",
     YEAR = "year",
-    LICENCE_PLATE = "licencePlate"
+    LICENSE_PLATE = "licensePlate"
 }

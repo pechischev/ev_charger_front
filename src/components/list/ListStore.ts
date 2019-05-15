@@ -82,6 +82,7 @@ export class ListStore<T> extends Store {
     }
 
     private onSuccessUpdateData(response: AxiosResponse<IListResponse<T>>): void {
+        console.info("[ListStore.onSuccessUpdateData]: ", response);
         const data = _.get(response, "data");
         this.setCount(_.get(data, "count", 0));
         this.setData(_.get(data, "rows", []));
