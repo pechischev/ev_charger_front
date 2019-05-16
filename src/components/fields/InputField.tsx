@@ -1,8 +1,9 @@
+import * as React from "react";
 import { FC, Fragment } from "react";
 import { Field } from "react-final-form";
-import * as React from "react";
 import { IField } from "@components/fields/IField";
 import { getError } from "@utils";
+import "./Field.scss";
 
 export const InputField: FC<IField> = ({name, label, placeholder, type, ...rest}) => {
 
