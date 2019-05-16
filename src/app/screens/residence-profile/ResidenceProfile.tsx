@@ -12,6 +12,7 @@ import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { ResidenceForm } from "@app/components/residence-form";
+import { Button } from "@components/button";
 
 @observer
 @autobind
@@ -87,12 +88,12 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     private getActionElement() {
         return (
-            <button
-                className="btn btn-secondary btn-block"
+            <Button
+                className="btn btn-block"
+                type="primary"
                 onClick={() => void 0}
-            >
-                Add charger
-            </button>
+                text="Add charger"
+            />
         );
     }
 }

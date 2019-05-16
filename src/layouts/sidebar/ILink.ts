@@ -5,5 +5,5 @@ export interface ILink {
     path: EPaths | string;
     isEnabled?: boolean;
     children?: ILink[];
-    iconName?: string;
+    iconType?: string;
 }

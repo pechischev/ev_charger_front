@@ -6,6 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as React from "react";
 import { IBillingListItem } from "@entities/residence";
+import { Button } from "@components/button";
 
 interface IChargersListProps extends IList<IBillingListItem> {
     residenceId?: string;
@@ -26,14 +27,14 @@ export class BillingList extends List<IBillingListItem, IChargersListProps> {
             {id: "", label: "Service Fee"},
             {id: "", label: "Net Revenue"},
             {
-                id: "", label: "", handler: (item: IBillingListItem) => {
+                id: "", label: "", size: "185px", handler: (item: IBillingListItem) => {
                     return (
-                        <button
-                            className="btn btn-secondary btn-block"
+                        <Button
+                            className="btn btn-block"
+                            type="secondary"
                             onClick={() => this.viewReport(item.id)}
-                        >
-                            View Billing Report
-                        </button>
+                            text="View Billing Report"
+                        />
                     );
                 }
             },

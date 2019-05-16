@@ -58,12 +58,14 @@ export class AddUserForm extends Component<{}> {
                 }/>
                 <div className="profile-form-button clearfix">
                     <Button
-                        className="btn-secondary float-right"
+                        className="btn btn-block float-right"
+                        type="secondary"
                         onClick={() => redirectToUsersList()}
                         text={"Cancel"}
                     />
                     <Button
-                        className="btn-primary float-right"
+                        className="btn btn-block float-right"
+                        type="primary"
                         disabled={!submitting}
                         onClick={() => api.handleSubmit()}
                         text={"Save"}

@@ -7,9 +7,11 @@ import { ILink } from "@layouts/sidebar/ILink";
 
 export class Sidebar extends Component {
     private readonly options: ILink[] = [
-        {value: "Dashboard", path: EPaths.DASHBOARD, iconName: "fa-dashboard"},
-        {value: "Users", path: EPaths.USER_LIST, iconName: "fa-dashboard"},
-        {value: "Residences", path: EPaths.RESIDENCE_LIST, iconName: "fa-dashboard"},
+        {value: "Dashboard", path: EPaths.DASHBOARD, iconType: "dashboard", isEnabled: true},
+        {value: "Users", path: EPaths.USER_LIST, iconType: "users", isEnabled: true},
+        {value: "Residences", path: EPaths.RESIDENCE_LIST, iconType: "residences", isEnabled: true},
+        {value: "Payments", path: "", iconType: "payments", isEnabled: false},
+        {value: "Settings", path: "", iconType: "settings", isEnabled: false},
     ];
 
     render(): ReactNode {
@@ -25,11 +27,14 @@ export class Sidebar extends Component {
     }
 
     private renderLink(link: ILink, index: number): ReactNode {
-        const {path, value, iconName} = link;
+        const {path, value, iconType, isEnabled } = link;
+        if (!isEnabled) {
+            return void 0;
+        }
         return (
             <li key={index}>
                 <NavLink className="side-menu__item" activeClassName={"active"} to={`/${path}`}>
-                    {!!iconName && <i className={`side-menu__icon fa ${iconName}`}/>}
+                    <span className="side-menu__icon" data-icon={iconType}/>
                     <span className="side-menu__label">{value}</span>
                 </NavLink>
             </li>

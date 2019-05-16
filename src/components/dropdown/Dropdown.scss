@@ -52,27 +52,31 @@
     padding: 0.5rem 1.5rem;
     clear: both;
     font-weight: 400;
-    color: #212529;
     text-align: inherit;
     white-space: nowrap;
     background-color: transparent;
     border: 0;
+    color: #3e4b5b;
 
     &:hover, &:focus {
-        color: #000;
+        color: #fff;
         text-decoration: none;
-        background-color: #f5f7fb;
+        background: rgba(55, 215, 198, 0.7);
     }
 
     &.active, &:active {
         color: #fff;
         text-decoration: none;
-        background-color: #0061da;
+        background: #37D7C6;
     }
 
     &.disabled, &:disabled {
         color: #fff;
         background-color: transparent;
+    }
+
+    .badge-primary {
+        background: #37D7C6;
     }
 }
 

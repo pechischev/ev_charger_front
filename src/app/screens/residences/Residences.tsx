@@ -21,9 +21,10 @@ export class Residences extends Component {
     private getActionElement(): ReactNode {
         return (
             <Button
-                className="btn-secondary btn-block"
+                className="btn btn-block"
                 onClick={() => redirectToResidenceCreateForm()}
-                text={"Add residence"}
+                type="primary"
+                text="Add residence"
             />
         );
     }

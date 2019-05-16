@@ -1,5 +1,21 @@
 @import "~styles/utils/mixins.scss";
 
+@mixin getMenuIcon($type) {
+    .side-menu__icon {
+        &[data-icon=#{$type}] {
+            background-image: url("./img/#{$type}-inactive.svg");
+        }
+    }
+
+    &:hover, &.active {
+        .side-menu__icon {
+            &[data-icon=#{$type}] {
+                background-image: url("./img/#{$type}-active.svg");
+            }
+        }
+    }
+}
+
 .app-sidebar {
     width: 230px;
     height: 100%;
@@ -48,32 +64,57 @@
     border-top: 1px solid rgba(0, 40, 100, 0.12);
 
     &__item {
+        @include getMenuIcon("dashboard");
+        @include getMenuIcon("users");
+        @include getMenuIcon("residences");
+        @include getMenuIcon("payments");
+        @include getMenuIcon("settings");
+
         position: relative;
         display: flex;
         align-items: center;
         padding: 12px 15px;
         font-size: 1.0em;
         text-transform: uppercase;
-        font-weight: 400;
+        text-decoration: none !important;
         border-left: 3px solid transparent;
         transition: border-left-color 0.3s ease,
         background-color 0.3s ease;
-        color: #3e4b5b;
 
         &.active {
-            background: #0061da;
-            border-left-color: #0061da;
-            text-decoration: none;
-            color: #fff;
+            background: #37D7C6 !important;
+            border-left-color: #37D7C6 !important;
+
+            .side-menu {
+                &__label {
+                    color: #ffffff !important;
+                }
+            }
+        }
+
+        &:hover {
+            background: rgba(55, 215, 198, 0.7);
+            border-left-color: rgba(55, 215, 198, 0.7);
+
+            .side-menu {
+                &__label {
+                    color: #ffffff !important;
+                }
+            }
         }
     }
 
     &__icon {
-        flex: 0 0 auto;
-        width: 25px;
+        @include square(20px);
+
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        margin-right: 10px;
     }
 
     &__label {
+        color: #3e4b5b;
+        font-weight: 400;
         white-space: nowrap;
         flex: 1 1 auto;
     }

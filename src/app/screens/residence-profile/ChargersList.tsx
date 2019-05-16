@@ -6,6 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as React from "react";
 import { IChargersListItem } from "@entities/residence";
+import { Button } from "@components/button";
 
 interface IChargersListProps extends IList<IChargersListItem> {
     residenceId?: string;
@@ -21,14 +22,14 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
             {id: "model", label: "Model"},
             {id: "", label: "Location"},
             {
-                id: "", label: "", handler: (item: IChargersListItem) => {
+                id: "", label: "", size: "120px", handler: (item: IChargersListItem) => {
                     return (
-                        <button
-                            className="btn btn-secondary btn-block"
+                        <Button
+                            className="btn btn-block"
+                            type="delete"
                             onClick={() => this.deleteCharges(item.id)}
-                        >
-                            Delete
-                        </button>
+                            text="Delete"
+                        />
                     );
                 }
             }
@@ -40,7 +41,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         if (!residenceId) {
             return new Promise((resolve) => resolve())
         }
-        return this.store.transport.getResidenceChargesData(params, residenceId );
+        return this.store.transport.getResidenceChargesData(params, residenceId);
     }
 
     private deleteCharges(id: number) {
