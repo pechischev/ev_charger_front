@@ -4,7 +4,7 @@ export interface IUserParams {
         firstName: string;
         lastName: string;
         phone: string;
-        password: string;
+        password?: string;
     };
     contactInfo: {
         address: string;

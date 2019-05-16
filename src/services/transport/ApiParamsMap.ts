@@ -15,6 +15,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.SIGN_IN]: ILoginParams;
     [EApiRoutes.GET_USERS]: IListParams;
     [EApiRoutes.CREATE_USER]: IUserParams;
+    [EApiRoutes.USER_DATA]: IUserParams;
 }
 
 // @ts-ignore:2344
