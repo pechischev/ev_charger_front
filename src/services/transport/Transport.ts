@@ -105,6 +105,10 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.get(`${EApiRoutes.GET_MODELS.replace("{makeId}", makeId)}`);
     }
 
+    async getOperators(): Promise<TAxiosResponse<EApiRoutes.OPERATORS>> {
+        return this.client.get(EApiRoutes.OPERATORS);
+    }
+
     async login(params: TApiParams<EApiRoutes.SIGN_IN>): Promise<TAxiosResponse<EApiRoutes.SIGN_IN>> {
         return this.client.post(EApiRoutes.SIGN_IN, params);
     }
@@ -113,16 +117,23 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.get(EApiRoutes.GET_USERS, {params});
     }
 
-    async getUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.GET_USER_DATA, EApiMethods.GET>> {
-        return this.client.get(`${EApiRoutes.GET_USER_DATA.replace("{customerId}", userId)}`);
+    async getUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.USER_DATA.replace("{customerId}", userId)}`);
     }
 
     async createUser(params: TApiParams<EApiRoutes.CREATE_USER>): Promise<TAxiosResponse<EApiRoutes.CREATE_USER>> {
         return this.client.post(EApiRoutes.CREATE_USER, params);
     }
+    async updateUser(params: TApiParams<EApiRoutes.USER_DATA>, userId: string): Promise<TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.PUT>> {
+        return this.client.put(`${EApiRoutes.USER_DATA.replace("{customerId}", userId)}`, params);
+    }
 
     async getResidencesList(params: TApiParams<EApiRoutes.GET_RESIDENCES_LIST>): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES_LIST>> {
         return this.client.get(EApiRoutes.GET_RESIDENCES_LIST, {params});
+    }
+
+    async createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<TAxiosResponse<EApiRoutes.CREATE_RESIDENCE>> {
+        return this.client.post(EApiRoutes.CREATE_RESIDENCE, params);
     }
 
     async getResidenceData(residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_DATA, EApiMethods.GET>> {

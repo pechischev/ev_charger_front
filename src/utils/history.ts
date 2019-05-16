@@ -20,3 +20,13 @@ export function redirectOnResidenceProfile(resideceId: number): void {
     const link = `/${EPaths.RESIDENCE_PROFILE}?id=${resideceId}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectToResidenceList(): void {
+    const link = `/${EPaths.RESIDENCE_LIST}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToResidenceCreateForm(): void {
+    const link = `/${EPaths.RESIDENCE_CREATE_FORM}`;
+    AppContext.getHistory().push(link);
+}

@@ -1,21 +1,25 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
-import { InputField } from "@components/fields";
+import { Component, ReactNode, Fragment } from "react";
+import { InputField, SelectField } from "@components/fields";
 import { CustomForm } from "@components/custom-form";
-import { FormRenderProps } from "react-final-form";
+import { FormRenderProps, FormSpy } from "react-final-form";
 import "./ProfileTab.scss";
 import { ICustomer } from "@entities/customer";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { ProfileTabStore } from "./ProfileTabStore";
-import { Transport } from "@services/transport";
 import { AppContext } from "@context";
-import { EFieldTypes } from "../constants";
-import { IFieldError } from "@app/config/IFieldError";
 import { Button } from "@components/button";
+import { FormState } from "final-form";
+import { get } from "lodash";
+import { EFieldTypes } from "@app/screens/add-user-form/constants";
+import { IItem } from "@entities/_common";
 
 interface IProfileProps {
     data?: ICustomer;
+    userId?: string;
+
+    models: IItem[];
 }
 
 @observer
@@ -25,67 +29,40 @@ export class ProfileTab extends Component<IProfileProps> {
 
     constructor(props: IProfileProps) {
         super(props);
-        this.store.transport = new Transport(AppContext.getUserStore().getAdminTokens());
+        this.store.init();
     }
 
     render(): ReactNode {
+        const {userId} = this.props;
+
         return (
             <div className="tab-container-profile">
                 <CustomForm
                     error$={this.store.error$}
-                    validateData={this.validateData}
+                    validateData={this.store.validateData}
                     keepDirtyOnReinitialize={false}
-                    data={this.props.data}
-                    submit={this.store.edit}
+                    data={this.store.transformUserData(this.props.data)}
+                    submit={(data) => this.store.updateUser(data, userId as string)}
                     render={(api, submitting) => this.getSettingsForm(api, submitting)}
                 />
             </div>
         );
     }
 
-    private validateData(): IFieldError[] {
-        return ([
-            {type: EFieldTypes.FIRST_NAME, codes: []},
-            {type: EFieldTypes.LAST_NAME, codes: []},
-            {type: EFieldTypes.EMAIL, codes: [15]},
-            {type: EFieldTypes.PHONE, codes: [19]},
-            {type: EFieldTypes.RESIDENCE, codes: []},
-            {type: EFieldTypes.NEW_PASSWORD, codes: [17, 20]},
-            {type: EFieldTypes.CONFIRM_PASSWORD, codes: [20]},
-            {type: EFieldTypes.ADDRESS, codes: []},
-            {type: EFieldTypes.APT_UNIT, codes: []},
-            {type: EFieldTypes.CITY, codes: []},
-            {type: EFieldTypes.ZIP_CODE, codes: []},
-            {type: EFieldTypes.STATE, codes: []},
-            {type: EFieldTypes.MAKES, codes: []},
-            {type: EFieldTypes.MODEL, codes: []},
-            {type: EFieldTypes.YEAR, codes: []},
-            {type: EFieldTypes.LICENSE_PLATE, codes: []},
-        ]);
-    }
-
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <>
+            <Fragment>
                 <div className="profile-form-fields">
-                    <div className="profile-settings">
-                        <div className="profile-settings__title">Profile Info</div>
-                        <div className="profile-settings__container">
-                            {this.getProfileInfoFields()}
-                        </div>
-                    </div>
-                    <div className="profile-settings">
-                        <div className="profile-settings__title">Mailing address</div>
-                        <div className="profile-settings__container">
-                            {this.getMailingAddressFields()}
-                        </div>
-                    </div>
-                    <div className="profile-settings">
-                        <div className="profile-settings__title">Vehicle</div>
-                        <div className="profile-settings__container">
-                            {this.getVehicleFields()}
-                        </div>
-                    </div>
+                    {this.renderContainer("Profile Information", this.getProfileInfoFields())}
+                    {this.renderContainer("Mailing address", this.getMailingAddressFields())}
+                    {this.renderContainer("Vehicle", this.getVehicleFields())}
+                    <FormSpy
+                        onChange={this.onChangeData}
+                        subscription={{
+                            values: true,
+                            modified: true,
+                        }}
+                    />
                 </div>
                 <div className="profile-form-button clearfix">
                     <Button
@@ -95,13 +72,20 @@ export class ProfileTab extends Component<IProfileProps> {
                         text={"Save"}
                     />
                 </div>
-            </>
+            </Fragment>
         );
+    }
+
+    private onChangeData(state: FormState): void {
+        if (get(state.modified, EFieldTypes.MAKES)) {
+            const makesId = get(state.values, EFieldTypes.MAKES);
+            AppContext.getInfoStore().getModels(makesId);
+        }
     }
 
     private getProfileInfoFields(): ReactNode {
         return (
-            <>
+            <Fragment>
                 <InputField
                     label={"First name"}
                     name={EFieldTypes.FIRST_NAME}
@@ -122,30 +106,19 @@ export class ProfileTab extends Component<IProfileProps> {
                     name={EFieldTypes.PHONE}
                     placeholder={"Enter phone"}
                 />
-                <InputField
+                <SelectField
                     label={"Residence"}
                     name={EFieldTypes.RESIDENCE}
-                    placeholder={"Enter residence"}
+                    placeholder={"Select residence"}
+                    options={AppContext.getInfoStore().residences}
                 />
-                <InputField
-                    label={"New password"}
-                    name={EFieldTypes.NEW_PASSWORD}
-                    type={"password"}
-                    placeholder={"Enter new password"}
-                />
-                <InputField
-                    label={"Confirm Password"}
-                    name={EFieldTypes.CONFIRM_PASSWORD}
-                    type={"password"}
-                    placeholder={"Enter confirm password"}
-                />
-            </>
+            </Fragment>
         );
     }
 
     private getMailingAddressFields(): ReactNode {
         return (
-            <>
+            <Fragment>
                 <InputField
                     label={"Address"}
                     name={EFieldTypes.ADDRESS}
@@ -166,27 +139,30 @@ export class ProfileTab extends Component<IProfileProps> {
                     name={EFieldTypes.ZIP_CODE}
                     placeholder={"Enter zip code"}
                 />
-                <InputField
+                <SelectField
                     label={"State"}
                     name={EFieldTypes.STATE}
-                    placeholder={"Enter state"}
+                    placeholder={"Select state"}
+                    options={AppContext.getInfoStore().states}
                 />
-            </>
+            </Fragment>
         );
     }
 
     private getVehicleFields(): ReactNode {
         return (
-            <>
-                <InputField
+            <Fragment>
+                <SelectField
                     label={"Makes"}
                     name={EFieldTypes.MAKES}
-                    placeholder={"Enter makes"}
+                    placeholder={"Select make"}
+                    options={AppContext.getInfoStore().makes}
                 />
-                <InputField
+                <SelectField
                     label={"Model"}
                     name={EFieldTypes.MODEL}
-                    placeholder={"Enter model"}
+                    placeholder={"Select model"}
+                    options={this.props.models}
                 />
                 <InputField
                     label={"Year"}
@@ -198,7 +174,18 @@ export class ProfileTab extends Component<IProfileProps> {
                     name={EFieldTypes.LICENSE_PLATE}
                     placeholder={"Enter licence plate"}
                 />
-            </>
+            </Fragment>
+        );
+    }
+
+    private renderContainer(title: string, fields: ReactNode): ReactNode {
+        return (
+            <div className="profile-settings">
+                <div className="profile-settings__title">{title}</div>
+                <div className="profile-settings__container">
+                    {fields}
+                </div>
+            </div>
         );
     }
 }

@@ -1,8 +1,9 @@
 import { IField } from "@components/fields/IField";
 import * as React from "react";
 import { FC } from "react";
-import { Field } from "react-final-form";
+import { Field, FieldProps } from "react-final-form";
 import { IItem } from "@entities/_common";
+import { isObject } from "lodash";
 
 interface ISelectField extends IField<HTMLSelectElement> {
     options: IItem[];
@@ -18,14 +19,17 @@ export const SelectField: FC<ISelectField> = ({ options = [], name, label, place
                 {...rest}
             >
                 {
-                    (props) => (
-                        <select className="form-control" {...props.input} {...{ type }} disabled={!options.length}>
-                            <option>{placeholder}</option>
-                            {options.map((option, index) => (
-                                <option value={option.id} key={index}>{option.title}</option>
-                            ))}
-                        </select>
-                    )
+                    (props: FieldProps<HTMLSelectElement>) => {
+                        const value = isObject(props.input.value) ? props.input.value.id : props.input.value;
+                        return (
+                            <select className="form-control" {...props.input} {...{ type, value }} disabled={!options.length}>
+                                <option>{placeholder}</option>
+                                {options.map((option) => (
+                                    <option value={option.id} key={option.id}>{option.title}</option>
+                                ))}
+                            </select>
+                        );
+                    }
                 }
             </Field>
         </div>

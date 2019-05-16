@@ -38,6 +38,7 @@ export class AddUserForm extends Component<{}> {
                         content={
                             <div className="tab-container-profile">
                                 <CustomForm
+                                    keepDirtyOnReinitialize={false}
                                     validateData={this.store.validateData}
                                     error$={this.store.error$}
                                     submit={this.store.createUser}
