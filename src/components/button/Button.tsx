@@ -5,7 +5,7 @@ import "./Button.scss";
 import { IButtonProps } from "./IButtonProps";
 import { observer } from "mobx-react";
 
-export const Button: FC<IButtonProps> = observer(({ className = "", text, disabled, onClick, ...rest }) => {
+export const Button: FC<IButtonProps> = observer(({ className = "", text, disabled, type, onClick, ...rest }) => {
     const classes = classNames({
         [className]: true,
         btn: true,
