@@ -8,10 +8,10 @@ import { InputField, SelectField } from "@components/fields";
 import { AppContext } from "@context";
 import { Button } from "@components/button";
 import { redirectToResidenceList } from "@utils/history";
-import { EResidenceFieldTypes } from "./constants";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { IResidenceParams } from "@services/transport/params";
+import { EResidenceFieldTypes } from "@app/components/residence-form";
 
 @observer
 @autobind

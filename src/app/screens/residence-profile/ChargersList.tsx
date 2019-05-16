@@ -36,7 +36,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         ];
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_CHARGES>> {
+    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
         const {residenceId} = this.props;
         return this.store.transport.getResidenceChargesData(params, toString(residenceId));
     }

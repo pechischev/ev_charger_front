@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, Fragment, ReactNode } from "react";
+import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { observer } from "mobx-react";
 import "./ResidenceProfile.scss";
@@ -9,12 +9,10 @@ import { RouteProps } from "react-router";
 import * as qs from "query-string";
 import { autobind } from "core-decorators";
 import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
-import { InputField, SelectField } from "@components/fields";
-import { EResidenceFieldTypes } from "@app/screens/add-residence/constants";
-import { Button } from "@components/button";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { IResidenceParams } from "@services/transport/params";
+import { EResidenceFieldTypes, ResidenceForm } from "@app/components/residence-form";
 
 @observer
 @autobind
@@ -41,13 +39,13 @@ export class ResidenceProfile extends Component<RouteProps> {
                     <Card className="residence-card" title="Residence Profile"
                           content={
                               <CustomForm
-                                  error$={this.store.error$}
-                                  validateData={this.store.validateData}
                                   keepDirtyOnReinitialize={false}
+                                  validateData={this.store.validateData}
                                   data={{
                                       [EResidenceFieldTypes.BILLING_RATE]: 99
                                   } as IResidenceParams}
-                                  submit={(data) => this.store.updateResidence(data}
+                                  error$={this.store.error$}
+                                  submit={this.store.updateResidence}
                                   render={(api, submitting) => this.getSettingsForm(api, submitting)}
                               />
                           }
@@ -87,76 +85,7 @@ export class ResidenceProfile extends Component<RouteProps> {
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <div className="residence-main-info clearfix">
-                <Fragment>
-                    <div className="residence-info float-left">
-                        <div className="two-object-column clearfix">
-                            <InputField
-                                name={EResidenceFieldTypes.TITLE}
-                                placeholder={"Enter residence name"}
-                                label={"Residence Name"}
-                            />
-                            <InputField
-                                name={EResidenceFieldTypes.CITY}
-                                placeholder={"Enter city"}
-                                label={"City"}
-                            />
-                        </div>
-                        <InputField
-                            name={EResidenceFieldTypes.FIRST_ADDRESS}
-                            placeholder={"Enter first address"}
-                            label={"Address 1"}
-                        />
-                        <div className="two-object-column clearfix">
-                            <SelectField
-                                name={EResidenceFieldTypes.OPERATOR}
-                                label={"Property Operator"}
-                                placeholder={"Select property operator"}
-                                options={this.store.operators}
-                            />
-                            <InputField
-                                name={EResidenceFieldTypes.BILLING_RATE}
-                                placeholder={"Enter user billing rate"}
-                                label={"User Billing Rate"}
-                            />
-                        </div>
-                    </div>
-                    <div className="residence-info float-right">
-                        <div className="two-object-column clearfix">
-                            <SelectField
-                                name={EResidenceFieldTypes.STATE}
-                                label={"State"}
-                                options={AppContext.getInfoStore().states}
-                                placeholder={"Select state"}
-                            />
-                            <InputField
-                                name={EResidenceFieldTypes.ZIP_CODE}
-                                placeholder={"Enter zip code"}
-                                label={"Zip Code"}
-                            />
-                        </div>
-                        <InputField
-                            name={EResidenceFieldTypes.SECOND_ADDRESS}
-                            placeholder={"Enter second address"}
-                            label={"Address 2"}
-                        />
-                        <div className="two-object-column clearfix">
-                            <InputField
-                                name={EResidenceFieldTypes.SERVICE_FEE}
-                                placeholder={"Enter service fee"}
-                                label={"Service Fee"}
-                            />
-                            <Button
-                                className="btn-primary clearfix"
-                                disabled={!submitting}
-                                onClick={() => api.handleSubmit()}
-                                text={"Save"}
-                                style={{
-                                    marginRight: 10
-                                }}
-                            />
-                        </div>
-                    </div>
-                </Fragment>
+                <ResidenceForm store={this.store} api={api} submitting={submitting || false}/>
             </div>
         );
     }

@@ -1,12 +1,12 @@
 import { Store } from "@components/store";
 import { IFieldError } from "@app/config/IFieldError";
-import { EResidenceFieldTypes } from "./constants";
 import { autobind } from "core-decorators";
 import { EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import { action, observable } from "mobx";
 import { IItem } from "@entities/_common";
 import { get, toNumber } from "lodash";
 import { redirectToResidenceList } from "@utils/history";
+import { EResidenceFieldTypes } from "@app/components/residence-form";
 
 @autobind
 export class AddResidenceStore extends Store {

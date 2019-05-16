@@ -49,7 +49,7 @@ export class UserProfile extends Component<RouteProps> {
 
     private getCustomerProfile(): ReactNode {
         return (
-            <div>
+            <div className="clearfix">
                 {this.getMainInfo()}
                 {this.getTabInfo()}
             </div>

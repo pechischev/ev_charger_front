@@ -6,8 +6,8 @@ import { autobind } from "core-decorators";
 import { IResidence } from "@entities/residence";
 import { IItem } from "@entities/_common";
 import { IFieldError } from "@app/config/IFieldError";
-import { EResidenceFieldTypes } from "@app/screens/add-residence/constants";
 import { toNumber, get } from "lodash";
+import { EResidenceFieldTypes } from "@app/components/residence-form";
 
 @autobind
 export class ResidenceProfileStore extends Store {
