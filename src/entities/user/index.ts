@@ -4,3 +4,4 @@ export { EStatus } from "./EStatus";
 export { IAuthUser } from "./IAuthUser";
 export { AuthUser } from "./AuthUser";
 export { IUserListItem } from "./IUserListItem";
+export { IWorker } from "./IWorker";

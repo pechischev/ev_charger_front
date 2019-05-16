@@ -24,8 +24,8 @@ export const SelectField: FC<ISelectField> = ({ options = [], name, label, place
                         return (
                             <select className="form-control" {...props.input} {...{ type, value }} disabled={!options.length}>
                                 <option>{placeholder}</option>
-                                {options.map((option, index) => (
-                                    <option value={option.id} key={index}>{option.title}</option>
+                                {options.map((option) => (
+                                    <option value={option.id} key={option.id}>{option.title}</option>
                                 ))}
                             </select>
                         );
