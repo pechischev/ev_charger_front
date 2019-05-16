@@ -5,10 +5,9 @@ import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IUsersListItem } from "@entities/residence";
-import { toString } from "lodash";
 
 interface IUsersListProps extends IList<IUsersListItem> {
-    residenceId: number;
+    residenceId?: string;
 }
 
 @observer
@@ -25,7 +24,10 @@ export class UsersList extends List<IUsersListItem, IUsersListProps> {
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_USERS>> {
         const {residenceId} = this.props;
-        return this.store.transport.getResidenceUsersData(params, toString(residenceId));
+        if (!residenceId) {
+            return new Promise((resolve) => resolve())
+        }
+        return this.store.transport.getResidenceUsersData(params, residenceId);
     }
 
     private getFullUserName(item: IUsersListItem): string {

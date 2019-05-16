@@ -1,5 +1,7 @@
-import { ReactNode } from "react";
+import { FormRenderProps } from "react-final-form";
 
 export interface IResidenceForm {
-    passwordFields: ReactNode;
+    api: FormRenderProps;
+    submitting?: boolean;
+    canCancel?: boolean;
 }

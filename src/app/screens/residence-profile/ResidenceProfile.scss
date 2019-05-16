@@ -22,29 +22,3 @@
         }
     }
 }
-
-.residence-main-info {
-    .residence-info {
-        width: calc(50% - 20px);
-    }
-
-    .two-object-column {
-        > div {
-            width: calc(50% - 20px);
-
-            &:first-child {
-                float: left;
-            }
-
-            &:last-child {
-                float: right;
-            }
-        }
-
-        > button {
-            float: right;
-            width: 150px;
-            margin-top: 25px;
-        }
-    }
-}

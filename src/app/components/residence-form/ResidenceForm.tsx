@@ -7,20 +7,26 @@ import { autobind } from "core-decorators";
 import { IResidenceForm } from "./interfaces";
 import { EResidenceFieldTypes } from "./EResidenceFieldTypes";
 import { Button } from "@components/button";
-import { FormRenderProps } from "react-final-form";
-
-interface IResidenceForm extends IResidenceForm {
-    store: any;
-    api: FormRenderProps;
-    submitting?: boolean;
-}
+import "./ResidenceForm.scss";
+import { redirectToResidenceList } from "@utils/history";
+import { ResidenceFormStore } from "./ResidenceFormStore";
 
 @observer
 @autobind
-export class ResidenceForm extends Component<IResidenceForm, IResidenceForm> {
+export class ResidenceForm extends Component<IResidenceForm> {
+    private readonly store = new ResidenceFormStore();
+
+    constructor(props: IResidenceForm) {
+        super(props);
+        this.store.init();
+        this.store.getOperators();
+
+        AppContext.getInfoStore().getStates();
+    }
+
     render(): ReactNode {
         return (
-            <div className="profile-form-fields">
+            <div className="residence-main-info clearfix">
                 <Fragment>
                     <div className="residence-info float-left">
                         <div className="two-object-column clearfix">
@@ -36,7 +42,7 @@ export class ResidenceForm extends Component<IResidenceForm, IResidenceForm> {
                             />
                         </div>
                         <InputField
-                            name={EResidenceFieldTypes.FIRST_ADDRESS}
+                            name={EResidenceFieldTypes.ADDRESS}
                             placeholder={"Enter first address"}
                             label={"Address 1"}
                         />
@@ -45,7 +51,7 @@ export class ResidenceForm extends Component<IResidenceForm, IResidenceForm> {
                                 name={EResidenceFieldTypes.OPERATOR}
                                 label={"Property Operator"}
                                 placeholder={"Select property operator"}
-                                options={this.props.store.operators}
+                                options={this.store.operators}
                             />
                             <InputField
                                 name={EResidenceFieldTypes.BILLING_RATE}
@@ -80,9 +86,14 @@ export class ResidenceForm extends Component<IResidenceForm, IResidenceForm> {
                                 label={"Service Fee"}
                             />
                             <Button
+                                className={`btn-secondary float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
+                                onClick={() => redirectToResidenceList()}
+                                text={"Cancel"}
+                            />
+                            <Button
                                 className="btn-primary clearfix"
                                 disabled={!this.props.submitting}
-                                onClick={() => api.handleSubmit()}
+                                onClick={() => this.props.api.handleSubmit()}
                                 text={"Save"}
                                 style={{
                                     marginRight: 10

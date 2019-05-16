@@ -11,8 +11,7 @@ import { autobind } from "core-decorators";
 import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
-import { IResidenceParams } from "@services/transport/params";
-import { EResidenceFieldTypes, ResidenceForm } from "@app/components/residence-form";
+import { ResidenceForm } from "@app/components/residence-form";
 
 @observer
 @autobind
@@ -26,7 +25,7 @@ export class ResidenceProfile extends Component<RouteProps> {
         if (this.props.location) {
             const {id} = qs.parse(this.props.location.search);
             this.store.getResidenceData(id as string);
-            this.store.setResidenceId(parseInt(id as string, 10));
+            this.store.setResidenceId(id as string);
         }
     }
 
@@ -41,9 +40,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                               <CustomForm
                                   keepDirtyOnReinitialize={false}
                                   validateData={this.store.validateData}
-                                  data={{
-                                      [EResidenceFieldTypes.BILLING_RATE]: 99
-                                  } as IResidenceParams}
+                                  data={this.store.getData() as any}
                                   error$={this.store.error$}
                                   submit={this.store.updateResidence}
                                   render={(api, submitting) => this.getSettingsForm(api, submitting)}
@@ -84,9 +81,7 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <div className="residence-main-info clearfix">
-                <ResidenceForm store={this.store} api={api} submitting={submitting || false}/>
-            </div>
+            <ResidenceForm api={api} submitting={submitting || false} canCancel={false}/>
         );
     }
 

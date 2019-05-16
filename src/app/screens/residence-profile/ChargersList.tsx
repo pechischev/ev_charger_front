@@ -6,10 +6,9 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as React from "react";
 import { IChargersListItem } from "@entities/residence";
-import { toString } from "lodash";
 
 interface IChargersListProps extends IList<IChargersListItem> {
-    residenceId: number;
+    residenceId?: string;
 }
 
 @observer
@@ -20,7 +19,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         return [
             {id: "id", label: "Id"},
             {id: "model", label: "Model"},
-            {id: "location", label: "Location"},
+            {id: "", label: "Location"},
             {
                 id: "", label: "", handler: (item: IChargersListItem) => {
                     return (
@@ -38,7 +37,10 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
         const {residenceId} = this.props;
-        return this.store.transport.getResidenceChargesData(params, toString(residenceId));
+        if (!residenceId) {
+            return new Promise((resolve) => resolve())
+        }
+        return this.store.transport.getResidenceChargesData(params, residenceId );
     }
 
     private deleteCharges(id: number) {

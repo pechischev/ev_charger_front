@@ -6,12 +6,10 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as React from "react";
 import { IBillingListItem } from "@entities/residence";
-import { toString } from "lodash";
 
 interface IChargersListProps extends IList<IBillingListItem> {
-    residenceId: number;
+    residenceId?: string;
 }
-
 
 @observer
 @autobind
@@ -42,9 +40,12 @@ export class BillingList extends List<IBillingListItem, IChargersListProps> {
         ];
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_CHARGES>> {
+    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
         const {residenceId} = this.props;
-        return this.store.transport.getResidenceChargesData(params, toString(residenceId));
+        if (!residenceId) {
+            return new Promise((resolve) => resolve())
+        }
+        return this.store.transport.getResidenceChargesData(params, residenceId);
     }
 
     private viewReport(id: number) {
