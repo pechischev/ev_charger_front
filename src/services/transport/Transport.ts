@@ -105,6 +105,10 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.get(`${EApiRoutes.GET_MODELS.replace("{makeId}", makeId)}`);
     }
 
+    async getOperators(): Promise<TAxiosResponse<EApiRoutes.OPERATORS>> {
+        return this.client.get(EApiRoutes.OPERATORS);
+    }
+
     async login(params: TApiParams<EApiRoutes.SIGN_IN>): Promise<TAxiosResponse<EApiRoutes.SIGN_IN>> {
         return this.client.post(EApiRoutes.SIGN_IN, params);
     }
@@ -127,6 +131,10 @@ export class Transport<T extends object = object> implements ITransport {
 
     async getResidencesList(params: TApiParams<EApiRoutes.GET_RESIDENCES_LIST>): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES_LIST>> {
         return this.client.get(EApiRoutes.GET_RESIDENCES_LIST, {params});
+    }
+
+    async createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<TAxiosResponse<EApiRoutes.CREATE_RESIDENCE>> {
+        return this.client.post(EApiRoutes.CREATE_RESIDENCE, params);
     }
 
     async getResidenceData(residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_DATA, EApiMethods.GET>> {

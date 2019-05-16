@@ -14,7 +14,7 @@ export interface IResidence {
     operator: {
         userId: string;
         user: Pick<IUser, "firstName" | "lastName">;
-    }
+    };
     chargerCount: number;
     customerCount: number;
 }

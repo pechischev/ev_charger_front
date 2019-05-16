@@ -15,6 +15,7 @@ import { UserProfile } from "./screens/user-profile";
 import { Users } from "@app/screens/users/Users";
 import { AddUserForm } from "@app/screens/add-user-form";
 import { Residences } from "@app/screens/residences/Residences";
+import { AddResidence } from "@app/screens/add-residence";
 
 export class App extends Component {
     constructor(props: object) {
@@ -70,6 +71,11 @@ export class App extends Component {
                                     exact={true}
                                     path={`/${EPaths.RESIDENCE_LIST}`}
                                     component={Residences}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.RESIDENCE_CREATE_FORM}`}
+                                    component={AddResidence}
                                 />
                             </Switch>
                         </Layout>

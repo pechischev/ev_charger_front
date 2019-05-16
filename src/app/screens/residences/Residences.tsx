@@ -2,6 +2,8 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import * as React from "react";
 import { ResidencesList } from "@app/screens/residences/ResidencesList";
+import { redirectToResidenceCreateForm } from "@utils/history";
+import { Button } from "@components/button";
 
 export class Residences extends Component {
     render(): ReactNode {
@@ -18,12 +20,11 @@ export class Residences extends Component {
 
     private getActionElement(): ReactNode {
         return (
-            <button
-                className="btn btn-secondary btn-block"
-                onClick={() => void 0}
-            >
-                Add residence
-            </button>
+            <Button
+                className="btn-secondary btn-block"
+                onClick={() => redirectToResidenceCreateForm()}
+                text={"Add residence"}
+            />
         );
     }
 }
