@@ -1,4 +1,4 @@
-export enum EFieldTypes {
+export enum EUserFieldTypes {
     FIRST_NAME = "userData.firstName",
     EMAIL = "userData.email",
     LAST_NAME = "userData.lastName",
