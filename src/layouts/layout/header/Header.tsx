@@ -1,15 +1,25 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, Fragment, ReactNode } from "react";
 import "./Header.scss";
 import { Dropdown, DropdownContent, DropdownTrigger } from "@components/dropdown";
 import { HeaderStore } from "./HeaderStore";
+import { AppContext } from "@context";
+import { observer } from "mobx-react";
 
 interface IHeaderProps {
     userName?: string;
 }
 
+@observer
 export class Header extends Component<IHeaderProps> {
     private readonly store = new HeaderStore();
+
+    constructor(props: IHeaderProps) {
+        super(props);
+
+        this.store.init();
+        this.store.getProfile();
+    }
 
     render(): ReactNode {
         return (
@@ -39,30 +49,31 @@ export class Header extends Component<IHeaderProps> {
     }
 
     private renderUserAvatar(): ReactNode {
+        const data = AppContext.getUserStore().getUser();
         return (
             <Dropdown>
                 <DropdownTrigger className="nav-link pr-0 leading-none d-flex header-bar-person">
                     <span className="avatar avatar-md brround" style={{ backgroundImage: "url(./img/25.jpg)" }}/>
                     <span className="ml-2 d-none d-lg-block">
-                        <span className="text-dark">Simon Russell</span>
+                        <span className="text-dark">{data && data.getName()}</span>
                     </span>
                 </DropdownTrigger>
                 <DropdownContent
                     options={[
                         {
-                            value: <><i className="dropdown-icon mdi mdi-account-outline"/> Profile</>,
+                            value: <Fragment><i className="dropdown-icon mdi mdi-account-outline"/> Profile</Fragment>,
                             onClick: () => void 0,
                         },
                         {
-                            value: <>
+                            value: <Fragment>
                                 <span className="float-right"><span className="badge badge-primary">6</span></span>
                                 <i className="dropdown-icon mdi mdi-message-outline"/>Inbox
-                            </>,
+                            </Fragment>,
                             onClick: () => void 0,
                         },
                         { divider: true },
                         {
-                            value: <><i className="dropdown-icon mdi mdi-logout-variant"/>Sign out</>,
+                            value: <Fragment><i className="dropdown-icon mdi mdi-logout-variant"/>Sign out</Fragment>,
                             onClick: () => this.store.logout(),
                         },
                     ]}

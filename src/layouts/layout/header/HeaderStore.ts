@@ -9,4 +9,9 @@ export class HeaderStore extends Store {
         AppContext.getUserStore().logout();
         AppContext.getHistory().push(`/${EPaths.LOGIN}`);
     }
+
+    getProfile(): void {
+        AppContext.getUserStore().updateProfile();
+    }
+
 }
