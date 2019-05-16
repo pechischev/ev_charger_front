@@ -3,10 +3,9 @@ import { IFieldError } from "@app/config/IFieldError";
 import { EFieldTypes } from "./constants";
 import { IUserParams } from "@services/transport/params";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
-import { AppContext } from "@context";
-import { EPaths } from "@app/config";
 import { autobind } from "core-decorators";
 import { toNumber } from "lodash";
+import { redirectToUsersList } from "@utils/history";
 
 @autobind
 export class AddUserFormStore extends Store {
@@ -36,12 +35,12 @@ export class AddUserFormStore extends Store {
         return this.asyncCall(this.transport.createUser({
             ...rest,
             contactInfo: { ...contactInfo, residenceId: toNumber(residenceId), stateId: toNumber(stateId) },
-            vehicle: { ...vehicle, modelId: toNumber(modelId), makesId: toNumber(makesId) }
+            vehicle: { ...vehicle, modelId: toNumber(modelId), makesId: toNumber(makesId) },
         }), this.onError).then(this.onCreateUser);
     }
 
     private onCreateUser(response: TAxiosResponse<EApiRoutes.CREATE_USER>): void {
         console.info("[AddUserFormStore.onCreateUser]", response);
-        AppContext.getHistory().push(`/${EPaths.USER_LIST}`);
+        redirectToUsersList();
     }
 }

@@ -4,9 +4,9 @@ import { ICustomer } from "@entities/customer";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import { autobind } from "core-decorators";
 import { EFieldTypes } from "@app/screens/add-user-form/constants";
-import { EPaths, Nullable } from "@app/config";
+import { Nullable } from "@app/config";
 import { toNumber, isEmpty } from "lodash";
-import { AppContext } from "@context";
+import { redirectToUsersList } from "@utils/history";
 
 @autobind
 export class ProfileTabStore extends Store {
@@ -60,6 +60,6 @@ export class ProfileTabStore extends Store {
 
     private onUpdateUser(response: TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.PUT>): void {
         console.info("[ProfileTabStore.onUpdateUser]", response);
-        AppContext.getHistory().push(`/${EPaths.USER_LIST}`);
+        redirectToUsersList();
     }
 }
