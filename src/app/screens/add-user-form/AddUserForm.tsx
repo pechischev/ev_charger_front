@@ -1,55 +1,65 @@
-import * as React from "react";
 import { Component, ReactNode, Fragment } from "react";
+import * as React from "react";
+import { Card } from "@components/card";
 import { InputField, SelectField } from "@components/fields";
-import { CustomForm } from "@components/custom-form";
 import { FormRenderProps, FormSpy } from "react-final-form";
-import "./ProfileTab.scss";
-import { ICustomer } from "@entities/customer";
+import { redirectToUsersList } from "@utils/history";
+import { CustomForm } from "@components/custom-form";
+import { Button } from "@components/button";
+import { AddUserFormStore } from "./AddUserFormStore";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
-import { ProfileTabStore } from "./ProfileTabStore";
+import { EFieldTypes } from "./constants";
 import { AppContext } from "@context";
-import { Button } from "@components/button";
 import { FormState } from "final-form";
 import { get } from "lodash";
-import { EFieldTypes } from "@app/screens/add-user-form/constants";
-import { IItem } from "@entities/_common";
-
-interface IProfileProps {
-    data?: ICustomer;
-    userId?: string;
-
-    models: IItem[];
-}
 
 @observer
 @autobind
-export class ProfileTab extends Component<IProfileProps> {
-    private readonly store = new ProfileTabStore();
+export class AddUserForm extends Component<{}> {
+    private readonly store = new AddUserFormStore();
 
-    constructor(props: IProfileProps) {
+    constructor(props: {}) {
         super(props);
         this.store.init();
+
+        AppContext.getInfoStore().getResidences();
+        AppContext.getInfoStore().getStates();
+        AppContext.getInfoStore().getMakes();
     }
 
     render(): ReactNode {
-        const {userId} = this.props;
-
         return (
-            <div className="tab-container-profile">
-                <CustomForm
-                    error$={this.store.error$}
-                    validateData={this.store.validateData}
-                    keepDirtyOnReinitialize={false}
-                    data={this.store.transformUserData(this.props.data)}
-                    submit={(data) => this.store.updateUser(data, userId as string)}
-                    render={(api, submitting) => this.getSettingsForm(api, submitting)}
-                />
+            <div className="side-app">
+                <div className="page-header">New User</div>
+                <div className="page-content">
+                    <Card
+                        className="customer-info"
+                        content={
+                            <div className="tab-container-profile">
+                                <CustomForm
+                                    keepDirtyOnReinitialize={false}
+                                    validateData={this.store.validateData}
+                                    error$={this.store.error$}
+                                    submit={this.store.createUser}
+                                    render={(api, submitting) => this.renderUserForm(api, submitting)}
+                                />
+                            </div>
+                        }
+                    />
+                </div>
             </div>
         );
     }
 
-    private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
+    private onChangeData(state: FormState): void {
+        if (get(state.modified, EFieldTypes.MAKES)) {
+            const makesId = get(state.values, EFieldTypes.MAKES);
+            AppContext.getInfoStore().getModels(makesId);
+        }
+    }
+
+    private renderUserForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <Fragment>
                 <div className="profile-form-fields">
@@ -66,21 +76,22 @@ export class ProfileTab extends Component<IProfileProps> {
                 </div>
                 <div className="profile-form-button clearfix">
                     <Button
-                        className="btn-primary btn-block float-right"
+                        className="btn-secondary float-right"
+                        onClick={() => redirectToUsersList()}
+                        text={"Cancel"}
+                    />
+                    <Button
+                        className="btn-primary float-right"
                         disabled={!submitting}
                         onClick={() => api.handleSubmit()}
                         text={"Save"}
+                        style={{
+                            marginRight: 10
+                        }}
                     />
                 </div>
             </Fragment>
         );
-    }
-
-    private onChangeData(state: FormState): void {
-        if (get(state.modified, EFieldTypes.MAKES)) {
-            const makesId = get(state.values, EFieldTypes.MAKES);
-            AppContext.getInfoStore().getModels(makesId);
-        }
     }
 
     private getProfileInfoFields(): ReactNode {
@@ -94,7 +105,7 @@ export class ProfileTab extends Component<IProfileProps> {
                 <InputField
                     label={"Last name"}
                     name={EFieldTypes.LAST_NAME}
-                    placeholder={"Enter email"}
+                    placeholder={"Enter last name"}
                 />
                 <InputField
                     label={"Email address"}
@@ -111,6 +122,12 @@ export class ProfileTab extends Component<IProfileProps> {
                     name={EFieldTypes.RESIDENCE}
                     placeholder={"Select residence"}
                     options={AppContext.getInfoStore().residences}
+                />
+                <InputField
+                    label={"Password"}
+                    name={EFieldTypes.PASSWORD}
+                    type={"password"}
+                    placeholder={"Enter password"}
                 />
             </Fragment>
         );
@@ -162,7 +179,7 @@ export class ProfileTab extends Component<IProfileProps> {
                     label={"Model"}
                     name={EFieldTypes.MODEL}
                     placeholder={"Select model"}
-                    options={this.props.models}
+                    options={AppContext.getInfoStore().models}
                 />
                 <InputField
                     label={"Year"}

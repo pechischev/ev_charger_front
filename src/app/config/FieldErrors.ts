@@ -22,6 +22,9 @@ export class FieldErrors {
 
     // TODO: should get error message from other file
     static getTextError(code: number): string {
+        if (code === 0) {
+            return "required";
+        }
         return "";
     }
 }

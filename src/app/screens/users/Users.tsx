@@ -2,6 +2,7 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import * as React from "react";
 import { UserList } from "@app/screens/users/UserList";
+import { redirectOnAddUserForm } from "@utils/history";
 
 export class Users extends Component {
     render(): ReactNode {
@@ -20,7 +21,7 @@ export class Users extends Component {
         return (
             <button
                 className="btn btn-secondary btn-block"
-                onClick={() => void 0}
+                onClick={redirectOnAddUserForm}
             >
                 Add user
             </button>

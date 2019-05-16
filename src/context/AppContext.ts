@@ -3,6 +3,7 @@ import { AppStore } from "@app/stores/app";
 import { UiStore } from "@app/stores/ui";
 import { UserStore } from "@app/stores/user";
 import { createBrowserHistory, History } from "history";
+import { InfoStore } from "@app/stores/info";
 
 const history = createBrowserHistory();
 
@@ -10,6 +11,7 @@ export const stores = {
     appStore: new AppStore(),
     uiStore: new UiStore(),
     userStore: new UserStore(),
+    infoStore: new InfoStore(),
 };
 
 const INDIRECT_PATHS = [
@@ -45,6 +47,10 @@ export namespace AppContext {
 
     export function getUserStore(): UserStore {
         return stores.userStore;
+    }
+
+    export function getInfoStore(): InfoStore {
+        return stores.infoStore;
     }
 
     export function getPublicPaths(): string[] {

@@ -39,8 +39,8 @@ export class ResidencesList extends List<IResidenceListItem> {
         ];
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES>> {
-        return this.store.transport.getResidences(params);
+    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES_LIST>> {
+        return this.store.transport.getResidencesList(params);
     }
 
     private getFullAddress(item: IResidenceListItem): string {
