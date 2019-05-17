@@ -12,6 +12,8 @@ import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { ResidenceForm } from "@app/components/residence-form";
+import { Button } from "@components/button";
+import { Modal } from "@components/modal";
 
 @observer
 @autobind
@@ -23,7 +25,7 @@ export class ResidenceProfile extends Component<RouteProps> {
         this.store.transport = new Transport(AppContext.getUserStore().getAdminTokens());
 
         if (this.props.location) {
-            const {id} = qs.parse(this.props.location.search);
+            const { id } = qs.parse(this.props.location.search);
             this.store.getResidenceData(id as string);
             this.store.setResidenceId(id as string);
         }
@@ -48,31 +50,37 @@ export class ResidenceProfile extends Component<RouteProps> {
                           }
                     />
                     <div className="residence-card_in-row-two clearfix">
-                        <Card className="residence-card float-left" title="EV Chargers"
-                              content={
-                                  <ChargersList
-                                      residenceId={this.store.getResidenceId()}
-                                      canSearch={false}
-                                      actionElement={actionElement}
-                                  />
-                              }
+                        <Card
+                            className="residence-card float-left"
+                            title="EV Chargers"
+                            content={
+                                <ChargersList
+                                    residenceId={this.store.getResidenceId()}
+                                    canSearch={false}
+                                    actionElement={actionElement}
+                                />
+                            }
                         />
-                        <Card className="residence-card float-right" title="Users"
-                              content={
-                                  <UsersList
-                                      residenceId={this.store.getResidenceId()}
-                                      canSearch={false}
-                                  />
-                              }
+                        <Card
+                            className="residence-card float-right"
+                            title="Users"
+                            content={
+                                <UsersList
+                                    residenceId={this.store.getResidenceId()}
+                                    canSearch={false}
+                                />
+                            }
                         />
                     </div>
-                    <Card className="residence-card" title="Billing History"
-                          content={
-                              <BillingList
-                                  residenceId={this.store.getResidenceId()}
-                                  canSearch={false}
-                              />
-                          }
+                    <Card
+                        className="residence-card"
+                        title="Billing History"
+                        content={
+                            <BillingList
+                                residenceId={this.store.getResidenceId()}
+                                canSearch={false}
+                            />
+                        }
                     />
                 </div>
             </div>
@@ -87,12 +95,15 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     private getActionElement() {
         return (
-            <button
-                className="btn btn-secondary btn-block"
-                onClick={() => void 0}
-            >
-                Add charger
-            </button>
+            <Modal
+                trigger={
+                    <Button
+                        className="btn-secondary btn-block"
+                        text={"Add charger"}
+                    />
+                }
+                title={"Add Charger"}
+            />
         );
     }
 }

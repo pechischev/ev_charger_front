@@ -75,7 +75,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                             />
                         </div>
                         <InputField
-                            name={EResidenceFieldTypes.SECOND_ADDRESS}
+                            name={EResidenceFieldTypes.EXTRA_ADDRESS}
                             placeholder={"Enter second address"}
                             label={"Address 2"}
                         />

@@ -6,6 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as React from "react";
 import { IChargersListItem } from "@entities/residence";
+import { Button } from "@components/button";
 
 interface IChargersListProps extends IList<IChargersListItem> {
     residenceId?: string;
@@ -17,30 +18,29 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
 
     protected getColumns(): IColumn[] {
         return [
-            {id: "id", label: "Id"},
-            {id: "model", label: "Model"},
-            {id: "", label: "Location"},
+            { id: "id", label: "Id" },
+            { id: "model", label: "Model" },
+            { id: "", label: "Location" },
             {
                 id: "", label: "", handler: (item: IChargersListItem) => {
                     return (
-                        <button
+                        <Button
                             className="btn btn-secondary btn-block"
                             onClick={() => this.deleteCharges(item.id)}
-                        >
-                            Delete
-                        </button>
+                            text={"Delete"}
+                        />
                     );
-                }
-            }
+                },
+            },
         ];
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
-        const {residenceId} = this.props;
+        const { residenceId } = this.props;
         if (!residenceId) {
-            return new Promise((resolve) => resolve())
+            return new Promise((resolve) => resolve());
         }
-        return this.store.transport.getResidenceChargesData(params, residenceId );
+        return this.store.transport.getResidenceChargesData(params, residenceId);
     }
 
     private deleteCharges(id: number) {

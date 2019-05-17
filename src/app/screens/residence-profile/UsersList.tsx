@@ -16,22 +16,26 @@ export class UsersList extends List<IUsersListItem, IUsersListProps> {
 
     protected getColumns(): IColumn[] {
         return [
-            {id: "userId", label: "Id"},
-            {id: "user.firstName", label: "First name", handler: (item: IUsersListItem) => this.getFullUserName(item)},
-            {id: "status", label: "Status"},
+            { id: "userId", label: "Id" },
+            {
+                id: "user.firstName",
+                label: "First name",
+                handler: (item: IUsersListItem) => this.getFullUserName(item),
+            },
+            { id: "status", label: "Status" },
         ];
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_USERS>> {
-        const {residenceId} = this.props;
+        const { residenceId } = this.props;
         if (!residenceId) {
-            return new Promise((resolve) => resolve())
+            return new Promise((resolve) => resolve());
         }
         return this.store.transport.getResidenceUsersData(params, residenceId);
     }
 
     private getFullUserName(item: IUsersListItem): string {
-        const {firstName, lastName} = item.user;
+        const { firstName, lastName } = item.user;
         return `${firstName} ${lastName}`.trim();
     }
 }

@@ -1,5 +1,5 @@
-import { EStatus } from "@entities/user/EStatus";
-import { IUser } from "@entities/user/IUser";
+import { EStatus } from "./EStatus";
+import { IUser } from "./IUser";
 
 export interface IUserListItem {
     status: EStatus;
