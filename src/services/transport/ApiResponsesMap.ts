@@ -9,7 +9,7 @@ import {
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
-import { IUserListItem, IWorker } from "@entities/user";
+import { IAuthUser, IUserListItem, IWorker } from "@entities/user";
 import { IItem } from "@entities/_common";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
@@ -19,6 +19,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_MODELS]: IItem[];
     [EApiRoutes.OPERATORS]: IWorker[];
     [EApiRoutes.SIGN_IN]: ILoginResponse;
+    [EApiRoutes.PROFILE]: IAuthUser;
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
     [EApiRoutes.CREATE_USER]: IUserResponse;
     [EApiRoutes.USER_DATA]: {
