@@ -2,7 +2,7 @@
 @import "~styles/utils/mixins.scss";
 
 .error-screen {
-    background-color: #FFFFFF;
+    background-color: $background-main-color;
     background-position: bottom left, top right;
     background-repeat: no-repeat;
 

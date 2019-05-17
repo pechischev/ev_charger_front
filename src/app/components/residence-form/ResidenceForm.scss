@@ -1,13 +1,24 @@
 @import "~styles/utils/mixins.scss";
 
+$widthForTwoBlocksPerLine: calc(50% - 20px);
+
 .residence-main-info {
     .residence-info {
-        width: calc(50% - 20px);
+        width: $widthForTwoBlocksPerLine;
+
+        &__buttons {
+            margin-top: 25px;
+
+            > button {
+                float: right;
+                width: 150px;
+            }
+        }
     }
 
     .two-object-column {
         > div {
-            width: calc(50% - 20px);
+            width: $widthForTwoBlocksPerLine;
 
             &:first-child {
                 float: left;
@@ -18,11 +29,6 @@
             }
         }
 
-        > button {
-            float: right;
-            width: 150px;
-            margin-top: 25px;
-        }
     }
 
     .button {

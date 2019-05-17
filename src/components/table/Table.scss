@@ -39,7 +39,7 @@
             border-bottom-width: 0;
 
             > span {
-                color: #3e4b5b;
+                color: $color-font-primary;
                 font-size: 15px;
                 font-weight: 400;
                 line-height: 21px;
@@ -71,7 +71,7 @@
                     &[data-active=true] {
                         > a {
                             background-color: #00d8c7;
-                            color: #ffffff;
+                            color: $color-font-secondary;
                             font-weight: 600;
                             cursor: default;
                         }

@@ -10,6 +10,7 @@ import { InputField } from "@components/fields";
 import { AppContext } from "@context";
 import { LoginStore } from "./LoginStore";
 import { EApiRoutes, TApiResponse } from "@services/transport";
+import { Button } from "@components/button";
 
 @autobind
 export class Login extends Component {
@@ -63,19 +64,12 @@ export class Login extends Component {
                         placeholder={"Password"}
                         type={"password"}
                     />
-                    <div className="form-group">
-                        <label className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input"/>
-                            <span className="custom-control-label">Remember me</span>
-                        </label>
-                    </div>
                     <div className="form-footer">
-                        <button
-                            className="btn btn-primary btn-block"
+                        <Button
                             onClick={() => api.handleSubmit()}
-                        >
-                            Sign in
-                        </button>
+                            type="primary"
+                            text="Sign in"
+                        />
                     </div>
                 </div>
             </div>

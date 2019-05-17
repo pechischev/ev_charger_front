@@ -52,27 +52,32 @@
     padding: 0.5rem 1.5rem;
     clear: both;
     font-weight: 400;
-    color: #212529;
     text-align: inherit;
     white-space: nowrap;
     background-color: transparent;
     border: 0;
+    color: $color-font-primary;
+    cursor: pointer;
 
     &:hover, &:focus {
-        color: #000;
+        color: #ffffff !important;
         text-decoration: none;
-        background-color: #f5f7fb;
+        background: rgba(55, 215, 198, 0.7);
     }
 
     &.active, &:active {
-        color: #fff;
+        color: #ffffff !important;
         text-decoration: none;
-        background-color: #0061da;
+        background: $color-primary;
     }
 
     &.disabled, &:disabled {
-        color: #fff;
-        background-color: transparent;
+        color: $color-font-primary;
+        background: $color-inactive;
+    }
+
+    .badge-primary {
+        background: $color-primary;
     }
 }
 
