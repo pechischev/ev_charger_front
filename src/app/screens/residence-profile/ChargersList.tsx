@@ -10,6 +10,9 @@ import { Button } from "@components/button";
 
 interface IChargersListProps extends IList<IChargersListItem> {
     residenceId?: string;
+
+    onRemoveItem(chargerId: number): Promise<void>;
+    onViewItem(chargerId: number): Promise<void>;
 }
 
 @observer
@@ -26,13 +29,21 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
                     return (
                         <Button
                             type="delete"
-                            onClick={() => this.deleteCharges(item.id)}
+                            onClick={this.deleteCharges.bind(this, item.id)}
                             text="Delete"
                         />
                     );
                 },
             },
         ];
+    }
+
+    protected onClickRow(item: IChargersListItem): void {
+        const { residenceId } = this.props;
+        if (!residenceId) {
+            return;
+        }
+        this.props.onViewItem(item.id);
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
@@ -43,8 +54,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         return this.store.transport.getResidenceChargesData(params, residenceId);
     }
 
-    private deleteCharges(id: number) {
-        // remove chareger request
-        // this.updateList
+    private deleteCharges(chargerId: number) {
+        this.props.onRemoveItem(chargerId).then(this.updateList);
     }
 }

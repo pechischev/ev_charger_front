@@ -4,22 +4,24 @@ import { autobind } from "core-decorators";
 import { FormRenderProps } from "react-final-form";
 import * as React from "react";
 import { Button } from "@components/button";
-import { CreateChargerStore } from "./CreateChargerStore";
+import { EditChargerStore } from "./EditChargerStore";
 import { ChargerForm } from "@app/components/charger-form";
 import { IChargerParams } from "@services/transport/params";
+import { ICharger } from "@entities/residence";
 
-interface ICreateChargerForm {
+interface IEditChargerForm {
     residenceId?: string;
+    data?: ICharger;
 
     onClose(): void;
-    onCreate(): void;
+    onEdit(): void;
 }
 
 @autobind
-export class CreateChargerForm extends Component<ICreateChargerForm> {
-    private readonly store = new CreateChargerStore();
+export class EditChargerForm extends Component<IEditChargerForm> {
+    private readonly store = new EditChargerStore();
 
-    constructor(props: ICreateChargerForm) {
+    constructor(props: IEditChargerForm) {
         super(props);
 
         this.store.init();
@@ -27,7 +29,7 @@ export class CreateChargerForm extends Component<ICreateChargerForm> {
 
     render(): ReactNode {
         return <CustomForm
-            keepDirtyOnReinitialize={false}
+            data={this.store.transformChargerData(this.props.data)}
             validateData={this.store.validateData}
             submit={this.onSubmit}
             render={this.renderFields}
@@ -58,9 +60,9 @@ export class CreateChargerForm extends Component<ICreateChargerForm> {
     }
 
     private async onSubmit(data: IChargerParams): Promise<void> {
-        return this.store.createCharger(data, this.props.residenceId).then(() => {
+        return this.store.updateCharger(data, this.props.residenceId).then(() => {
             this.props.onClose();
-            this.props.onCreate();
+            this.props.onEdit();
         });
     }
 }

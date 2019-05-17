@@ -2,9 +2,9 @@ import { action, observable } from "mobx";
 import { Store } from "@components/store";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
-import { toNumber, isEmpty } from "lodash";
+import { toNumber, isEmpty, toString } from "lodash";
 import { autobind } from "core-decorators";
-import { IResidence } from "@entities/residence";
+import { ICharger, IResidence } from "@entities/residence";
 import { IFieldError } from "@app/config/IFieldError";
 import { EResidenceFieldTypes } from "@app/components/residence-form";
 import { Nullable } from "@app/config";
@@ -14,6 +14,8 @@ import { Subject } from "rxjs";
 export class ResidenceProfileStore extends Store {
     readonly updateChargerList$ = new Subject<void>();
     @observable private data: IResidence = _.stubObject();
+    @observable private charger: ICharger = _.stubObject();
+    @observable private isOpenChargerPopup = false;
     private residenceId?: string;
 
     getResidence(residenceId: string): void {
@@ -36,6 +38,20 @@ export class ResidenceProfileStore extends Store {
 
     getResidenceId(): Nullable<string> {
         return this.residenceId;
+    }
+
+
+    @action.bound
+    setChargerPopupState(isOpenChargerPopup: boolean): void {
+        this.isOpenChargerPopup = isOpenChargerPopup;
+    }
+
+    getChargerPopupState(): boolean {
+        return this.isOpenChargerPopup;
+    }
+
+    getCharger(): ICharger {
+        return this.charger;
     }
 
     transformResidenceData(data?: IResidence): Nullable<TApiParams<EApiRoutes.RESIDENCE_DATA>> {
@@ -62,6 +78,20 @@ export class ResidenceProfileStore extends Store {
         ];
     }
 
+    async removeCharger(chargerId: number): Promise<void> {
+        if (!this.residenceId) {
+            return;
+        }
+        return this.asyncCall(this.transport.removeCharger(this.residenceId, toString(chargerId))).then(this.onRemovedCharger);
+    }
+
+    async getChargerData(chargerId: number): Promise<void> {
+        if (!this.residenceId) {
+            return;
+        }
+        return this.asyncCall(this.transport.getCharger(this.residenceId, toString(chargerId))).then(this.onGetChargerData);
+    }
+
     async updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>): Promise<void> {
         const { stateId, operatorId, ...rest } = params;
         return this.asyncCall(this.transport.updateResidence({
@@ -81,5 +111,15 @@ export class ResidenceProfileStore extends Store {
         console.info("[ResidenceProfileStore.onUpdateResidence]: ", response);
         const data = _.get<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>, "data">(response, "data");
         this.setData(data)
+    }
+
+    @action.bound
+    private onGetChargerData(response: TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.GET>): void {
+        console.info("[ResidenceProfileStore.onGetChargerData]: ", response);
+        this.charger = _.get<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.GET>, "data">(response, "data");
+    }
+
+    private onRemovedCharger(response: TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.DELETE>): void {
+        console.info("[ResidenceProfileStore.onRemovedCharger]: ", response);
     }
 }

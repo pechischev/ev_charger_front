@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as React from "react";
 import { Component, MouseEvent, ReactNode, Fragment } from "react";
 import Popup from "reactjs-popup";
 import "./Modal.scss";
@@ -8,7 +7,8 @@ import { autobind } from "core-decorators";
 import * as _ from "lodash";
 
 interface IModalProps {
-    trigger: JSX.Element;
+    trigger?: JSX.Element;
+    open?: boolean;
     title: string;
     children: JSX.Element | ((close: () => void, isOpen?: boolean) => JSX.Element);
 
@@ -18,13 +18,14 @@ interface IModalProps {
 @autobind
 export class Modal extends Component<IModalProps> {
     render(): ReactNode {
-        const { children, trigger, title } = this.props;
+        const { children, trigger, title, open } = this.props;
         const content = _.isFunction(children) ? children : this.renderContent;
         return (
             <Popup
                 trigger={trigger}
                 modal={true}
                 closeOnDocumentClick={true}
+                open={open}
             >
                 {(close, isOpen) => (
                     <div className="modal-content">

@@ -12,7 +12,7 @@ import { FormRenderProps } from "react-final-form";
 import { ResidenceForm } from "@app/components/residence-form";
 import { Button } from "@components/button";
 import { Modal } from "@components/modal";
-import { CreateChargerForm } from "./view";
+import { CreateChargerForm, EditChargerForm } from "./view";
 
 @observer
 @autobind
@@ -59,6 +59,8 @@ export class ResidenceProfile extends Component<RouteProps> {
                                     canSearch={false}
                                     actionElement={actionElement}
                                     updateList$={this.store.updateChargerList$}
+                                    onRemoveItem={this.store.removeCharger}
+                                    onViewItem={this.onViewItem}
                                 />
                             }
                         />
@@ -85,6 +87,20 @@ export class ResidenceProfile extends Component<RouteProps> {
                         }
                     />
                 </div>
+                <Modal
+                    title={"Edit Charger"}
+                    open={this.store.getChargerPopupState()}
+                >
+                    {(close) => <EditChargerForm
+                        residenceId={this.store.getResidenceId()}
+                        onClose={close}
+                        data={this.store.getCharger()}
+                        onEdit={() => {
+                            this.store.setChargerPopupState(false);
+                            this.store.updateChargerList$.next();
+                        }}
+                    />}
+                </Modal>
             </div>
         );
     }
@@ -101,7 +117,6 @@ export class ResidenceProfile extends Component<RouteProps> {
                 trigger={
                     <Button
                         type="primary"
-                        onClick={() => void 0}
                         text="Add charger"
                     />
                 }
@@ -114,5 +129,9 @@ export class ResidenceProfile extends Component<RouteProps> {
                 />}
             </Modal>
         );
+    }
+
+    private async onViewItem(chargerId: number): Promise<void> {
+        this.store.getChargerData(chargerId).then(() => this.store.setChargerPopupState(true));
     }
 }

@@ -80,6 +80,10 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
         // can override
     }
 
+    protected updateList(): void {
+        this.store.getListData$.next();
+    }
+
     private onChangePage(newPage: number) {
         const {page, ...rest} = this.store.getListData();
         this.store.setListData({...rest, page: newPage});
@@ -92,10 +96,6 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
             return;
         }
         this.onClickRow(item, event);
-    }
-
-    private updateList(): void {
-        this.store.getListData$.next();
     }
 
     private getListData() {
