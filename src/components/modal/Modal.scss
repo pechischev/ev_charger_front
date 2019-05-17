@@ -1,1 +1,29 @@
 @import "~styles/utils/mixins.scss";
+@import "~styles/utils/variables.scss";
+
+.popup-content {
+    max-width: 460px;
+    min-width: 300px;
+    width: auto !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.modal-content {
+    .modal-header {
+
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .modal-footer {
+        border: none;
+
+        > button {
+            max-width: 150px;
+        }
+    }
+}

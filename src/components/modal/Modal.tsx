@@ -28,14 +28,20 @@ export const Modal: FC<IModalProps> = ({ children, trigger, title, action }) => 
                 <div className="modal-body">
                     { children }
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footer clearfix">
+                    { action &&
                     <Button
+                        className="float-right"
+                        type="primary"
+                        onClick={ action }
+                        text="Save changes"
+                    /> }
+                    <Button
+                        className="float-right"
                         type="secondary"
                         onClick={ close }
                         text={ "Close" }
                     />
-                    { action &&
-                    <Button type="primary" onClick={ action } text="Save changes"/> }
                 </div>
             </div>
         ) }

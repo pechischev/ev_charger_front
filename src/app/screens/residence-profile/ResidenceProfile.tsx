@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, Fragment } from "react";
 import { Card } from "@components/card";
 import { observer } from "mobx-react";
 import "./ResidenceProfile.scss";
@@ -8,12 +8,12 @@ import { AppContext } from "@context";
 import { RouteProps } from "react-router";
 import * as qs from "query-string";
 import { autobind } from "core-decorators";
-import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { ResidenceForm } from "@app/components/residence-form";
 import { Button } from "@components/button";
 import { Modal } from "@components/modal";
+import { ResidenceProfileStore, BillingList, UsersList, ChargersList } from ".";
 
 @observer
 @autobind
@@ -91,6 +91,7 @@ export class ResidenceProfile extends Component<RouteProps> {
         return (
             <Modal
                 trigger={ <Button type="primary" onClick={() => void 0} text="Add charger"/> }
+                children={<Fragment/>}
                 title={"Add Charger"}
             />
         );
