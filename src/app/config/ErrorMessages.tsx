@@ -14,7 +14,7 @@ export class ErrorMessages {
             state: EErrorState.NOT_FOUND,
             title: "Page not found",
             description: "The requested page is not available.",
-            button: <Button className={"btn btn-primary"} text={"GO TO LOGIN"} onClick={redirectOnLogin} />,
+            button: <Button text={"GO TO LOGIN"} type="secondary" onClick={redirectOnLogin} />,
         },
     ];
 

@@ -9,9 +9,9 @@
     }
 
     &[data-type="primary"] {
-        background-color: #37d7c6;
+        background-color: $color-primary;
         border-color: #38b9a8;
-        color: #ffffff;
+        color: $color-font-secondary;
 
         &:hover {
             box-shadow: 0 8px 24px 0 rgba(55, 215, 198, 0.5);
@@ -25,9 +25,9 @@
     }
 
     &[data-type="secondary"] {
-        background-color: #afc0d7;
+        background-color: $color-secondary;
         border-color: #91a2b9;
-        color: #ffffff;
+        color: $color-font-secondary;
 
         &:hover {
             box-shadow: 0 8px 24px 0 rgba(175, 192, 215, 0.5);
@@ -41,9 +41,9 @@
     }
 
     &[data-type="delete"] {
-        background-color: #eb5f69;
+        background-color: $color-delete;
         border-color: #cd5d6a;
-        color: #ffffff;
+        color: $color-font-secondary;
 
         &:hover {
             box-shadow: 0 8px 24px 0 rgba(237, 94, 104, 0.5);

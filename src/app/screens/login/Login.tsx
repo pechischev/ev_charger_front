@@ -10,6 +10,7 @@ import { InputField } from "@components/fields";
 import { AppContext } from "@context";
 import { LoginStore } from "./LoginStore";
 import { EApiRoutes, TApiResponse } from "@services/transport";
+import { Button } from "@components/button";
 
 @autobind
 export class Login extends Component {
@@ -70,12 +71,11 @@ export class Login extends Component {
                         </label>
                     </div>
                     <div className="form-footer">
-                        <button
-                            className="btn btn-primary btn-block"
+                        <Button
                             onClick={() => api.handleSubmit()}
-                        >
-                            Sign in
-                        </button>
+                            type="primary"
+                            text="Sign in"
+                        />
                     </div>
                 </div>
             </div>

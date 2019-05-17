@@ -89,7 +89,6 @@ export class ResidenceProfile extends Component<RouteProps> {
     private getActionElement() {
         return (
             <Button
-                className="btn btn-block"
                 type="primary"
                 onClick={() => void 0}
                 text="Add charger"

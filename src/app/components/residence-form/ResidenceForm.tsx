@@ -87,13 +87,13 @@ export class ResidenceForm extends Component<IResidenceForm> {
                             />
                             <div className="residence-info__buttons clearfix">
                                 <Button
-                                    className={`btn btn-block float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
+                                    className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
                                     type="secondary"
                                     onClick={() => redirectToResidenceList()}
                                     text={"Cancel"}
                                 />
                                 <Button
-                                    className="btn btn-block float-right"
+                                    className="float-right"
                                     type="primary"
                                     disabled={!this.props.submitting}
                                     onClick={() => this.props.api.handleSubmit()}

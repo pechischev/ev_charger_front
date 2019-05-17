@@ -21,7 +21,6 @@ export class Residences extends Component {
     private getActionElement(): ReactNode {
         return (
             <Button
-                className="btn btn-block"
                 onClick={() => redirectToResidenceCreateForm()}
                 type="primary"
                 text="Add residence"

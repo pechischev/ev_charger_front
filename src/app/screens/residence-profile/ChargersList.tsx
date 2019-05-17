@@ -25,7 +25,6 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
                 id: "", label: "", size: "120px", handler: (item: IChargersListItem) => {
                     return (
                         <Button
-                            className="btn btn-block"
                             type="delete"
                             onClick={() => this.deleteCharges(item.id)}
                             text="Delete"

@@ -1,4 +1,5 @@
 @import "~styles/utils/mixins.scss";
+@import "~styles/utils/variables.scss";
 
 .customer-info {
     &_main {
@@ -17,7 +18,7 @@
             &__initial {
                 display: flex;
                 margin: auto;
-                color: #ffffff;
+                color: $color-font-secondary;
                 font-size: 32px;
                 font-weight: 600;
 

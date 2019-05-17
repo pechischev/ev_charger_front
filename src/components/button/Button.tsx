@@ -9,6 +9,7 @@ export const Button: FC<IButtonProps> = observer(({ className = "", text, disabl
     const classes = classNames({
         ["custom-button"]: true,
         [className]: true,
+        ["btn-block"]: true,
         btn: true,
         disabled: disabled
     });

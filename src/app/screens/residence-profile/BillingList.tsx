@@ -30,7 +30,6 @@ export class BillingList extends List<IBillingListItem, IChargersListProps> {
                 id: "", label: "", size: "185px", handler: (item: IBillingListItem) => {
                     return (
                         <Button
-                            className="btn btn-block"
                             type="secondary"
                             onClick={() => this.viewReport(item.id)}
                             text="View Billing Report"

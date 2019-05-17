@@ -56,27 +56,28 @@
     white-space: nowrap;
     background-color: transparent;
     border: 0;
-    color: #3e4b5b;
+    color: $color-font-primary;
+    cursor: pointer;
 
     &:hover, &:focus {
-        color: #fff;
+        color: #ffffff !important;
         text-decoration: none;
         background: rgba(55, 215, 198, 0.7);
     }
 
     &.active, &:active {
-        color: #fff;
+        color: #ffffff !important;
         text-decoration: none;
-        background: #37D7C6;
+        background: $color-primary;
     }
 
     &.disabled, &:disabled {
-        color: #fff;
-        background-color: transparent;
+        color: $color-font-primary;
+        background: $color-inactive;
     }
 
     .badge-primary {
-        background: #37D7C6;
+        background: $color-primary;
     }
 }
 

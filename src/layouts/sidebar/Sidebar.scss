@@ -1,4 +1,5 @@
 @import "~styles/utils/mixins.scss";
+@import "~styles/utils/variables.scss";
 
 @mixin getMenuIcon($type) {
     .side-menu__icon {
@@ -41,14 +42,14 @@
             display: block;
             width: 18px;
             height: 3px;
-            background-color: #3e4b5b;
+            background-color: $color-font-primary;
             transition: background-color 0.25s ease;
             margin: 3px 0;
         }
 
         &:hover {
             > span {
-                background-color: #0061da;
+                background-color: $color-primary;
             }
         }
     }
@@ -82,12 +83,12 @@
         background-color 0.3s ease;
 
         &.active {
-            background: #37D7C6 !important;
-            border-left-color: #37D7C6 !important;
+            background: $color-primary !important;
+            border-left-color: $color-primary !important;
 
             .side-menu {
                 &__label {
-                    color: #ffffff !important;
+                    color: $color-font-secondary !important;
                 }
             }
         }
@@ -98,7 +99,7 @@
 
             .side-menu {
                 &__label {
-                    color: #ffffff !important;
+                    color: $color-font-secondary !important;
                 }
             }
         }
@@ -113,7 +114,7 @@
     }
 
     &__label {
-        color: #3e4b5b;
+        color: $color-font-primary;
         font-weight: 400;
         white-space: nowrap;
         flex: 1 1 auto;
