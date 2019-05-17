@@ -9,6 +9,7 @@ import { AppContext } from "@context";
 import { IListParams } from "@services/transport/params";
 import { ListActions } from "./ListActions";
 import "./List.scss";
+import { isNumber } from "lodash";
 
 @autobind
 export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P> {
@@ -35,11 +36,22 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     componentDidMount() {
+        const {updateList$, step} = this.props;
+        if (updateList$) {
+            updateList$.subscribe(this.getListData);
+        }
         this.store.getListData$.subscribe(this.getListData);
         this.getListData();
+        if (isNumber(step)) {
+            this.store.setLimit(step);
+        }
     }
 
     componentWillUnmount() {
+        const {updateList$} = this.props;
+        if (updateList$) {
+            updateList$.unsubscribe();
+        }
         this.store.getListData$.unsubscribe();
     }
 
@@ -51,6 +63,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
                 totalCount={this.store.getCount()}
                 onClickRow={this.onClickRowImpl}
                 onChangePage={this.onChangePage}
+                rowsPerPage={this.props.step}
             />
         );
     }

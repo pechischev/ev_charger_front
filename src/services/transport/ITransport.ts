@@ -22,4 +22,9 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
 
     createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<TAxiosResponse<EApiRoutes.CREATE_RESIDENCE>>;
     updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>>;
+
+    createCharger(params: TApiParams<EApiRoutes.CREATE_CHARGER>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.CREATE_CHARGER>>;
+    getCharger(residenceId: string, chargerId: string): Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.GET>>;
+    updateCharger(params: TApiParams<EApiRoutes.CHARGER, EApiMethods.PUT>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.PUT>>;
+    removeCharger(residenceId: string, chargerId: string): Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.DELETE>>;
 }

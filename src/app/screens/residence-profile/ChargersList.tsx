@@ -20,9 +20,9 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         return [
             { id: "id", label: "Id" },
             { id: "model", label: "Model" },
-            { id: "", label: "Location" },
+            { id: "location", label: "Location" },
             {
-                id: "", label: "", handler: (item: IChargersListItem) => {
+                id: "action", label: "", handler: (item: IChargersListItem) => {
                     return (
                         <Button
                             className="btn btn-secondary btn-block"

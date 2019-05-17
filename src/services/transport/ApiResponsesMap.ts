@@ -10,7 +10,7 @@ import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
 import { IUserListItem, IWorker } from "@entities/user";
 import { IItem } from "@entities/_common";
-import { IResidence, IResidenceListItem } from "@entities/residence";
+import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -21,6 +21,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.SIGN_IN]: ILoginResponse;
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
     [EApiRoutes.CREATE_USER]: IUserResponse;
+
     [EApiRoutes.USER_DATA]: {
         [EApiMethods.GET]: ICustomerResponse;
         [EApiMethods.PUT]: ICustomerResponse;
@@ -29,6 +30,12 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.RESIDENCE_DATA]: {
         [EApiMethods.GET]: IResidence;
         [EApiMethods.PUT]: IResidence;
+    };
+    [EApiRoutes.CREATE_CHARGER]: ICharger;
+    [EApiRoutes.CHARGER]: {
+        [EApiMethods.GET]: ICharger;
+        [EApiMethods.PUT]: ICharger;
+        [EApiMethods.DELETE]: {};
     };
 }
 

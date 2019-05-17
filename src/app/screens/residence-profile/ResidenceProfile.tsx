@@ -12,6 +12,7 @@ import { FormRenderProps } from "react-final-form";
 import { ResidenceForm } from "@app/components/residence-form";
 import { Button } from "@components/button";
 import { Modal } from "@components/modal";
+import { CreateChargerForm } from "./view";
 
 @observer
 @autobind
@@ -53,9 +54,11 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="EV Chargers"
                             content={
                                 <ChargersList
+                                    step={5}
                                     residenceId={this.store.getResidenceId()}
                                     canSearch={false}
                                     actionElement={actionElement}
+                                    updateList$={this.store.updateChargerList$}
                                 />
                             }
                         />
@@ -64,6 +67,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="Users"
                             content={
                                 <UsersList
+                                    step={5}
                                     residenceId={this.store.getResidenceId()}
                                     canSearch={false}
                                 />
@@ -101,7 +105,13 @@ export class ResidenceProfile extends Component<RouteProps> {
                     />
                 }
                 title={"Add Charger"}
-            />
+            >
+                {(close) => <CreateChargerForm
+                    residenceId={this.store.getResidenceId()}
+                    onClose={close}
+                    onCreate={() => this.store.updateChargerList$.next()}
+                />}
+            </Modal>
         );
     }
 }

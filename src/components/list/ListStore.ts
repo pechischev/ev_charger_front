@@ -30,6 +30,14 @@ export class ListStore<T> extends Store {
         return this.listData;
     }
 
+    setLimit(newLimit: number): void {
+        const { limit } = this.listData;
+        this.setListData({ ...this.listData, limit: newLimit });
+        if (limit !== newLimit) {
+            this._getListData$.next();
+        }
+    }
+
     @action.bound
     setCount(count: number): void {
         this.count = count;
@@ -50,16 +58,16 @@ export class ListStore<T> extends Store {
 
     @action.bound
     setSearch(newSearch?: string): void {
-        const {search} = this.listData;
-        this.setListData({...this.listData, search: newSearch});
+        const { search } = this.listData;
+        this.setListData({ ...this.listData, search: newSearch });
         if (search !== newSearch) {
             this._getListData$.next();
         }
     }
 
     setFilter(newType?: string): void {
-        const {type} = this.listData;
-        this.setListData({...this.listData, type: newType});
+        const { type } = this.listData;
+        this.setListData({ ...this.listData, type: newType });
         if (type !== newType) {
             this._getListData$.next();
         }

@@ -6,6 +6,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { get } from "lodash";
 import { Subject, Unsubscribable, PartialObserver } from "rxjs";
 import { ITransport } from "./ITransport";
+import * as _ from "lodash";
 
 export class Transport<T extends object = object> implements ITransport {
     private static BASE_URL: string;
@@ -151,5 +152,22 @@ export class Transport<T extends object = object> implements ITransport {
 
     async updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>> {
         return this.client.put(`${EApiRoutes.RESIDENCE_DATA.replace("{residenceId}", residenceId)}`, params);
+    }
+
+    async createCharger(params: TApiParams<EApiRoutes.CREATE_CHARGER>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.CREATE_CHARGER>> {
+        return this.client.post(`${EApiRoutes.CREATE_CHARGER.replace("{residenceId}", residenceId)}`, params);
+    }
+
+    async getCharger(residenceId: string, chargerId: string): Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.CHARGER.replace("{residenceId}", residenceId).replace("{chargerId}", chargerId)}`);
+    }
+
+    async updateCharger(params: TApiParams<EApiRoutes.CHARGER, EApiMethods.PUT>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.PUT>> {
+        const {id, ...rest} = params;
+        return this.client.put(`${EApiRoutes.CHARGER.replace("{residenceId}", residenceId).replace("{chargerId}", _.toString(id))}`, rest);
+    }
+
+    async removeCharger(residenceId: string, chargerId: string): Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.DELETE>> {
+        return this.client.delete(`${EApiRoutes.CHARGER.replace("{residenceId}", residenceId).replace("{chargerId}", chargerId)}`);
     }
 }

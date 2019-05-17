@@ -8,9 +8,11 @@ import { IResidence } from "@entities/residence";
 import { IFieldError } from "@app/config/IFieldError";
 import { EResidenceFieldTypes } from "@app/components/residence-form";
 import { Nullable } from "@app/config";
+import { Subject } from "rxjs";
 
 @autobind
 export class ResidenceProfileStore extends Store {
+    readonly updateChargerList$ = new Subject<void>();
     @observable private data: IResidence = _.stubObject();
     private residenceId?: string;
 

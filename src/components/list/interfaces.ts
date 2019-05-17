@@ -1,9 +1,12 @@
 import { ListStore } from "@components/list/ListStore";
 import { ReactNode } from "react";
+import { Subject } from "rxjs";
 
 export interface IList<T> {
+    step?: number;
     canSearch?: boolean;
     actionElement?: ReactNode;
+    updateList$?: Subject<void>;
 }
 
 export interface IFilter {
