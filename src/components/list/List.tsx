@@ -8,12 +8,13 @@ import { EApiRoutes, TAxiosResponse, Transport } from "@services/transport";
 import { AppContext } from "@context";
 import { IListParams } from "@services/transport/params";
 import { ListActions } from "./ListActions";
+import "./List.scss";
 
 @autobind
-export abstract class List<T> extends Component<IList<T>> {
+export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P> {
     protected readonly store = new ListStore();
 
-    constructor(props: IList<T>) {
+    constructor(props: P) {
         super(props);
         this.store.transport = new Transport(AppContext.getUserStore().getAdminTokens());
     }

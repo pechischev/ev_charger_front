@@ -4,8 +4,8 @@ import {
     ICustomerResponse,
     IListResponse,
     ILoginResponse,
-    IUserResponse,
     IResidenceResponse,
+    IUserResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
@@ -26,7 +26,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.PUT]: ICustomerResponse;
     };
     [EApiRoutes.GET_RESIDENCES_LIST]: IListResponse<IResidenceResponse>;
-    [EApiRoutes.GET_RESIDENCE_DATA]: {
+    [EApiRoutes.RESIDENCE_DATA]: {
         [EApiMethods.GET]: IResidenceResponse;
     };
 }

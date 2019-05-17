@@ -1,0 +1,17 @@
+.list-actions {
+    margin-bottom: 10px;
+
+    &__add-button {
+        width: 150px;
+        margin-right: 30px;
+    }
+
+    &__search {
+        width: 300px;
+        height: 38px;
+
+        .form-label {
+            display: none;
+        }
+    }
+}

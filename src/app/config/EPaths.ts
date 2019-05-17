@@ -9,7 +9,7 @@ export enum EPaths {
     COMPANIES = "companies",
 
     RESIDENCE_LIST = "residences",
-    RESIDENCE_PROFILE = "residences/profile",
+    RESIDENCE_PROFILE = "residences/view",
     RESIDENCE_CREATE_FORM = "residences/create",
 
     USER_LIST = "users",

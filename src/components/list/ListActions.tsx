@@ -17,7 +17,7 @@ type TSearchType = Pick<IListParams, "search">;
 export class ListActions<T> extends Component<IListActions<T>> {
     render(): React.ReactNode {
         return (
-            <div className="users-actions clearfix">
+            <div className="list-actions clearfix">
                 {this.renderFilters()}
                 {this.renderSearchField()}
                 {this.renderActionElement()}
@@ -31,7 +31,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
             return void 0;
         }
         return (
-            <div className="users-actions__add-button float-right">
+            <div className="list-actions__add-button float-right">
                 {actionElement}
             </div>
         );
@@ -43,7 +43,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
             return void 0;
         }
         return (
-            <div className="users-actions__search float-right">
+            <div className="list-actions__search float-right">
                 <CustomForm
                     submit={this.onSearch}
                     render={(api, submitting) => {

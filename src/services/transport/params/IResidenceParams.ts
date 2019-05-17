@@ -3,6 +3,7 @@ export interface IResidenceParams {
     stateId: number;
     city: string;
     address: string;
+    extraAddress: string;
     zipCode: string;
 
     operatorId: number;

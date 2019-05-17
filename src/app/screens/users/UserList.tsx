@@ -15,10 +15,10 @@ export class UserList extends List<IUserListItem> {
 
     protected getFilterItems(): IFilter[] {
         return [
-            {text: "All", value: void 0},
-            {text: "Active", value: EStatus.ACTIVE},
-            {text: "Inactive", value: EStatus.INACTIVE},
-        ]
+            { text: "All", value: void 0 },
+            { text: "Active", value: EStatus.ACTIVE },
+            { text: "Inactive", value: EStatus.INACTIVE },
+        ];
     }
 
     protected getColumns(): IColumn[] {
