@@ -21,7 +21,7 @@ export class Users extends Component {
     private getActionElement(): ReactNode {
         return (
             <Button
-                className="btn-secondary btn-block"
+                type="primary"
                 onClick={redirectOnAddUserForm}
                 text={"Add user"}
             />

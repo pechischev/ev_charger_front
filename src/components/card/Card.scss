@@ -2,7 +2,7 @@
 
 .page-card {
     border-radius: 7px;
-    background-color: #ffffff;
+    background-color: $background-main-color;
 
     &-header {
         min-height: 55px;
@@ -12,7 +12,7 @@
         &__title {
             font-size: 18px;
             font-weight: 600;
-            color: #3e4b5b;
+            color: $color-font-primary;
         }
 
         &[data-hidden=true] {

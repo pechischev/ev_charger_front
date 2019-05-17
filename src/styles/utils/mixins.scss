@@ -116,7 +116,7 @@
 
     border-radius: 50%;
     background: url($img) center center no-repeat;
-    background-color: #ffffff;
+    background-color: $background-main-color;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 

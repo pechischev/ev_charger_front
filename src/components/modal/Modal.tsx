@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as React from "react";
 import { Component, MouseEvent, ReactNode, Fragment } from "react";
 import Popup from "reactjs-popup";
 import "./Modal.scss";
@@ -45,14 +46,17 @@ export class Modal extends Component<IModalProps> {
         return (
             <Fragment>
                 <div className="modal-body">
-                    {children}
+                    { children }
                 </div>
                 <div className="modal-footer">
-                    <Button className="btn-secondary" onClick={close} text={"Close"}/>
-                    {action && <Button className="btn-primary" onClick={action} text={"Submit"}/>}
+                    <Button
+                        type="secondary"
+                        onClick={ close }
+                        text={ "Close" }
+                    />
+                    {action && <Button type="primary" onClick={ action } text="Submit"/> }
                 </div>
             </Fragment>
-        );
+        ) ;
     }
 }
-

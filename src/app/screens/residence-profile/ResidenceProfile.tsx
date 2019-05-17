@@ -100,8 +100,9 @@ export class ResidenceProfile extends Component<RouteProps> {
             <Modal
                 trigger={
                     <Button
-                        className="btn-secondary btn-block"
-                        text={"Add charger"}
+                        type="primary"
+                        onClick={() => void 0}
+                        text="Add charger"
                     />
                 }
                 title={"Add Charger"}

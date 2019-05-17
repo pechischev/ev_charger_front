@@ -85,20 +85,24 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 placeholder={"Enter service fee"}
                                 label={"Service Fee"}
                             />
-                            <Button
-                                className={`btn-secondary float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
-                                onClick={() => redirectToResidenceList()}
-                                text={"Cancel"}
-                            />
-                            <Button
-                                className="btn-primary clearfix"
-                                disabled={!this.props.submitting}
-                                onClick={() => this.props.api.handleSubmit()}
-                                text={"Save"}
-                                style={{
-                                    marginRight: 10
-                                }}
-                            />
+                            <div className="residence-info__buttons clearfix">
+                                <Button
+                                    className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
+                                    type="secondary"
+                                    onClick={() => redirectToResidenceList()}
+                                    text={"Cancel"}
+                                />
+                                <Button
+                                    className="float-right"
+                                    type="primary"
+                                    disabled={!this.props.submitting}
+                                    onClick={() => this.props.api.handleSubmit()}
+                                    text={"Save"}
+                                    style={{
+                                        marginRight: 10
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                 </Fragment>

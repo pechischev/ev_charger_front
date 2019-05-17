@@ -1,2 +1,67 @@
 @import "~styles/utils/variables.scss";
 
+.custom-button {
+    margin-top: 0 !important;
+    height: 38px;
+
+    &:focus {
+        outline: 0 !important;
+    }
+
+    &[data-type="primary"] {
+        background-color: $color-primary;
+        border-color: #38b9a8;
+        color: $color-font-secondary;
+
+        &:hover {
+            box-shadow: 0 8px 24px 0 rgba(55, 215, 198, 0.5);
+        }
+
+        &:active {
+            box-shadow: none;
+            background-color: #38c3b2 !important;
+            border-color: #35a594 !important;
+        }
+    }
+
+    &[data-type="secondary"] {
+        background-color: $color-secondary;
+        border-color: #91a2b9;
+        color: $color-font-secondary;
+
+        &:hover {
+            box-shadow: 0 8px 24px 0 rgba(175, 192, 215, 0.5);
+        }
+
+        &:active {
+            box-shadow: none;
+            background-color: #9cacc3;
+            border-color: #7c8ea5;
+        }
+    }
+
+    &[data-type="delete"] {
+        background-color: $color-delete;
+        border-color: #cd5d6a;
+        color: $color-font-secondary;
+
+        &:hover {
+            box-shadow: 0 8px 24px 0 rgba(237, 94, 104, 0.5);
+        }
+
+        &:active {
+            box-shadow: none;
+            background-color: #d75c66;
+            border-color: #b95e5e;
+        }
+    }
+
+    &.disabled, &[data-type="inactive"] {
+        background-color: #e1e1e1;
+        border-color: #c3c3c3;
+        color: #878787;
+        pointer-events: none;
+        cursor: default;
+        opacity: 1;
+    }
+}

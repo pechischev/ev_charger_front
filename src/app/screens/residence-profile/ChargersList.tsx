@@ -22,12 +22,12 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
             { id: "model", label: "Model" },
             { id: "location", label: "Location" },
             {
-                id: "action", label: "", handler: (item: IChargersListItem) => {
+                id: "action", label: "", size: "120px", handler: (item: IChargersListItem) => {
                     return (
                         <Button
-                            className="btn btn-secondary btn-block"
+                            type="delete"
                             onClick={() => this.deleteCharges(item.id)}
-                            text={"Delete"}
+                            text="Delete"
                         />
                     );
                 },
