@@ -67,12 +67,8 @@ export class UserForm extends Component<IUserForm> {
                     name={ EUserFieldTypes.LAST_NAME }
                     placeholder={ "Enter last name" }
                 />
-                <EmailField
-                    name={ EUserFieldTypes.EMAIL }
-                />
-                <PhoneField
-                    name={ EUserFieldTypes.PHONE }
-                />
+                <EmailField name={ EUserFieldTypes.EMAIL } />
+                <PhoneField name={ EUserFieldTypes.PHONE } />
                 <SelectField
                     label={ "Residence" }
                     name={ EUserFieldTypes.RESIDENCE }

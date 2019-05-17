@@ -53,13 +53,8 @@ export class Login extends Component {
             <div className="card">
                 <div className="card-body p-6">
                     <div className="card-title text-center">Login to Loop EVChargers CMS</div>
-                    <EmailField
-                        name={"email"}
-                    />
-                    <PasswordField
-                        label={"Password"}
-                        name={"password"}
-                    />
+                    <EmailField name={"email"}/>
+                    <PasswordField label={"Password"} name={"password"}/>
                     <div className="form-footer">
                         <Button
                             disabled={!submitting}

@@ -11,7 +11,7 @@ export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
         if (!value) {
             return EMessages.EMPTY;
         }
-        if (value.length !== 8) {
+        if (value.length > 8) {
             return EMessages.LICENCE_PLATE_INCORRECT;
         }
         return "";
