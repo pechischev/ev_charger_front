@@ -1,24 +1,13 @@
 import { Store } from "@components/store";
 import { IFieldError } from "@app/config/IFieldError";
-import { EResidenceFieldTypes } from "./constants";
 import { autobind } from "core-decorators";
 import { EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
-import { action, observable } from "mobx";
-import { IItem } from "@entities/_common";
-import { get, toNumber } from "lodash";
+import { toNumber } from "lodash";
 import { redirectToResidenceList } from "@utils/history";
+import { EResidenceFieldTypes } from "@app/components/residence-form";
 
 @autobind
 export class AddResidenceStore extends Store {
-    @observable private _operators: IItem[] = [];
-
-    get operators(): IItem[] {
-        return this._operators;
-    }
-
-    getOperators(): void {
-        this.call(this.transport.getOperators(), this.onGetOperators, this.onError)
-    }
 
     validateData(): IFieldError[] {
         return [
@@ -33,19 +22,12 @@ export class AddResidenceStore extends Store {
     }
 
     async createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<void> {
-        const {stateId, operatorId, ...rest} = params;
+        const { stateId, operatorId, ...rest } = params;
         return this.asyncCall(this.transport.createResidence({
             ...rest,
             stateId: toNumber(stateId),
             operatorId: toNumber(operatorId),
         }), this.onError).then(this.onCreateResidence);
-    }
-
-    @action.bound
-    private onGetOperators(response: TAxiosResponse<EApiRoutes.OPERATORS>): void {
-        console.info("[AddResidenceStore.onGetOperators]", response);
-        const operators = get<TAxiosResponse<EApiRoutes.OPERATORS>, "data">(response, "data");
-        this._operators = operators.map(({id, firstName, lastName}) => ({id, title: `${firstName} ${lastName}`}));
     }
 
     private onCreateResidence(response: TAxiosResponse<EApiRoutes.CREATE_RESIDENCE>): void {

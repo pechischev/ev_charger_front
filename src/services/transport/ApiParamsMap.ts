@@ -19,6 +19,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.CREATE_USER]: IUserParams;
     [EApiRoutes.USER_DATA]: IUserParams;
     [EApiRoutes.CREATE_RESIDENCE]: IResidenceParams;
+    [EApiRoutes.RESIDENCE_DATA]: IResidenceParams;
 }
 
 // @ts-ignore:2344

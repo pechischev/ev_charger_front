@@ -8,6 +8,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { IResidenceListItem } from "@entities/residence";
+import { redirectOnResidenceProfile } from "@utils/history";
 
 @observer
 @autobind
@@ -39,17 +40,21 @@ export class ResidencesList extends List<IResidenceListItem> {
         ];
     }
 
+    protected onClickRow(item: IResidenceListItem): void {
+        redirectOnResidenceProfile(item.id);
+    }
+
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES_LIST>> {
         return this.store.transport.getResidencesList(params);
     }
 
     private getFullAddress(item: IResidenceListItem): string {
-        const {address = "", city = "", state, zipCode = ""} = item;
+        const {address, city, state, zipCode} = item;
         return `${state.title} ${city} ${address} ${zipCode}`.trim();
     }
 
     private getOperatorName(item: IResidenceListItem): string {
-        const {firstName = "", lastName = ""} = item.operator.user;
+        const {firstName, lastName} = item.operator.user;
         return `${firstName} ${lastName}`.trim();
     }
 }

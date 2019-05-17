@@ -4,6 +4,7 @@ import { FC } from "react";
 import { Field, FieldProps } from "react-final-form";
 import { IItem } from "@entities/_common";
 import { isObject } from "lodash";
+import "./Field.scss";
 
 interface ISelectField extends IField<HTMLSelectElement> {
     options: IItem[];

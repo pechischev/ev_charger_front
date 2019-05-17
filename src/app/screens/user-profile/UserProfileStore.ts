@@ -44,7 +44,7 @@ export class UserProfileStore extends Store {
     }
 
     private onSuccessGetData(response: TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.GET>): void {
-        console.info("[CustomerProfileStore.onSuccessGetData]: ", response);
+        console.info("[UserProfileStore.onSuccessGetData]: ", response);
         const data = _.get<TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.GET>, "data">(response, "data");
         this.setData(data);
     }

@@ -141,7 +141,19 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.post(EApiRoutes.CREATE_RESIDENCE, params);
     }
 
-    async getResidenceData(residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_DATA, EApiMethods.GET>> {
-        return this.client.get(`${EApiRoutes.GET_RESIDENCE_DATA.replace("{residenceId}", residenceId)}`);
+    async getResidenceData(residenceId: string): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.RESIDENCE_DATA.replace("{residenceId}", residenceId)}`);
+    }
+
+    async getResidenceChargesData(params: TApiParams<EApiRoutes.RESIDENCE_CHARGES>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.RESIDENCE_CHARGES.replace("{residenceId}", residenceId)}`, {params});
+    }
+
+    async getResidenceUsersData(params: TApiParams<EApiRoutes.GET_RESIDENCE_USERS>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_USERS, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.GET_RESIDENCE_USERS.replace("{residenceId}", residenceId)}`, {params});
+    }
+
+    async updateResidenceData(params: TApiParams<EApiRoutes.RESIDENCE_DATA>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>> {
+        return this.client.put(`${EApiRoutes.RESIDENCE_DATA.replace("{residenceId}", residenceId)}`, params);
     }
 }
