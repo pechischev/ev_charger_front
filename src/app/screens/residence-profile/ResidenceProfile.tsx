@@ -65,10 +65,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                             className="residence-card float-right"
                             title="Users"
                             content={
-                                <UsersList
-                                    residenceId={this.store.getResidenceId()}
-                                    canSearch={false}
-                                />
+                                <UsersList residenceId={this.store.getResidenceId()} canSearch={false}/>
                             }
                         />
                     </div>
@@ -76,10 +73,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                         className="residence-card"
                         title="Billing History"
                         content={
-                            <BillingList
-                                residenceId={this.store.getResidenceId()}
-                                canSearch={false}
-                            />
+                            <BillingList residenceId={this.store.getResidenceId()} canSearch={false}/>
                         }
                     />
                 </div>
@@ -96,13 +90,7 @@ export class ResidenceProfile extends Component<RouteProps> {
     private getActionElement() {
         return (
             <Modal
-                trigger={
-                    <Button
-                        type="primary"
-                        onClick={() => void 0}
-                        text="Add charger"
-                    />
-                }
+                trigger={ <Button type="primary" onClick={() => void 0} text="Add charger"/> }
                 title={"Add Charger"}
             />
         );

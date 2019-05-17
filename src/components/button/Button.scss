@@ -3,10 +3,7 @@
 .custom-button {
     margin-top: 0 !important;
     height: 38px;
-
-    &:focus {
-        outline: 0 !important;
-    }
+    outline: 0 !important;
 
     &[data-type="primary"] {
         background-color: $color-primary;
@@ -63,5 +60,6 @@
         pointer-events: none;
         cursor: default;
         opacity: 1;
+        box-shadow: none !important;
     }
 }
