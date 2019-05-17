@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { InputField } from "@components/fields";
+import { InputField, PasswordField, EmailField } from "@components/fields";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import "./ProfileTab.scss";
@@ -112,10 +112,8 @@ export class ProfileTab extends Component<IProfileProps> {
                     name={EFieldTypes.LAST_NAME}
                     placeholder={"Enter email"}
                 />
-                <InputField
-                    label={"Email address"}
+                <EmailField
                     name={EFieldTypes.EMAIL}
-                    placeholder={"Enter email"}
                 />
                 <InputField
                     label={"Phone number"}
@@ -127,17 +125,13 @@ export class ProfileTab extends Component<IProfileProps> {
                     name={EFieldTypes.RESIDENCE}
                     placeholder={"Enter residence"}
                 />
-                <InputField
+                <PasswordField
                     label={"New password"}
                     name={EFieldTypes.NEW_PASSWORD}
-                    type={"password"}
-                    placeholder={"Enter new password"}
                 />
-                <InputField
+                <PasswordField
                     label={"Confirm Password"}
                     name={EFieldTypes.CONFIRM_PASSWORD}
-                    type={"password"}
-                    placeholder={"Enter confirm password"}
                 />
             </>
         );
