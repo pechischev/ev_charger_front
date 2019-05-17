@@ -64,12 +64,6 @@ export class Login extends Component {
                         placeholder={"Password"}
                         type={"password"}
                     />
-                    <div className="form-group">
-                        <label className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input"/>
-                            <span className="custom-control-label">Remember me</span>
-                        </label>
-                    </div>
                     <div className="form-footer">
                         <Button
                             onClick={() => api.handleSubmit()}

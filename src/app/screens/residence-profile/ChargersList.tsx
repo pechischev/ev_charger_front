@@ -18,9 +18,9 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
 
     protected getColumns(): IColumn[] {
         return [
-            {id: "id", label: "Id"},
-            {id: "model", label: "Model"},
-            {id: "", label: "Location"},
+            { id: "id", label: "Id" },
+            { id: "model", label: "Model" },
+            { id: "", label: "Location" },
             {
                 id: "", label: "", size: "120px", handler: (item: IChargersListItem) => {
                     return (
@@ -30,15 +30,15 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
                             text="Delete"
                         />
                     );
-                }
-            }
+                },
+            },
         ];
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
-        const {residenceId} = this.props;
+        const { residenceId } = this.props;
         if (!residenceId) {
-            return new Promise((resolve) => resolve())
+            return new Promise((resolve) => resolve());
         }
         return this.store.transport.getResidenceChargesData(params, residenceId);
     }

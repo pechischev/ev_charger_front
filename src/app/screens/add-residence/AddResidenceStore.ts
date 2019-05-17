@@ -11,18 +11,18 @@ export class AddResidenceStore extends Store {
 
     validateData(): IFieldError[] {
         return [
-            {type: EResidenceFieldTypes.TITLE, codes: []},
-            {type: EResidenceFieldTypes.STATE, codes: []},
-            {type: EResidenceFieldTypes.CITY, codes: []},
-            {type: EResidenceFieldTypes.ADDRESS, codes: []},
-            {type: EResidenceFieldTypes.ZIP_CODE, codes: []},
-            {type: EResidenceFieldTypes.OPERATOR, codes: []},
-            {type: EResidenceFieldTypes.BILLING_RATE, codes: []},
+            { type: EResidenceFieldTypes.TITLE, codes: [] },
+            { type: EResidenceFieldTypes.STATE, codes: [] },
+            { type: EResidenceFieldTypes.CITY, codes: [] },
+            { type: EResidenceFieldTypes.ADDRESS, codes: [] },
+            { type: EResidenceFieldTypes.ZIP_CODE, codes: [] },
+            { type: EResidenceFieldTypes.OPERATOR, codes: [] },
+            { type: EResidenceFieldTypes.BILLING_RATE, codes: [] },
         ];
     }
 
     async createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<void> {
-        const {stateId, operatorId, ...rest} = params;
+        const { stateId, operatorId, ...rest } = params;
         return this.asyncCall(this.transport.createResidence({
             ...rest,
             stateId: toNumber(stateId),

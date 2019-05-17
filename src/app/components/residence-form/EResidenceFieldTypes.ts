@@ -1,8 +1,7 @@
 export enum EResidenceFieldTypes {
     TITLE = "title",
     ADDRESS = "address",
-    FIRST_ADDRESS = "firstAddress",
-    SECOND_ADDRESS = "secondAddress",
+    EXTRA_ADDRESS = "extraAddress",
     CITY = "city",
     STATE = "stateId",
     ZIP_CODE = "zipCode",

@@ -38,29 +38,33 @@ export class ResidenceProfileStore extends Store {
 
     validateData(): IFieldError[] {
         return [
-            {type: EResidenceFieldTypes.TITLE, codes: [] },
-            {type: EResidenceFieldTypes.STATE, codes: [] },
-            {type: EResidenceFieldTypes.CITY, codes: []},
-            {type: EResidenceFieldTypes.ADDRESS, codes: []},
-            {type: EResidenceFieldTypes.SECOND_ADDRESS, codes: []},
-            {type: EResidenceFieldTypes.ZIP_CODE, codes: []},
-            {type: EResidenceFieldTypes.OPERATOR, codes: []},
-            {type: EResidenceFieldTypes.BILLING_RATE, codes: []},
+            { type: EResidenceFieldTypes.TITLE, codes: [] },
+            { type: EResidenceFieldTypes.STATE, codes: [] },
+            { type: EResidenceFieldTypes.CITY, codes: [] },
+            { type: EResidenceFieldTypes.ADDRESS, codes: [] },
+            { type: EResidenceFieldTypes.EXTRA_ADDRESS, codes: [] },
+            { type: EResidenceFieldTypes.ZIP_CODE, codes: [] },
+            { type: EResidenceFieldTypes.OPERATOR, codes: [] },
+            { type: EResidenceFieldTypes.BILLING_RATE, codes: [] },
         ];
     }
 
-    async updateResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<void> {
-        const {stateId, operatorId, ...rest} = params;
+    async updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>): Promise<void> {
+        const { stateId, operatorId, ...rest } = params;
         return this.asyncCall(this.transport.updateResidenceData({
             ...rest,
             stateId: toNumber(stateId),
             operatorId: toNumber(operatorId),
-        }, this.residenceId as string), this.onError).then(() => {});
+        }, this.residenceId as string), this.onError).then(this.onUpdateResidence);
     }
 
     private onSuccessGetData(response: TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.GET>): void {
         console.info("[ResidenceProfileStore.onSuccessGetData]: ", response);
         const data = _.get<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.GET>, "data">(response, "data");
         this.setData(data);
+    }
+
+    private onUpdateResidence(response: TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>): void {
+        console.info("[ResidenceProfileStore.onUpdateResidence]: ", response);
     }
 }

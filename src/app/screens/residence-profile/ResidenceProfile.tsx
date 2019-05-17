@@ -13,6 +13,7 @@ import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { ResidenceForm } from "@app/components/residence-form";
 import { Button } from "@components/button";
+import { Modal } from "@components/modal";
 
 @observer
 @autobind
@@ -24,7 +25,7 @@ export class ResidenceProfile extends Component<RouteProps> {
         this.store.transport = new Transport(AppContext.getUserStore().getAdminTokens());
 
         if (this.props.location) {
-            const {id} = qs.parse(this.props.location.search);
+            const { id } = qs.parse(this.props.location.search);
             this.store.getResidenceData(id as string);
             this.store.setResidenceId(id as string);
         }
@@ -49,31 +50,37 @@ export class ResidenceProfile extends Component<RouteProps> {
                           }
                     />
                     <div className="residence-card_in-row-two clearfix">
-                        <Card className="residence-card float-left" title="EV Chargers"
-                              content={
-                                  <ChargersList
-                                      residenceId={this.store.getResidenceId()}
-                                      canSearch={false}
-                                      actionElement={actionElement}
-                                  />
-                              }
+                        <Card
+                            className="residence-card float-left"
+                            title="EV Chargers"
+                            content={
+                                <ChargersList
+                                    residenceId={this.store.getResidenceId()}
+                                    canSearch={false}
+                                    actionElement={actionElement}
+                                />
+                            }
                         />
-                        <Card className="residence-card float-right" title="Users"
-                              content={
-                                  <UsersList
-                                      residenceId={this.store.getResidenceId()}
-                                      canSearch={false}
-                                  />
-                              }
+                        <Card
+                            className="residence-card float-right"
+                            title="Users"
+                            content={
+                                <UsersList
+                                    residenceId={this.store.getResidenceId()}
+                                    canSearch={false}
+                                />
+                            }
                         />
                     </div>
-                    <Card className="residence-card" title="Billing History"
-                          content={
-                              <BillingList
-                                  residenceId={this.store.getResidenceId()}
-                                  canSearch={false}
-                              />
-                          }
+                    <Card
+                        className="residence-card"
+                        title="Billing History"
+                        content={
+                            <BillingList
+                                residenceId={this.store.getResidenceId()}
+                                canSearch={false}
+                            />
+                        }
                     />
                 </div>
             </div>
@@ -88,10 +95,15 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     private getActionElement() {
         return (
-            <Button
-                type="primary"
-                onClick={() => void 0}
-                text="Add charger"
+            <Modal
+                trigger={
+                    <Button
+                        type="primary"
+                        onClick={() => void 0}
+                        text="Add charger"
+                    />
+                }
+                title={"Add Charger"}
             />
         );
     }
