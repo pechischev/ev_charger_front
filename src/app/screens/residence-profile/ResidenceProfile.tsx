@@ -3,8 +3,6 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { observer } from "mobx-react";
 import "./ResidenceProfile.scss";
-import { Transport } from "@services/transport";
-import { AppContext } from "@context";
 import { RouteProps } from "react-router";
 import * as qs from "query-string";
 import { autobind } from "core-decorators";
@@ -22,11 +20,11 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     constructor(props: RouteProps) {
         super(props);
-        this.store.transport = new Transport(AppContext.getUserStore().getAdminTokens());
+        this.store.init();
 
         if (this.props.location) {
             const { id } = qs.parse(this.props.location.search);
-            this.store.getResidenceData(id as string);
+            this.store.getResidence(id as string);
             this.store.setResidenceId(id as string);
         }
     }
@@ -42,7 +40,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                               <CustomForm
                                   keepDirtyOnReinitialize={false}
                                   validateData={this.store.validateData}
-                                  data={this.store.getData() as any}
+                                  data={this.store.transformResidenceData(this.store.getData())}
                                   error$={this.store.error$}
                                   submit={this.store.updateResidence}
                                   render={(api, submitting) => this.getSettingsForm(api, submitting)}

@@ -4,13 +4,13 @@ import {
     ICustomerResponse,
     IListResponse,
     ILoginResponse,
-    IResidenceResponse,
     IUserResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
 import { IUserListItem, IWorker } from "@entities/user";
 import { IItem } from "@entities/_common";
+import { IResidence, IResidenceListItem } from "@entities/residence";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -25,9 +25,10 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.GET]: ICustomerResponse;
         [EApiMethods.PUT]: ICustomerResponse;
     };
-    [EApiRoutes.GET_RESIDENCES_LIST]: IListResponse<IResidenceResponse>;
+    [EApiRoutes.GET_RESIDENCES_LIST]: IListResponse<IResidenceListItem>;
     [EApiRoutes.RESIDENCE_DATA]: {
-        [EApiMethods.GET]: IResidenceResponse;
+        [EApiMethods.GET]: IResidence;
+        [EApiMethods.PUT]: IResidence;
     };
 }
 

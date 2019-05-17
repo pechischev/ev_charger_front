@@ -21,4 +21,5 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     updateUser(params: TApiParams<EApiRoutes.USER_DATA>, userId: string): Promise<TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.PUT>>;
 
     createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<TAxiosResponse<EApiRoutes.CREATE_RESIDENCE>>;
+    updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>>;
 }
