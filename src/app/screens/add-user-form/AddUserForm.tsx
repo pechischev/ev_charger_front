@@ -1,7 +1,7 @@
-import { Component, ReactNode, Fragment } from "react";
 import * as React from "react";
+import { Component, Fragment, ReactNode } from "react";
 import { Card } from "@components/card";
-import { InputField } from "@components/fields";
+import { PasswordField } from "@components/fields";
 import { FormRenderProps } from "react-final-form";
 import { redirectToUsersList } from "@utils/history";
 import { CustomForm } from "@components/custom-form";
@@ -31,11 +31,11 @@ export class AddUserForm extends Component<{}> {
                         content={
                             <div className="tab-container-profile">
                                 <CustomForm
-                                    keepDirtyOnReinitialize={false}
-                                    validateData={this.store.validateData}
-                                    error$={this.store.error$}
-                                    submit={this.store.createUser}
-                                    render={(api, submitting) => this.renderUserForm(api, submitting)}
+                                    keepDirtyOnReinitialize={ false }
+                                    validateData={ this.store.validateData }
+                                    error$={ this.store.error$ }
+                                    submit={ this.store.createUser }
+                                    render={ (api, submitting) => this.renderUserForm(api, submitting) }
                                 />
                             </div>
                         }
@@ -49,32 +49,31 @@ export class AddUserForm extends Component<{}> {
         return (
             <Fragment>
                 <UserForm passwordFields={
-                    <InputField
-                        label={"Password"}
-                        name={EUserFieldTypes.PASSWORD}
-                        type={"password"}
-                        placeholder={"Enter password"}
+                    <PasswordField
+                        label={ "Password" }
+                        name={ EUserFieldTypes.PASSWORD }
                     />
                 }/>
                 <div className="profile-form-button clearfix">
                     <Button
                         className="float-right"
                         type="secondary"
-                        onClick={() => redirectToUsersList()}
-                        text={"Cancel"}
+                        onClick={ () => redirectToUsersList() }
+                        text={ "Cancel" }
                     />
                     <Button
                         className="float-right"
                         type="primary"
-                        disabled={!submitting}
-                        onClick={() => api.handleSubmit()}
-                        text={"Save"}
-                        style={{
+                        disabled={ !submitting }
+                        onClick={ () => api.handleSubmit() }
+                        text={ "Save" }
+                        style={ {
                             marginRight: 10
-                        }}
+                        } }
                     />
                 </div>
             </Fragment>
         );
     }
 }
+
