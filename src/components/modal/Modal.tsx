@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, MouseEvent, ReactNode, Fragment } from "react";
+import { Component, Fragment, MouseEvent, ReactNode } from "react";
 import Popup from "reactjs-popup";
 import "./Modal.scss";
 import { Button } from "@components/button";
@@ -11,11 +11,14 @@ interface IModalProps {
     open?: boolean;
     title: string;
     children?: JSX.Element | ((close: () => void, isOpen?: boolean) => JSX.Element);
+    actionOptions?: {
+        title?: string;
+        type?: string;
+    };
 
     action?(event: MouseEvent<HTMLElement>): void;
+
     onClose?(): void;
-
-
 }
 
 @autobind
@@ -47,24 +50,32 @@ export class Modal extends Component<IModalProps> {
     }
 
     private renderContent(close: () => void, isOpen?: boolean): ReactNode {
-        const { action, children } = this.props;
+        const { action, children, actionOptions = {} } = this.props;
         return (
             <Fragment>
-                <div className="modal-body" style={{display: !!children ? "" : "none"}}>
-                    { children }
+                <div className="modal-body" style={{ display: !!children ? "" : "none" }}>
+                    {children}
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footer clearfix">
+                    {
+                        action &&
+                        <Button
+                            type={actionOptions.type || "primary"}
+                            text={actionOptions.title || "Submit"}
+                            onClick={(event) => {
+                                action(event);
+                                close();
+                            }}
+                        />
+                    }
                     <Button
+                        className="float-right"
                         type="secondary"
-                        onClick={ close }
-                        text={ "Close" }
+                        onClick={close}
+                        text={"Close"}
                     />
-                    {action && <Button type="primary" onClick={ (event) => {
-                        action(event);
-                        close();
-                    } } text="Submit"/> }
                 </div>
             </Fragment>
-        ) ;
+        );
     }
 }

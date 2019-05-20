@@ -6,12 +6,12 @@ import "./ResidenceProfile.scss";
 import { RouteProps } from "react-router";
 import * as qs from "query-string";
 import { autobind } from "core-decorators";
-import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { ResidenceForm } from "@app/components/residence-form";
 import { Button } from "@components/button";
 import { Modal } from "@components/modal";
+import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CreateChargerForm, EditChargerForm } from "./view";
 
 @observer
@@ -36,17 +36,19 @@ export class ResidenceProfile extends Component<RouteProps> {
             <div className="side-app">
                 <div className="page-header">Residence</div>
                 <div className="page-content">
-                    <Card className="residence-card" title="Residence Profile"
-                          content={
-                              <CustomForm
-                                  keepDirtyOnReinitialize={false}
-                                  validateData={this.store.validateData}
-                                  data={this.store.transformResidenceData(this.store.getData())}
-                                  error$={this.store.error$}
-                                  submit={this.store.updateResidence}
-                                  render={(api, submitting) => this.getSettingsForm(api, submitting)}
-                              />
-                          }
+                    <Card
+                        className="residence-card"
+                        title="Residence Profile"
+                        content={
+                            <CustomForm
+                                keepDirtyOnReinitialize={false}
+                                validateData={this.store.validateData}
+                                data={this.store.transformResidenceData(this.store.getData())}
+                                error$={this.store.error$}
+                                submit={this.store.updateResidence}
+                                render={(api, submitting) => this.getSettingsForm(api, submitting)}
+                            />
+                        }
                     />
                     <div className="residence-card_in-row-two clearfix">
                         <Card
@@ -54,7 +56,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="EV Chargers"
                             content={
                                 <ChargersList
-                                    step={5}
+                                    step={ResidenceProfileStore.ROWS_PER_PAGE}
                                     residenceId={this.store.getResidenceId()}
                                     canSearch={false}
                                     actionElement={actionElement}
@@ -69,7 +71,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="Users"
                             content={
                                 <UsersList
-                                    step={5}
+                                    step={ResidenceProfileStore.ROWS_PER_PAGE}
                                     residenceId={this.store.getResidenceId()}
                                     canSearch={false}
                                 />
@@ -79,9 +81,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                     <Card
                         className="residence-card"
                         title="Billing History"
-                        content={
-                            <BillingList residenceId={this.store.getResidenceId()} canSearch={false}/>
-                        }
+                        content={<BillingList residenceId={this.store.getResidenceId()} canSearch={false}/>}
                     />
                 </div>
                 <Modal
@@ -110,20 +110,18 @@ export class ResidenceProfile extends Component<RouteProps> {
     }
 
     private getActionElement() {
-        return (
-            <Modal
-                trigger={
-                    <Button type="primary" text="Add charger"/>
-                }
-                title={"Add Charger"}
-            >
-                {(close) => <CreateChargerForm
-                    residenceId={this.store.getResidenceId()}
-                    onClose={close}
-                    onCreate={() => this.store.updateChargerList$.next()}
-                />}
-            </Modal>
-        );
+        return <Modal
+            trigger={
+                <Button type="primary" text="Add charger"/>
+            }
+            title="Add Charger"
+        >
+            {(close) => <CreateChargerForm
+                residenceId={this.store.getResidenceId()}
+                onClose={close}
+                onCreate={() => this.store.updateChargerList$.next()}
+            />}
+        </Modal>;
     }
 
     private async onViewItem(chargerId: number): Promise<void> {

@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Component, Fragment, ReactNode } from "react";
+import { Component, ReactNode } from "react";
 import { InputField } from "@components/fields";
 import { EChargerFieldTypes } from "./EChargerFieldTypes";
 
 export class ChargerForm extends Component {
     render(): ReactNode {
         return (
-            <Fragment>
+            <div className="charger-form_fields">
                 <InputField
                     name={EChargerFieldTypes.BRAND}
                     label={"Brand"}
@@ -23,7 +23,7 @@ export class ChargerForm extends Component {
                     name={EChargerFieldTypes.LOCATION}
                     label={"Location"}
                 />
-            </Fragment>
+            </div>
         );
     }
 }

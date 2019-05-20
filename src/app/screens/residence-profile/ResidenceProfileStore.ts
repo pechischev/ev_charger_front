@@ -12,6 +12,7 @@ import { Subject } from "rxjs";
 
 @autobind
 export class ResidenceProfileStore extends Store {
+    static readonly ROWS_PER_PAGE = 5;
     readonly updateChargerList$ = new Subject<void>();
     @observable private data: IResidence = _.stubObject();
     @observable private charger: ICharger = _.stubObject();

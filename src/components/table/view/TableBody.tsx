@@ -58,7 +58,6 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
                     ["cell_body"]: true,
                 })}
                 data-position={position}
-                title={value}
             >
                 {!isNil(node) ? node : <span title={value}>{value}</span>}
             </td>

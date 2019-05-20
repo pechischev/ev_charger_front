@@ -5,10 +5,10 @@ import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as React from "react";
+import { Fragment, ReactNode } from "react";
 import { IChargersListItem } from "@entities/residence";
 import { Button } from "@components/button";
 import { Modal } from "@components/modal";
-import { ReactNode, Fragment } from "react";
 import { action, observable } from "mobx";
 
 interface IChargersListProps extends IList<IChargersListItem> {
@@ -31,8 +31,12 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
                 <Modal
                     open={this.isOpenModal}
                     onClose={this.closeModal}
-                    title={"Are sure you want to delete this charger?"}
+                    title={"Are you sure want to delete this charger?"}
                     action={this.deleteCharges}
+                    actionOptions={{
+                        title: "Delete",
+                        type: "delete",
+                    }}
                 />
             </Fragment>
         );
@@ -40,9 +44,9 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
 
     protected getColumns(): IColumn[] {
         return [
-            { id: "id", label: "Id" },
-            { id: "model", label: "Model" },
-            { id: "location", label: "Location" },
+            {id: "id", label: "Id"},
+            {id: "model", label: "Model"},
+            {id: "location", label: "Location"},
             {
                 id: "action", label: "", size: "120px",
                 handler: () => <Button type="delete" onClick={this.onDeleteCharges} text="Delete"/>,
@@ -51,7 +55,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
     }
 
     protected onClickRow(item: IChargersListItem): void {
-        const { residenceId } = this.props;
+        const {residenceId} = this.props;
         if (!residenceId) {
             return;
         }
@@ -59,7 +63,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
-        const { residenceId } = this.props;
+        const {residenceId} = this.props;
         if (!residenceId) {
             return new Promise((resolve) => resolve());
         }
