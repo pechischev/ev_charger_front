@@ -7,26 +7,55 @@ import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as React from "react";
 import { IChargersListItem } from "@entities/residence";
 import { Button } from "@components/button";
+import { Modal } from "@components/modal";
+import { ReactNode, Fragment } from "react";
+import { action, observable } from "mobx";
 
 interface IChargersListProps extends IList<IChargersListItem> {
     residenceId?: string;
+
+    onRemoveItem(chargerId: number): Promise<void>;
+
+    onViewItem(chargerId: number): Promise<void>;
 }
 
 @observer
 @autobind
 export class ChargersList extends List<IChargersListItem, IChargersListProps> {
+    @observable private isOpenModal = false;
+
+    render(): ReactNode {
+        return (
+            <Fragment>
+                {this.renderList()}
+                <Modal
+                    open={this.isOpenModal}
+                    onClose={this.closeModal}
+                    title={"Are sure you want to delete this charger?"}
+                    action={this.deleteCharges}
+                />
+            </Fragment>
+        );
+    }
 
     protected getColumns(): IColumn[] {
         return [
             { id: "id", label: "Id" },
             { id: "model", label: "Model" },
-            { id: "", label: "Location" },
+            { id: "location", label: "Location" },
             {
-                id: "", label: "", size: "120px", handler: (item: IChargersListItem) => {
-                    return<Button type="delete" onClick={() => this.deleteCharges(item.id)} text="Delete"/>;
-                },
+                id: "action", label: "", size: "120px",
+                handler: () => <Button type="delete" onClick={this.onDeleteCharges} text="Delete"/>,
             },
         ];
+    }
+
+    protected onClickRow(item: IChargersListItem): void {
+        const { residenceId } = this.props;
+        if (!residenceId) {
+            return;
+        }
+        this.props.onViewItem(item.id);
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
@@ -37,8 +66,27 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         return this.store.transport.getResidenceChargesData(params, residenceId);
     }
 
-    private deleteCharges(id: number) {
-        // remove chareger request
-        // this.updateList
+    private onDeleteCharges(event: React.MouseEvent<HTMLElement>): void {
+        event.preventDefault();
+        this.openModal();
+    }
+
+    private deleteCharges(): void {
+        console.log(this.store.getSelectedItem());
+        const item = this.store.getSelectedItem();
+        if (!item) {
+            return;
+        }
+        this.props.onRemoveItem(item.id).then(this.updateList);
+    }
+
+    @action.bound
+    private closeModal(): void {
+        this.isOpenModal = false;
+    }
+
+    @action.bound
+    private openModal(): void {
+        this.isOpenModal = true;
     }
 }

@@ -42,6 +42,7 @@ export interface ITable<T> {
     columns: IColumn[];
     data: T[];
 
+    rowsPerPage?: number;
     className?: string;
     canSelect?: boolean;
     totalCount?: number;
