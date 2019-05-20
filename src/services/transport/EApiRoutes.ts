@@ -16,6 +16,9 @@ export enum EApiRoutes {
     GET_RESIDENCES_LIST = "/v1.0/cms/residences",
     CREATE_RESIDENCE = "/v1.0/cms/residence",
     RESIDENCE_DATA = "/v1.0/cms/residence/{residenceId}",
-    RESIDENCE_CHARGES = "/v1.0/cms/residence/{residenceId}/chargers",
     GET_RESIDENCE_USERS = "/v1.0/cms/residence/{residenceId}/users",
+
+    RESIDENCE_CHARGES = "/v1.0/cms/residence/{residenceId}/chargers",
+    CREATE_CHARGER = "/v1.0/cms/residence/{residenceId}/charger",
+    CHARGER = "/v1.0/cms/residence/{residenceId}/charger/{chargerId}",
 }

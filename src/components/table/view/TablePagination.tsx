@@ -7,6 +7,7 @@ import { range } from "lodash";
 
 interface ITablePaginationProps {
     store: PaginationStore;
+    rowsPerPage?: number;
 
     onChangePage?(page: number): void;
 }
