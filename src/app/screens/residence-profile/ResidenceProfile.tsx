@@ -87,14 +87,15 @@ export class ResidenceProfile extends Component<RouteProps> {
                 <Modal
                     title={"Edit Charger"}
                     open={this.store.getChargerPopupState()}
+                    onClose={() => this.store.setChargerPopupState(false)}
                 >
                     {(close) => <EditChargerForm
                         residenceId={this.store.getResidenceId()}
                         onClose={close}
                         data={this.store.getCharger()}
                         onEdit={() => {
-                            this.store.setChargerPopupState(false);
                             this.store.updateChargerList$.next();
+                            close();
                         }}
                     />}
                 </Modal>
@@ -112,10 +113,7 @@ export class ResidenceProfile extends Component<RouteProps> {
         return (
             <Modal
                 trigger={
-                    <Button
-                        type="primary"
-                        text="Add charger"
-                    />
+                    <Button type="primary" text="Add charger"/>
                 }
                 title={"Add Charger"}
             >

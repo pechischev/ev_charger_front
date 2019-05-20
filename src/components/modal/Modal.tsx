@@ -10,15 +10,18 @@ interface IModalProps {
     trigger?: JSX.Element;
     open?: boolean;
     title: string;
-    children: JSX.Element | ((close: () => void, isOpen?: boolean) => JSX.Element);
+    children?: JSX.Element | ((close: () => void, isOpen?: boolean) => JSX.Element);
 
     action?(event: MouseEvent<HTMLElement>): void;
+    onClose?(): void;
+
+
 }
 
 @autobind
 export class Modal extends Component<IModalProps> {
     render(): ReactNode {
-        const { children, trigger, title, open } = this.props;
+        const { children, trigger, title, open, onClose } = this.props;
         const content = _.isFunction(children) ? children : this.renderContent;
         return (
             <Popup
@@ -26,6 +29,7 @@ export class Modal extends Component<IModalProps> {
                 modal={true}
                 closeOnDocumentClick={true}
                 open={open}
+                onClose={onClose}
             >
                 {(close, isOpen) => (
                     <div className="modal-content">
@@ -46,7 +50,7 @@ export class Modal extends Component<IModalProps> {
         const { action, children } = this.props;
         return (
             <Fragment>
-                <div className="modal-body">
+                <div className="modal-body" style={{display: !!children ? "" : "none"}}>
                     { children }
                 </div>
                 <div className="modal-footer">
@@ -55,7 +59,10 @@ export class Modal extends Component<IModalProps> {
                         onClick={ close }
                         text={ "Close" }
                     />
-                    {action && <Button type="primary" onClick={ action } text="Submit"/> }
+                    {action && <Button type="primary" onClick={ (event) => {
+                        action(event);
+                        close();
+                    } } text="Submit"/> }
                 </div>
             </Fragment>
         ) ;

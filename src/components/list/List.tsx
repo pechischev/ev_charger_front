@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, Fragment } from "react";
 import { ListStore } from "./ListStore";
 import { autobind } from "core-decorators";
 import { IColumn, Table } from "@components/table";
@@ -13,7 +13,7 @@ import { isNumber } from "lodash";
 
 @autobind
 export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P> {
-    protected readonly store = new ListStore();
+    protected readonly store = new ListStore<T>();
 
     constructor(props: P) {
         super(props);
@@ -21,21 +21,10 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     render(): ReactNode {
-        const { canSearch = true, actionElement } = this.props;
-        return (
-            <div>
-                <ListActions
-                    filters={this.getFilterItems()}
-                    store={this.store}
-                    canSearch={canSearch}
-                    actionElement={actionElement}
-                />
-                {this.renderList()}
-            </div>
-        );
+        return this.renderList();
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         const {updateList$, step} = this.props;
         if (updateList$) {
             updateList$.subscribe(this.getListData);
@@ -47,7 +36,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
         }
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(): void {
         const {updateList$} = this.props;
         if (updateList$) {
             updateList$.unsubscribe();
@@ -56,15 +45,24 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     protected renderList(): ReactNode {
+        const { canSearch = true, actionElement } = this.props;
         return (
-            <Table
-                data={this.store.getData()}
-                columns={this.getColumns()}
-                totalCount={this.store.getCount()}
-                onClickRow={this.onClickRowImpl}
-                onChangePage={this.onChangePage}
-                rowsPerPage={this.props.step}
-            />
+            <Fragment>
+                <ListActions
+                    filters={this.getFilterItems()}
+                    store={this.store}
+                    canSearch={canSearch}
+                    actionElement={actionElement}
+                />
+                <Table
+                    data={this.store.getData()}
+                    columns={this.getColumns()}
+                    totalCount={this.store.getCount()}
+                    onClickRow={this.onClickRowImpl}
+                    onChangePage={this.onChangePage}
+                    rowsPerPage={this.props.step}
+                />
+            </Fragment>
         );
     }
 
@@ -84,7 +82,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
         this.store.getListData$.next();
     }
 
-    private onChangePage(newPage: number) {
+    private onChangePage(newPage: number): void {
         const {page, ...rest} = this.store.getListData();
         this.store.setListData({...rest, page: newPage});
         this.updateList();
@@ -92,13 +90,13 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
 
     private onClickRowImpl(item: T, event: React.MouseEvent<HTMLElement>): void {
         this.store.setSelectedItem(item);
-        if (event.defaultPrevented) {
+        if (event.defaultPrevented || event.isPropagationStopped()) {
             return;
         }
         this.onClickRow(item, event);
     }
 
-    private getListData() {
+    private getListData(): void {
         this.store.updateData(this.getAction);
     }
 }
