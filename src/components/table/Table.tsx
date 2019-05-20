@@ -25,6 +25,7 @@ export class Table<T> extends Component<ITable<T>> {
     componentWillReceiveProps(nextProps: ITable<T>): void {
         this.store.setData(nextProps.data);
         this.paginationStore.setTotalCount(nextProps.totalCount || nextProps.data.length);
+        this.paginationStore.setStep(nextProps.rowsPerPage || this.paginationStore.getStep());
     }
 
     static getRowSize(columns: IColumn[]): string {
@@ -53,7 +54,7 @@ export class Table<T> extends Component<ITable<T>> {
                         {...{canSelect, onClickRow, columns}}
                     />
                 </table>
-                <TablePagination store={this.paginationStore} onChangePage={onChangePage}/>
+                <TablePagination store={this.paginationStore} onChangePage={onChangePage} rowsPerPage={this.props.rowsPerPage}/>
             </div>
         );
     }

@@ -4,17 +4,16 @@ import { IItem } from "@entities/_common";
 export interface IResidence {
     id: number;
     title: string;
-    billingRate: number;
-    serviceFee: number
+    billingRate?: number;
+    serviceFee?: string
     address: string;
+    extraAddress?: string;
     city: string;
     state: IItem;
     zipCode: string;
     status: EStatus;
     operator: {
-        userId: string;
+        id: number;
         user: Pick<IUser, "firstName" | "lastName">;
     };
-    chargerCount: number;
-    customerCount: number;
 }

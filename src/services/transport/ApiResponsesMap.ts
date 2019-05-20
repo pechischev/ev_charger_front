@@ -4,13 +4,13 @@ import {
     ICustomerResponse,
     IListResponse,
     ILoginResponse,
-    IResidenceResponse,
     IUserResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
 import { IAuthUser, IUserListItem, IWorker } from "@entities/user";
 import { IItem } from "@entities/_common";
+import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -22,13 +22,21 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.PROFILE]: IAuthUser;
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
     [EApiRoutes.CREATE_USER]: IUserResponse;
+
     [EApiRoutes.USER_DATA]: {
         [EApiMethods.GET]: ICustomerResponse;
         [EApiMethods.PUT]: ICustomerResponse;
     };
-    [EApiRoutes.GET_RESIDENCES_LIST]: IListResponse<IResidenceResponse>;
+    [EApiRoutes.GET_RESIDENCES_LIST]: IListResponse<IResidenceListItem>;
     [EApiRoutes.RESIDENCE_DATA]: {
-        [EApiMethods.GET]: IResidenceResponse;
+        [EApiMethods.GET]: IResidence;
+        [EApiMethods.PUT]: IResidence;
+    };
+    [EApiRoutes.CREATE_CHARGER]: ICharger;
+    [EApiRoutes.CHARGER]: {
+        [EApiMethods.GET]: ICharger;
+        [EApiMethods.PUT]: ICharger;
+        [EApiMethods.DELETE]: {};
     };
 }
 
