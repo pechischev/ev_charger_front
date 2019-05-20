@@ -24,7 +24,7 @@ export class ResidenceProfile extends Component<RouteProps> {
         this.store.init();
 
         if (this.props.location) {
-            const { id } = qs.parse(this.props.location.search);
+            const {id} = qs.parse(this.props.location.search);
             this.store.getResidence(id as string);
             this.store.setResidenceId(id as string);
         }
@@ -32,21 +32,24 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
+        const stepTables = 5;
         return (
             <div className="side-app">
                 <div className="page-header">Residence</div>
                 <div className="page-content">
-                    <Card className="residence-card" title="Residence Profile"
-                          content={
-                              <CustomForm
-                                  keepDirtyOnReinitialize={ false }
-                                  validateData={ this.store.validateData }
-                                  data={ this.store.transformResidenceData(this.store.getData()) }
-                                  error$={ this.store.error$ }
-                                  submit={ this.store.updateResidence }
-                                  render={ (api, submitting) => this.getSettingsForm(api, submitting) }
-                              />
-                          }
+                    <Card
+                        className="residence-card"
+                        title="Residence Profile"
+                        content={
+                            <CustomForm
+                                keepDirtyOnReinitialize={false}
+                                validateData={this.store.validateData}
+                                data={this.store.transformResidenceData(this.store.getData())}
+                                error$={this.store.error$}
+                                submit={this.store.updateResidence}
+                                render={(api, submitting) => this.getSettingsForm(api, submitting)}
+                            />
+                        }
                     />
                     <div className="residence-card_in-row-two clearfix">
                         <Card
@@ -54,13 +57,13 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="EV Chargers"
                             content={
                                 <ChargersList
-                                    step={ 5 }
-                                    residenceId={ this.store.getResidenceId() }
-                                    canSearch={ false }
-                                    actionElement={ actionElement }
-                                    updateList$={ this.store.updateChargerList$ }
-                                    onRemoveItem={ this.store.removeCharger }
-                                    onViewItem={ this.onViewItem }
+                                    step={stepTables}
+                                    residenceId={this.store.getResidenceId()}
+                                    canSearch={false}
+                                    actionElement={actionElement}
+                                    updateList$={this.store.updateChargerList$}
+                                    onRemoveItem={this.store.removeCharger}
+                                    onViewItem={this.onViewItem}
                                 />
                             }
                         />
@@ -69,9 +72,9 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="Users"
                             content={
                                 <UsersList
-                                    step={ 5 }
-                                    residenceId={ this.store.getResidenceId() }
-                                    canSearch={ false }
+                                    step={stepTables}
+                                    residenceId={this.store.getResidenceId()}
+                                    canSearch={false}
                                 />
                             }
                         />
@@ -79,25 +82,23 @@ export class ResidenceProfile extends Component<RouteProps> {
                     <Card
                         className="residence-card"
                         title="Billing History"
-                        content={
-                            <BillingList residenceId={ this.store.getResidenceId() } canSearch={ false }/>
-                        }
+                        content={<BillingList residenceId={this.store.getResidenceId()} canSearch={false}/>}
                     />
                 </div>
                 <Modal
-                    title={ "Edit Charger" }
-                    open={ this.store.getChargerPopupState() }
-                    onClose={ () => this.store.setChargerPopupState(false) }
+                    title={"Edit Charger"}
+                    open={this.store.getChargerPopupState()}
+                    onClose={() => this.store.setChargerPopupState(false)}
                 >
-                    { (close) => <EditChargerForm
-                        residenceId={ this.store.getResidenceId() }
-                        onClose={ close }
-                        data={ this.store.getCharger() }
-                        onEdit={ () => {
+                    {(close) => <EditChargerForm
+                        residenceId={this.store.getResidenceId()}
+                        onClose={close}
+                        data={this.store.getCharger()}
+                        onEdit={() => {
                             this.store.updateChargerList$.next();
                             close();
-                        } }
-                    /> }
+                        }}
+                    />}
                 </Modal>
             </div>
         );
@@ -105,25 +106,23 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <ResidenceForm api={ api } submitting={ submitting || false } canCancel={ false }/>
+            <ResidenceForm api={api} submitting={submitting || false} canCancel={false}/>
         );
     }
 
     private getActionElement() {
-        return (
-            <Modal
-                trigger={
-                    <Button type="primary" text="Add charger"/>
-                }
-                title={ "Add Charger" }
-            >
-                { (close) => <CreateChargerForm
-                    residenceId={ this.store.getResidenceId() }
-                    onClose={ close }
-                    onCreate={ () => this.store.updateChargerList$.next() }
-                /> }
-            </Modal>
-        );
+        return <Modal
+            trigger={
+                <Button type="primary" text="Add charger"/>
+            }
+            title="Add Charger"
+        >
+            {(close) => <CreateChargerForm
+                residenceId={this.store.getResidenceId()}
+                onClose={close}
+                onCreate={() => this.store.updateChargerList$.next()}
+            />}
+        </Modal>;
     }
 
     private async onViewItem(chargerId: number): Promise<void> {
