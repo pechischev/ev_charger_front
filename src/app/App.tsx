@@ -20,6 +20,8 @@ import { AddResidence } from "@app/screens/add-residence";
 import { Settings } from "@app/screens/settings";
 import { CompanySettings } from "@app/screens/company-settings";
 import { CompanyEmployees } from "@app/screens/company-employees";
+import { AddEmployeeForm } from "@app/screens/add-employee-form";
+import { EmployeeProfile } from "@app/screens/employee-profile";
 
 export class App extends Component {
     constructor(props: object) {
@@ -93,17 +95,27 @@ export class App extends Component {
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.EMPLOYEES_LIST_SETTINGS}`}
+                                    path={`/${EPaths.EMPLOYEES_LIST}`}
                                     component={CompanyEmployees}
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.COMPANY_INFO_SETTINGS}`}
+                                    path={`/${EPaths.EMPLOYEE_CREATE}`}
+                                    component={AddEmployeeForm}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.EMPLOYEE_PROFILE}`}
+                                    component={EmployeeProfile}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.COMPANY_INFO}`}
                                     component={CompanySettings}
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.BILLING_INFO_SETTINGS}`}
+                                    path={`/${EPaths.BILLING_INFO}`}
                                     component={Settings}
                                 />
                             </Switch>

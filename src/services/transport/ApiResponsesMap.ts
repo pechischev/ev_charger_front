@@ -1,16 +1,12 @@
 import { AxiosResponse } from "axios";
 import { EApiMethods } from "./EApiMethods";
-import {
-    ICustomerResponse,
-    IListResponse,
-    ILoginResponse,
-    IUserResponse,
-} from "./responses";
+import { ICustomerResponse, IEmployeeResponse, IListResponse, ILoginResponse, IUserResponse } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
 import { IAuthUser, IUserListItem, IWorker } from "@entities/user";
 import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
+import { IEmployee, IEmployeeListItem } from "@entities/company-employees";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -38,20 +34,23 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.PUT]: ICharger;
         [EApiMethods.DELETE]: {};
     };
+    [EApiRoutes.GET_EMPLOYEES]: IListResponse<IEmployeeListItem>;
+    [EApiRoutes.CREATE_EMPLOYEE]: IEmployeeResponse;
+    [EApiRoutes.EMPLOYEE_DATA]: {
+        [EApiMethods.GET]: IEmployee;
+        [EApiMethods.PUT]: IEmployee;
+        [EApiMethods.DELETE]: {};
+    };
 }
 
 // @ts-ignore:2344
-export type TAxiosResponse<
-    K extends keyof IApiRoutesResponsesMap,
+export type TAxiosResponse<K extends keyof IApiRoutesResponsesMap,
     // tslint:disable-next-line:no-any
-    M extends EApiMethods = any
-> = IApiRoutesResponsesMap[K] extends IMethodMap<{}>
+    M extends EApiMethods = any> = IApiRoutesResponsesMap[K] extends IMethodMap<{}>
     ? AxiosResponse<IApiRoutesResponsesMap[K][M]>
     : AxiosResponse<IApiRoutesResponsesMap[K]>;
 
 // @ts-ignore:2344
-export type TApiResponse<
-    K extends keyof IApiRoutesResponsesMap,
+export type TApiResponse<K extends keyof IApiRoutesResponsesMap,
     // tslint:disable-next-line:no-any
-    M extends EApiMethods = any
-> = IApiRoutesResponsesMap[K] extends IMethodMap<{}> ? IApiRoutesResponsesMap[K][M] : IApiRoutesResponsesMap[K];
+    M extends EApiMethods = any> = IApiRoutesResponsesMap[K] extends IMethodMap<{}> ? IApiRoutesResponsesMap[K][M] : IApiRoutesResponsesMap[K];

@@ -8,7 +8,7 @@ import {
     PhoneField,
     SelectField,
     YearField,
-    ZipCodeField
+    ZipCodeField,
 } from "@components/fields";
 import { AppContext } from "@context";
 import { FormState } from "final-form";
@@ -32,15 +32,15 @@ export class UserForm extends Component<IUserForm> {
     render(): ReactNode {
         return (
             <div className="profile-form-fields">
-                { this.renderContainer("Profile Information", this.getProfileInfoFields()) }
-                { this.renderContainer("Mailing address", this.getMailingAddressFields()) }
-                { this.renderContainer("Vehicle", this.getVehicleFields()) }
+                {this.renderContainer("Profile Information", this.getProfileInfoFields())}
+                {this.renderContainer("Mailing address", this.getMailingAddressFields())}
+                {this.renderContainer("Vehicle", this.getVehicleFields())}
                 <FormSpy
-                    onChange={ this.onChangeData }
-                    subscription={ {
+                    onChange={this.onChangeData}
+                    subscription={{
                         values: true,
                         modified: true,
-                    } }
+                    }}
                 />
             </div>
         );
@@ -58,24 +58,24 @@ export class UserForm extends Component<IUserForm> {
         return (
             <Fragment>
                 <InputField
-                    label={ "First name" }
-                    name={ EUserFieldTypes.FIRST_NAME }
-                    placeholder={ "Enter first name" }
+                    label={"First name"}
+                    name={EUserFieldTypes.FIRST_NAME}
+                    placeholder={"Enter first name"}
                 />
                 <InputField
-                    label={ "Last name" }
-                    name={ EUserFieldTypes.LAST_NAME }
-                    placeholder={ "Enter last name" }
+                    label={"Last name"}
+                    name={EUserFieldTypes.LAST_NAME}
+                    placeholder={"Enter last name"}
                 />
-                <EmailField name={ EUserFieldTypes.EMAIL } />
-                <PhoneField name={ EUserFieldTypes.PHONE } />
+                <EmailField name={EUserFieldTypes.EMAIL}/>
+                <PhoneField name={EUserFieldTypes.PHONE}/>
                 <SelectField
-                    label={ "Residence" }
-                    name={ EUserFieldTypes.RESIDENCE }
-                    placeholder={ "Select residence" }
-                    options={ AppContext.getInfoStore().residences }
+                    label={"Residence"}
+                    name={EUserFieldTypes.RESIDENCE}
+                    placeholder={"Select residence"}
+                    options={AppContext.getInfoStore().residences}
                 />
-                { passwordFields }
+                {passwordFields}
             </Fragment>
         );
     }
@@ -84,26 +84,26 @@ export class UserForm extends Component<IUserForm> {
         return (
             <Fragment>
                 <InputField
-                    label={ "Address" }
-                    name={ EUserFieldTypes.ADDRESS }
-                    placeholder={ "Enter address" }
+                    label={"Address"}
+                    name={EUserFieldTypes.ADDRESS}
+                    placeholder={"Enter address"}
                 />
                 <InputField
-                    label={ "Apt/Unit" }
-                    name={ EUserFieldTypes.APT_UNIT }
-                    placeholder={ "Enter apt/unit" }
+                    label={"Apt/Unit"}
+                    name={EUserFieldTypes.APT_UNIT}
+                    placeholder={"Enter apt/unit"}
                 />
                 <InputField
-                    label={ "City" }
-                    name={ EUserFieldTypes.CITY }
-                    placeholder={ "Enter city" }
+                    label={"City"}
+                    name={EUserFieldTypes.CITY}
+                    placeholder={"Enter city"}
                 />
-                <ZipCodeField name={ EUserFieldTypes.ZIP_CODE }/>
+                <ZipCodeField name={EUserFieldTypes.ZIP_CODE}/>
                 <SelectField
-                    label={ "State" }
-                    name={ EUserFieldTypes.STATE }
-                    placeholder={ "Select state" }
-                    options={ AppContext.getInfoStore().states }
+                    label={"State"}
+                    name={EUserFieldTypes.STATE}
+                    placeholder={"Select state"}
+                    options={AppContext.getInfoStore().states}
                 />
             </Fragment>
         );
@@ -113,19 +113,19 @@ export class UserForm extends Component<IUserForm> {
         return (
             <Fragment>
                 <SelectField
-                    label={ "Makes" }
-                    name={ EUserFieldTypes.MAKES }
-                    placeholder={ "Select make" }
-                    options={ AppContext.getInfoStore().makes }
+                    label={"Makes"}
+                    name={EUserFieldTypes.MAKES}
+                    placeholder={"Select make"}
+                    options={AppContext.getInfoStore().makes}
                 />
                 <SelectField
-                    label={ "Model" }
-                    name={ EUserFieldTypes.MODEL }
-                    placeholder={ "Select model" }
-                    options={ AppContext.getInfoStore().models }
+                    label={"Model"}
+                    name={EUserFieldTypes.MODEL}
+                    placeholder={"Select model"}
+                    options={AppContext.getInfoStore().models}
                 />
-                <YearField name={ EUserFieldTypes.YEAR } />
-                <LicencePlateField name={ EUserFieldTypes.LICENSE_PLATE } />
+                <YearField name={EUserFieldTypes.YEAR}/>
+                <LicencePlateField name={EUserFieldTypes.LICENSE_PLATE}/>
             </Fragment>
         );
     }
@@ -133,9 +133,9 @@ export class UserForm extends Component<IUserForm> {
     private renderContainer(title: string, fields: ReactNode): ReactNode {
         return (
             <div className="profile-settings">
-                <div className="profile-settings__title">{ title }</div>
+                <div className="profile-settings__title">{title}</div>
                 <div className="profile-settings__container">
-                    { fields }
+                    {fields}
                 </div>
             </div>
         );

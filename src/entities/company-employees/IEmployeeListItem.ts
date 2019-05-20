@@ -1,5 +1,5 @@
 import { IUser, ERoles } from "@entities/user";
 
-export interface ICompanyUserListItem extends IUser {
+export interface IEmployeeListItem extends IUser {
     role: ERoles;
 }

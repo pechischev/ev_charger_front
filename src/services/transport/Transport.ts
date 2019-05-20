@@ -186,27 +186,27 @@ export class Transport<T extends object = object> implements ITransport {
     }
 
     // TODO: получение списка сотрудников компании
-    async getCompanyUsers(params: TApiParams<EApiRoutes.GET_USERS>): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
-        return this.client.get(EApiRoutes.GET_USERS, { params });
+    async getEmployees(params: TApiParams<EApiRoutes.GET_EMPLOYEES>): Promise<TAxiosResponse<EApiRoutes.GET_EMPLOYEES>> {
+        return this.client.get(EApiRoutes.GET_EMPLOYEES, { params });
     }
 
     // TODO: получение информации о пользователе
-    async getCompanyUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_EMPLOYEE, EApiMethods.GET>> {
-        return this.client.get(`${EApiRoutes.COMPANY_EMPLOYEE.replace("{companyUserId}", userId)}`);
+    async getEmployeeData(employeeId: string): Promise<TAxiosResponse<EApiRoutes.EMPLOYEE_DATA, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.EMPLOYEE_DATA.replace("{employeeId}", employeeId)}`);
     }
 
     // TODO: создание сотрудника компании
-    async createCompanyUser(params: TApiParams<EApiRoutes.CREATE_COMPANY_EMPLOYEE>): Promise<TAxiosResponse<EApiRoutes.CREATE_COMPANY_EMPLOYEE>> {
-        return this.client.post(EApiRoutes.CREATE_COMPANY_EMPLOYEE, params);
+    async createEmployee(params: TApiParams<EApiRoutes.CREATE_EMPLOYEE>): Promise<TAxiosResponse<EApiRoutes.CREATE_EMPLOYEE>> {
+        return this.client.post(EApiRoutes.CREATE_EMPLOYEE, params);
     }
 
     // TODO: обновление данных сотрудника компании
-    async updateCompanyUser(params: TApiParams<EApiRoutes.COMPANY_EMPLOYEE>, userId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_EMPLOYEE, EApiMethods.PUT>> {
-        return this.client.put(`${EApiRoutes.COMPANY_EMPLOYEE.replace("{companyUserId}", userId)}`, params);
+    async updateEmployee(params: TApiParams<EApiRoutes.EMPLOYEE_DATA>, employeeId: string): Promise<TAxiosResponse<EApiRoutes.EMPLOYEE_DATA, EApiMethods.PUT>> {
+        return this.client.put(`${EApiRoutes.EMPLOYEE_DATA.replace("{employeeId}", userId)}`, params);
     }
 
     // TODO: удаление сотрудника компании
-    async removeCompanyUser(userId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_EMPLOYEE, EApiMethods.DELETE>> {
-        return this.client.delete(`${EApiRoutes.CHARGER.replace("{companyUserId}", userId)}`);
+    async removeEmployee(employeeId: string): Promise<TAxiosResponse<EApiRoutes.EMPLOYEE_DATA, EApiMethods.DELETE>> {
+        return this.client.delete(`${EApiRoutes.CHARGER.replace("{employeeId}", userId)}`);
     }
 }

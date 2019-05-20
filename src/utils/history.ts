@@ -32,26 +32,26 @@ export function redirectToResidenceCreateForm(): void {
 }
 
 export function redirectToEmployeeListSettings(): void {
-    const link = `/${EPaths.EMPLOYEES_LIST_SETTINGS}`;
+    const link = `/${EPaths.EMPLOYEES_LIST}`;
     AppContext.getHistory().push(link);
 }
 
 export function redirectToCompanyEmployeeForm(userId: number): void {
-    const link = `/${EPaths.EMPLOYEE_PROFILE_SETTINGS}?id=${userId}`;
+    const link = `/${EPaths.EMPLOYEE_PROFILE}?id=${userId}`;
     AppContext.getHistory().push(link);
 }
 
 export function redirectToAddCompanyEmployeeForm(): void {
-    const link = `/${EPaths.EMPLOYEE_CREATE_SETTINGS}`;
+    const link = `/${EPaths.EMPLOYEE_CREATE}`;
     AppContext.getHistory().push(link);
 }
 
 export function redirectToCompanyInfoSettings(): void {
-    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+    const link = `/${EPaths.COMPANY_INFO}`;
     AppContext.getHistory().push(link);
 }
 
 export function redirectToBillingInfoSettings(): void {
-    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+    const link = `/${EPaths.COMPANY_INFO}`;
     AppContext.getHistory().push(link);
 }

@@ -1,0 +1,48 @@
+@import "~styles/utils/mixins.scss";
+
+.employee-form {
+    width: 100%;
+    display: flex;
+
+    &-button {
+        > button {
+            width: 150px;
+        }
+    }
+
+    > div {
+        width: calc(100% / 3 - 20px);
+        min-width: 310px;
+
+        &:nth-child(1) {
+            margin: 0 auto 0 0;
+        }
+
+        &:nth-child(2) {
+            margin: 0 auto 0 0;
+        }
+    }
+
+    .employee-settings {
+        padding-right: 40px;
+        margin-top: 40px;
+
+        &__title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media (max-width: 1450px) {
+    .employee-form {
+        > div {
+            width: calc(100% / 2 - 20px);
+
+            &:last-child {
+                display: none;
+            }
+        }
+    }
+}

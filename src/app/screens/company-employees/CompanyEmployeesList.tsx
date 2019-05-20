@@ -11,10 +11,10 @@ import { Button } from "@components/button";
 import * as React from "react";
 import { Fragment, ReactNode } from "react";
 import { action, observable } from "mobx";
-import { ICompanyUserListItem } from "@entities/company-users";
+import { IEmployeeListItem } from "@entities/company-employees";
 import { Modal } from "@components/modal";
 
-interface ICompanyEmployeesListProps extends IList<ICompanyUserListItem> {
+interface ICompanyEmployeesListProps extends IList<IEmployeeListItem> {
     onRemoveItem(chargerId: number): Promise<void>;
 
     onViewItem(chargerId: number): Promise<void>;
@@ -22,7 +22,7 @@ interface ICompanyEmployeesListProps extends IList<ICompanyUserListItem> {
 
 @observer
 @autobind
-export class CompanyEmployeesList extends List<ICompanyUserListItem, ICompanyEmployeesListProps> {
+export class CompanyEmployeesList extends List<IEmployeeListItem, ICompanyEmployeesListProps> {
     @observable private isOpenModal = false;
 
     render(): ReactNode {
@@ -65,7 +65,7 @@ export class CompanyEmployeesList extends List<ICompanyUserListItem, ICompanyEmp
         ];
     }
 
-    protected onClickRow(item: ICompanyUserListItem): void {
+    protected onClickRow(item: IEmployeeListItem): void {
         redirectToCompanyEmployeeForm(item.id);
     }
 
