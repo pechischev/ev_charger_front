@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component, Fragment, ReactNode } from "react";
-import { InputField, SelectField } from "@components/fields";
+import { InputField, SelectField, ZipCodeField } from "@components/fields";
 import { AppContext } from "@context";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
@@ -68,10 +68,8 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 options={AppContext.getInfoStore().states}
                                 placeholder={"Select state"}
                             />
-                            <InputField
+                            <ZipCodeField
                                 name={EResidenceFieldTypes.ZIP_CODE}
-                                placeholder={"Enter zip code"}
-                                label={"Zip Code"}
                             />
                         </div>
                         <InputField

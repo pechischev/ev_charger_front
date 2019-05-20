@@ -41,7 +41,6 @@ export class ResidenceProfileStore extends Store {
         return this.residenceId;
     }
 
-
     @action.bound
     setChargerPopupState(isOpenChargerPopup: boolean): void {
         this.isOpenChargerPopup = isOpenChargerPopup;
@@ -64,7 +63,7 @@ export class ResidenceProfileStore extends Store {
             ...{title, city, address, extraAddress, zipCode, billingRate, serviceFee},
             operatorId: operator.id,
             stateId: state.id
-        }
+        };
     }
 
     validateData(): IFieldError[] {
