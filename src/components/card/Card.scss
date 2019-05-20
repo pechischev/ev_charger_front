@@ -3,6 +3,7 @@
 .page-card {
     border-radius: 7px;
     background-color: $background-main-color;
+    transition: 0.25s;
 
     &-header {
         min-height: 55px;
@@ -22,5 +23,9 @@
 
     &-body {
         padding: 16px 24px;
+    }
+
+    &:hover {
+        box-shadow: 0 8px 24px 0 rgba(185, 185, 185, 0.5);
     }
 }

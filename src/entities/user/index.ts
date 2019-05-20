@@ -5,3 +5,4 @@ export { IAuthUser } from "./IAuthUser";
 export { AuthUser } from "./AuthUser";
 export { IWorker } from "./IWorker";
 export { IUserListItem } from "./IUserListItem";
+export { ERoles } from "./ERoles";

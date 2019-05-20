@@ -19,6 +19,7 @@ import { ResidenceProfile } from "@app/screens/residence-profile";
 import { AddResidence } from "@app/screens/add-residence";
 import { Settings } from "@app/screens/settings";
 import { CompanySettings } from "@app/screens/company-settings";
+import { CompanyEmployees } from "@app/screens/company-employees";
 
 export class App extends Component {
     constructor(props: object) {
@@ -92,8 +93,8 @@ export class App extends Component {
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.USERS_LIST_SETTINGS}`}
-                                    component={Settings}
+                                    path={`/${EPaths.EMPLOYEES_LIST_SETTINGS}`}
+                                    component={CompanyEmployees}
                                 />
                                 <PrivateRoute
                                     exact={true}

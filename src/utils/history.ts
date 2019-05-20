@@ -31,12 +31,22 @@ export function redirectToResidenceCreateForm(): void {
     AppContext.getHistory().push(link);
 }
 
-export function redirectToCompanyInfoSettings(): void {
-    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+export function redirectToEmployeeListSettings(): void {
+    const link = `/${EPaths.EMPLOYEES_LIST_SETTINGS}`;
     AppContext.getHistory().push(link);
 }
 
-export function redirectToUsersListSettings(): void {
+export function redirectToCompanyEmployeeForm(userId: number): void {
+    const link = `/${EPaths.EMPLOYEE_PROFILE_SETTINGS}?id=${userId}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToAddCompanyEmployeeForm(): void {
+    const link = `/${EPaths.EMPLOYEE_CREATE_SETTINGS}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToCompanyInfoSettings(): void {
     const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
     AppContext.getHistory().push(link);
 }

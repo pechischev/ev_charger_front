@@ -175,11 +175,38 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.delete(`${EApiRoutes.CHARGER.replace("{residenceId}", residenceId).replace("{chargerId}", chargerId)}`);
     }
 
-    async getCompanyData(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.GET>> {
-        return this.client.get(`${EApiRoutes.COMPANY_SETTINGS.replace("{residenceId}", residenceId)}`, { params });
+    // TODO: получение информации о компании
+    async getCompanyData(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>): Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.COMPANY_SETTINGS}`, { params });
     }
 
-    async updateCompany(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>, residenceId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.PUT>> {
-        return this.client.put(`${EApiRoutes.COMPANY_SETTINGS.replace("{residenceId}", residenceId)}`, params);
+    // TODO: обновление данных компании
+    async updateCompany(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>): Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.PUT>> {
+        return this.client.put(`${EApiRoutes.COMPANY_SETTINGS}`, params);
+    }
+
+    // TODO: получение списка сотрудников компании
+    async getCompanyUsers(params: TApiParams<EApiRoutes.GET_USERS>): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
+        return this.client.get(EApiRoutes.GET_USERS, { params });
+    }
+
+    // TODO: получение информации о пользователе
+    async getCompanyUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_EMPLOYEE, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.COMPANY_EMPLOYEE.replace("{companyUserId}", userId)}`);
+    }
+
+    // TODO: создание сотрудника компании
+    async createCompanyUser(params: TApiParams<EApiRoutes.CREATE_COMPANY_EMPLOYEE>): Promise<TAxiosResponse<EApiRoutes.CREATE_COMPANY_EMPLOYEE>> {
+        return this.client.post(EApiRoutes.CREATE_COMPANY_EMPLOYEE, params);
+    }
+
+    // TODO: обновление данных сотрудника компании
+    async updateCompanyUser(params: TApiParams<EApiRoutes.COMPANY_EMPLOYEE>, userId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_EMPLOYEE, EApiMethods.PUT>> {
+        return this.client.put(`${EApiRoutes.COMPANY_EMPLOYEE.replace("{companyUserId}", userId)}`, params);
+    }
+
+    // TODO: удаление сотрудника компании
+    async removeCompanyUser(userId: string): Promise<TAxiosResponse<EApiRoutes.COMPANY_EMPLOYEE, EApiMethods.DELETE>> {
+        return this.client.delete(`${EApiRoutes.CHARGER.replace("{companyUserId}", userId)}`);
     }
 }
