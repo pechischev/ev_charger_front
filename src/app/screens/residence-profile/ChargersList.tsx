@@ -31,8 +31,10 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
                 <Modal
                     open={this.isOpenModal}
                     onClose={this.closeModal}
-                    title={"Are sure you want to delete this charger?"}
+                    title={"Are you sure want to delete this charger?"}
                     action={this.deleteCharges}
+                    actionTitle={"Delete"}
+                    actionType={"delete"}
                 />
             </Fragment>
         );

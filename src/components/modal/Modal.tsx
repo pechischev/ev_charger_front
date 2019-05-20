@@ -11,6 +11,8 @@ interface IModalProps {
     open?: boolean;
     title: string;
     children?: JSX.Element | ((close: () => void, isOpen?: boolean) => JSX.Element);
+    actionTitle?: string;
+    actionType?: string;
 
     action?(event: MouseEvent<HTMLElement>): void;
 
@@ -46,30 +48,30 @@ export class Modal extends Component<IModalProps> {
     }
 
     private renderContent(close: () => void, isOpen?: boolean): ReactNode {
-        const {action, children} = this.props;
+        const {action, children, actionTitle = "Submit", actionType = "primary"} = this.props;
         return (
             <Fragment>
                 <div className="modal-body" style={{display: !!children ? "" : "none"}}>
                     {children}
                 </div>
                 <div className="modal-footer clearfix">
-                    {action &&
-                    <Button
-                        className="float-right"
-                        type="primary"
-                        onClick={action}
-                        text="Save changes"
-                    />}
+                    {
+                        action &&
+                        <Button
+                            type={actionType}
+                            text={actionTitle}
+                            onClick={(event) => {
+                                action(event);
+                                close();
+                            }}
+                        />
+                    }
                     <Button
                         className="float-right"
                         type="secondary"
                         onClick={close}
                         text={"Close"}
                     />
-                    {action &&<Button type="primary" onClick={(event) => {
-                        action(event);
-                        close();
-                    }} text="Submit"/>}
                 </div>
             </Fragment>
         );
