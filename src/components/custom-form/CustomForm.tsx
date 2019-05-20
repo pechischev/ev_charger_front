@@ -100,7 +100,7 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
 
     private submitting(api: FormState): boolean {
         const hasErrors = this.hasErrors(api.errors);
-        const hasServerError = !api.dirtySinceLastSubmit && !!api.submitErrors;
+        const hasServerError = !api.dirtySinceLastSubmit && this.hasErrors(api.submitErrors);
         const pristine = api.pristine;
         return !(api.submitting || pristine || hasErrors || hasServerError);
     }
@@ -110,10 +110,12 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
     }
 
     private setError(error: IError): void {
-        const fieldTypes = FieldErrors.getTypesByCode(error.code || error.status);
+        const {validateData} = this.props;
+        const requiredFields = validateData && validateData(values);
+        const fieldTypes = FieldErrors.getTypesByCode(error.code || error.status, requiredFields);
         const errors = {};
         for (const type of fieldTypes) {
-            errors[type] = FieldErrors.getTextError(error.code) || error.title;
+            set(errors, type, FieldErrors.getTextError(error.code) || error.title);
         }
         this.errors = errors;
     }

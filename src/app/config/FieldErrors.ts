@@ -6,12 +6,12 @@ import { IFieldError } from "./IFieldError";
 export class FieldErrors {
     private static readonly errors = [
         { type: EFormTypes.EMAIL, codes: [15, 16] },
-        { type: EFormTypes.PASSWORD, codes: [14, 20] },
+        { type: EFormTypes.PASSWORD, codes: [14, 19, 20] },
     ];
 
-    static getTypesByCode(code: number): Array<EFormTypes | string> {
+    static getTypesByCode(code: number, errors?: IFieldError[]): Array<EFormTypes | string> {
         const types: Array<EFormTypes | string> = [];
-        FieldErrors.errors.forEach((value: IFieldError) => {
+        (errors || FieldErrors.errors).forEach((value: IFieldError) => {
             if (value.codes.indexOf(code) === -1) {
                 return;
             }

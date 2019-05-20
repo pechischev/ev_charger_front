@@ -35,7 +35,6 @@ export class ProfileTab extends Component<IProfileProps> {
                 <CustomForm
                     error$={this.store.error$}
                     validateData={this.store.validateData}
-                    keepDirtyOnReinitialize={false}
                     data={this.store.transformUserData(this.props.data)}
                     submit={(data) => this.store.updateUser(data, userId as string)}
                     render={(api, submitting) => this.getSettingsForm(api, submitting)}
