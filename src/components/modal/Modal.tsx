@@ -11,8 +11,10 @@ interface IModalProps {
     open?: boolean;
     title: string;
     children?: JSX.Element | ((close: () => void, isOpen?: boolean) => JSX.Element);
-    actionTitle?: string;
-    actionType?: string;
+    actionOptions?: {
+        title?: string;
+        type?: string;
+    };
 
     action?(event: MouseEvent<HTMLElement>): void;
 
@@ -22,7 +24,7 @@ interface IModalProps {
 @autobind
 export class Modal extends Component<IModalProps> {
     render(): ReactNode {
-        const {children, trigger, title, open, onClose} = this.props;
+        const { children, trigger, title, open, onClose } = this.props;
         const content = _.isFunction(children) ? children : this.renderContent;
         return (
             <Popup
@@ -48,18 +50,18 @@ export class Modal extends Component<IModalProps> {
     }
 
     private renderContent(close: () => void, isOpen?: boolean): ReactNode {
-        const {action, children, actionTitle = "Submit", actionType = "primary"} = this.props;
+        const { action, children, actionOptions = {} } = this.props;
         return (
             <Fragment>
-                <div className="modal-body" style={{display: !!children ? "" : "none"}}>
+                <div className="modal-body" style={{ display: !!children ? "" : "none" }}>
                     {children}
                 </div>
                 <div className="modal-footer clearfix">
                     {
                         action &&
                         <Button
-                            type={actionType}
-                            text={actionTitle}
+                            type={actionOptions.type || "primary"}
+                            text={actionOptions.title || "Submit"}
                             onClick={(event) => {
                                 action(event);
                                 close();

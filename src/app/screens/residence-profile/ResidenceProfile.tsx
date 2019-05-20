@@ -24,7 +24,7 @@ export class ResidenceProfile extends Component<RouteProps> {
         this.store.init();
 
         if (this.props.location) {
-            const {id} = qs.parse(this.props.location.search);
+            const { id } = qs.parse(this.props.location.search);
             this.store.getResidence(id as string);
             this.store.setResidenceId(id as string);
         }
@@ -32,7 +32,6 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
-        const stepTables = 5;
         return (
             <div className="side-app">
                 <div className="page-header">Residence</div>
@@ -57,7 +56,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="EV Chargers"
                             content={
                                 <ChargersList
-                                    step={stepTables}
+                                    step={ResidenceProfileStore.ROWS_PER_PAGE}
                                     residenceId={this.store.getResidenceId()}
                                     canSearch={false}
                                     actionElement={actionElement}
@@ -72,7 +71,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                             title="Users"
                             content={
                                 <UsersList
-                                    step={stepTables}
+                                    step={ResidenceProfileStore.ROWS_PER_PAGE}
                                     residenceId={this.store.getResidenceId()}
                                     canSearch={false}
                                 />
