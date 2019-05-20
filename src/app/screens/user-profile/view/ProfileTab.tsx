@@ -7,9 +7,9 @@ import { ICustomer } from "@entities/customer";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { ProfileTabStore } from "./ProfileTabStore";
-import { Button } from "@components/button"
 import { IItem } from "@entities/_common";
 import { UserForm } from "@app/components/user-form";
+import { Button } from "@components/button";
 
 interface IProfileProps {
     data?: ICustomer;
@@ -51,6 +51,7 @@ export class ProfileTab extends Component<IProfileProps> {
                 <div className="profile-form-button clearfix">
                     <Button
                         className="float-right"
+                        type={"primary"}
                         disabled={!submitting}
                         onClick={() => api.handleSubmit()}
                         text={"Save"}

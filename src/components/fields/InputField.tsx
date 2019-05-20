@@ -4,14 +4,22 @@ import { Field } from "react-final-form";
 import { IField } from "@components/fields/IField";
 import { getError } from "@utils";
 import "./Field.scss";
+import formatStringByPattern from "format-string-by-pattern";
 
-export const InputField: FC<IField> = ({name, label, placeholder, type, ...rest}) => {
+
+export const InputField: FC<IField> = ({name, label, placeholder, mask, type, ...rest}) => {
 
     return (
         <div className="form-group">
             <label className="form-label">{label}</label>
             <Field
                 name={name}
+                format={(value, name) => {
+                    if (!mask) {
+                        return value;
+                    }
+                    return formatStringByPattern(mask, value)
+                }}
                 {...rest}
             >
                 {

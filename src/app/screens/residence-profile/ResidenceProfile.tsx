@@ -80,10 +80,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                         className="residence-card"
                         title="Billing History"
                         content={
-                            <BillingList
-                                residenceId={this.store.getResidenceId()}
-                                canSearch={false}
-                            />
+                            <BillingList residenceId={this.store.getResidenceId()} canSearch={false}/>
                         }
                     />
                 </div>

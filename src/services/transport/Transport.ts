@@ -114,6 +114,10 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.post(EApiRoutes.SIGN_IN, params);
     }
 
+    async profile(): Promise<TAxiosResponse<EApiRoutes.PROFILE>> {
+        return this.client.get(EApiRoutes.PROFILE);
+    }
+
     async getUsers(params: TApiParams<EApiRoutes.GET_USERS>): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
         return this.client.get(EApiRoutes.GET_USERS, {params});
     }

@@ -26,13 +26,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
             { id: "location", label: "Location" },
             {
                 id: "action", label: "", size: "120px", handler: (item: IChargersListItem) => {
-                    return (
-                        <Button
-                            type="delete"
-                            onClick={this.deleteCharges.bind(this, item.id)}
-                            text="Delete"
-                        />
-                    );
+                    return<Button type="delete" onClick={this.deleteCharges.bind(this, item.id)} text="Delete"/>;
                 },
             },
         ];

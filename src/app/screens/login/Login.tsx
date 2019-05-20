@@ -6,7 +6,7 @@ import { EPaths } from "@app/config";
 import { Page } from "@layouts/page";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
-import { InputField } from "@components/fields";
+import { PasswordField, EmailField } from "@components/fields";
 import { AppContext } from "@context";
 import { LoginStore } from "./LoginStore";
 import { EApiRoutes, TApiResponse } from "@services/transport";
@@ -52,20 +52,12 @@ export class Login extends Component {
         return (
             <div className="card">
                 <div className="card-body p-6">
-                    <div className="card-title text-center">Login to Loop CMS</div>
-                    <InputField
-                        label={"Email address"}
-                        name={"email"}
-                        placeholder={"Enter email"}
-                    />
-                    <InputField
-                        label={"Password"}
-                        name={"password"}
-                        placeholder={"Password"}
-                        type={"password"}
-                    />
+                    <div className="card-title text-center">Login to Loop EVChargers CMS</div>
+                    <EmailField name={"email"}/>
+                    <PasswordField label={"Password"} name={"password"}/>
                     <div className="form-footer">
                         <Button
+                            disabled={!submitting}
                             onClick={() => api.handleSubmit()}
                             type="primary"
                             text="Sign in"

@@ -53,7 +53,14 @@ export class ProfileTabStore extends Store {
     }
 
     async updateUser(data: TApiParams<EApiRoutes.USER_DATA>, userId: string): Promise<void> {
-        return this.asyncCall(this.transport.updateUser(data, userId), this.onError).then(this.onUpdateUser)
+        const { contactInfo, vehicle, ...rest } = data;
+        const { residenceId, stateId } = contactInfo;
+        const { makesId, modelId } = vehicle;
+        return this.asyncCall(this.transport.updateUser({
+            ...rest,
+            contactInfo: { ...contactInfo, residenceId: toNumber(residenceId), stateId: toNumber(stateId) },
+            vehicle: { ...vehicle, modelId: toNumber(modelId), makesId: toNumber(makesId) },
+        }, userId), this.onError).then(this.onUpdateUser)
     }
 
     private onUpdateUser(response: TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.PUT>): void {

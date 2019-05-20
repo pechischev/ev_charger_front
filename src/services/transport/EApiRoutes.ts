@@ -7,6 +7,7 @@ export enum EApiRoutes {
     OPERATORS = "/v1.0/cms/operators",
 
     SIGN_IN = "/v1.0/cms/signIn",
+    PROFILE = "/v1.0/cms/user",
 
     GET_USERS = "/v1.0/cms/customers",
     CREATE_USER = "/v1.0/cms/customer",
