@@ -17,6 +17,9 @@ export enum EPaths {
     USER_CREATE_FORM = "users/create",
 
     PROFILE = "profile",
-    SETTINGS = "settings",
 
+    SETTINGS = "settings",
+    USERS_LIST_SETTINGS = "settings/users",
+    COMPANY_INFO_SETTINGS = "settings/company",
+    BILLING_INFO_SETTINGS = "settings/billing",
 }

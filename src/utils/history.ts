@@ -30,3 +30,18 @@ export function redirectToResidenceCreateForm(): void {
     const link = `/${EPaths.RESIDENCE_CREATE_FORM}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectToCompanyInfoSettings(): void {
+    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToUsersListSettings(): void {
+    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToBillingInfoSettings(): void {
+    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+    AppContext.getHistory().push(link);
+}
