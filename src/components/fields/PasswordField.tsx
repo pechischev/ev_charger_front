@@ -5,9 +5,8 @@ import "./Field.scss";
 import { InputField } from "./InputField";
 import { EMessages } from "@utils/EMessage";
 
-
 export const PasswordField: FC<IField> = ({ label = "", name, ...rest }) => {
-    const validateZipCodeValue = (value: any) => {
+    const validateZipCodeValue = (value: string): string => {
         if (!value) {
             return EMessages.EMPTY;
         }
@@ -22,8 +21,8 @@ export const PasswordField: FC<IField> = ({ label = "", name, ...rest }) => {
             label={label}
             type={"password"}
             name={name}
-            placeholder={"Enter " + label.toLowerCase()}
-            validate={(value) => validateZipCodeValue(value)}
+            placeholder={`Enter ${label.toLowerCase()}`}
+            validate={validateZipCodeValue}
             {...rest}
         />
     );

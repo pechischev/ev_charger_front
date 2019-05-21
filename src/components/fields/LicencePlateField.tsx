@@ -5,9 +5,8 @@ import "./Field.scss";
 import { InputField } from "./InputField";
 import { EMessages } from "@utils/EMessage";
 
-
 export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
-    const validateLicencePlateValue = (value: string) => {
+    const validateLicencePlateValue = (value: string): string => {
         if (!value) {
             return EMessages.EMPTY;
         }
@@ -17,12 +16,12 @@ export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
         return "";
     };
 
-    const formatLicencePlate = (value: string) => {
+    const formatLicencePlate = (value: string): string => {
         if (!value) {
             return value;
         }
         if (value.length === 9) {
-            value = value.substring(0, value.length - 1);
+            return value.substring(0, value.length - 1);
         }
         return value;
     };
@@ -33,10 +32,8 @@ export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
             name={name}
             placeholder={"Enter licence plate"}
             mask={"AAAAAAAA"}
-            validate={(value) => validateLicencePlateValue(value)}
-            parse={(value) => {
-                return formatLicencePlate(value);
-            }}
+            validate={validateLicencePlateValue}
+            parse={formatLicencePlate}
             {...rest}
         />
     );

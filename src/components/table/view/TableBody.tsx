@@ -10,7 +10,7 @@ import { Table } from "@components/table";
 
 interface ITableBodyProps<T> {
     data: Array<ITableData<T>>;
-    columns: IColumn[];
+    columns: Array<IColumn<T>>;
 
     selectStore: SelectedStore;
     canSelect?: boolean;
@@ -44,10 +44,10 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
         );
     }
 
-    private renderCell(item: T, column: IColumn, key: number): ReactNode {
+    private renderCell(item: T, column: IColumn<T>, key: number): ReactNode {
         const { position, id, cellClass = "" } = column;
-        const label = get(item, id, null);
-        const node = !!column.handler && column.handler!(item) || void 0;
+        const label = get(item, id, void 0);
+        const node = !!column.handler && column.handler(item) || void 0;
         const value = !isNull(label) || !isNull(node) ? node || label : "(none)";
         return (
             <td

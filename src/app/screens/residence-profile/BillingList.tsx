@@ -16,7 +16,7 @@ interface IChargersListProps extends IList<IBillingListItem> {
 @autobind
 export class BillingList extends List<IBillingListItem, IChargersListProps> {
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<IBillingListItem>> {
         return [
             { id: "", label: "Date" },
             { id: "user.firstName", label: "First name" },
@@ -40,7 +40,7 @@ export class BillingList extends List<IBillingListItem, IChargersListProps> {
         ];
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
         const { residenceId } = this.props;
         if (!residenceId) {
             return new Promise((resolve) => resolve());
@@ -48,7 +48,7 @@ export class BillingList extends List<IBillingListItem, IChargersListProps> {
         return this.store.transport.getResidenceChargesData(params, residenceId);
     }
 
-    private viewReport(id: number) {
+    private viewReport(id: number): void {
         // remove chargers request
         // this.updateList
     }

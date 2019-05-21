@@ -14,7 +14,7 @@ interface IUsersListProps extends IList<IUsersListItem> {
 @autobind
 export class UsersList extends List<IUsersListItem, IUsersListProps> {
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<IUsersListItem>> {
         return [
             { id: "userId", label: "Id" },
             {
@@ -26,7 +26,7 @@ export class UsersList extends List<IUsersListItem, IUsersListProps> {
         ];
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_USERS>> {
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCE_USERS>> {
         const { residenceId } = this.props;
         if (!residenceId) {
             return new Promise((resolve) => resolve());

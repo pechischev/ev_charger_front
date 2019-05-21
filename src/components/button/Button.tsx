@@ -11,7 +11,7 @@ export const Button: FC<IButtonProps> = observer(({ className = "", text, disabl
         [className]: true,
         ["btn-block"]: true,
         btn: true,
-        disabled: disabled
+        disabled
     });
     return (
         <button {...rest} className={classes} data-type={type} onClick={onClick}>

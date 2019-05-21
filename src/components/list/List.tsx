@@ -70,9 +70,9 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
         return [];
     }
 
-    protected abstract getColumns(): IColumn[];
+    protected abstract getColumns(): Array<IColumn<T>>;
 
-    protected abstract getAction(data: IListParams): Promise<TAxiosResponse<EApiRoutes>>;
+    protected async abstract getAction(data: IListParams): Promise<TAxiosResponse<EApiRoutes>>;
 
     protected onClickRow(item: T, event: React.MouseEvent<HTMLElement>): void {
         // can override

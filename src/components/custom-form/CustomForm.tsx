@@ -13,7 +13,7 @@ import EventListener from "react-event-listener";
 import { getFieldErrorByCode } from "@utils";
 
 export interface ICustomFormProps<T extends object> {
-    data?: T;
+    data?: T | Partial<T>;
     validateOnBlur?: boolean;
     keepDirtyOnReinitialize?: boolean;
 
@@ -67,10 +67,10 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
         );
     }
 
-    private onSubmit(values: FormData, form: FormApi, callback?: (errors?: object) => void):
+    private onSubmit(formData: FormData, form: FormApi, callback?: (errors?: object) => void):
         Promise<Nullable<object>> | object | void {
         const {submit} = this.props;
-        return new Promise((resolve) => resolve(values)).then(async (data) => {
+        return new Promise((resolve) => resolve(formData)).then(async (data) => {
             return submit(data as T, form);
         }).catch((err) => {
             if (callback && !isEmpty(this.errors)) {
@@ -80,12 +80,12 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
         });
     }
 
-    private onValidate(values: object): object | Promise<object> {
+    private onValidate(formData: object): object | Promise<object> {
         let errors = {};
         const {validate, validateData} = this.props;
-        const requiredFields = validateData && validateData(values) || [];
+        const requiredFields = validateData && validateData(formData) || [];
         for (const field of requiredFields) {
-            const value = get(values, field.type);
+            const value = get(formData, field.type);
             const codes = field.codes;
             const error = getFieldErrorByCode(codes, value);
             if (!!error) {
@@ -93,7 +93,7 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
             }
         }
         if (validate) {
-            errors = merge(errors, validate(errors, values));
+            errors = merge(errors, validate(errors, formData));
         }
         return errors;
     }
@@ -106,7 +106,8 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
     }
 
     private hasErrors(errors: object): boolean {
-        return !!values(errors).find((value: any) => (isObject(value)) ? this.hasErrors(value) : !isEmpty(value));
+        return !!values(errors)
+            .find((value: object | string) => (isObject(value)) ? this.hasErrors(value) : !isEmpty(value));
     }
 
     private setError(error: IError): void {
@@ -120,7 +121,7 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
         this.errors = errors;
     }
 
-    private onKeyPress(api: FormRenderProps, event: KeyboardEvent) {
+    private onKeyPress(api: FormRenderProps, event: KeyboardEvent): void {
         if (toLower(event.code ) !== "enter") {
             return;
         }

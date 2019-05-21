@@ -22,7 +22,6 @@ export function withPathId<T>(
     const id = isId(location.pathname, path);
     if (!id) {
         return React.createElement(Component, { ...props });
-    } else {
-        return React.createElement(Component, { ...props, id });
     }
+    return React.createElement(Component, { ...props, id });
 }

@@ -6,7 +6,6 @@ import { getError } from "@utils";
 import "./Field.scss";
 import formatStringByPattern from "format-string-by-pattern";
 
-
 export const InputField: FC<IField> = ({name, label, placeholder, mask, type, ...rest}) => {
 
     return (
@@ -14,11 +13,11 @@ export const InputField: FC<IField> = ({name, label, placeholder, mask, type, ..
             <label className="form-label">{label}</label>
             <Field
                 name={name}
-                format={(value, name) => {
+                format={(value) => {
                     if (!mask) {
                         return value;
                     }
-                    return formatStringByPattern(mask, value)
+                    return formatStringByPattern(mask, value);
                 }}
                 {...rest}
             >

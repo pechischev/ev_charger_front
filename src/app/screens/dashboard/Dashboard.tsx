@@ -6,9 +6,7 @@ export class Dashboard extends Component {
         return (
             <div className="side-app">
                 <div className="page-header">Dashboard</div>
-                <div className="page-content">
-
-                </div>
+                <div className="page-content"/>
             </div>
         );
     }
