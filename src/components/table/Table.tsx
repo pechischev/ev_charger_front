@@ -28,11 +28,11 @@ export class Table<T> extends Component<ITable<T>> {
         this.paginationStore.setStep(nextProps.rowsPerPage || this.paginationStore.getStep());
     }
 
-    static getRowSize(columns: IColumn[]): string {
+    static getRowSize<T>(columns: Array<IColumn<T>>): string {
         let sizesRow = "";
         columns.map((value: object) => {
             const size = _.get(value, "size", "1fr");
-            sizesRow = sizesRow + `minmax(${!!~size.indexOf("fr") ? "100px" : size}, ${size})` + " ";
+            sizesRow = `${sizesRow}minmax(${(size.indexOf("fr") > -1) ? "100px" : size}, ${size}) `;
         });
         return sizesRow;
     }
@@ -54,7 +54,11 @@ export class Table<T> extends Component<ITable<T>> {
                         {...{canSelect, onClickRow, columns}}
                     />
                 </table>
-                <TablePagination store={this.paginationStore} onChangePage={onChangePage} rowsPerPage={this.props.rowsPerPage}/>
+                <TablePagination
+                    store={this.paginationStore}
+                    onChangePage={onChangePage}
+                    rowsPerPage={this.props.rowsPerPage}
+                />
             </div>
         );
     }

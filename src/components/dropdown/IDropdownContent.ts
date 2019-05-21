@@ -4,7 +4,8 @@ import { Subject } from "rxjs";
 
 export interface IDropdownOption {
     divider?: boolean;
-    value?: ReactNode|string;
+    value?: ReactNode | string;
+
     onClick?(event?: React.MouseEvent<HTMLElement>): void;
 }
 

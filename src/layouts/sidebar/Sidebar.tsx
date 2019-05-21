@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
-import { EPaths } from "@app/config";
+import { EPaths, Nullable } from "@app/config";
 import "./Sidebar.scss";
 import { ILink } from "@layouts/sidebar/ILink";
 
@@ -26,7 +26,7 @@ export class Sidebar extends Component {
         );
     }
 
-    private renderLink(link: ILink, index: number): ReactNode {
+    private renderLink(link: ILink, index: number): Nullable<ReactNode> {
         const { path, value, iconType, isEnabled } = link;
         if (!isEnabled) {
             return void 0;

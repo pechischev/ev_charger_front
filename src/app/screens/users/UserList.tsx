@@ -21,7 +21,7 @@ export class UserList extends List<IUserListItem> {
         ];
     }
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<IUserListItem>> {
         return [
             { id: "user.id", label: "Id" },
             { id: "user.firstName", label: "First name" },
@@ -35,7 +35,7 @@ export class UserList extends List<IUserListItem> {
         redirectOnUserProfile(item.user.id);
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
         return this.store.transport.getUsers(params);
     }
 }

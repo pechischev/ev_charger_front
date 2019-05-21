@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChangeEvent, Component } from "react";
+import { ChangeEvent, Component, ReactNode } from "react";
 import { TabStore } from "./TabStore";
 import { observer } from "mobx-react";
 import * as classnames from "classnames";
@@ -22,13 +22,13 @@ export class Tab extends Component<ICustomTabProps> {
         this.store.setItems(props.items);
     }
 
-    componentWillUpdate(nextProps: ICustomTabProps) {
+    componentWillUpdate(nextProps: ICustomTabProps): void {
         if (_.difference(this.props.items, nextProps.items).length) {
             this.store.setItems(nextProps.items);
         }
     }
 
-    render() {
+    render(): ReactNode {
         const { children, className = "" } = this.props;
         const items = this.store.getItems();
         const classes = classnames({
@@ -42,7 +42,12 @@ export class Tab extends Component<ICustomTabProps> {
                         items.map((item: ITabItem, index) => {
                             const { text } = item;
                             return (
-                                <div key={index} className="tab-item__label" data-active={this.store.getActiveTab() === index} onClick={this.onChange.bind(this, index)}>
+                                <div
+                                    key={index}
+                                    className="tab-item__label"
+                                    data-active={this.store.getActiveTab() === index}
+                                    onClick={this.onChange.bind(this, index)}
+                                >
                                     {text}
                                 </div>
                             );
@@ -56,8 +61,7 @@ export class Tab extends Component<ICustomTabProps> {
         );
     }
 
-    private onChange(value: number, event: ChangeEvent<HTMLElement>) {
+    private onChange(value: number, event: ChangeEvent<HTMLElement>): void {
         this.store.setActiveTab(value);
     }
-
 }

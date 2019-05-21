@@ -37,7 +37,7 @@ export class ProfileTab extends Component<IProfileProps> {
                     validateData={this.store.validateData}
                     data={this.store.transformUserData(this.props.data)}
                     submit={(data) => this.store.updateUser(data, userId as string)}
-                    render={(api, submitting) => this.getSettingsForm(api, submitting)}
+                    render={this.getSettingsForm}
                 />
             </div>
         );
@@ -46,7 +46,7 @@ export class ProfileTab extends Component<IProfileProps> {
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <Fragment>
-                <UserForm passwordFields={null}/>
+                <UserForm passwordFields={void 0}/>
                 <div className="profile-form-button clearfix">
                     <Button
                         className="float-right"

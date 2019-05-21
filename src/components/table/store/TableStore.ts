@@ -13,13 +13,13 @@ export class TableStore<T> {
     }
 
     getData(): Array<ITableData<T>> {
-        return this.data.slice() as Array<ITableData<T>>;
+        return this.data.slice();
     }
 
     private transformData(data: T[]): Array<ITableData<T>> {
         return data.map((item: T, index: number) => ({
             counter: index,
             item
-        }) as ITableData<T>);
+        }));
     }
 }

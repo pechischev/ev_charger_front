@@ -9,6 +9,7 @@ import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { IResidenceListItem } from "@entities/residence";
 import { redirectOnResidenceProfile } from "@utils/history";
+import { get } from "lodash";
 
 @observer
 @autobind
@@ -19,10 +20,10 @@ export class ResidencesList extends List<IResidenceListItem> {
             {text: "All", value: void 0},
             {text: "Active", value: EStatus.ACTIVE},
             {text: "Inactive", value: EStatus.INACTIVE},
-        ]
+        ];
     }
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<IResidenceListItem>> {
         return [
             {id: "title", label: "Residence Name"},
             {
@@ -44,7 +45,7 @@ export class ResidencesList extends List<IResidenceListItem> {
         redirectOnResidenceProfile(item.id);
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES_LIST>> {
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES_LIST>> {
         return this.store.transport.getResidencesList(params);
     }
 
@@ -54,7 +55,7 @@ export class ResidencesList extends List<IResidenceListItem> {
     }
 
     private getOperatorName(item: IResidenceListItem): string {
-        const {firstName, lastName} = item.operator.user;
+        const {firstName, lastName} = get(item.operator, "user", {firstName: "", lastName: ""});
         return `${firstName} ${lastName}`.trim();
     }
 }

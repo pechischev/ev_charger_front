@@ -1,4 +1,5 @@
 export interface ITabItem {
     text: string;
-    handler: () => void;
+
+    handler(): void;
 }

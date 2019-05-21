@@ -8,18 +8,22 @@ import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { IResidenceParams } from "@services/transport/params";
 import { EResidenceFieldTypes, ResidenceForm } from "@app/components/residence-form";
+import { RouteProps } from "react-router";
 
 @observer
 @autobind
-export class AddResidence extends Component<{}> {
+export class AddResidence extends Component<RouteProps> {
     private readonly store = new AddResidenceStore();
 
-    constructor(props: {}) {
+    constructor(props: RouteProps) {
         super(props);
         this.store.init();
     }
 
     render(): ReactNode {
+        const data: Partial<IResidenceParams> = {
+            [EResidenceFieldTypes.BILLING_RATE]: 99
+        };
         return (
             <div className="side-app">
                 <div className="page-header">New Residence</div>
@@ -32,9 +36,7 @@ export class AddResidence extends Component<{}> {
                                 <CustomForm
                                     keepDirtyOnReinitialize={false}
                                     validateData={this.store.validateData}
-                                    data={{
-                                        [EResidenceFieldTypes.BILLING_RATE]: 99
-                                    } as IResidenceParams}
+                                    data={data}
                                     error$={this.store.error$}
                                     submit={this.store.createResidence}
                                     render={this.renderResidenceForm}
@@ -49,7 +51,11 @@ export class AddResidence extends Component<{}> {
 
     private renderResidenceForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <ResidenceForm api={api} submitting={submitting || false} canCancel={true}/>
+            <ResidenceForm
+                api={api}
+                submitting={submitting || false}
+                canCancel={true}
+            />
         );
     }
 }

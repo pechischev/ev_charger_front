@@ -82,14 +82,16 @@ export class ResidenceProfileStore extends Store {
         if (!this.residenceId) {
             return;
         }
-        return this.asyncCall(this.transport.removeCharger(this.residenceId, toString(chargerId))).then(this.onRemovedCharger);
+        return this.asyncCall(this.transport.removeCharger(this.residenceId, toString(chargerId)))
+            .then(this.onRemovedCharger);
     }
 
     async getChargerData(chargerId: number): Promise<void> {
         if (!this.residenceId) {
             return;
         }
-        return this.asyncCall(this.transport.getCharger(this.residenceId, toString(chargerId))).then(this.onGetChargerData);
+        return this.asyncCall(this.transport.getCharger(this.residenceId, toString(chargerId)))
+            .then(this.onGetChargerData);
     }
 
     async updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>): Promise<void> {

@@ -51,13 +51,10 @@ function isAccessGranted(props: RouteComponentProps): boolean {
 export function isOneOfPaths(paths: string[], pathname: string): boolean {
     return paths.reduce<boolean>((prev, current) => {
         if (current === "/" && pathname === current) {
-            // tslint:disable-next-line:no-parameter-reassignment
-            prev = true;
-            return prev;
+            return true;
         } else if (pathname.includes(current) && current !== "/") {
             // tslint:disable-next-line:no-parameter-reassignment
-            prev = true;
-            return prev;
+            return true;
         }
         return prev;
     }, false);

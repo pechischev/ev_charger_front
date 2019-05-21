@@ -5,7 +5,7 @@ export class TabStore {
     @observable private activeTab = 0;
     private items: ITabItem[] = [];
 
-    setItems(items: ITabItem[]) {
+    setItems(items: ITabItem[]): void {
         this.items = items;
     }
 
@@ -14,7 +14,7 @@ export class TabStore {
     }
 
     @action.bound
-    setActiveTab(value: number) {
+    setActiveTab(value: number): void {
         this.activeTab = value;
         const item = this.items[value];
         if (item) {

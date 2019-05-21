@@ -20,7 +20,7 @@ export class Login extends Component {
         AppContext.getHistory().push(`/${EPaths.DASHBOARD}`);
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         this.store.login$.subscribe((response: TApiResponse<EApiRoutes.SIGN_IN>) => {
             AppContext.getUserStore().fetchAdminTokens(response);
             Login.redirect();
@@ -39,7 +39,7 @@ export class Login extends Component {
                             <CustomForm
                                 error$={this.store.error$}
                                 submit={this.store.login}
-                                render={(api, submitting) => this.renderForm(api, submitting)}
+                                render={this.renderForm}
                             />
                         </div>
                     </div>
