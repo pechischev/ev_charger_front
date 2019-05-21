@@ -18,14 +18,14 @@ export class BillingList extends List<IBillingListItem, IChargersListProps> {
 
     protected getColumns(): Array<IColumn<IBillingListItem>> {
         return [
-            { id: "", label: "Date" },
+            { id: "a", label: "Date" },
             { id: "user.firstName", label: "First name" },
             { id: "user.lastName", label: "Last name" },
-            { id: "", label: "Successful transactions" },
-            { id: "", label: "Unsuccessful transactions" },
-            { id: "", label: "Total Revenue" },
-            { id: "", label: "Service Fee" },
-            { id: "", label: "Net Revenue" },
+            { id: "b", label: "Successful transactions" },
+            { id: "c", label: "Unsuccessful transactions" },
+            { id: "d", label: "Total Revenue" },
+            { id: "e", label: "Service Fee" },
+            { id: "f", label: "Net Revenue" },
             {
                 id: "", label: "", size: "185px", handler: (item: IBillingListItem) => {
                     return (
