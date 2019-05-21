@@ -122,7 +122,10 @@ export class ResidenceProfile extends Component<RouteProps> {
                 {(close) => <CreateChargerForm
                     residenceId={this.store.getResidenceId()}
                     onClose={close}
-                    onCreate={this.store.updateChargerList$.next}
+                    onCreate={() => {
+                        this.store.updateChargerList$.next();
+                        close();
+                    }}
                 />}
             </Modal>
         );
