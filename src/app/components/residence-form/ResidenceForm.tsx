@@ -87,7 +87,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 <Button
                                     className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
                                     type="secondary"
-                                    onClick={() => redirectToResidenceList()}
+                                    onClick={redirectToResidenceList}
                                     text={"Cancel"}
                                 />
                                 <Button

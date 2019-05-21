@@ -27,21 +27,19 @@ export const PhoneField: FC<IField> = ({ name, ...rest }) => {
         }
         value = value.replace(/[^\d]/g, "");
         if (value.length === 12) {
-            value = value.substring(0, value.length - 1)
+            value = value.substring(0, value.length - 1);
         }
         return value;
     };
 
     return (
         <InputField
-            label={ "Phone number" }
-            name={ name }
-            placeholder={ "Enter phone" }
-            mask={ "+9 (999) 999 99-99" }
-            validate={ (value) => validatePhoneValue(value) }
-            parse={ (value) => {
-                return formatPhoneValue(value);
-            }}
+            label={"Phone number"}
+            name={name}
+            placeholder={"Enter phone"}
+            mask={"+9 (999) 999 99-99"}
+            validate={(value) => validatePhoneValue(value)}
+            parse={(value) => formatPhoneValue(value)}
             {...rest}
         />
     );

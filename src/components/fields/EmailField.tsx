@@ -19,10 +19,10 @@ export const EmailField: FC<IField> = ({ name, ...rest }) => {
 
     return (
         <InputField
-            label={ "Email address" }
-            name={ name }
-            placeholder={ "Enter email" }
-            validate={ (value) => validateEmailValue(value) }
+            label={"Email address"}
+            name={name}
+            placeholder={"Enter email"}
+            validate={(value) => validateEmailValue(value)}
             {...rest}
         />
     );

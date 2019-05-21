@@ -1,25 +1,25 @@
 import { Store } from "@components/store";
 import { IFieldError } from "@app/config/IFieldError";
 import { autobind } from "core-decorators";
-import { EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
+import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
-import { isEmpty, toNumber } from "lodash";
-import { redirectToCompanyInfoSettings } from "@utils/history";
+import { get, isEmpty, toNumber } from "lodash";
 import { ECompanyFieldType } from "./ECompanyFieldType";
 import { action, observable } from "mobx";
 import { ICompany } from "@entities/company";
 import { Nullable } from "@app/config";
+import { redirectToSettings } from "@utils/history";
 
 @autobind
 export class CompanySettingsStore extends Store {
-    @observable private data: ICompany = _.stubObject();
+    @observable private data: TApiParams<EApiRoutes.COMPANY_SETTINGS> = _.stubObject();
 
     @action.bound
-    setData(data: ICompany): void {
+    setData(data: TApiParams<EApiRoutes.COMPANY_SETTINGS>): void {
         this.data = data;
     }
 
-    getData(): ICompany {
+    getData(): TApiParams<EApiRoutes.COMPANY_SETTINGS> {
         return this.data;
     }
 
@@ -27,11 +27,7 @@ export class CompanySettingsStore extends Store {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        const { companyName, state, city, address, extraAddress, zipCode } = data;
-        return {
-            ...{ companyName, city, address, extraAddress, zipCode },
-            stateId: state.id,
-        };
+        return data;
     }
 
     validateData(): IFieldError[] {
@@ -47,17 +43,24 @@ export class CompanySettingsStore extends Store {
         ];
     }
 
-    async updateCompanyInfo(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>): Promise<void> {
-        const { stateId, operatorId, ...rest } = params;
-        return this.asyncCall(this.transport.createResidence({
-            ...rest,
-            stateId: toNumber(stateId),
-            operatorId: toNumber(operatorId),
-        }), this.onError).then(this.updateCompany);
+    async getCompanyInfo(): Promise<void> {
+        return this.asyncCall(this.transport.getCompanyInfo()).then(this.onGetCompanyInfo);
     }
 
-    private updateCompany(response: TAxiosResponse<EApiRoutes.COMPANY_SETTINGS>): void {
-        console.info("[CompanySettingsStore.updateCompany]", response);
-        redirectToCompanyInfoSettings();
+    async updateCompanyInfo(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>): Promise<void> {
+        const { state, ...rest } = params;
+        return this.asyncCall(this.transport.updateCompanyInfo({ ...rest, state: toNumber(state) }))
+            .then(this.onUpdateCompanyInfo);
+    }
+
+    private onUpdateCompanyInfo(response: TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.POST>): void {
+        console.info("[CompanySettingsStore.onUpdateCompanyInfo]", response);
+        redirectToSettings();
+    }
+
+    private onGetCompanyInfo(response: TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.GET>): void {
+        console.info("[CompanySettingsStore.onGetCompanyInfo]", response);
+        const data = get<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.GET>, "data">(response, "data");
+        this.setData(data);
     }
 }

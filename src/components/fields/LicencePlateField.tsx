@@ -22,19 +22,19 @@ export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
             return value;
         }
         if (value.length === 9) {
-            value = value.substring(0, value.length - 1)
+            value = value.substring(0, value.length - 1);
         }
         return value;
     };
 
     return (
         <InputField
-            label={ "Licence plate" }
-            name={ name }
-            placeholder={ "Enter licence plate" }
-            mask={ "AAAAAAAA" }
-            validate={ (value) => validateLicencePlateValue(value) }
-            parse={ (value) => {
+            label={"Licence plate"}
+            name={name}
+            placeholder={"Enter licence plate"}
+            mask={"AAAAAAAA"}
+            validate={(value) => validateLicencePlateValue(value)}
+            parse={(value) => {
                 return formatLicencePlate(value);
             }}
             {...rest}

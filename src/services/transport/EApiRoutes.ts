@@ -22,5 +22,5 @@ export enum EApiRoutes {
     CREATE_CHARGER = "/v1.0/cms/residence/{residenceId}/charger",
     CHARGER = "/v1.0/cms/residence/{residenceId}/charger/{chargerId}",
 
-    COMPANY_SETTINGS = "",
+    COMPANY_SETTINGS = "/v1.0/cms/settings/companyInfo",
 }

@@ -110,7 +110,7 @@ export class ResidenceProfileStore extends Store {
     private onUpdateResidence(response: TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>): void {
         console.info("[ResidenceProfileStore.onUpdateResidence]: ", response);
         const data = _.get<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>, "data">(response, "data");
-        this.setData(data)
+        this.setData(data);
     }
 
     @action.bound

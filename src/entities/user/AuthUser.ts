@@ -30,7 +30,7 @@ export class AuthUser  {
     }
 
     getName(): string {
-        return `${this.firstName} ${this.lastName}`
+        return `${this.firstName} ${this.lastName}`;
     }
 
     getRoles(): string[] {

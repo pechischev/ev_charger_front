@@ -1,1 +1,1 @@
-export {ICustomer} from "./ICustomer";
+export { ICustomer } from "./ICustomer";

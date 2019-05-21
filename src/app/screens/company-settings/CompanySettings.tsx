@@ -19,6 +19,8 @@ export class CompanySettings extends Component<{}> {
     constructor(props: {}) {
         super(props);
         this.store.init();
+        AppContext.getInfoStore().getStates();
+        this.store.getCompanyInfo();
     }
 
     render(): ReactNode {
@@ -36,7 +38,7 @@ export class CompanySettings extends Component<{}> {
                                 data={this.store.transformCompanyData(this.store.getData())}
                                 error$={this.store.error$}
                                 submit={this.store.updateCompanyInfo}
-                                render={(api, submitting) => this.renderCompanyForm(api, submitting)}
+                                render={this.renderCompanyForm}
                             />
                         }
                     />

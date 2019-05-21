@@ -28,21 +28,19 @@ export const YearField: FC<IField> = ({ name, ...rest }) => {
             return value;
         }
         if (value.length === 5) {
-            value = value.substring(0, value.length - 1)
+            value = value.substring(0, value.length - 1);
         }
         return value;
     };
 
     return (
         <InputField
-            label={ "Year" }
-            name={ name }
-            placeholder={ "Enter year" }
-            mask={ "9999" }
-            validate={ (value) => validateYearValue(value) }
-            parse={ (value) => {
-                return formatYear(value);
-            }}
+            label={"Year"}
+            name={name}
+            placeholder={"Enter year"}
+            mask={"9999"}
+            validate={(value) => validateYearValue(value)}
+            parse={(value) => formatYear(value)}
             {...rest}
         />
     );
