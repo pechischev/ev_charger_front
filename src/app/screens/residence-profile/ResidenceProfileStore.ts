@@ -2,7 +2,7 @@ import { action, observable } from "mobx";
 import { Store } from "@components/store";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
-import { toNumber, isEmpty, toString } from "lodash";
+import { toNumber, isEmpty, toString, get } from "lodash";
 import { autobind } from "core-decorators";
 import { ICharger, IResidence } from "@entities/residence";
 import { IFieldError } from "@app/config/IFieldError";
@@ -61,8 +61,8 @@ export class ResidenceProfileStore extends Store {
         const { title, state, city, address, extraAddress, billingRate, operator, zipCode, serviceFee } = data;
         return {
             ...{title, city, address, extraAddress, zipCode, billingRate, serviceFee},
-            operatorId: toNumber(operator.id),
-            stateId: toNumber(state.id)
+            operatorId: toNumber(get(operator, "id")),
+            stateId: toNumber(get(state, "id")),
         };
     }
 
