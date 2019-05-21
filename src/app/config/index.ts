@@ -6,3 +6,4 @@ export { ErrorMessages } from "./ErrorMessages";
 export { RegExpConfig } from "./RegExpConfig";
 export * from "./generics";
 export { IWrappedComponent } from "./IWrappedComponent";
+export { ERole } from "./ERole";

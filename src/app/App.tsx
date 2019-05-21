@@ -19,6 +19,9 @@ import { ResidenceProfile } from "@app/screens/residence-profile";
 import { AddResidence } from "@app/screens/add-residence";
 import { Settings } from "@app/screens/settings";
 import { CompanySettings } from "@app/screens/company-settings";
+import { Workers } from "@app/screens/company-worker";
+import { AddWorkerForm } from "@app/screens/add-worker-form";
+import { WorkerProfile } from "@app/screens/worker-profile";
 
 export class App extends Component {
     constructor(props: object) {
@@ -92,17 +95,27 @@ export class App extends Component {
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.USERS_LIST_SETTINGS}`}
-                                    component={Settings}
+                                    path={`/${EPaths.WORKER_LIST}`}
+                                    component={Workers}
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.COMPANY_INFO_SETTINGS}`}
+                                    path={`/${EPaths.WORKER_CREATE_FORM}`}
+                                    component={AddWorkerForm}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.WORKER_PROFILE}`}
+                                    component={WorkerProfile}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.COMPANY_INFO}`}
                                     component={CompanySettings}
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.BILLING_INFO_SETTINGS}`}
+                                    path={`/${EPaths.BILLING_INFO}`}
                                     component={Settings}
                                 />
                             </Switch>

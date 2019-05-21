@@ -5,7 +5,7 @@ import "./Settings.scss";
 import {
     redirectToBillingInfoSettings,
     redirectToCompanyInfoSettings,
-    redirectToUsersListSettings,
+    redirectToWorkerList,
 } from "@utils/history";
 
 export class Settings extends Component {
@@ -20,7 +20,7 @@ export class Settings extends Component {
                             "users",
                             "Invite more users to your company account.",
                         )}
-                        onClick={redirectToUsersListSettings}
+                        onClick={redirectToWorkerList}
                     />
                     <Card
                         content={this.getCardInfo(

@@ -41,4 +41,11 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     getCompanyInfo(): Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.GET>>;
     updateCompanyInfo(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>):
         Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.POST>>;
+
+    getWorkers(params: TApiParams<EApiRoutes.GET_WORKERS>): Promise<TAxiosResponse<EApiRoutes.GET_WORKERS>>;
+    createWorker(params: TApiParams<EApiRoutes.CREATE_WORKER>): Promise<TAxiosResponse<EApiRoutes.CREATE_WORKER>>;
+    updateWorker(params: TApiParams<EApiRoutes.WORKER_DATA>, workerId: string):
+        Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.PUT>>;
+    removeWorker(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.DELETE>>;
+    getWorkerData(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>>;
 }

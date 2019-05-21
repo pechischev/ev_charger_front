@@ -1,4 +1,4 @@
 export interface IItem {
-    id: number;
+    id: number | string;
     title: string;
 }

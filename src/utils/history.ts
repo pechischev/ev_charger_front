@@ -36,17 +36,27 @@ export function redirectToSettings(): void {
     AppContext.getHistory().push(link);
 }
 
-export function redirectToCompanyInfoSettings(): void {
-    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+export function redirectToWorkerList(): void {
+    const link = `/${EPaths.WORKER_LIST}`;
     AppContext.getHistory().push(link);
 }
 
-export function redirectToUsersListSettings(): void {
-    const link = `/${EPaths.USERS_LIST_SETTINGS}`;
+export function redirectToWorkerForm(userId: number): void {
+    const link = `/${EPaths.WORKER_PROFILE}?id=${userId}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToAddWorkerForm(): void {
+    const link = `/${EPaths.WORKER_CREATE_FORM}`;
     AppContext.getHistory().push(link);
 }
 
 export function redirectToBillingInfoSettings(): void {
-    const link = `/${EPaths.BILLING_INFO_SETTINGS}`;
+    const link = `/${EPaths.BILLING_INFO}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToCompanyInfoSettings(): void {
+    const link = `/${EPaths.COMPANY_INFO}`;
     AppContext.getHistory().push(link);
 }

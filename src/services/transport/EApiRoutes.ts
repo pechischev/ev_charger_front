@@ -23,4 +23,9 @@ export enum EApiRoutes {
     CHARGER = "/v1.0/cms/residence/{residenceId}/charger/{chargerId}",
 
     COMPANY_SETTINGS = "/v1.0/cms/settings/companyInfo",
+
+    GET_WORKERS = "/v1.0/cms/workers",
+    CREATE_WORKER = "/v1.0/cms/worker",
+    WORKER_DATA = "/v1.0/cms/worker/{workerId}",
+    BIND_WORKER = "/v1.0/cms/workers/bindOperator"
 }

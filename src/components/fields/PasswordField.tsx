@@ -21,7 +21,7 @@ export const PasswordField: FC<IField> = ({ label = "", name, ...rest }) => {
             label={label}
             type={"password"}
             name={name}
-            placeholder={`Enter ${label.toLowerCase()}`}
+            placeholder={`Enter ${ label.toLowerCase()}`}
             validate={validateZipCodeValue}
             {...rest}
         />

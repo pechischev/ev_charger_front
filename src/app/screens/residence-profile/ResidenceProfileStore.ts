@@ -61,8 +61,8 @@ export class ResidenceProfileStore extends Store {
         const { title, state, city, address, extraAddress, billingRate, operator, zipCode, serviceFee } = data;
         return {
             ...{title, city, address, extraAddress, zipCode, billingRate, serviceFee},
-            operatorId: get(operator, "id"),
-            stateId: get(state, "id"),
+            operatorId: toNumber(get(operator, "id")),
+            stateId: toNumber(get(state, "id")),
         };
     }
 
