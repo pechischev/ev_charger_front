@@ -1,1 +1,1 @@
-export {InfoStore} from "./InfoStore";
+export { InfoStore } from "./InfoStore";

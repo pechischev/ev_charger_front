@@ -46,7 +46,7 @@ export class ResidenceProfile extends Component<RouteProps> {
                                 data={this.store.transformResidenceData(this.store.getData())}
                                 error$={this.store.error$}
                                 submit={this.store.updateResidence}
-                                render={(api, submitting) => this.getSettingsForm(api, submitting)}
+                                render={this.getSettingsForm}
                             />
                         }
                     />
@@ -105,23 +105,27 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <ResidenceForm api={api} submitting={submitting || false} canCancel={false}/>
+            <ResidenceForm
+                api={api}
+                submitting={submitting || false}
+                canCancel={false}
+            />
         );
     }
 
-    private getActionElement() {
-        return <Modal
-            trigger={
-                <Button type="primary" text="Add charger"/>
-            }
-            title="Add Charger"
-        >
-            {(close) => <CreateChargerForm
-                residenceId={this.store.getResidenceId()}
-                onClose={close}
-                onCreate={() => this.store.updateChargerList$.next()}
-            />}
-        </Modal>;
+    private getActionElement(): ReactNode {
+        return (
+            <Modal
+                trigger={<Button type="primary" text="Add charger"/>}
+                title="Add Charger"
+            >
+                {(close) => <CreateChargerForm
+                    residenceId={this.store.getResidenceId()}
+                    onClose={close}
+                    onCreate={this.store.updateChargerList$.next}
+                />}
+            </Modal>
+        );
     }
 
     private async onViewItem(chargerId: number): Promise<void> {

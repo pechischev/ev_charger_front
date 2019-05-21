@@ -16,33 +16,39 @@ interface IChargersListProps extends IList<IBillingListItem> {
 @autobind
 export class BillingList extends List<IBillingListItem, IChargersListProps> {
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<IBillingListItem>> {
         return [
-            {id: "", label: "Date"},
-            {id: "user.firstName", label: "First name"},
-            {id: "user.lastName", label: "Last name"},
-            {id: "", label: "Successful transactions"},
-            {id: "", label: "Unsuccessful transactions"},
-            {id: "", label: "Total Revenue"},
-            {id: "", label: "Service Fee"},
-            {id: "", label: "Net Revenue"},
+            { id: "", label: "Date" },
+            { id: "user.firstName", label: "First name" },
+            { id: "user.lastName", label: "Last name" },
+            { id: "", label: "Successful transactions" },
+            { id: "", label: "Unsuccessful transactions" },
+            { id: "", label: "Total Revenue" },
+            { id: "", label: "Service Fee" },
+            { id: "", label: "Net Revenue" },
             {
                 id: "", label: "", size: "185px", handler: (item: IBillingListItem) => {
-                    return <Button type="secondary" onClick={() => this.viewReport(item.id)} text="View Billing Report"/>;
-                }
+                    return (
+                        <Button
+                            type="secondary"
+                            onClick={() => this.viewReport(item.id)}
+                            text="View Billing Report"
+                        />
+                    );
+                },
             },
         ];
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
-        const {residenceId} = this.props;
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
+        const { residenceId } = this.props;
         if (!residenceId) {
-            return new Promise((resolve) => resolve())
+            return new Promise((resolve) => resolve());
         }
         return this.store.transport.getResidenceChargesData(params, residenceId);
     }
 
-    private viewReport(id: number) {
+    private viewReport(id: number): void {
         // remove chargers request
         // this.updateList
     }

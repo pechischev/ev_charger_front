@@ -1,6 +1,6 @@
 import { IContextMenuItem } from "@components/context-menu";
-import { ReactNode } from "react";
 import * as React from "react";
+import { ReactNode } from "react";
 
 export interface ITableData<T> {
     counter: number;
@@ -13,7 +13,7 @@ export enum EContentPositionType {
     RIGHT = "right"
 }
 
-export interface IColumn {
+export interface IColumn<T> {
     id: string;
     label: string;
     position?: EContentPositionType;
@@ -21,7 +21,7 @@ export interface IColumn {
     cellClass?: string;
     size?: string;
 
-    handler?(data?: any): ReactNode;
+    handler?(data?: T): ReactNode;
 }
 
 export enum ESortState {
@@ -29,17 +29,17 @@ export enum ESortState {
     DESC = "desc",
 }
 
-export interface ITableHead {
+export interface ITableHead<T> {
     order?: ESortState;
     orderBy?: string;
-    columns: IColumn[];
-    contextItems?: any[];
+    columns: Array<IColumn<T>>;
+    contextItems?: object[];
 
     sortHandler(id: string): void;
 }
 
 export interface ITable<T> {
-    columns: IColumn[];
+    columns: Array<IColumn<T>>;
     data: T[];
 
     rowsPerPage?: number;
@@ -52,6 +52,8 @@ export interface ITable<T> {
     optionHandler?(item: T): void;
 
     onChangePage?(page: number): void;
+
     onChangeSort?(property: string, orderBy: string): void;
+
     onClickRow?(item: T, event?: React.MouseEvent<HTMLElement>): void;
 }

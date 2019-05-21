@@ -42,7 +42,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         );
     }
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<IChargersListItem>> {
         return [
             {id: "id", label: "Id"},
             {id: "model", label: "Model"},
@@ -62,7 +62,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
         this.props.onViewItem(item.id);
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
         const {residenceId} = this.props;
         if (!residenceId) {
             return new Promise((resolve) => resolve());

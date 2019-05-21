@@ -8,13 +8,13 @@ import { IFilter } from "@components/list/interfaces";
 
 @observer
 @autobind
-export class BillingList extends List<any> {
+export class BillingList extends List<object> {
 
     protected getFilterItems(): IFilter[] {
         return [];
     }
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<object>> {
         return [
             {id: "date", label: "Date"},
             {id: "value", label: "Transaction value"},
@@ -22,7 +22,7 @@ export class BillingList extends List<any> {
         ];
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
         return new Promise((resolve) => resolve);
     }
 }

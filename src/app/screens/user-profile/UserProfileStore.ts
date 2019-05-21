@@ -1,4 +1,4 @@
-import {action, observable} from "mobx";
+import { action, observable } from "mobx";
 import { ETabsType } from "@components/tab";
 import { Store } from "@components/store";
 import { EApiMethods, EApiRoutes, TAxiosResponse } from "@services/transport";
@@ -31,7 +31,7 @@ export class UserProfileStore extends Store {
     }
 
     async getUserData(userId: string): Promise<void> {
-        return this.asyncCall(this.transport.getUserData(userId), this.onError).then(this.onSuccessGetData);
+        return this.asyncCall(this.transport.getUserData(userId)).then(this.onSuccessGetData);
     }
 
     @action.bound

@@ -14,7 +14,7 @@ export class ResidenceFormStore extends Store {
     }
 
     getOperators(): void {
-        this.call(this.transport.getOperators(), this.onGetOperators, this.onError)
+        this.call(this.transport.getOperators(), this.onGetOperators, this.onError);
     }
 
     @action.bound

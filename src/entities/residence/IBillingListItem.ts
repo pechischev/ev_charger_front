@@ -7,7 +7,7 @@ export interface IBillingListItem {
     transaction: {
         successful: number;
         unsuccessful: number;
-    }
+    };
     revenueCount: number;
     serviceFee: number;
     netRevenue: number;

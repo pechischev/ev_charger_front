@@ -19,5 +19,5 @@ export interface IUserParams {
         modelId: number,
         year: string,
         licensePlate: string
-    }
+    };
 }

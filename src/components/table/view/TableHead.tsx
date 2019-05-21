@@ -6,7 +6,7 @@ import * as classNames from "classnames";
 import { Table } from "@components/table";
 
 @autobind
-export class TableHead extends Component<ITableHead> {
+export class TableHead<T> extends Component<ITableHead<T>> {
     render(): ReactNode {
         const {columns} = this.props;
         return (
@@ -21,7 +21,7 @@ export class TableHead extends Component<ITableHead> {
         );
     }
 
-    private renderCell(column: IColumn): ReactNode {
+    private renderCell(column: IColumn<T>): ReactNode {
         const {id, label, canSort, cellClass = ""} = column;
         const classes = classNames({
             [cellClass]: true,

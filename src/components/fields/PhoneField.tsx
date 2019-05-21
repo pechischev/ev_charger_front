@@ -5,9 +5,8 @@ import "./Field.scss";
 import { InputField } from "./InputField";
 import { EMessages } from "@utils/EMessage";
 
-
 export const PhoneField: FC<IField> = ({ name, ...rest }) => {
-    const validatePhoneValue = (value: string) => {
+    const validatePhoneValue = (value: string): string => {
         if (!value) {
             return EMessages.EMPTY;
         }
@@ -21,27 +20,25 @@ export const PhoneField: FC<IField> = ({ name, ...rest }) => {
         return "";
     };
 
-    const formatPhoneValue = (value: string) => {
+    const formatPhoneValue = (value: string): string => {
         if (!value) {
             return value;
         }
-        value = value.replace(/[^\d]/g, "");
-        if (value.length === 12) {
-            value = value.substring(0, value.length - 1)
+        const digits = value.replace(/[^\d]/g, "");
+        if (digits.length === 12) {
+            return digits.substring(0, digits.length - 1);
         }
-        return value;
+        return digits;
     };
 
     return (
         <InputField
-            label={ "Phone number" }
-            name={ name }
-            placeholder={ "Enter phone" }
-            mask={ "+9 (999) 999 99-99" }
-            validate={ (value) => validatePhoneValue(value) }
-            parse={ (value) => {
-                return formatPhoneValue(value);
-            }}
+            label={"Phone number"}
+            name={name}
+            placeholder={"Enter phone"}
+            mask={"+9 (999) 999 99-99"}
+            validate={validatePhoneValue}
+            parse={formatPhoneValue}
             {...rest}
         />
     );

@@ -14,7 +14,7 @@ export class SortStore {
     }
 
     @action.bound
-    changeOrderBy(property: string) {
+    changeOrderBy(property: string): void {
         this.order = (this.orderBy === property && this.order === ESortState.DESC) ? ESortState.ASC : ESortState.DESC;
         this.orderBy = property;
     }

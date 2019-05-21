@@ -3,11 +3,11 @@ import * as _ from "lodash";
 import { FieldRenderProps } from "react-final-form";
 
 function isEmptyField(value: string | number): boolean {
-    value = _.isNumber(value) ? value.toString() : value;
-    return _.isEmpty(value);
+    const currentValue = _.isNumber(value) ? value.toString() : value;
+    return _.isEmpty(currentValue);
 }
 
-export function getFieldErrorByCode(codes: number[], value: any): string {
+export function getFieldErrorByCode<T>(codes: number[], value: string | number): string {
     // TODO: should get all codes
     const code = codes.length ? codes[0] : 0;
     if (isEmptyField(value)) {

@@ -10,13 +10,14 @@ import { AddUserFormStore } from "./AddUserFormStore";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { EUserFieldTypes, UserForm } from "@app/components/user-form";
+import { RouteProps } from "react-router";
 
 @observer
 @autobind
-export class AddUserForm extends Component<{}> {
+export class AddUserForm extends Component<RouteProps> {
     private readonly store = new AddUserFormStore();
 
-    constructor(props: {}) {
+    constructor(props: RouteProps) {
         super(props);
         this.store.init();
     }
@@ -35,7 +36,7 @@ export class AddUserForm extends Component<{}> {
                                     validateData={this.store.validateData}
                                     error$={this.store.error$}
                                     submit={this.store.createUser}
-                                    render={(api, submitting) => this.renderUserForm(api, submitting)}
+                                    render={this.renderUserForm}
                                 />
                             </div>
                         }
@@ -48,17 +49,19 @@ export class AddUserForm extends Component<{}> {
     private renderUserForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <Fragment>
-                <UserForm passwordFields={
-                    <PasswordField
-                        label={"Password"}
-                        name={EUserFieldTypes.PASSWORD}
-                    />
-                }/>
+                <UserForm
+                    passwordFields={
+                        <PasswordField
+                            label={"Password"}
+                            name={EUserFieldTypes.PASSWORD}
+                        />
+                    }
+                />
                 <div className="profile-form-button clearfix">
                     <Button
                         className="float-right"
                         type="secondary"
-                        onClick={() => redirectToUsersList()}
+                        onClick={redirectToUsersList}
                         text={"Cancel"}
                     />
                     <Button
@@ -76,4 +79,3 @@ export class AddUserForm extends Component<{}> {
         );
     }
 }
-

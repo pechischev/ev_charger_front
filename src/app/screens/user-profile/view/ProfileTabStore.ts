@@ -4,7 +4,7 @@ import { ICustomer } from "@entities/customer";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import { autobind } from "core-decorators";
 import { Nullable } from "@app/config";
-import { toNumber, isEmpty } from "lodash";
+import { isEmpty, toNumber } from "lodash";
 import { redirectToUsersList } from "@utils/history";
 import { EUserFieldTypes } from "@app/components/user-form";
 
@@ -33,7 +33,7 @@ export class ProfileTabStore extends Store {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        const { userData, contactData, phone, vehicle} = data;
+        const { userData, contactData, phone, vehicle } = data;
         const { email, firstName, lastName } = userData;
         const { state, residence, ...rest } = contactData;
         const { makes, model, ...vehicleRest } = vehicle;
@@ -60,7 +60,7 @@ export class ProfileTabStore extends Store {
             ...rest,
             contactInfo: { ...contactInfo, residenceId: toNumber(residenceId), stateId: toNumber(stateId) },
             vehicle: { ...vehicle, modelId: toNumber(modelId), makesId: toNumber(makesId) },
-        }, userId), this.onError).then(this.onUpdateUser)
+        }, userId)).then(this.onUpdateUser);
     }
 
     private onUpdateUser(response: TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.PUT>): void {

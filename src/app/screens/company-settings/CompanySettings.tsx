@@ -10,15 +10,18 @@ import { observer } from "mobx-react";
 import { EmailField, InputField, PhoneField, SelectField, ZipCodeField } from "@components/fields";
 import { AppContext } from "@context";
 import { Button } from "@components/button";
+import { RouteProps } from "react-router";
 
 @observer
 @autobind
-export class CompanySettings extends Component<{}> {
+export class CompanySettings extends Component<RouteProps> {
     private readonly store = new CompanySettingsStore();
 
-    constructor(props: {}) {
+    constructor(props: RouteProps) {
         super(props);
         this.store.init();
+        AppContext.getInfoStore().getStates();
+        this.store.getCompanyInfo();
     }
 
     render(): ReactNode {
@@ -36,7 +39,7 @@ export class CompanySettings extends Component<{}> {
                                 data={this.store.transformCompanyData(this.store.getData())}
                                 error$={this.store.error$}
                                 submit={this.store.updateCompanyInfo}
-                                render={(api, submitting) => this.renderCompanyForm(api, submitting)}
+                                render={this.renderCompanyForm}
                             />
                         }
                     />

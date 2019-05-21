@@ -9,6 +9,15 @@ const redirectOnLogin = () => AppContext.getHistory().push(`/${EPaths.LOGIN}`);
 
 // tslint:disable-next-line:no-unnecessary-class
 export class ErrorMessages {
+    static getMessageByState(state: EErrorState): IErrorMessage {
+        const message = ErrorMessages.messages.find((item) => item.state === state) || ErrorMessages.messages[0];
+        return {
+            title: message.title,
+            description: message.description,
+            button: message.button || void 0,
+        };
+    }
+
     private static readonly messages = [
         {
             state: EErrorState.NOT_FOUND,
@@ -17,13 +26,4 @@ export class ErrorMessages {
             button: <Button text={"GO TO LOGIN"} type="secondary" onClick={redirectOnLogin} />,
         },
     ];
-
-    static getMessageByState(state: EErrorState): IErrorMessage {
-        const message = this.messages.find((item) => item.state === state) || this.messages[0];
-        return {
-            title: message.title,
-            description: message.description,
-            button: message.button || void 0,
-        };
-    }
 }

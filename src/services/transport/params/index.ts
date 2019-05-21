@@ -3,3 +3,4 @@ export { IListParams } from "./IListParams";
 export { IUserParams } from "./IUserParams";
 export { IResidenceParams } from "./IResidenceParams";
 export { IChargerParams } from "./IChargerParams";
+export { ICompanyInfoParams } from "./ICompanyInfoParams";

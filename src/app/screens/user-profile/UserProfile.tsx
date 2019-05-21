@@ -12,6 +12,7 @@ import { RouteProps } from "react-router";
 import * as qs from "query-string";
 import { autobind } from "core-decorators";
 import { AppContext } from "@context";
+import { Nullable } from "@app/config";
 
 @observer
 @autobind
@@ -56,10 +57,10 @@ export class UserProfile extends Component<RouteProps> {
         );
     }
 
-    private getMainInfo(): ReactNode {
+    private getMainInfo(): Nullable<ReactNode> {
         const data = this.store.getData();
         if (_.isEmpty(data)) {
-            return null;
+            return void 0;
         }
         const { userData, status } = data;
         const { firstName, lastName, photo, email } = userData;
@@ -103,11 +104,13 @@ export class UserProfile extends Component<RouteProps> {
     private getContentByType(): ReactNode {
         switch (this.store.getTypeTab()) {
             case ETabsType.CUSTOMER_PROFILE:
-                return <ProfileTab
-                    data={this.store.getData()}
-                    userId={this.store.getUserId()}
-                    models={AppContext.getInfoStore().models}
-                />;
+                return (
+                    <ProfileTab
+                        data={this.store.getData()}
+                        userId={this.store.getUserId()}
+                        models={AppContext.getInfoStore().models}
+                    />
+                );
             case ETabsType.BILLING_INFO:
                 return <BillingInfoTab/>;
             default:

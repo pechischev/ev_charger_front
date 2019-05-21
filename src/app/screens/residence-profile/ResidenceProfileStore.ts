@@ -82,14 +82,16 @@ export class ResidenceProfileStore extends Store {
         if (!this.residenceId) {
             return;
         }
-        return this.asyncCall(this.transport.removeCharger(this.residenceId, toString(chargerId))).then(this.onRemovedCharger);
+        return this.asyncCall(this.transport.removeCharger(this.residenceId, toString(chargerId)))
+            .then(this.onRemovedCharger);
     }
 
     async getChargerData(chargerId: number): Promise<void> {
         if (!this.residenceId) {
             return;
         }
-        return this.asyncCall(this.transport.getCharger(this.residenceId, toString(chargerId))).then(this.onGetChargerData);
+        return this.asyncCall(this.transport.getCharger(this.residenceId, toString(chargerId)))
+            .then(this.onGetChargerData);
     }
 
     async updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>): Promise<void> {
@@ -110,7 +112,7 @@ export class ResidenceProfileStore extends Store {
     private onUpdateResidence(response: TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>): void {
         console.info("[ResidenceProfileStore.onUpdateResidence]: ", response);
         const data = _.get<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>, "data">(response, "data");
-        this.setData(data)
+        this.setData(data);
     }
 
     @action.bound
