@@ -25,21 +25,19 @@ export const ZipCodeField: FC<IField> = ({ name, ...rest }) => {
             return value;
         }
         if (value.length === 6) {
-            value = value.substring(0, value.length - 1)
+            value = value.substring(0, value.length - 1);
         }
         return value;
     };
 
     return (
         <InputField
-            label={ "Zip code" }
-            name={ name }
-            placeholder={ "Enter zip code" }
-            mask={ "99999" }
-            validate={ (value) => validateZipCodeValue(value) }
-            parse={ (value) => {
-                return formatZipCode(value);
-            }}
+            label={"Zip code"}
+            name={name}
+            placeholder={"Enter zip code"}
+            mask={"99999"}
+            validate={(value) => validateZipCodeValue(value)}
+            parse={(value) => formatZipCode(value)}
             {...rest}
         />
     );

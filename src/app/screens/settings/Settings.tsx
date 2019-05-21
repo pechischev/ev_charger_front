@@ -20,7 +20,7 @@ export class Settings extends Component {
                             "users",
                             "Invite more users to your company account.",
                         )}
-                        onClick={() => redirectToUsersListSettings()}
+                        onClick={redirectToUsersListSettings}
                     />
                     <Card
                         content={this.getCardInfo(
@@ -28,7 +28,7 @@ export class Settings extends Component {
                             "company",
                             "Tell us your company information and we will add it to your quotes and invoices.",
                         )}
-                        onClick={() => redirectToCompanyInfoSettings()}
+                        onClick={redirectToCompanyInfoSettings}
                     />
                     <Card
                         content={this.getCardInfo(
@@ -36,7 +36,7 @@ export class Settings extends Component {
                             "billing",
                             "Customize your payment details.",
                         )}
-                        onClick={() => redirectToBillingInfoSettings()}
+                        onClick={redirectToBillingInfoSettings}
                     />
                 </div>
             </div>

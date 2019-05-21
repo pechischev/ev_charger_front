@@ -2,6 +2,7 @@ import { EApiMethods } from "./EApiMethods";
 import { EApiRoutes } from "./EApiRoutes";
 import {
     IChargerParams,
+    ICompanyInfoParams,
     IListParams,
     ILoginParams,
     IResidenceParams,
@@ -13,6 +14,7 @@ export type TParamsUnion = ILoginParams
     | IListParams
     | IResidenceParams
     | IChargerParams
+    | ICompanyInfoParams
     | IUserParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
@@ -24,6 +26,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.RESIDENCE_DATA]: IResidenceParams;
     [EApiRoutes.CREATE_CHARGER]: IChargerParams;
     [EApiRoutes.CHARGER]: IChargerParams;
+    [EApiRoutes.COMPANY_SETTINGS]: ICompanyInfoParams;
 }
 
 // @ts-ignore:2344

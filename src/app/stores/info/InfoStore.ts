@@ -44,7 +44,7 @@ export class InfoStore extends Store {
     getModels(makesId: number): void {
         this.call(this.transport.getModels(toString(makesId)), this.onGetModels, (err) => {
             this._models = [];
-            return this.onError(err)
+            return this.onError(err);
         });
     }
 

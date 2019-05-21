@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { EApiMethods } from "./EApiMethods";
 import {
-    ICustomerResponse,
+    ICompanyInfoResponse,
     IListResponse,
     ILoginResponse,
     IUserResponse,
@@ -11,6 +11,7 @@ import { EApiRoutes } from "./EApiRoutes";
 import { IAuthUser, IUserListItem, IWorker } from "@entities/user";
 import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
+import { ICustomer } from "@entities/customer";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -24,8 +25,8 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.CREATE_USER]: IUserResponse;
 
     [EApiRoutes.USER_DATA]: {
-        [EApiMethods.GET]: ICustomerResponse;
-        [EApiMethods.PUT]: ICustomerResponse;
+        [EApiMethods.GET]: ICustomer;
+        [EApiMethods.PUT]: ICustomer;
     };
     [EApiRoutes.GET_RESIDENCES_LIST]: IListResponse<IResidenceListItem>;
     [EApiRoutes.RESIDENCE_DATA]: {
@@ -33,6 +34,10 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.PUT]: IResidence;
     };
     [EApiRoutes.CREATE_CHARGER]: ICharger;
+    [EApiRoutes.COMPANY_SETTINGS]: {
+        [EApiMethods.POST]: ICompanyInfoResponse;
+        [EApiMethods.GET]: ICompanyInfoResponse;
+    };
     [EApiRoutes.CHARGER]: {
         [EApiMethods.GET]: ICharger;
         [EApiMethods.PUT]: ICharger;

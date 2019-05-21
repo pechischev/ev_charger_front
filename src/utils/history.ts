@@ -31,17 +31,22 @@ export function redirectToResidenceCreateForm(): void {
     AppContext.getHistory().push(link);
 }
 
+export function redirectToSettings(): void {
+    const link = `/${EPaths.SETTINGS}`;
+    AppContext.getHistory().push(link);
+}
+
 export function redirectToCompanyInfoSettings(): void {
     const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
     AppContext.getHistory().push(link);
 }
 
 export function redirectToUsersListSettings(): void {
-    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+    const link = `/${EPaths.USERS_LIST_SETTINGS}`;
     AppContext.getHistory().push(link);
 }
 
 export function redirectToBillingInfoSettings(): void {
-    const link = `/${EPaths.COMPANY_INFO_SETTINGS}`;
+    const link = `/${EPaths.BILLING_INFO_SETTINGS}`;
     AppContext.getHistory().push(link);
 }

@@ -1,1 +1,1 @@
-export {AddUserForm} from "./AddUserForm"
+export { AddUserForm } from "./AddUserForm";

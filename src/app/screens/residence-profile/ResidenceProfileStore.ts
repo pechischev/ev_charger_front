@@ -41,7 +41,6 @@ export class ResidenceProfileStore extends Store {
         return this.residenceId;
     }
 
-
     @action.bound
     setChargerPopupState(isOpenChargerPopup: boolean): void {
         this.isOpenChargerPopup = isOpenChargerPopup;
@@ -64,7 +63,7 @@ export class ResidenceProfileStore extends Store {
             ...{title, city, address, extraAddress, zipCode, billingRate, serviceFee},
             operatorId: operator.id,
             stateId: state.id
-        }
+        };
     }
 
     validateData(): IFieldError[] {
@@ -111,7 +110,7 @@ export class ResidenceProfileStore extends Store {
     private onUpdateResidence(response: TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>): void {
         console.info("[ResidenceProfileStore.onUpdateResidence]: ", response);
         const data = _.get<TAxiosResponse<EApiRoutes.RESIDENCE_DATA, EApiMethods.PUT>, "data">(response, "data");
-        this.setData(data)
+        this.setData(data);
     }
 
     @action.bound

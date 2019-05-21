@@ -1,2 +1,2 @@
-export {List} from "./List";
-export {IList} from "./interfaces";
+export { List } from "./List";
+export { IList } from "./interfaces";

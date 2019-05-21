@@ -19,11 +19,11 @@ export const PasswordField: FC<IField> = ({ label = "", name, ...rest }) => {
 
     return (
         <InputField
-            label={ label }
+            label={label}
             type={"password"}
-            name={ name }
-            placeholder={ "Enter " + label.toLowerCase() }
-            validate={ (value) => validateZipCodeValue(value) }
+            name={name}
+            placeholder={"Enter " + label.toLowerCase()}
+            validate={(value) => validateZipCodeValue(value)}
             {...rest}
         />
     );

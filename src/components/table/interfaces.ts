@@ -1,6 +1,6 @@
 import { IContextMenuItem } from "@components/context-menu";
-import { ReactNode } from "react";
 import * as React from "react";
+import { ReactNode } from "react";
 
 export interface ITableData<T> {
     counter: number;
@@ -52,6 +52,8 @@ export interface ITable<T> {
     optionHandler?(item: T): void;
 
     onChangePage?(page: number): void;
+
     onChangeSort?(property: string, orderBy: string): void;
+
     onClickRow?(item: T, event?: React.MouseEvent<HTMLElement>): void;
 }

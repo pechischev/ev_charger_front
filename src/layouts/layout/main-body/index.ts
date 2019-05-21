@@ -1,1 +1,1 @@
-export {MainBody} from "./MainBody";
+export { MainBody } from "./MainBody";

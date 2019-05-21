@@ -37,7 +37,7 @@ export class AddResidence extends Component<{}> {
                                     } as IResidenceParams}
                                     error$={this.store.error$}
                                     submit={this.store.createResidence}
-                                    render={(api, submitting) => this.renderResidenceForm(api, submitting)}
+                                    render={this.renderResidenceForm}
                                 />
                             </div>
                         }

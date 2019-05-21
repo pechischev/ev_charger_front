@@ -26,7 +26,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
     }
 
     private renderActionElement(): Nullable<ReactNode> {
-        const {actionElement} = this.props;
+        const { actionElement } = this.props;
         if (!actionElement) {
             return void 0;
         }
@@ -38,7 +38,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
     }
 
     private renderSearchField(): Nullable<ReactNode> {
-        const {canSearch} = this.props;
+        const { canSearch } = this.props;
         if (!canSearch) {
             return void 0;
         }
@@ -63,17 +63,19 @@ export class ListActions<T> extends Component<IListActions<T>> {
     }
 
     private renderFilters(): Nullable<ReactNode> {
-        const {store, filters} = this.props;
+        const { store, filters } = this.props;
         if (!filters.length) {
             return void 0;
         }
-        return <Tab
-            items={filters.map(({text, value}) => ({text, handler: () => store.setFilter(value)}))}
-        />
+        return (
+            <Tab
+                items={filters.map(({ text, value }) => ({ text, handler: () => store.setFilter(value) }))}
+            />
+        );
     }
 
     private onSearch(data: TSearchType): void {
-        const {store} = this.props;
+        const { store } = this.props;
         const search = _.get<TSearchType, "search">(data, "search");
         store.setSearch(search);
     }

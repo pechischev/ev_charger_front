@@ -57,7 +57,7 @@ export class UserStore extends Store {
     }
 
     updateProfile(): void {
-        this.asyncCall(this.transport.profile()).then(this.onUpdateProfile)
+        this.asyncCall(this.transport.profile()).then(this.onUpdateProfile);
     }
 
     @action.bound
