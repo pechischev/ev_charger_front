@@ -3,17 +3,18 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { FormRenderProps } from "react-final-form";
 import { CustomForm } from "@components/custom-form";
-import { AddEmployeeFormStore } from "./AddEmployeeFormStore";
+import { AddWorkerFormStore } from "./AddWorkerFormStore";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
-import { EmployeeForm } from "@app/components/employee-form";
+import { WorkerForm } from "@app/components/worker-form";
+import { RouteProps } from "react-router";
 
 @observer
 @autobind
-export class AddEmployeeForm extends Component<{}> {
-    private readonly store = new AddEmployeeFormStore();
+export class AddWorkerForm extends Component<RouteProps> {
+    private readonly store = new AddWorkerFormStore();
 
-    constructor(props: {}) {
+    constructor(props: RouteProps) {
         super(props);
         this.store.init();
     }
@@ -28,11 +29,10 @@ export class AddEmployeeForm extends Component<{}> {
                         title="Add User"
                         content={
                             <CustomForm
-                                keepDirtyOnReinitialize={false}
                                 validateData={this.store.validateData}
                                 error$={this.store.error$}
-                                submit={this.store.createUser}
-                                render={(api, submitting) => this.renderEmployeeForm(api, submitting)}
+                                submit={this.store.createWorker}
+                                render={this.renderEmployeeForm}
                             />
                         }
                     />
@@ -43,7 +43,7 @@ export class AddEmployeeForm extends Component<{}> {
 
     private renderEmployeeForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <EmployeeForm api={api} submitting={submitting || false} canCancel={true}/>
+            <WorkerForm api={api} submitting={submitting || false} canCancel={true}/>
         );
     }
 }

@@ -24,7 +24,8 @@ export enum EApiRoutes {
 
     COMPANY_SETTINGS = "/v1.0/cms/settings/companyInfo",
 
-    GET_EMPLOYEES = "",
-    CREATE_EMPLOYEE = "",
-    EMPLOYEE_DATA = "",
+    GET_WORKERS = "/v1.0/cms/workers",
+    CREATE_WORKER = "/v1.0/cms/worker",
+    WORKER_DATA = "/v1.0/cms/worker/{workerId}",
+    BIND_WORKER = "/v1.0/cms/workers/bindOperator"
 }

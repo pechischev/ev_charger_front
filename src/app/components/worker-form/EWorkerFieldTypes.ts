@@ -1,4 +1,4 @@
-export enum EEmployeeFieldTypes {
+export enum EWorkerFieldTypes {
     FIRST_NAME = "firstName",
     LAST_NAME = "lastName",
     EMAIL = "email",

@@ -2,20 +2,19 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { observer } from "mobx-react";
-import "./EmployeeProfile.scss";
+import "./WorkerProfile.scss";
 import { RouteProps } from "react-router";
 import * as qs from "query-string";
 import { autobind } from "core-decorators";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
-import { EmployeeProfileStore } from ".";
-import { EmployeeForm } from "@app/components/employee-form";
-import { IEmployee } from "@entities/company-employees";
+import { WorkerProfileStore } from ".";
+import { WorkerForm } from "@app/components/worker-form";
 
 @observer
 @autobind
-export class EmployeeProfile extends Component<RouteProps> {
-    private readonly store = new EmployeeProfileStore();
+export class WorkerProfile extends Component<RouteProps> {
+    private readonly store = new WorkerProfileStore();
 
     constructor(props: RouteProps) {
         super(props);
@@ -23,8 +22,8 @@ export class EmployeeProfile extends Component<RouteProps> {
 
         if (this.props.location) {
             const { id } = qs.parse(this.props.location.search);
-            this.store.getEmployee(id as string);
-            this.store.setEmployeeId(id as string);
+            this.store.setWorkerId(id as string);
+            this.store.getEmployee();
         }
     }
 
@@ -40,10 +39,10 @@ export class EmployeeProfile extends Component<RouteProps> {
                             <CustomForm
                                 keepDirtyOnReinitialize={false}
                                 validateData={this.store.validateData}
-                                data={{} as IEmployee}
+                                data={this.store.transformData(this.store.getData())}
                                 error$={this.store.error$}
-                                submit={this.store.updateEmployee}
-                                render={(api, submitting) => this.getSettingsForm(api, submitting)}
+                                submit={this.store.updateWorker}
+                                render={this.getSettingsForm}
                             />
                         }
                     />
@@ -54,7 +53,7 @@ export class EmployeeProfile extends Component<RouteProps> {
 
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <EmployeeForm api={api} submitting={submitting || false} canCancel={true}/>
+            <WorkerForm api={api} submitting={submitting || false} canCancel={true}/>
         );
     }
 }

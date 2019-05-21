@@ -19,9 +19,9 @@ import { ResidenceProfile } from "@app/screens/residence-profile";
 import { AddResidence } from "@app/screens/add-residence";
 import { Settings } from "@app/screens/settings";
 import { CompanySettings } from "@app/screens/company-settings";
-import { CompanyEmployees } from "@app/screens/company-employees";
-import { AddEmployeeForm } from "@app/screens/add-employee-form";
-import { EmployeeProfile } from "@app/screens/employee-profile";
+import { Workers } from "@app/screens/company-worker";
+import { AddWorkerForm } from "@app/screens/add-worker-form";
+import { WorkerProfile } from "@app/screens/worker-profile";
 
 export class App extends Component {
     constructor(props: object) {
@@ -95,18 +95,18 @@ export class App extends Component {
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.EMPLOYEES_LIST}`}
-                                    component={CompanyEmployees}
+                                    path={`/${EPaths.WORKER_LIST}`}
+                                    component={Workers}
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.EMPLOYEE_CREATE}`}
-                                    component={AddEmployeeForm}
+                                    path={`/${EPaths.WORKER_CREATE_FORM}`}
+                                    component={AddWorkerForm}
                                 />
                                 <PrivateRoute
                                     exact={true}
-                                    path={`/${EPaths.EMPLOYEE_PROFILE}`}
-                                    component={EmployeeProfile}
+                                    path={`/${EPaths.WORKER_PROFILE}`}
+                                    component={WorkerProfile}
                                 />
                                 <PrivateRoute
                                     exact={true}

@@ -6,23 +6,23 @@ import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
-import { redirectToCompanyEmployeeForm } from "@utils/history";
+import { redirectToWorkerForm } from "@utils/history";
 import { Button } from "@components/button";
 import * as React from "react";
 import { Fragment, ReactNode } from "react";
 import { action, observable } from "mobx";
-import { IEmployeeListItem } from "@entities/company-employees";
 import { Modal } from "@components/modal";
+import { IWorker } from "@entities/worker";
 
-interface ICompanyEmployeesListProps extends IList<IEmployeeListItem> {
-    onRemoveItem(chargerId: number): Promise<void>;
+interface ICompanyWorkerListProps extends IList<IWorker> {
+    onRemoveItem?(workerId: number): Promise<void>;
 
-    onViewItem(chargerId: number): Promise<void>;
+    onViewItem?(workerId: number): Promise<void>;
 }
 
 @observer
 @autobind
-export class CompanyEmployeesList extends List<IEmployeeListItem, ICompanyEmployeesListProps> {
+export class WorkersList extends List<IWorker, ICompanyWorkerListProps> {
     @observable private isOpenModal = false;
 
     render(): ReactNode {
@@ -51,13 +51,13 @@ export class CompanyEmployeesList extends List<IEmployeeListItem, ICompanyEmploy
         ];
     }
 
-    protected getColumns(): IColumn[] {
+    protected getColumns(): Array<IColumn<IWorker>> {
         return [
-            { id: "firstName", label: "First name" },
-            { id: "lastName", label: "Last name" },
-            { id: "email", label: "Email" },
+            { id: "user.firstName", label: "First name" },
+            { id: "user.lastName", label: "Last name" },
+            { id: "user.email", label: "Email" },
             { id: "status", label: "Status" },
-            { id: "role", label: "Role" },
+            { id: "role.title", label: "Role" },
             {
                 id: "action", label: "", size: "120px",
                 handler: () => <Button type="delete" onClick={this.onDeleteUser} text="Delete"/>,
@@ -65,12 +65,12 @@ export class CompanyEmployeesList extends List<IEmployeeListItem, ICompanyEmploy
         ];
     }
 
-    protected onClickRow(item: IEmployeeListItem): void {
-        redirectToCompanyEmployeeForm(item.id);
+    protected onClickRow(item: IWorker): void {
+        redirectToWorkerForm(item.user.id);
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_COMPANY_EMPLOYEES>> {
-        return this.store.transport.getUsers(params);
+    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_WORKERS>> {
+        return this.store.transport.getWorkers(params);
     }
 
     private onDeleteUser(event: React.MouseEvent<HTMLElement>): void {
@@ -79,12 +79,11 @@ export class CompanyEmployeesList extends List<IEmployeeListItem, ICompanyEmploy
     }
 
     private deleteUser(): void {
-        console.log(this.store.getSelectedItem());
         const item = this.store.getSelectedItem();
         if (!item) {
             return;
         }
-        this.props.onRemoveItem(item.id).then(this.updateList);
+        // this.props.onRemoveItem(item.user.id).then(this.updateList);
     }
 
     @action.bound

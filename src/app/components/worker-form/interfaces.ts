@@ -1,6 +1,6 @@
 import { FormRenderProps } from "react-final-form";
 
-export interface IEmployeeForm {
+export interface IWorkerForm {
     api: FormRenderProps;
     submitting?: boolean;
     canCancel?: boolean;

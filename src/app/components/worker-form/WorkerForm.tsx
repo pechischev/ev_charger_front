@@ -3,20 +3,21 @@ import { Component, ReactNode } from "react";
 import { EmailField, InputField, PasswordField, SelectField } from "@components/fields";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
-import { EEmployeeFieldTypes } from "./EEmployeeFieldTypes";
-import { IEmployeeForm } from "./interfaces";
+import { EWorkerFieldTypes } from "./EWorkerFieldTypes";
+import { IWorkerForm } from "./interfaces";
 import { Button } from "@components/button";
-import { redirectToEmployeeListSettings } from "@utils/history";
-import "./EmployeeForm.scss";
+import { redirectToWorkerList } from "@utils/history";
+import "./WorkerForm.scss";
 import { AppContext } from "@context";
+import { ERole } from "@app/config";
+import { EStatus } from "@entities/user";
 
 @observer
 @autobind
-export class EmployeeForm extends Component<IEmployeeForm> {
-    constructor(props: IEmployeeForm) {
+export class WorkerForm extends Component<IWorkerForm> {
+    constructor(props: IWorkerForm) {
         super(props);
-
-        AppContext.getInfoStore().getStates();
+        AppContext.getInfoStore().getResidences();
     }
 
     render(): ReactNode {
@@ -24,7 +25,7 @@ export class EmployeeForm extends Component<IEmployeeForm> {
             <div className="employee-form">
                 {this.renderContainer("Profile Information", this.getProfileInfoFields())}
                 {this.renderContainer("Role settings", this.getRoleSettingsFields())}
-                <div />
+                <div/>
             </div>
         );
     }
@@ -34,22 +35,22 @@ export class EmployeeForm extends Component<IEmployeeForm> {
             <div>
                 <InputField
                     label={"First name"}
-                    name={EEmployeeFieldTypes.FIRST_NAME}
+                    name={EWorkerFieldTypes.FIRST_NAME}
                     placeholder={"Enter first name"}
                 />
                 <InputField
                     label={"Last name"}
-                    name={EEmployeeFieldTypes.LAST_NAME}
+                    name={EWorkerFieldTypes.LAST_NAME}
                     placeholder={"Enter last name"}
                 />
-                <EmailField name={EEmployeeFieldTypes.EMAIL}/>
+                <EmailField name={EWorkerFieldTypes.EMAIL}/>
                 <PasswordField
                     label="Password"
-                    name={EEmployeeFieldTypes.PASSWORD}
+                    name={EWorkerFieldTypes.PASSWORD}
                 />
                 <PasswordField
                     label="Confirm Password"
-                    name={EEmployeeFieldTypes.CONFIRM_PASSWORD}
+                    name={EWorkerFieldTypes.CONFIRM_PASSWORD}
                 />
             </div>
         );
@@ -60,28 +61,34 @@ export class EmployeeForm extends Component<IEmployeeForm> {
         return (
             <div>
                 <SelectField
-                    name={EEmployeeFieldTypes.STATUS}
+                    name={EWorkerFieldTypes.STATUS}
                     label={"Status"}
-                    options={AppContext.getInfoStore().states}
+                    options={[
+                        { id: EStatus.ACTIVE, title: "Active" },
+                        { id: EStatus.INACTIVE, title: "Inactive" },
+                    ]}
                     placeholder={"Select status"}
                 />
                 <SelectField
-                    name={EEmployeeFieldTypes.ROLE}
+                    name={EWorkerFieldTypes.ROLE}
                     label={"Role"}
-                    options={AppContext.getInfoStore().states}
+                    options={[
+                        { id: ERole.ADMIN, title: "Admin" },
+                        { id: ERole.OPERATOR, title: "Operator" },
+                    ]}
                     placeholder={"Select role"}
                 />
                 <SelectField
-                    name={EEmployeeFieldTypes.RESIDENCES_LIST}
+                    name={EWorkerFieldTypes.RESIDENCES_LIST}
                     label={"Residences list"}
-                    options={AppContext.getInfoStore().states}
+                    options={AppContext.getInfoStore().residences}
                     placeholder={"Select residences list"}
                 />
                 <div className="employee-form-button clearfix">
                     <Button
                         className="float-right"
                         type="secondary"
-                        onClick={() => redirectToEmployeeListSettings()}
+                        onClick={redirectToWorkerList}
                         text={"Cancel"}
                     />
                     <Button

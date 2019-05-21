@@ -196,4 +196,26 @@ export class Transport<T extends object = object> implements ITransport {
         Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.POST>> {
         return this.client.post(EApiRoutes.COMPANY_SETTINGS, params);
     }
+
+    async getWorkers(params: TApiParams<EApiRoutes.GET_WORKERS>): Promise<TAxiosResponse<EApiRoutes.GET_WORKERS>> {
+        return this.client.get(EApiRoutes.GET_WORKERS, { params });
+    }
+
+    async createWorker(params: TApiParams<EApiRoutes.CREATE_WORKER>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_WORKER>> {
+        return this.client.post(EApiRoutes.CREATE_WORKER, params);
+    }
+
+    async updateWorker(params: TApiParams<EApiRoutes.WORKER_DATA>, workerId: string):
+        Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.PUT>> {
+        return this.client.put(`${EApiRoutes.WORKER_DATA.replace("{workerId}", workerId)}`, params);
+    }
+
+    async removeWorker(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.DELETE>> {
+        return this.client.delete(`${EApiRoutes.WORKER_DATA.replace("{workerId}", workerId)}`);
+    }
+
+    async getWorkerData(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.WORKER_DATA.replace("{workerId}", workerId)}`);
+    }
 }

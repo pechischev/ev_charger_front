@@ -20,9 +20,9 @@ export enum EPaths {
 
     SETTINGS = "settings",
 
-    EMPLOYEES_LIST = "settings/users",
-    EMPLOYEE_PROFILE = "settings/users/view",
-    EMPLOYEE_CREATE = "settings/users/create",
+    WORKER_LIST = "settings/users",
+    WORKER_PROFILE = "settings/users/view",
+    WORKER_CREATE_FORM = "settings/users/create",
 
     COMPANY_INFO = "settings/company",
     BILLING_INFO = "settings/billing",

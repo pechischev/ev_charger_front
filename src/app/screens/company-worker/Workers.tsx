@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { redirectToAddCompanyEmployeeForm } from "@utils/history";
+import { redirectToAddWorkerForm } from "@utils/history";
 import { Button } from "@components/button";
-import { CompanyEmployeesList } from "./CompanyEmployeesList";
-import "./CompanyEmployees.scss";
+import { WorkersList } from "./WorkersList";
+import "./Workers.scss";
 
-export class CompanyEmployees extends Component {
+export class Workers extends Component {
     render(): ReactNode {
         const actionElement = this.getActionElement();
         return (
@@ -16,10 +16,8 @@ export class CompanyEmployees extends Component {
                     <Card
                         title="Users list"
                         content={
-                            <CompanyEmployeesList
+                            <WorkersList
                                 actionElement={actionElement}
-                                onRemoveItem={() => void 0}
-                                onViewItem={() => void 0}
                             />
                         }
                     />
@@ -32,7 +30,7 @@ export class CompanyEmployees extends Component {
         return (
             <Button
                 type="primary"
-                onClick={() => redirectToAddCompanyEmployeeForm()}
+                onClick={redirectToAddWorkerForm}
                 text={"Add company user"}
             />
         );
