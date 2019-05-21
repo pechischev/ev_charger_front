@@ -1,0 +1,64 @@
+@import "~styles/utils/mixins.scss";
+
+@mixin getCardInfoImage($type) {
+    &[data-type="#{$type}"] {
+        background-image: url("img/#{$type}-icon.svg");
+    }
+}
+
+.settings-container {
+    width: 100%;
+    display: flex;
+
+    .page-card {
+        width: calc(100% / 3 - 20px);
+        cursor: pointer;
+
+        &:nth-child(1) {
+            margin: 0 auto 0 0;
+        }
+
+        &:nth-child(2) {
+            margin: 0 auto 0 auto;
+        }
+
+        &:nth-child(3) {
+            margin: 0 0 0 auto;
+        }
+    }
+
+    .card-info {
+        &_header {
+            margin: 10px 0;
+            display: grid;
+            grid-template-columns: 32px auto;
+
+            .header {
+                &__image {
+                    @include square(32px);
+                    @include getCardInfoImage("users");
+                    @include getCardInfoImage("company");
+                    @include getCardInfoImage("billing");
+
+                    background-repeat: no-repeat;
+                    background-size: 32px 32px;
+                }
+
+                &__text {
+                    font-size: 26px;
+                    font-weight: 500;
+                    line-height: 32px;
+                    margin-left: 15px;
+                }
+            }
+        }
+
+        &_description {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 26px;
+            min-height: 100px;
+        }
+    }
+}

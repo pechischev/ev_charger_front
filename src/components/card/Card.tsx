@@ -1,12 +1,12 @@
 import * as React from "react";
-import {FC} from "react";
+import { FC } from "react";
 import "./Card.scss";
-import {ICardProps} from "@components/card";
+import { ICardProps } from "@components/card";
 import * as _ from "lodash";
 
-export const Card: FC<ICardProps> = ({title = "", content = "", className = ""}) => {
+export const Card: FC<ICardProps> = ({ title = "", content = "", className = "", onClick }) => {
     return (
-        <div className={`page-card ${className}`}>
+        <div className={`page-card ${className}`} onClick={onClick || void 0}>
             <div className="page-card-header" data-hidden={_.isEmpty(title)}>
                 <div className="page-card-header__title">{title}</div>
             </div>

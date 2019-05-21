@@ -11,7 +11,7 @@ export class Sidebar extends Component {
         { value: "Users", path: EPaths.USER_LIST, iconType: "users", isEnabled: true },
         { value: "Residences", path: EPaths.RESIDENCE_LIST, iconType: "residences", isEnabled: true },
         { value: "Payments", path: "", iconType: "payments", isEnabled: false },
-        { value: "Settings", path: "", iconType: "settings", isEnabled: false },
+        { value: "Settings", path: EPaths.SETTINGS, iconType: "settings", isEnabled: true },
     ];
 
     render(): ReactNode {
@@ -32,10 +32,10 @@ export class Sidebar extends Component {
             return void 0;
         }
         return (
-            <li key={ index }>
-                <NavLink className="side-menu__item" activeClassName={ "active" } to={ `/${ path }` }>
-                    <span className="side-menu__icon" data-icon={ iconType }/>
-                    <span className="side-menu__label">{ value }</span>
+            <li key={index}>
+                <NavLink className="side-menu__item" activeClassName={"active"} to={`/${path}`}>
+                    <span className="side-menu__icon" data-icon={iconType}/>
+                    <span className="side-menu__label">{value}</span>
                 </NavLink>
             </li>
         );

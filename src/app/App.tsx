@@ -11,12 +11,14 @@ import { Layout } from "@layouts/layout";
 import { PublicRoute } from "@components/public-route";
 import { ErrorScreen } from "@layouts/error-screen";
 import { Login } from "@app/screens/login";
-import { UserProfile } from "./screens/user-profile";
+import { UserProfile } from "@app/screens/user-profile";
 import { Users } from "@app/screens/users/Users";
 import { AddUserForm } from "@app/screens/add-user-form";
 import { Residences } from "@app/screens/residences/Residences";
 import { ResidenceProfile } from "@app/screens/residence-profile";
 import { AddResidence } from "@app/screens/add-residence";
+import { Settings } from "@app/screens/settings";
+import { CompanySettings } from "@app/screens/company-settings";
 
 export class App extends Component {
     constructor(props: object) {
@@ -82,6 +84,26 @@ export class App extends Component {
                                     exact={true}
                                     path={`/${EPaths.RESIDENCE_CREATE_FORM}`}
                                     component={AddResidence}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.SETTINGS}`}
+                                    component={Settings}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.USERS_LIST_SETTINGS}`}
+                                    component={Settings}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.COMPANY_INFO_SETTINGS}`}
+                                    component={CompanySettings}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.BILLING_INFO_SETTINGS}`}
+                                    component={Settings}
                                 />
                             </Switch>
                         </Layout>
