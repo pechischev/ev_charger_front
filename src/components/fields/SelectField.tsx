@@ -1,10 +1,11 @@
 import { IField } from "@components/fields/IField";
 import * as React from "react";
-import { FC } from "react";
-import { Field, FieldProps } from "react-final-form";
+import { FC, Fragment } from "react";
+import { Field, FieldRenderProps } from "react-final-form";
 import { IItem } from "@entities/_common";
 import { isObject } from "lodash";
 import "./Field.scss";
+import { getError } from "@utils";
 
 interface ISelectField extends IField<HTMLSelectElement> {
     options: IItem[];
@@ -20,20 +21,24 @@ export const SelectField: FC<ISelectField> = ({ options = [], name, label, place
                 {...rest}
             >
                 {
-                    (props: FieldProps<HTMLSelectElement>) => {
-                        const value = isObject(props.input.value) ? props.input.value.id : props.input.value;
+                    (props: FieldRenderProps<HTMLSelectElement>) => {
+                        const value = isObject(props.input.value) ? (props.input.value as IItem).id : props.input.value;
+                        const error = getError(props, type);
                         return (
-                            <select
-                                className="form-control"
-                                {...props.input}
-                                {...{ type, value }}
-                                disabled={!options.length}
-                            >
-                                <option value={""}>{placeholder}</option>
-                                {options.map((option) => (
-                                    <option value={option.id} key={option.id}>{option.title}</option>
-                                ))}
-                            </select>
+                            <Fragment>
+                                <select
+                                    className="form-control"
+                                    {...props.input}
+                                    {...{ type, value }}
+                                    disabled={!options.length}
+                                >
+                                    <option value={""}>{placeholder}</option>
+                                    {options.map((option) => (
+                                        <option value={option.id} key={option.id}>{option.title}</option>
+                                    ))}
+                                </select>
+                                <span className="form-text text-danger">{error}</span>
+                            </Fragment>
                         );
                     }
                 }

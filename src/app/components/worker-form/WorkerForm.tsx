@@ -11,6 +11,8 @@ import "./WorkerForm.scss";
 import { AppContext } from "@context";
 import { ERole } from "@app/config";
 import { EStatus } from "@entities/user";
+import { get, isEqual, toNumber } from "lodash";
+import { FormRenderProps, FormSpy } from "react-final-form";
 
 @observer
 @autobind
@@ -26,6 +28,13 @@ export class WorkerForm extends Component<IWorkerForm> {
                 {this.renderContainer("Profile Information", this.getProfileInfoFields())}
                 {this.renderContainer("Role settings", this.getRoleSettingsFields())}
                 <div/>
+                <FormSpy
+                    subscription={{
+                        values: true,
+                        modified: true,
+                    }}
+                    onChange={this.onChangeForm}
+                />
             </div>
         );
     }
@@ -83,6 +92,7 @@ export class WorkerForm extends Component<IWorkerForm> {
                     label={"Residences list"}
                     options={AppContext.getInfoStore().residences}
                     placeholder={"Select residences list"}
+                    disabled={!this.activeResidenceList(api)}
                 />
                 <div className="employee-form-button clearfix">
                     <Button
@@ -116,5 +126,18 @@ export class WorkerForm extends Component<IWorkerForm> {
                 </div>
             </div>
         );
+    }
+
+    private activeResidenceList(api: Pick<FormRenderProps, "values">): boolean {
+        const status = get(api.values, EWorkerFieldTypes.STATUS, EStatus.INACTIVE);
+        const role = get(api.values, EWorkerFieldTypes.ROLE);
+        return isEqual(status, EStatus.ACTIVE) && isEqual(toNumber(role), ERole.OPERATOR);
+    }
+
+    private onChangeForm(api: Pick<FormRenderProps, "values">): void {
+        console.log(api.values);
+        if (!this.activeResidenceList(api)) {
+            this.props.api.form.change(EWorkerFieldTypes.RESIDENCES_LIST, void 0);
+        }
     }
 }

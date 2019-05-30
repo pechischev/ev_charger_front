@@ -6,7 +6,7 @@ import { isEmpty, toNumber } from "lodash";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { ERole, Nullable } from "@app/config";
-import { EWorkerFieldTypes } from "@app/components/worker-form";
+import { EWorkerFieldTypes, IWorkerData } from "@app/components/worker-form";
 import { IWorker } from "@entities/worker";
 import { redirectToWorkerList } from "@utils/history";
 
@@ -29,14 +29,13 @@ export class WorkerProfileStore extends Store {
         this.workerId = data;
     }
 
-    transformData(data?: IWorker): Nullable<TApiParams<EApiRoutes.WORKER_DATA>> {
+    transformData(data?: IWorker): Nullable<IWorkerData> {
         if (!data || isEmpty(data)) {
             return void 0;
         }
         const { user, role, status, residences = []} = data;
         const { id, ...rest } = user;
-        const ids: number[] = residences.map((residence) => toNumber(residence.id));
-        return { ...rest, status, role: toNumber(role.id), residences: ids };
+        return { ...rest, status, role: toNumber(role.id), residences };
     }
 
     validateData(values: TApiParams<EApiRoutes.CREATE_WORKER>): IFieldError[] {
@@ -46,7 +45,6 @@ export class WorkerProfileStore extends Store {
             { type: EWorkerFieldTypes.EMAIL, codes: [15] },
             { type: EWorkerFieldTypes.PASSWORD, codes: [] },
             { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] },
-            { type: EWorkerFieldTypes.STATUS, codes: [] },
             { type: EWorkerFieldTypes.STATUS, codes: [] },
             { type: EWorkerFieldTypes.ROLE, codes: [] },
         ];
@@ -64,13 +62,18 @@ export class WorkerProfileStore extends Store {
         this.call(this.transport.getWorkerData(this.workerId), this.onGetWorkerData, this.onError);
     }
 
-    async updateWorker(params: TApiParams<EApiRoutes.WORKER_DATA>): Promise<void> {
-        const { residences = [], role, ...rest } = params;
-        return this.asyncCall(this.transport.createWorker({
+    async updateWorker(data: IWorkerData): Promise<void> {
+        if (!this.workerId) {
+            return;
+        }
+        const { residences = [], role, password, confirmPassword, ...rest } = data;
+        const params: TApiParams<EApiRoutes.WORKER_DATA> = {
             ...rest,
+            password,
             role: toNumber(role),
-            residences: residences.map(toNumber)
-        })).then(redirectToWorkerList);
+            residences: residences.map(({id}) => toNumber(id))
+        };
+        return this.asyncCall(this.transport.updateWorker(params, this.workerId)).then(redirectToWorkerList);
     }
 
     private onGetWorkerData(response: TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>): void {
