@@ -1,7 +1,8 @@
 import { IAuthUser } from "./IAuthUser";
+import { ERoles } from "@app/config";
 
 export class AuthUser  {
-    private readonly roles: string[] = [];
+    private readonly roles: ERoles[] = [];
     private readonly id: number;
     private readonly lastName: string;
     private readonly firstName: string;
@@ -33,7 +34,7 @@ export class AuthUser  {
         return `${this.firstName} ${this.lastName}`;
     }
 
-    getRoles(): string[] {
+    getRoles(): ERoles[] {
         return this.roles;
     }
 

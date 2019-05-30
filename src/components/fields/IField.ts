@@ -4,4 +4,6 @@ export interface IField<T extends HTMLElement = HTMLElement > extends FieldProps
     label?: string;
     placeholder?: string;
     mask?: string;
+    isVisible?: boolean;
+    disabled?: boolean;
 }
