@@ -44,9 +44,9 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
 
     protected getColumns(): Array<IColumn<IChargersListItem>> {
         return [
-            {id: "id", label: "Id"},
-            {id: "model", label: "Model"},
-            {id: "location", label: "Location"},
+            { id: "id", label: "Id" },
+            { id: "model", label: "Model" },
+            { id: "location", label: "Location" },
             {
                 id: "action", label: "", size: "120px",
                 handler: () => <Button type="delete" onClick={this.onDeleteCharges} text="Delete"/>,
@@ -55,7 +55,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
     }
 
     protected onClickRow(item: IChargersListItem): void {
-        const {residenceId} = this.props;
+        const { residenceId } = this.props;
         if (!residenceId) {
             return;
         }
@@ -63,7 +63,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
     }
 
     protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
-        const {residenceId} = this.props;
+        const { residenceId } = this.props;
         if (!residenceId) {
             return new Promise((resolve) => resolve());
         }

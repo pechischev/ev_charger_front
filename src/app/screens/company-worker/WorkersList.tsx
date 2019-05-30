@@ -6,7 +6,6 @@ import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
-import { redirectToWorkerForm } from "@utils/history";
 import { Button } from "@components/button";
 import * as React from "react";
 import { Fragment, ReactNode } from "react";
@@ -15,9 +14,9 @@ import { Modal } from "@components/modal";
 import { IWorker } from "@entities/worker";
 
 interface ICompanyWorkerListProps extends IList<IWorker> {
-    onRemoveItem?(workerId: number): Promise<void>;
+    onRemoveItem(workerId: number): Promise<void>;
 
-    onViewItem?(workerId: number): Promise<void>;
+    onViewItem(workerId: number): void;
 }
 
 @observer
@@ -66,7 +65,8 @@ export class WorkersList extends List<IWorker, ICompanyWorkerListProps> {
     }
 
     protected onClickRow(item: IWorker): void {
-        redirectToWorkerForm(item.user.id);
+        const { onViewItem } = this.props;
+        onViewItem(item.user.id);
     }
 
     protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_WORKERS>> {
@@ -83,7 +83,7 @@ export class WorkersList extends List<IWorker, ICompanyWorkerListProps> {
         if (!item) {
             return;
         }
-        // this.props.onRemoveItem(item.user.id).then(this.updateList);
+        this.props.onRemoveItem(item.user.id).then(this.updateList);
     }
 
     @action.bound
