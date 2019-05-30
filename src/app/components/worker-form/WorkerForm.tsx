@@ -4,7 +4,7 @@ import { EmailField, InputField, MultiSelectField, PasswordField, SelectField } 
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { EWorkerFieldTypes } from "./EWorkerFieldTypes";
-import { IWorkerForm } from "./interfaces";
+import { IWorkerData, IWorkerForm } from "./interfaces";
 import { Button } from "@components/button";
 import { redirectToWorkerList } from "@utils/history";
 import "./WorkerForm.scss";
@@ -13,6 +13,7 @@ import { ERole } from "@app/config";
 import { EStatus } from "@entities/user";
 import { get, isEqual, toNumber } from "lodash";
 import { FormRenderProps, FormSpy } from "react-final-form";
+import { EMessages } from "@utils/EMessage";
 
 @observer
 @autobind
@@ -60,6 +61,10 @@ export class WorkerForm extends Component<IWorkerForm> {
                 <PasswordField
                     label="Confirm Password"
                     name={EWorkerFieldTypes.CONFIRM_PASSWORD}
+                    validate={(value, allValues: IWorkerData) => {
+                        const { password = "" } = allValues;
+                        return this.validatePasswordValue(value, password);
+                    }}
                 />
             </div>
         );
@@ -139,5 +144,19 @@ export class WorkerForm extends Component<IWorkerForm> {
         if (!this.activeResidenceList(api)) {
             this.props.api.form.change(EWorkerFieldTypes.RESIDENCES_LIST, void 0);
         }
+    }
+
+    private validatePasswordValue(value: string, password: string): string {
+        const MIN_LENGTH_PASSWORD = 6;
+        if (!value) {
+            return EMessages.EMPTY;
+        }
+        if (value.length < MIN_LENGTH_PASSWORD) {
+            return EMessages.PASSWORD_INCORRECT;
+        }
+        if (value !== password) {
+            return EMessages.PASSWORDS_INCORRECT;
+        }
+        return "";
     }
 }

@@ -5,6 +5,7 @@ export interface IWorkerParams {
     lastName: string;
     email: string;
     password?: string;
+    confirmPassword?: string;
     role: number;
     status: EStatus;
     residences?: number[];

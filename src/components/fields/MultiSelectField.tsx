@@ -23,11 +23,32 @@ const convertValue = (options: IItem[] = []): IValueType[] => {
     );
 };
 
-const renderValueContainer = ({ children }: MultiValueProps<IValueType>) => (
-    <Fragment>
+const renderValueContainer = ({ children, className }: MultiValueProps<IValueType>) => (
+    <div className="multi-value-container">
         {children}
-    </Fragment>
+    </div>
 );
+
+const customStyles = {
+    menu: (provided, state) => ({
+        ...provided,
+        marginTop: 0,
+    }),
+    menuList: (provided, state) => ({
+        ...provided,
+        paddingTop: 0,
+        paddingBottom: 0,
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        width: "calc(100% - 1px)",
+    }),
+    multiValueLabel: (provided, state) => ({
+        ...provided,
+        fontSize: 14,
+        lineHeight: "18px",
+    }),
+};
 
 export const MultiSelectField: FC<IMultiSelectField> = ({
                                                             name,
@@ -51,7 +72,7 @@ export const MultiSelectField: FC<IMultiSelectField> = ({
                         const { onChange, value, ...other } = props.input;
                         const onChangeValue = (option: IValueType[] | IValueType) => {
                             const optionValues = isArray(option) ? option : [option];
-                            onChange(optionValues.map((optionValue) => optionValue.value) as any);
+                            onChange(optionValues.filter((optionValue) => !!optionValue).map((optionValue) => optionValue.value) as any);
                         };
                         const values = !!value ? isArray(value) ? value : [value] : void 0;
                         const error = getError(props, type);
@@ -66,6 +87,8 @@ export const MultiSelectField: FC<IMultiSelectField> = ({
                                     placeholder={placeholder}
                                     options={convertValue(options)}
                                     value={convertValue(values)}
+                                    className="multiSelect-field"
+                                    styles={customStyles}
                                     components={{
                                         MultiValueContainer: renderValueContainer,
                                     }}
