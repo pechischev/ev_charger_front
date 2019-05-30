@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { EmailField, InputField, PasswordField, SelectField } from "@components/fields";
+import { EmailField, InputField, MultiSelectField, PasswordField, SelectField } from "@components/fields";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { EWorkerFieldTypes } from "./EWorkerFieldTypes";
@@ -78,7 +78,7 @@ export class WorkerForm extends Component<IWorkerForm> {
                     ]}
                     placeholder={"Select role"}
                 />
-                <SelectField
+                <MultiSelectField
                     name={EWorkerFieldTypes.RESIDENCES_LIST}
                     label={"Residences list"}
                     options={AppContext.getInfoStore().residences}

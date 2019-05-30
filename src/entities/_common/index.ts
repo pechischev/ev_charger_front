@@ -1,1 +1,1 @@
-export { IItem } from "./IItem";
+export { IItem, IValueType } from "./IItem";

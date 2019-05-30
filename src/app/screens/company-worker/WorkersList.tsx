@@ -69,7 +69,7 @@ export class WorkersList extends List<IWorker, ICompanyWorkerListProps> {
         onViewItem(item.user.id);
     }
 
-    protected getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_WORKERS>> {
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_WORKERS>> {
         return this.store.transport.getWorkers(params);
     }
 
