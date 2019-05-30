@@ -8,6 +8,7 @@ import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { WorkerForm } from "@app/components/worker-form";
 import { RouteProps } from "react-router";
+import { Modal } from "@components/modal";
 
 @observer
 @autobind
@@ -31,12 +32,22 @@ export class AddWorkerForm extends Component<RouteProps> {
                             <CustomForm
                                 validateData={this.store.validateData}
                                 error$={this.store.error$}
-                                submit={this.store.createWorker}
+                                submit={this.store.onSubmit}
                                 render={this.renderEmployeeForm}
                             />
                         }
                     />
                 </div>
+                <Modal
+                    title={"The selected residences are already assigned to the operator. " +
+                    "Are you sure you want to remap the residence?"}
+                    open={this.store.showModal()}
+                    onClose={this.store.closeModal}
+                    action={this.store.onCreateWorker}
+                    actionOptions={{
+                        title: "Yes"
+                    }}
+                />
             </div>
         );
     }

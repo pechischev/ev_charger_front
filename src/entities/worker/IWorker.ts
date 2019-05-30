@@ -6,4 +6,5 @@ export interface IWorker {
     status: EStatus;
     role: IItem;
     residences?: IItem[];
+    residenceCount?: number;
 }

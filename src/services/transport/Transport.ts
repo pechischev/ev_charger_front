@@ -218,4 +218,12 @@ export class Transport<T extends object = object> implements ITransport {
     async getWorkerData(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>> {
         return this.client.get(`${EApiRoutes.WORKER_DATA.replace("{workerId}", workerId)}`);
     }
+
+    async bindOperator(params: TApiParams<EApiRoutes.BIND_WORKER>): Promise<TAxiosResponse<EApiRoutes.BIND_WORKER>> {
+        return this.client.post(EApiRoutes.BIND_WORKER, params);
+    }
+
+    async getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>): Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>> {
+        return this.client.post(EApiRoutes.GET_BOUND_RESIDENCES, params);
+    }
 }

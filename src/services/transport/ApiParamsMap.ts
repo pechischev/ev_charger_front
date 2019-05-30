@@ -1,8 +1,10 @@
 import { EApiMethods } from "./EApiMethods";
 import { EApiRoutes } from "./EApiRoutes";
 import {
+    IBindOperatorParams,
     IChargerParams,
     ICompanyInfoParams,
+    IGetBoundResidencesParams,
     IListParams,
     ILoginParams,
     IResidenceParams,
@@ -17,6 +19,8 @@ export type TParamsUnion = ILoginParams
     | IChargerParams
     | ICompanyInfoParams
     | IWorkerParams
+    | IGetBoundResidencesParams
+    | IBindOperatorParams
     | IUserParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
@@ -33,6 +37,8 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.GET_WORKERS]: IListParams;
     [EApiRoutes.CREATE_WORKER]: IWorkerParams;
     [EApiRoutes.WORKER_DATA]: IWorkerParams;
+    [EApiRoutes.BIND_WORKER]: IBindOperatorParams;
+    [EApiRoutes.GET_BOUND_RESIDENCES]: IGetBoundResidencesParams;
 }
 
 // @ts-ignore:2344

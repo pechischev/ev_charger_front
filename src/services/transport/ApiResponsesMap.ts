@@ -40,6 +40,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.DELETE]: {};
     };
     [EApiRoutes.GET_WORKERS]: IListResponse<IWorker>;
+    [EApiRoutes.GET_BOUND_RESIDENCES]: number[];
     [EApiRoutes.WORKER_DATA]: {
         [EApiMethods.GET]: IWorker;
     };
