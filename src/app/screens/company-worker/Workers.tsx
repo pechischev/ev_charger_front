@@ -1,12 +1,23 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { redirectToAddWorkerForm } from "@utils/history";
+import { redirectToAddWorkerForm, redirectToWorkerForm } from "@utils/history";
 import { Button } from "@components/button";
 import { WorkersList } from "./WorkersList";
 import "./Workers.scss";
+import { WorkersStore } from "./WorkersStore";
+import { autobind } from "core-decorators";
+import { RouteProps } from "react-router";
 
-export class Workers extends Component {
+@autobind
+export class Workers extends Component<RouteProps> {
+    private readonly store = new WorkersStore();
+
+    constructor(props: RouteProps) {
+        super(props);
+        this.store.init();
+    }
+
     render(): ReactNode {
         const actionElement = this.getActionElement();
         return (
@@ -18,6 +29,8 @@ export class Workers extends Component {
                         content={
                             <WorkersList
                                 actionElement={actionElement}
+                                onViewItem={redirectToWorkerForm}
+                                onRemoveItem={this.store.removeWorker}
                             />
                         }
                     />

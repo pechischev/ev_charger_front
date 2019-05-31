@@ -48,4 +48,8 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
         Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.PUT>>;
     removeWorker(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.DELETE>>;
     getWorkerData(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>>;
+
+    bindOperator(params: TApiParams<EApiRoutes.BIND_WORKER>): Promise<TAxiosResponse<EApiRoutes.BIND_WORKER>>;
+    getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>):
+        Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>>;
 }

@@ -1,16 +1,19 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { EmailField, InputField, PasswordField, SelectField } from "@components/fields";
+import { EmailField, InputField, MultiSelectField, PasswordField, SelectField } from "@components/fields";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { EWorkerFieldTypes } from "./EWorkerFieldTypes";
-import { IWorkerForm } from "./interfaces";
+import { IWorkerData, IWorkerForm } from "./interfaces";
 import { Button } from "@components/button";
 import { redirectToWorkerList } from "@utils/history";
 import "./WorkerForm.scss";
 import { AppContext } from "@context";
-import { ERole } from "@app/config";
+import { ERole, Nullable } from "@app/config";
 import { EStatus } from "@entities/user";
+import { get, isEqual, toNumber } from "lodash";
+import { FormRenderProps, FormSpy } from "react-final-form";
+import { EMessages } from "@utils/EMessage";
 
 @observer
 @autobind
@@ -26,6 +29,13 @@ export class WorkerForm extends Component<IWorkerForm> {
                 {this.renderContainer("Profile Information", this.getProfileInfoFields())}
                 {this.renderContainer("Role settings", this.getRoleSettingsFields())}
                 <div/>
+                <FormSpy
+                    subscription={{
+                        values: true,
+                        modified: true,
+                    }}
+                    onChange={this.onChangeForm}
+                />
             </div>
         );
     }
@@ -51,6 +61,13 @@ export class WorkerForm extends Component<IWorkerForm> {
                 <PasswordField
                     label="Confirm Password"
                     name={EWorkerFieldTypes.CONFIRM_PASSWORD}
+                    validate={(value, allValues: IWorkerData) => {
+                        const { password } = allValues;
+                        if (!password || !value) {
+                            return;
+                        }
+                        return this.validatePasswordValue(value, password);
+                    }}
                 />
             </div>
         );
@@ -78,11 +95,12 @@ export class WorkerForm extends Component<IWorkerForm> {
                     ]}
                     placeholder={"Select role"}
                 />
-                <SelectField
+                <MultiSelectField
                     name={EWorkerFieldTypes.RESIDENCES_LIST}
                     label={"Residences list"}
                     options={AppContext.getInfoStore().residences}
                     placeholder={"Select residences list"}
+                    disabled={!this.activeResidenceList(api)}
                 />
                 <div className="employee-form-button clearfix">
                     <Button
@@ -102,7 +120,6 @@ export class WorkerForm extends Component<IWorkerForm> {
                         }}
                     />
                 </div>
-
             </div>
         );
     }
@@ -116,5 +133,31 @@ export class WorkerForm extends Component<IWorkerForm> {
                 </div>
             </div>
         );
+    }
+
+    private activeResidenceList(api: Pick<FormRenderProps, "values">): boolean {
+        const status = get(api.values, EWorkerFieldTypes.STATUS, EStatus.INACTIVE);
+        const role = get(api.values, EWorkerFieldTypes.ROLE);
+        return isEqual(status, EStatus.ACTIVE) && isEqual(toNumber(role), ERole.OPERATOR);
+    }
+
+    private onChangeForm(api: Pick<FormRenderProps, "values">): void {
+        if (!this.activeResidenceList(api)) {
+            this.props.api.form.change(EWorkerFieldTypes.RESIDENCES_LIST, void 0);
+        }
+    }
+
+    private validatePasswordValue(value: string = "", password: string = ""): Nullable<string> {
+        const MIN_LENGTH_PASSWORD = 6;
+        if (!value) {
+            return EMessages.EMPTY;
+        }
+        if (value.length < MIN_LENGTH_PASSWORD) {
+            return EMessages.PASSWORD_INCORRECT;
+        }
+        if (value !== password) {
+            return EMessages.PASSWORDS_INCORRECT;
+        }
+        return;
     }
 }

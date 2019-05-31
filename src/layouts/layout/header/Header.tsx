@@ -5,6 +5,8 @@ import { Dropdown, DropdownContent, DropdownTrigger } from "@components/dropdown
 import { HeaderStore } from "./HeaderStore";
 import { AppContext } from "@context";
 import { observer } from "mobx-react";
+import { redirectToWorkerForm } from "@utils/history";
+import { isNil } from "lodash";
 
 interface IHeaderProps {
     userName?: string;
@@ -61,8 +63,8 @@ export class Header extends Component<IHeaderProps> {
                 <DropdownContent
                     options={[
                         {
-                            value: <Fragment><i className="dropdown-icon mdi mdi-account-outline"/> Profile</Fragment>,
-                            onClick: () => void 0,
+                            value: <Fragment>Profile</Fragment>,
+                            onClick: this.onProfileClick,
                         },
                         {
                             value: <Fragment>
@@ -108,4 +110,11 @@ export class Header extends Component<IHeaderProps> {
         );
     }
 
+    private onProfileClick(): void {
+        const data = AppContext.getUserStore().getUser();
+        if (isNil(data)) {
+            return;
+        }
+        redirectToWorkerForm(data.getId());
+    }
 }

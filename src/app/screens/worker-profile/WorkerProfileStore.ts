@@ -1,19 +1,39 @@
 import { action, observable } from "mobx";
 import { Store } from "@components/store";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
-import * as _ from "lodash";
-import { isEmpty, toNumber } from "lodash";
+import { isEmpty, toNumber, get, stubObject } from "lodash";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { ERole, Nullable } from "@app/config";
-import { EWorkerFieldTypes } from "@app/components/worker-form";
+import { EWorkerFieldTypes, IWorkerData } from "@app/components/worker-form";
 import { IWorker } from "@entities/worker";
 import { redirectToWorkerList } from "@utils/history";
 
 @autobind
 export class WorkerProfileStore extends Store {
-    @observable private data: IWorker = _.stubObject();
+    @observable private data: IWorker = stubObject();
+    @observable private formData: IWorkerData = stubObject();
+    @observable private isShowModal = false;
+    @observable private isShowBindOperatorModal = false;
     private workerId?: string;
+
+    showBindOperatorModal(): boolean {
+        return this.isShowBindOperatorModal;
+    }
+
+    @action.bound
+    closeBindOperatorModal(): void {
+        this.isShowBindOperatorModal = false;
+    }
+
+    showModal(): boolean {
+        return this.isShowModal;
+    }
+
+    @action.bound
+    closeModal(): void {
+        this.isShowModal = false;
+    }
 
     @action.bound
     setData(data: IWorker): void {
@@ -25,18 +45,21 @@ export class WorkerProfileStore extends Store {
     }
 
     @action.bound
-    setWorkerId(data: string): void {
-        this.workerId = data;
+    setWorkerId(id: string): void {
+        this.workerId = id;
     }
 
-    transformData(data?: IWorker): Nullable<TApiParams<EApiRoutes.WORKER_DATA>> {
+    getWorkerId(): Nullable<number> {
+        return get(this.data, "workerId");
+    }
+
+    transformData(data?: IWorker): Nullable<IWorkerData> {
         if (!data || isEmpty(data)) {
             return void 0;
         }
         const { user, role, status, residences = []} = data;
-        const { id, ...rest } = user;
-        const ids: number[] = residences.map((residence) => toNumber(residence.id));
-        return { ...rest, status, role: toNumber(role.id), residences: ids };
+        const { id, password, ...rest } = user;
+        return { ...rest, status, role: toNumber(role.id), residences: residences.length ? residences : void 0 };
     }
 
     validateData(values: TApiParams<EApiRoutes.CREATE_WORKER>): IFieldError[] {
@@ -44,15 +67,18 @@ export class WorkerProfileStore extends Store {
             { type: EWorkerFieldTypes.FIRST_NAME, codes: [] },
             { type: EWorkerFieldTypes.LAST_NAME, codes: [] },
             { type: EWorkerFieldTypes.EMAIL, codes: [15] },
-            { type: EWorkerFieldTypes.PASSWORD, codes: [] },
-            { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] },
-            { type: EWorkerFieldTypes.STATUS, codes: [] },
             { type: EWorkerFieldTypes.STATUS, codes: [] },
             { type: EWorkerFieldTypes.ROLE, codes: [] },
         ];
-        const { role } = values;
+        const { role, password, confirmPassword } = values;
         if (toNumber(role) === ERole.OPERATOR) {
             fields.push({ type: EWorkerFieldTypes.RESIDENCES_LIST, codes: [] });
+        }
+        if (!!password || !!confirmPassword) {
+            fields.push(...[
+                { type: EWorkerFieldTypes.PASSWORD, codes: [] },
+                { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] }
+            ]);
         }
         return fields;
     }
@@ -64,18 +90,51 @@ export class WorkerProfileStore extends Store {
         this.call(this.transport.getWorkerData(this.workerId), this.onGetWorkerData, this.onError);
     }
 
-    async updateWorker(params: TApiParams<EApiRoutes.WORKER_DATA>): Promise<void> {
-        const { residences = [], role, ...rest } = params;
-        return this.asyncCall(this.transport.createWorker({
+    @action.bound
+    async onSubmit(data: IWorkerData): Promise<void> {
+        const { role, residences = [] } = data;
+        this.formData = data;
+        if (toNumber(role) === ERole.ADMIN && toNumber(role) !== this.data.role.id) {
+            this.isShowBindOperatorModal = true;
+            return new Promise((resolve) => resolve());
+        }
+        const ids = residences.map(({ id }) => toNumber(id));
+        return this.asyncCall(this.transport.getBoundResidences({ ids }))
+            .then(this.onGetBoundResidences);
+    }
+
+    async onUpdateWorker(): Promise<void> {
+        return this.updateWorker(this.formData);
+    }
+
+    async updateWorker(data: IWorkerData): Promise<void> {
+        if (!this.workerId) {
+            return;
+        }
+        const { residences = [], role, password, confirmPassword, ...rest } = data;
+        const params: TApiParams<EApiRoutes.WORKER_DATA> = {
             ...rest,
+            password,
             role: toNumber(role),
-            residences: residences.map(toNumber)
-        })).then(redirectToWorkerList);
+            residences: residences.map(({id}) => toNumber(id))
+        };
+        return this.asyncCall(this.transport.updateWorker(params, this.workerId))
+            .then(redirectToWorkerList);
     }
 
     private onGetWorkerData(response: TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>): void {
         console.info("[WorkerProfileStore.onGetWorkerData]: ", response);
-        const data = _.get<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>, "data">(response, "data");
+        const data = get<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>, "data">(response, "data");
         this.setData(data);
+    }
+
+    @action.bound
+    private onGetBoundResidences(response: TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>): void {
+        const ids = get<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>, "data">(response, "data");
+        if (isEmpty(ids)) {
+            this.updateWorker(this.formData);
+            return;
+        }
+        this.isShowModal = true;
     }
 }
