@@ -32,7 +32,7 @@ export const SelectField: FC<ISelectField> = ({ options = [], name, label, place
                                     {...{ type, value }}
                                     disabled={!options.length}
                                 >
-                                    <option value={""}>{placeholder}</option>
+                                    <option value="" style={{ display: "none" }}>{placeholder}</option>
                                     {options.map((option) => (
                                         <option value={option.id} key={option.id}>{option.title}</option>
                                     ))}

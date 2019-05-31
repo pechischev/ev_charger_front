@@ -50,10 +50,10 @@ export class ProfileTab extends Component<IProfileProps> {
                 <div className="profile-form-button clearfix">
                     <Button
                         className="float-right"
-                        type={"primary"}
+                        type="primary"
                         disabled={!submitting}
                         onClick={() => api.handleSubmit()}
-                        text={"Save"}
+                        text="Save"
                     />
                 </div>
             </Fragment>
