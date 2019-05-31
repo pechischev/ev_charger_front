@@ -10,6 +10,7 @@ import { IChargersListItem } from "@entities/residence";
 import { Button } from "@components/button";
 import { Modal } from "@components/modal";
 import { action, observable } from "mobx";
+import { AppContext } from "@context";
 
 interface IChargersListProps extends IList<IChargersListItem> {
     residenceId?: string;
@@ -49,14 +50,23 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
             { id: "location", label: "Location" },
             {
                 id: "action", label: "", size: "120px",
-                handler: () => <Button type="delete" onClick={this.onDeleteCharges} text="Delete"/>,
+                handler: () => {
+                    return (
+                        <Button
+                            type="delete"
+                            onClick={this.onDeleteCharges}
+                            text="Delete"
+                            disabled={!AppContext.getUserStore().isAdmin()}
+                        />
+                    );
+                },
             },
         ];
     }
 
     protected onClickRow(item: IChargersListItem): void {
         const { residenceId } = this.props;
-        if (!residenceId) {
+        if (!residenceId || !AppContext.getUserStore().isAdmin()) {
             return;
         }
         this.props.onViewItem(item.id);
