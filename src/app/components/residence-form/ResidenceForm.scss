@@ -10,8 +10,12 @@ $widthForTwoBlocksPerLine: calc(50% - 20px);
             margin-top: 25px;
 
             > button {
-                float: right;
-                width: 150px;
+                max-width: 150px;
+                width: $widthForTwoBlocksPerLine;
+
+                &:first-child {
+                    margin-right: 10px;
+                }
             }
         }
     }

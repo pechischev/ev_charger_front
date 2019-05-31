@@ -21,6 +21,6 @@ export class ResidenceFormStore extends Store {
     private onGetOperators(response: TAxiosResponse<EApiRoutes.OPERATORS>): void {
         console.info("[AddResidenceStore.onGetOperators]", response);
         const operators = get<TAxiosResponse<EApiRoutes.OPERATORS>, "data">(response, "data");
-        this._operators = operators.map(({id, firstName, lastName}) => ({id, title: `${firstName} ${lastName}`}));
+        this._operators = operators.map(({ id, firstName, lastName }) => ({ id, title: `${firstName} ${lastName}` }));
     }
 }

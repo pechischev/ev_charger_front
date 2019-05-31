@@ -10,6 +10,9 @@ import { Button } from "@components/button";
 import "./ResidenceForm.scss";
 import { redirectToResidenceList } from "@utils/history";
 import { ResidenceFormStore } from "./ResidenceFormStore";
+import { AuthUser } from "@entities/user";
+import { get } from "lodash";
+import { ERoles } from "@app/config";
 
 @observer
 @autobind
@@ -25,6 +28,12 @@ export class ResidenceForm extends Component<IResidenceForm> {
     }
 
     render(): ReactNode {
+        const data: AuthUser = AppContext.getUserStore().getUser();
+        const roles = get(data, "roles");
+        let isOperator = true;
+        (roles || []).map((role: ERoles) => {
+            isOperator = isOperator && role === ERoles.OPERATOR;
+        });
         return (
             <div className="residence-main-info clearfix">
                 <Fragment>
@@ -82,6 +91,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 name={EResidenceFieldTypes.SERVICE_FEE}
                                 placeholder={"Enter service fee"}
                                 label={"Service Fee"}
+                                disabled={isOperator}
                             />
                             <div className="residence-info__buttons clearfix">
                                 <Button
@@ -97,7 +107,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                     onClick={() => this.props.api.handleSubmit()}
                                     text={"Save"}
                                     style={{
-                                        marginRight: 10
+                                        marginRight: 10,
                                     }}
                                 />
                             </div>

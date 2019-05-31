@@ -27,7 +27,7 @@ export class BillingList extends List<IBillingListItem, IChargersListProps> {
             { id: "e", label: "Service Fee" },
             { id: "f", label: "Net Revenue" },
             {
-                id: "", label: "", size: "185px", handler: (item: IBillingListItem) => {
+                id: "viewAction", label: "", size: "185px", handler: (item: IBillingListItem) => {
                     return (
                         <Button
                             type="secondary"
