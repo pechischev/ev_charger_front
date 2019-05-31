@@ -32,3 +32,13 @@
         }
     }
 }
+
+@media (max-height: 560px) {
+    .modal-content {
+        height: 100vh;
+    }
+
+    .modal-body {
+        overflow: auto;
+    }
+}

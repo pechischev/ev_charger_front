@@ -89,7 +89,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 <Button
                                     className="float-right"
                                     type="primary"
-                                    disabled={!this.props.submitting}
+                                    disabled={!this.props.submitting || !AppContext.getUserStore().isAdmin()}
                                     onClick={() => this.props.api.handleSubmit()}
                                     text={"Save"}
                                     style={{
