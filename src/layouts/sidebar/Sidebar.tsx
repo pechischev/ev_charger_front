@@ -1,24 +1,38 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, RouteProps } from "react-router-dom";
 import { EPaths, Nullable } from "@app/config";
 import "./Sidebar.scss";
 import { ILink } from "@layouts/sidebar/ILink";
 import { AppContext } from "@context";
+import { autobind } from "core-decorators";
+import { observer } from "mobx-react";
+import { action, observable } from "mobx";
 
-export class Sidebar extends Component {
-    private readonly options: ILink[] = [
+@observer
+@autobind
+export class Sidebar extends Component<RouteProps> {
+    @observable private options: ILink[] = [
         { value: "Dashboard", path: EPaths.DASHBOARD, iconType: "dashboard", isEnabled: true },
         { value: "Users", path: EPaths.USER_LIST, iconType: "users", isEnabled: true },
         { value: "Residences", path: EPaths.RESIDENCE_LIST, iconType: "residences", isEnabled: true },
         { value: "Payments", path: "", iconType: "payments", isEnabled: false },
-        {
-            value: "Settings",
-            path: EPaths.SETTINGS,
-            iconType: "settings",
-            isEnabled: AppContext.getUserStore().isAdmin(),
-        },
+
     ];
+
+    @observable private currentPath = "";
+
+    constructor(props: RouteProps) {
+        super(props);
+
+        AppContext.getUserStore().profile$.subscribe(this.updateOptions);
+        AppContext.getHistory().listen(location1 => (this.currentPath = location1.pathname));
+        AppContext.getHistory().push(window.location.pathname); // Hack to push history when initial load
+    }
+
+    componentWillUnmount(): void {
+        // AppContext.getUserStore().profile$.unsubscribe();
+    }
 
     render(): ReactNode {
         return (
@@ -39,11 +53,21 @@ export class Sidebar extends Component {
         }
         return (
             <li key={index}>
-                <NavLink className="side-menu__item" activeClassName={"active"} to={`/${path}`}>
+                <NavLink className={`side-menu__item ${path === this.currentPath ? "active" : ""}`} to={`/${path}`}>
                     <span className="side-menu__icon" data-icon={iconType}/>
                     <span className="side-menu__label">{value}</span>
                 </NavLink>
             </li>
         );
+    }
+
+    @action.bound
+    private updateOptions() {
+        this.options = [...this.options, {
+            value: "Settings",
+            path: EPaths.SETTINGS,
+            iconType: "settings",
+            isEnabled: AppContext.getUserStore().isAdmin(),
+        }];
     }
 }

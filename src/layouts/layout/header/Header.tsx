@@ -5,8 +5,6 @@ import { Dropdown, DropdownContent, DropdownTrigger } from "@components/dropdown
 import { HeaderStore } from "./HeaderStore";
 import { AppContext } from "@context";
 import { observer } from "mobx-react";
-import { redirectToWorkerForm } from "@utils/history";
-import { isNil } from "lodash";
 
 interface IHeaderProps {
     userName?: string;
