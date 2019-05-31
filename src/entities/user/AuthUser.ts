@@ -1,5 +1,5 @@
 import { IAuthUser } from "./IAuthUser";
-import { ERoles } from "@entities/user/ERoles";
+import { ERoles } from "@app/config";
 
 export class AuthUser  {
     private readonly roles: ERoles[] = [];

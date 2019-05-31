@@ -1,4 +1,4 @@
-import { ERoles } from "./ERoles";
+import { ERoles } from "@app/config";
 
 export interface IAuthUser {
     id: number;

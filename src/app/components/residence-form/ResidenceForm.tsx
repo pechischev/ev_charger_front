@@ -10,7 +10,6 @@ import { Button } from "@components/button";
 import "./ResidenceForm.scss";
 import { redirectToResidenceList } from "@utils/history";
 import { ResidenceFormStore } from "./ResidenceFormStore";
-import { AuthUser } from "@entities/user";
 import { get } from "lodash";
 import { ERoles } from "@app/config";
 
@@ -28,7 +27,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
     }
 
     render(): ReactNode {
-        const data: AuthUser = AppContext.getUserStore().getUser();
+        const data = AppContext.getUserStore().getUser();
         const roles = get(data, "roles");
         let isOperator = true;
         (roles || []).map((role: ERoles) => {
