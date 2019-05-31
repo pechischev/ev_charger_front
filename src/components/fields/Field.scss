@@ -1,3 +1,5 @@
+@import "~styles/utils/mixins.scss";
+
 .form-group {
     margin-bottom: 10px;
     min-height: 85px;
@@ -11,5 +13,35 @@
     .form-text {
         margin: 0;
         font-size: 14px;
+    }
+}
+
+.multiSelect-field {
+    .multi-value-container {
+        background-color: rgb(230, 230, 230);
+        display: flex;
+        min-width: 0;
+        border-radius: 11px;
+        margin: 2px 8px 2px 2px;
+
+        > div {
+            &:first-child {
+                padding: 2px 5px 4px 10px;;
+            }
+
+            &:last-child {
+                @include square(24px);
+
+                padding: 0 5px;
+                background-color: rgb(210, 210, 210);
+                border-radius: 11px;
+                transition: 0.25s;
+
+                &:hover {
+                    background-color: rgb(255, 165, 165);
+                }
+            }
+        }
+
     }
 }

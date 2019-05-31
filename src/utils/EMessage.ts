@@ -7,4 +7,5 @@ export enum EMessages {
     YEAR_INCORRECT = "Enter a valid Year",
     LICENCE_PLATE_INCORRECT = "Enter a valid Licence Plate",
     PASSWORD_INCORRECT = "Enter a valid Password",
+    PASSWORDS_INCORRECT = "Passwords do not match",
 }
