@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { EPaths, Nullable } from "@app/config";
 import "./Sidebar.scss";
 import { ILink } from "@layouts/sidebar/ILink";
+import { AppContext } from "@context";
 
 export class Sidebar extends Component {
     private readonly options: ILink[] = [
@@ -11,7 +12,12 @@ export class Sidebar extends Component {
         { value: "Users", path: EPaths.USER_LIST, iconType: "users", isEnabled: true },
         { value: "Residences", path: EPaths.RESIDENCE_LIST, iconType: "residences", isEnabled: true },
         { value: "Payments", path: "", iconType: "payments", isEnabled: false },
-        { value: "Settings", path: EPaths.SETTINGS, iconType: "settings", isEnabled: true },
+        {
+            value: "Settings",
+            path: EPaths.SETTINGS,
+            iconType: "settings",
+            isEnabled: AppContext.getUserStore().isAdmin(),
+        },
     ];
 
     render(): ReactNode {
