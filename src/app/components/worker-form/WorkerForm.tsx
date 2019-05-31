@@ -9,7 +9,7 @@ import { Button } from "@components/button";
 import { redirectToWorkerList } from "@utils/history";
 import "./WorkerForm.scss";
 import { AppContext } from "@context";
-import { ERole } from "@app/config";
+import { ERole, Nullable } from "@app/config";
 import { EStatus } from "@entities/user";
 import { get, isEqual, toNumber } from "lodash";
 import { FormRenderProps, FormSpy } from "react-final-form";
@@ -62,7 +62,10 @@ export class WorkerForm extends Component<IWorkerForm> {
                     label="Confirm Password"
                     name={EWorkerFieldTypes.CONFIRM_PASSWORD}
                     validate={(value, allValues: IWorkerData) => {
-                        const { password = "" } = allValues;
+                        const { password } = allValues;
+                        if (!password || !value) {
+                            return;
+                        }
                         return this.validatePasswordValue(value, password);
                     }}
                 />
@@ -144,7 +147,7 @@ export class WorkerForm extends Component<IWorkerForm> {
         }
     }
 
-    private validatePasswordValue(value: string, password: string): string {
+    private validatePasswordValue(value: string = "", password: string = ""): Nullable<string> {
         const MIN_LENGTH_PASSWORD = 6;
         if (!value) {
             return EMessages.EMPTY;
@@ -155,6 +158,6 @@ export class WorkerForm extends Component<IWorkerForm> {
         if (value !== password) {
             return EMessages.PASSWORDS_INCORRECT;
         }
-        return "";
+        return;
     }
 }

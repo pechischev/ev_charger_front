@@ -7,6 +7,7 @@ import { isArray } from "lodash";
 import { IItem, IValueType } from "@entities/_common";
 import { MultiValueProps } from "react-select/lib/components/MultiValue";
 import { getError } from "@utils";
+import { StylesConfig } from "react-select/lib/styles";
 
 interface IMultiSelectField extends IField<HTMLSelectElement> {
     options: IItem[];
@@ -29,21 +30,21 @@ const renderValueContainer = ({ children, className }: MultiValueProps<IValueTyp
     </div>
 );
 
-const customStyles = {
-    menu: (provided, state) => ({
+const customStyles: StylesConfig = {
+    menu: (provided) => ({
         ...provided,
         marginTop: 0,
     }),
-    menuList: (provided, state) => ({
+    menuList: (provided) => ({
         ...provided,
         paddingTop: 0,
         paddingBottom: 0,
     }),
-    option: (provided, state) => ({
+    option: (provided) => ({
         ...provided,
         width: "calc(100% - 1px)",
     }),
-    multiValueLabel: (provided, state) => ({
+    multiValueLabel: (provided) => ({
         ...provided,
         fontSize: 14,
         lineHeight: "18px",

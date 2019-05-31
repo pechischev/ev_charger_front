@@ -16,5 +16,5 @@ export interface IWorkerData {
     confirmPassword?: string;
     role: number;
     status: EStatus;
-    residences: IItem[];
+    residences?: IItem[];
 }

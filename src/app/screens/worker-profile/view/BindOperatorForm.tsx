@@ -46,7 +46,8 @@ export class BindOperatorForm extends Component<IBindOperatorForm> {
                     <SelectField
                         name={EBindOperatorFieldTypes.OPERATOR}
                         options={this.store.operators}
-                        label={"Select operator"}
+                        label={"Operator"}
+                        placeholder={"Select operator"}
                     />
                 </div>
                 <div className={"modal-footer"}>

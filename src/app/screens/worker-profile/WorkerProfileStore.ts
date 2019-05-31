@@ -58,8 +58,8 @@ export class WorkerProfileStore extends Store {
             return void 0;
         }
         const { user, role, status, residences = []} = data;
-        const { id, ...rest } = user;
-        return { ...rest, status, role: toNumber(role.id), residences };
+        const { id, password, ...rest } = user;
+        return { ...rest, status, role: toNumber(role.id), residences: residences.length ? residences : void 0 };
     }
 
     validateData(values: TApiParams<EApiRoutes.CREATE_WORKER>): IFieldError[] {
@@ -67,14 +67,18 @@ export class WorkerProfileStore extends Store {
             { type: EWorkerFieldTypes.FIRST_NAME, codes: [] },
             { type: EWorkerFieldTypes.LAST_NAME, codes: [] },
             { type: EWorkerFieldTypes.EMAIL, codes: [15] },
-            { type: EWorkerFieldTypes.PASSWORD, codes: [] },
-            { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] },
             { type: EWorkerFieldTypes.STATUS, codes: [] },
             { type: EWorkerFieldTypes.ROLE, codes: [] },
         ];
-        const { role } = values;
+        const { role, password, confirmPassword } = values;
         if (toNumber(role) === ERole.OPERATOR) {
             fields.push({ type: EWorkerFieldTypes.RESIDENCES_LIST, codes: [] });
+        }
+        if (!!password || !!confirmPassword) {
+            fields.push(...[
+                { type: EWorkerFieldTypes.PASSWORD, codes: [] },
+                { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] }
+            ]);
         }
         return fields;
     }
