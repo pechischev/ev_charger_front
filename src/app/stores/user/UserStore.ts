@@ -1,4 +1,4 @@
-import { ITokens, Nullable } from "@app/config";
+import { ERoles, ITokens, Nullable } from "@app/config";
 import { Store } from "@components/store";
 import { EApiRoutes, TApiResponse, TAxiosResponse, Transport } from "@services/transport";
 import { autobind } from "core-decorators";
@@ -24,6 +24,14 @@ export class UserStore extends Store {
 
     getUser(): Nullable<AuthUser> {
         return this.user;
+    }
+
+    isAdmin(): boolean {
+        if (!this.user) {
+            return false;
+        }
+        const roles = this.user.getRoles();
+        return roles.includes(ERoles.ADMIN);
     }
 
     /**

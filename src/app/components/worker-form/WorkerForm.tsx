@@ -64,7 +64,7 @@ export class WorkerForm extends Component<IWorkerForm> {
                     validate={(value, allValues: IWorkerData) => {
                         const { password } = allValues;
                         if (!password || !value) {
-                            return;
+                            return void 0;
                         }
                         return this.validatePasswordValue(value, password);
                     }}
@@ -158,6 +158,6 @@ export class WorkerForm extends Component<IWorkerForm> {
         if (value !== password) {
             return EMessages.PASSWORDS_INCORRECT;
         }
-        return;
+        return void 0;
     }
 }

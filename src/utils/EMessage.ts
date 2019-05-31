@@ -8,4 +8,5 @@ export enum EMessages {
     LICENCE_PLATE_INCORRECT = "Enter a valid Licence Plate",
     PASSWORD_INCORRECT = "Enter a valid Password",
     PASSWORDS_INCORRECT = "Passwords do not match",
+    CONTAINS_INVALID_VALUE = "Field is contain invalid value",
 }

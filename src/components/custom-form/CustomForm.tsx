@@ -101,7 +101,7 @@ export class CustomForm<T extends object> extends Component<ICustomFormProps<T>>
     private submitting(api: FormState): boolean {
         const hasErrors = this.hasErrors(api.errors);
         const hasServerError = !api.dirtySinceLastSubmit && this.hasErrors(api.submitErrors);
-        const success = api.dirty && api.valid && !api.hasValidationErrors;
+        const success = api.dirty;
         return !(api.submitting || api.pristine || hasErrors || hasServerError) && success;
     }
 
