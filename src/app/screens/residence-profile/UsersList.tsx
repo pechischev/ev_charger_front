@@ -5,6 +5,7 @@ import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IUsersListItem } from "@entities/residence";
+import { redirectOnUserProfile } from "@utils/history";
 
 interface IUsersListProps extends IList<IUsersListItem> {
     residenceId?: string;
@@ -32,6 +33,10 @@ export class UsersList extends List<IUsersListItem, IUsersListProps> {
             return new Promise((resolve) => resolve());
         }
         return this.store.transport.getResidenceUsersData(params, residenceId);
+    }
+
+    protected onClickRow(item: IUsersListItem): void {
+        redirectOnUserProfile(item.userId);
     }
 
     private getFullUserName(item: IUsersListItem): string {

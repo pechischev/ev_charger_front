@@ -34,6 +34,10 @@ export class AuthUser  {
         return `${this.firstName} ${this.lastName}`;
     }
 
+    getId(): number {
+        return this.id;
+    }
+
     getRoles(): ERoles[] {
         return this.roles;
     }
