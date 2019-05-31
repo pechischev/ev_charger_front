@@ -4,26 +4,20 @@ import { IField } from "./IField";
 import "./Field.scss";
 import { InputField } from "./InputField";
 import { EMessages } from "@utils/EMessage";
+import { formatValue } from "@utils";
+import { Nullable } from "@app/config";
+
+const MAX_PLATE_LENGTH = 8;
 
 export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
-    const validateLicencePlateValue = (value: string): string => {
+    const validateLicencePlateValue = (value: string): Nullable<string> => {
         if (!value) {
-            return EMessages.EMPTY;
+            return void 0;
         }
-        if (value.length > 8) {
+        if (value.length > MAX_PLATE_LENGTH) {
             return EMessages.LICENCE_PLATE_INCORRECT;
         }
-        return "";
-    };
-
-    const formatLicencePlate = (value: string): string => {
-        if (!value) {
-            return value;
-        }
-        if (value.length === 9) {
-            return value.substring(0, value.length - 1);
-        }
-        return value;
+        return void 0;
     };
 
     return (
@@ -33,7 +27,7 @@ export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
             placeholder={"Enter licence plate"}
             mask={"AAAAAAAA"}
             validate={validateLicencePlateValue}
-            parse={formatLicencePlate}
+            parse={(value) => formatValue(value, MAX_PLATE_LENGTH + 1)}
             {...rest}
         />
     );

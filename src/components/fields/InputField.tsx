@@ -28,7 +28,12 @@ export const InputField: FC<IField> = (
                         const error = getError(props, type);
                         return (
                             <Fragment>
-                                <input className="form-control" disabled={disabled} {...props.input} {...{placeholder, type}} />
+                                <input
+                                    className="form-control"
+                                    disabled={disabled}
+                                    {...props.input}
+                                    {...{placeholder, type}}
+                                />
                                 <span className="form-text text-danger">{error}</span>
                             </Fragment>
                         );

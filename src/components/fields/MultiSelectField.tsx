@@ -73,7 +73,9 @@ export const MultiSelectField: FC<IMultiSelectField> = ({
                         const { onChange, value, ...other } = props.input;
                         const onChangeValue = (option: IValueType[] | IValueType) => {
                             const optionValues = isArray(option) ? option : [option];
-                            onChange(optionValues.filter((optionValue) => !!optionValue).map((optionValue) => optionValue.value) as any);
+                            onChange(optionValues
+                                .filter((optionValue) => !!optionValue)
+                                .map((optionValue) => optionValue.value) as any);
                         };
                         const values = !!value ? isArray(value) ? value : [value] : void 0;
                         const error = getError(props, type);

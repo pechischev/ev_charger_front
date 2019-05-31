@@ -5,29 +5,23 @@ import "./Field.scss";
 import { InputField } from "./InputField";
 import { EMessages } from "@utils/EMessage";
 import { toNumber } from "lodash";
+import { Nullable } from "@app/config";
+import { formatValue } from "@utils";
+
+const MAX_ZIP_CODE_LENGTH = 5;
 
 export const ZipCodeField: FC<IField> = ({ name, ...rest }) => {
-    const validateZipCodeValue = (value: string): string => {
+    const validateZipCodeValue = (value: string): Nullable<string> => {
         if (!value) {
-            return EMessages.EMPTY;
+            return void 0;
         }
-        if (value.length !== 5) {
+        if (value.length !== MAX_ZIP_CODE_LENGTH) {
             return EMessages.ZIP_CODE_INCORRECT;
         }
         if (isNaN(toNumber(value))) {
             return EMessages.ONLY_NUMBER;
         }
-        return "";
-    };
-
-    const formatZipCode = (value: string): string => {
-        if (!value) {
-            return value;
-        }
-        if (value.length === 6) {
-            return value.substring(0, value.length - 1);
-        }
-        return value;
+        return void 0;
     };
 
     return (
@@ -37,7 +31,7 @@ export const ZipCodeField: FC<IField> = ({ name, ...rest }) => {
             placeholder={"Enter zip code"}
             mask={"99999"}
             validate={validateZipCodeValue}
-            parse={formatZipCode}
+            parse={(value) => formatValue(value, MAX_ZIP_CODE_LENGTH + 1)}
             {...rest}
         />
     );

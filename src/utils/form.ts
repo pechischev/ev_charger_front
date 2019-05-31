@@ -28,3 +28,13 @@ export function getError(state: Pick<FieldRenderProps<HTMLElement>, "meta">, typ
     }
     return meta.error || !meta.dirtySinceLastSubmit && meta.submitError;
 }
+
+export function formatValue(value: string, maxLength?: number): string {
+    if (!value) {
+        return value;
+    }
+    if (maxLength && value.length === maxLength) {
+        return value.substring(0, value.length - 1);
+    }
+    return value;
+}

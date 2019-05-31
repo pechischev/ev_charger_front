@@ -5,18 +5,19 @@ import "./Field.scss";
 import { InputField } from "./InputField";
 import { EMessages } from "@utils/EMessage";
 import { Nullable } from "@app/config";
+import { isEmpty } from "lodash";
+
+const MIN_LENGTH_PASSWORD = 6;
 
 export const PasswordField: FC<IField> = ({ label = "", name, ...rest }) => {
-    const MIN_LENGTH_PASSWORD = 6;
-
     const validatePasswordValue = (value: string = ""): Nullable<string> => {
         if (!value) {
-            return;
+            return void 0;
         }
-        if (value.length < MIN_LENGTH_PASSWORD) {
+        if (value.length < MIN_LENGTH_PASSWORD || !isEmpty(value.match(/[^A-Za-z0-9-.]/))) {
             return EMessages.PASSWORD_INCORRECT;
         }
-        return;
+        return void 0;
     };
 
     return (

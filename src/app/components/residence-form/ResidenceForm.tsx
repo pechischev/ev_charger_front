@@ -10,8 +10,6 @@ import { Button } from "@components/button";
 import "./ResidenceForm.scss";
 import { redirectToResidenceList } from "@utils/history";
 import { ResidenceFormStore } from "./ResidenceFormStore";
-import { get } from "lodash";
-import { ERoles } from "@app/config";
 
 @observer
 @autobind
@@ -27,12 +25,6 @@ export class ResidenceForm extends Component<IResidenceForm> {
     }
 
     render(): ReactNode {
-        const data = AppContext.getUserStore().getUser();
-        const roles = get(data, "roles");
-        let isOperator = true;
-        (roles || []).map((role: ERoles) => {
-            isOperator = isOperator && role === ERoles.OPERATOR;
-        });
         return (
             <div className="residence-main-info clearfix">
                 <Fragment>
@@ -86,12 +78,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                             label={"Address 2"}
                         />
                         <div className="two-object-column clearfix">
-                            <InputField
-                                name={EResidenceFieldTypes.SERVICE_FEE}
-                                placeholder={"Enter service fee"}
-                                label={"Service Fee"}
-                                disabled={isOperator}
-                            />
+                            {this.renderServiceFeeField()}
                             <div className="residence-info__buttons clearfix">
                                 <Button
                                     className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
@@ -114,6 +101,19 @@ export class ResidenceForm extends Component<IResidenceForm> {
                     </div>
                 </Fragment>
             </div>
+        );
+    }
+
+    private renderServiceFeeField(): ReactNode {
+        if (!AppContext.getUserStore().isAdmin()) {
+            return void 0;
+        }
+        return (
+            <InputField
+                name={EResidenceFieldTypes.SERVICE_FEE}
+                placeholder={"Enter service fee"}
+                label={"Service Fee"}
+            />
         );
     }
 }
