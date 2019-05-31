@@ -75,6 +75,8 @@ export class WorkerForm extends Component<IWorkerForm> {
 
     private getRoleSettingsFields(): ReactNode {
         const { submitting, api } = this.props;
+        const pathname = AppContext.getHistory().location.pathname;
+        const isCreate = !!pathname.indexOf("create");
         return (
             <div>
                 <SelectField
@@ -114,7 +116,7 @@ export class WorkerForm extends Component<IWorkerForm> {
                         type="primary"
                         disabled={!submitting}
                         onClick={() => api.handleSubmit()}
-                        text="Create"
+                        text={isCreate ? "Create" : "Save"}
                         style={{
                             marginRight: 10,
                         }}

@@ -4,7 +4,7 @@ import { ICustomer } from "@entities/customer";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import { autobind } from "core-decorators";
 import { Nullable } from "@app/config";
-import { isEmpty, toNumber } from "lodash";
+import { isEmpty, toNumber, get } from "lodash";
 import { redirectToUsersList } from "@utils/history";
 import { EUserFieldTypes } from "@app/components/user-form";
 
@@ -41,13 +41,13 @@ export class ProfileTabStore extends Store {
             userData: { email, firstName, lastName, phone },
             contactInfo: {
                 ...rest,
-                stateId: toNumber(state.id),
-                residenceId: toNumber(residence.id),
+                stateId: toNumber(get(state, "id")),
+                residenceId: toNumber(get(residence, "id")),
             },
             vehicle: {
                 ...vehicleRest,
-                makesId: toNumber(makes.id),
-                modelId: toNumber(model.id),
+                makesId: toNumber(get(makes, "id")),
+                modelId: toNumber(get(model, "id")),
             },
         };
     }
