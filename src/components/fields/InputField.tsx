@@ -5,16 +5,26 @@ import { IField } from "@components/fields/IField";
 import { getError } from "@utils";
 import "./Field.scss";
 import formatStringByPattern from "format-string-by-pattern";
+import { isString } from "lodash";
 
-export const InputField: FC<IField> = (
-    {name, label, placeholder, mask, isVisible = true, disabled = false, type, ...rest}
-    ) => {
+export const InputField: FC<IField> = ({
+        name, label, placeholder, mask, isVisible = true, disabled = false, type, parse, ...rest
+    }) => {
 
     return (
         <div className="form-group" data-visible={isVisible}>
             <label className="form-label">{label}</label>
             <Field
                 name={name}
+                parse={(value, name) => {
+                    if (parse) {
+                        return parse(value, name);
+                    }
+                    if (isString(value)) {
+                        return value.replace(/  +/g, " ");
+                    }
+                    return value;
+                }}
                 format={(value) => {
                     if (!mask) {
                         return value;
