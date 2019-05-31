@@ -1,4 +1,4 @@
-import { ERoles } from "@entities/user/ERoles";
+import { ERoles } from "./ERoles";
 
 export interface IAuthUser {
     id: number;

@@ -6,10 +6,12 @@ import { getError } from "@utils";
 import "./Field.scss";
 import formatStringByPattern from "format-string-by-pattern";
 
-export const InputField: FC<IField> = ({name, label, placeholder, mask, type, ...rest}) => {
+export const InputField: FC<IField> = (
+    {name, label, placeholder, mask, isVisible = true, disabled = false, type, ...rest}
+    ) => {
 
     return (
-        <div className="form-group">
+        <div className="form-group" data-visible={isVisible}>
             <label className="form-label">{label}</label>
             <Field
                 name={name}
@@ -26,7 +28,7 @@ export const InputField: FC<IField> = ({name, label, placeholder, mask, type, ..
                         const error = getError(props, type);
                         return (
                             <Fragment>
-                                <input className="form-control" {...props.input} {...{placeholder, type}} />
+                                <input className="form-control" disabled={disabled} {...props.input} {...{placeholder, type}} />
                                 <span className="form-text text-danger">{error}</span>
                             </Fragment>
                         );
