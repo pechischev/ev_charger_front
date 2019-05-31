@@ -13,6 +13,7 @@ import { Button } from "@components/button";
 import { Modal } from "@components/modal";
 import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CreateChargerForm, EditChargerForm } from "./view";
+import { AppContext } from "@context";
 
 @observer
 @autobind
@@ -116,7 +117,13 @@ export class ResidenceProfile extends Component<RouteProps> {
     private getActionElement(): ReactNode {
         return (
             <Modal
-                trigger={<Button type="primary" text="Add charger"/>}
+                trigger={
+                    <Button
+                        type="primary"
+                        text="Add charger"
+                        disabled={!AppContext.getUserStore().isAdmin()}
+                    />
+                }
                 title="Add Charger"
             >
                 {(close) => <CreateChargerForm
