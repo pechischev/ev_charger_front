@@ -64,7 +64,7 @@ export class Header extends Component<IHeaderProps> {
                     options={[
                         {
                             value: <Fragment>Profile</Fragment>,
-                            onClick: this.onProfileClick,
+                            onClick: () => void 0,
                         },
                         {
                             value: <Fragment>
@@ -108,13 +108,5 @@ export class Header extends Component<IHeaderProps> {
                 />
             </Dropdown>
         );
-    }
-
-    private onProfileClick(): void {
-        const data = AppContext.getUserStore().getUser();
-        if (isNil(data)) {
-            return;
-        }
-        redirectToWorkerForm(data.getId());
     }
 }
