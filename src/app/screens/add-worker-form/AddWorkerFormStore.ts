@@ -19,7 +19,7 @@ export class AddWorkerFormStore extends Store {
 
     @action.bound
     closeModal(): void {
-        this.isShowModal = false
+        this.isShowModal = false;
     }
 
     validateData(values: TApiParams<EApiRoutes.CREATE_WORKER>): IFieldError[] {
@@ -47,7 +47,8 @@ export class AddWorkerFormStore extends Store {
             role: toNumber(role),
             residences: residences.map(({ id }) => toNumber(id)),
         };
-        return this.asyncCall(this.transport.createWorker(params)).then(this.onSuccessCreateWorker);
+        return this.asyncCall(this.transport.createWorker(params))
+            .then(this.onSuccessCreateWorker);
     }
 
     async onCreateWorker(): Promise<void> {
@@ -58,7 +59,8 @@ export class AddWorkerFormStore extends Store {
         const { residences = [] } = data;
         this.data = data;
         const ids = residences.map(({ id }) => toNumber(id));
-        return this.asyncCall(this.transport.getBoundResidences({ ids })).then(this.onGetBoundResidences);
+        return this.asyncCall(this.transport.getBoundResidences({ ids }))
+            .then(this.onGetBoundResidences);
     }
 
     private onSuccessCreateWorker(response: TAxiosResponse<EApiRoutes.CREATE_USER>): void {

@@ -223,7 +223,8 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.post(EApiRoutes.BIND_WORKER, params);
     }
 
-    async getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>): Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>> {
+    async getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>):
+        Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>> {
         return this.client.post(EApiRoutes.GET_BOUND_RESIDENCES, params);
     }
 }

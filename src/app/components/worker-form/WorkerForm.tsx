@@ -112,7 +112,6 @@ export class WorkerForm extends Component<IWorkerForm> {
                         }}
                     />
                 </div>
-
             </div>
         );
     }
@@ -135,7 +134,6 @@ export class WorkerForm extends Component<IWorkerForm> {
     }
 
     private onChangeForm(api: Pick<FormRenderProps, "values">): void {
-        console.log(api.values);
         if (!this.activeResidenceList(api)) {
             this.props.api.form.change(EWorkerFieldTypes.RESIDENCES_LIST, void 0);
         }

@@ -50,5 +50,6 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     getWorkerData(workerId: string): Promise<TAxiosResponse<EApiRoutes.WORKER_DATA, EApiMethods.GET>>;
 
     bindOperator(params: TApiParams<EApiRoutes.BIND_WORKER>): Promise<TAxiosResponse<EApiRoutes.BIND_WORKER>>;
-    getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>): Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>>;
+    getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>):
+        Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>>;
 }
