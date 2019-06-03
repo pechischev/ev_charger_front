@@ -141,7 +141,6 @@ export class WorkerProfileStore extends Store {
             this.isShowModal = true;
         } else {
             this.updateWorker(this.formData);
-            return;
         }
     }
 }
