@@ -1,7 +1,7 @@
 import { action, observable } from "mobx";
 import { Store } from "@components/store";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
-import { isEmpty, toNumber, get, stubObject } from "lodash";
+import { isEmpty, toNumber, get, stubObject, isEqual } from "lodash";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { ERole, Nullable } from "@app/config";
@@ -77,7 +77,7 @@ export class WorkerProfileStore extends Store {
         if (!!password || !!confirmPassword) {
             fields.push(...[
                 { type: EWorkerFieldTypes.PASSWORD, codes: [] },
-                { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] }
+                { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] },
             ]);
         }
         return fields;
@@ -116,7 +116,7 @@ export class WorkerProfileStore extends Store {
             ...rest,
             password,
             role: toNumber(role),
-            residences: residences.map(({id}) => toNumber(id))
+            residences: residences.map(({id}) => toNumber(id)),
         };
         return this.asyncCall(this.transport.updateWorker(params, this.workerId))
             .then(redirectToWorkerList);
@@ -131,10 +131,17 @@ export class WorkerProfileStore extends Store {
     @action.bound
     private onGetBoundResidences(response: TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>): void {
         const ids = get<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>, "data">(response, "data");
+        const residences = get<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>, "data">(response, "data");
         if (isEmpty(ids)) {
             this.updateWorker(this.formData);
             return;
         }
-        this.isShowModal = true;
+        const residencesIds = (this.data.residences || []).map(({ id }) => toNumber(id));
+        if (!isEqual(residences, residencesIds)) {
+            this.isShowModal = true;
+        } else {
+            this.updateWorker(this.formData);
+            return;
+        }
     }
 }
