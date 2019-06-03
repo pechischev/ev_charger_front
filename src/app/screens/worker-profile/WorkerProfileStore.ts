@@ -1,7 +1,7 @@
 import { action, observable } from "mobx";
 import { Store } from "@components/store";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
-import { isEmpty, toNumber, get, stubObject } from "lodash";
+import { get, isEmpty, isEqual, stubObject, toNumber } from "lodash";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { ERole, Nullable } from "@app/config";
@@ -57,7 +57,7 @@ export class WorkerProfileStore extends Store {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        const { user, role, status, residences = []} = data;
+        const { user, role, status, residences = [] } = data;
         const { id, password, ...rest } = user;
         return { ...rest, status, role: toNumber(role.id), residences: residences.length ? residences : void 0 };
     }
@@ -77,7 +77,7 @@ export class WorkerProfileStore extends Store {
         if (!!password || !!confirmPassword) {
             fields.push(...[
                 { type: EWorkerFieldTypes.PASSWORD, codes: [] },
-                { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] }
+                { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] },
             ]);
         }
         return fields;
@@ -94,7 +94,7 @@ export class WorkerProfileStore extends Store {
     async onSubmit(data: IWorkerData): Promise<void> {
         const { role, residences = [] } = data;
         this.formData = data;
-        if (toNumber(role) === ERole.ADMIN && toNumber(role) !== this.data.role.id) {
+        if (toNumber(role) === ERole.ADMIN && toNumber(role) !== this.data.role.id && !isEmpty(this.data.residences)) {
             this.isShowBindOperatorModal = true;
             return new Promise((resolve) => resolve());
         }
@@ -116,7 +116,7 @@ export class WorkerProfileStore extends Store {
             ...rest,
             password,
             role: toNumber(role),
-            residences: residences.map(({id}) => toNumber(id))
+            residences: residences.map(({ id }) => toNumber(id)),
         };
         return this.asyncCall(this.transport.updateWorker(params, this.workerId))
             .then(redirectToWorkerList);
@@ -131,10 +131,16 @@ export class WorkerProfileStore extends Store {
     @action.bound
     private onGetBoundResidences(response: TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>): void {
         const ids = get<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>, "data">(response, "data");
+        const residences = get<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>, "data">(response, "data");
         if (isEmpty(ids)) {
             this.updateWorker(this.formData);
             return;
         }
-        this.isShowModal = true;
+        const residencesIds = (this.data.residences || []).map(({ id }) => toNumber(id));
+        if (!isEqual(residences, residencesIds)) {
+            this.isShowModal = true;
+        } else {
+            this.updateWorker(this.formData);
+        }
     }
 }

@@ -76,7 +76,7 @@ export class WorkerForm extends Component<IWorkerForm> {
     private getRoleSettingsFields(): ReactNode {
         const { submitting, api } = this.props;
         const pathname = AppContext.getHistory().location.pathname;
-        const isCreate = !!pathname.indexOf("create");
+        const isCreate = !!~pathname.indexOf("create");
         return (
             <div>
                 <SelectField
