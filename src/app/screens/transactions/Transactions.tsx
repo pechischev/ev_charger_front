@@ -12,7 +12,12 @@ export class Transactions extends Component {
             <div className="side-app">
                 <div className="page-header">Transactions</div>
                 <div className="page-content">
-                    <Card title="Transactions table" content={<TransactionsList actionElement={actionElement}/>}/>
+                    <Card
+                        title="Transactions table"
+                        content={
+                            <TransactionsList actionElement={actionElement} canDataSearch={true}/>
+                        }
+                    />
                 </div>
             </div>
         );

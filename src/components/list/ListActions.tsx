@@ -2,7 +2,7 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Tab } from "@components/tab";
 import { CustomForm } from "@components/custom-form";
-import { InputField } from "@components/fields";
+import { InputField, DataField } from "@components/fields";
 import { IListActions } from "@components/list/interfaces";
 import * as _ from "lodash";
 import { IListParams } from "@services/transport/params";
@@ -17,10 +17,15 @@ type TSearchType = Pick<IListParams, "search">;
 export class ListActions<T> extends Component<IListActions<T>> {
     render(): React.ReactNode {
         return (
-            <div className="list-actions clearfix">
-                {this.renderFilters()}
-                {this.renderSearchField()}
-                {this.renderActionElement()}
+            <div className="list-actions">
+                <div className="list-actions_row clearfix">
+                    {this.renderFilters()}
+                    {this.renderSearchField()}
+                    {this.renderActionElement()}
+                </div>
+                <div className="list-actions_row clearfix">
+                    {this.renderDataSearchFields()}
+                </div>
             </div>
         );
     }
@@ -50,10 +55,41 @@ export class ListActions<T> extends Component<IListActions<T>> {
                         return (
                             <div className="search-field">
                                 <InputField
-                                    label={"Search"}
                                     name={"search"}
                                     placeholder={"Search"}
                                 />
+                            </div>
+                        );
+                    }}
+                />
+            </div>
+        );
+    }
+
+    private renderDataSearchFields(): Nullable<ReactNode> {
+        const { canDataSearch } = this.props;
+        if (!canDataSearch) {
+            return void 0;
+        }
+        return (
+            <div className="list-actions__data-search">
+                <CustomForm
+                    submit={this.onSearch}
+                    render={(api, submitting) => {
+                        return (
+                            <div className="data-search clearfix">
+                                <div className="float-right">
+                                    <DataField
+                                        name={"data_to"}
+                                        placeholder={"Date to"}
+                                    />
+                                </div>
+                                <div className="float-right">
+                                    <DataField
+                                        name={"data_from"}
+                                        placeholder={"Date from"}
+                                    />
+                                </div>
                             </div>
                         );
                     }}

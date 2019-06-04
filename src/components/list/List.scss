@@ -1,6 +1,4 @@
 .list-actions {
-    margin-bottom: 20px;
-
     &__tabs {
         margin-top: 10px;
         display: flex;
@@ -17,6 +15,35 @@
 
         .form-label {
             display: none;
+        }
+    }
+
+    &__data-search {
+        margin-top: 10px;
+
+        .data-search {
+            .form-label {
+                display: none;
+            }
+
+            .form-group {
+                width: 180px;
+                height: 60px;
+                min-height: auto;
+                margin-bottom: 0;
+            }
+
+            > div {
+                &:first-child {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    &_row {
+        &:last-child {
+            margin-bottom: 10px;
         }
     }
 }

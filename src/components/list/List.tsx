@@ -45,7 +45,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     protected renderList(): ReactNode {
-        const { canSearch = true, actionElement } = this.props;
+        const { canSearch = true, canDataSearch = false, actionElement } = this.props;
         return (
             <Fragment>
                 <ListActions
@@ -53,6 +53,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
                     store={this.store}
                     canSearch={canSearch}
                     actionElement={actionElement}
+                    canDataSearch={canDataSearch}
                 />
                 <Table
                     data={this.store.getData()}
