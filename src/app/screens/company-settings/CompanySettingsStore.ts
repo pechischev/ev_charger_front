@@ -34,7 +34,6 @@ export class CompanySettingsStore extends Store {
         return [
             { type: ECompanyFieldType.TITLE, codes: [] },
             { type: ECompanyFieldType.ADDRESS, codes: [] },
-            { type: ECompanyFieldType.EXTRA_ADDRESS, codes: [] },
             { type: ECompanyFieldType.STATE, codes: [] },
             { type: ECompanyFieldType.ZIP_CODE, codes: [] },
             { type: ECompanyFieldType.CITY, codes: [] },

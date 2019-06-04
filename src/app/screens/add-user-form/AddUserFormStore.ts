@@ -24,7 +24,6 @@ export class AddUserFormStore extends Store {
             { type: EUserFieldTypes.MAKES, codes: [] },
             { type: EUserFieldTypes.MODEL, codes: [] },
             { type: EUserFieldTypes.YEAR, codes: [] },
-            { type: EUserFieldTypes.LICENSE_PLATE, codes: [] },
         ]);
     }
 
