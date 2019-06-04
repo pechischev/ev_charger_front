@@ -26,4 +26,8 @@ export enum EPaths {
 
     COMPANY_INFO = "settings/company",
     BILLING_INFO = "settings/billing",
+
+    TRANSACTIONS = "transactions",
+    TRANSACTION_PROFILE = "transactions/view",
+    TRANSACTION_CREATE_FORM = "transactions/create",
 }

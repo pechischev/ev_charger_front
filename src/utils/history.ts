@@ -60,3 +60,18 @@ export function redirectToCompanyInfoSettings(): void {
     const link = `/${EPaths.COMPANY_INFO}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectOnTransactionsList(transactionId: number): void {
+    const link = `/${EPaths.TRANSACTIONS}?id=${transactionId}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectOnTransactionProfile(transactionId: number): void {
+    const link = `/${EPaths.TRANSACTION_PROFILE}?id=${transactionId}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectOnAddTransactionForm(): void {
+    const link = `/${EPaths.TRANSACTION_CREATE_FORM}`;
+    AppContext.getHistory().push(link);
+}

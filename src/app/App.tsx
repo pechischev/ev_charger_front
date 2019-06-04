@@ -22,6 +22,7 @@ import { CompanySettings } from "@app/screens/company-settings";
 import { Workers } from "@app/screens/company-worker";
 import { AddWorkerForm } from "@app/screens/add-worker-form";
 import { WorkerProfile } from "@app/screens/worker-profile";
+import { Transactions } from "@app/screens/transactions";
 
 export class App extends Component {
     constructor(props: object) {
@@ -117,6 +118,11 @@ export class App extends Component {
                                     exact={true}
                                     path={`/${EPaths.BILLING_INFO}`}
                                     component={Settings}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.TRANSACTIONS}`}
+                                    component={Transactions}
                                 />
                             </Switch>
                         </Layout>

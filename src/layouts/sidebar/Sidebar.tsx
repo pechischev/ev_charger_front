@@ -64,6 +64,11 @@ export class Sidebar extends Component<RouteProps> {
     @action.bound
     private updateOptions() {
         this.options = [...this.options, {
+            value: "Transactions",
+            path: EPaths.TRANSACTIONS,
+            iconType: "transactions",
+            isEnabled: AppContext.getUserStore().isAdmin(),
+        }, {
             value: "Settings",
             path: EPaths.SETTINGS,
             iconType: "settings",
