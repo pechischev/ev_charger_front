@@ -13,6 +13,7 @@ export class AddTransactionStore extends Store {
         return [
             { type: ETransactionFieldTypes.RESIDENCE, codes: [] },
             { type: ETransactionFieldTypes.USER, codes: [] },
+            { type: ETransactionFieldTypes.STATUS, codes: [] },
             { type: ETransactionFieldTypes.PAYMENT_TYPE, codes: [] },
             { type: ETransactionFieldTypes.AMOUNT, codes: [] },
         ];

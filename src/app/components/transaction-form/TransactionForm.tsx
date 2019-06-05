@@ -58,6 +58,12 @@ export class TransactionForm extends Component<ITransactionForm> {
         return (
             <div>
                 <InputField
+                    label={"Status"}
+                    name={ETransactionFieldTypes.PAYMENT_TYPE}
+                    isVisible={!isCreate}
+                    disabled={true}
+                />
+                <InputField
                     label={"Payment type"}
                     name={ETransactionFieldTypes.PAYMENT_TYPE}
                     disabled={true}

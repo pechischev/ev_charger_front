@@ -24,6 +24,7 @@ import { AddWorkerForm } from "@app/screens/add-worker-form";
 import { WorkerProfile } from "@app/screens/worker-profile";
 import { Transactions } from "@app/screens/transactions";
 import { AddTransaction } from "./screens/add-transaction";
+import { TransactionProfile } from "@app/screens/transaction-profile";
 
 export class App extends Component {
     constructor(props: object) {
@@ -128,7 +129,7 @@ export class App extends Component {
                                 <PrivateRoute
                                     exact={true}
                                     path={`/${EPaths.TRANSACTION_PROFILE}`}
-                                    component={Transactions}
+                                    component={TransactionProfile}
                                 />
                                 <PrivateRoute
                                     exact={true}
