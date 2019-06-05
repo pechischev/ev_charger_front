@@ -9,6 +9,7 @@ import { Button } from "@components/button";
 import { redirectToTransactionList } from "@utils/history";
 import "./TransactionForm.scss";
 import { AppContext } from "@context";
+import { AmountField } from "@components/fields/AmountField";
 
 @observer
 @autobind
@@ -61,10 +62,8 @@ export class TransactionForm extends Component<ITransactionForm> {
                     name={ETransactionFieldTypes.PAYMENT_TYPE}
                     disabled={true}
                 />
-                <InputField
-                    label={"Amount"}
+                <AmountField
                     name={ETransactionFieldTypes.AMOUNT}
-                    placeholder={"Enter amount"}
                 />
                 <div className="transactions-form-button clearfix">
                     <Button
