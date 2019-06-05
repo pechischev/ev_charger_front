@@ -23,6 +23,7 @@ import { Workers } from "@app/screens/company-worker";
 import { AddWorkerForm } from "@app/screens/add-worker-form";
 import { WorkerProfile } from "@app/screens/worker-profile";
 import { Transactions } from "@app/screens/transactions";
+import { AddTransaction } from "./screens/add-transaction";
 
 export class App extends Component {
     constructor(props: object) {
@@ -132,7 +133,7 @@ export class App extends Component {
                                 <PrivateRoute
                                     exact={true}
                                     path={`/${EPaths.TRANSACTION_CREATE_FORM}`}
-                                    component={Transactions}
+                                    component={AddTransaction}
                                 />
                             </Switch>
                         </Layout>

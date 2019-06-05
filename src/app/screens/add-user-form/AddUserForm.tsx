@@ -28,6 +28,7 @@ export class AddUserForm extends Component<RouteProps> {
                 <div className="page-header">New User</div>
                 <div className="page-content">
                     <Card
+                        title="Add User"
                         className="customer-info"
                         content={
                             <div className="tab-container-profile">

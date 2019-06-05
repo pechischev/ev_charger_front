@@ -61,8 +61,8 @@ export function redirectToCompanyInfoSettings(): void {
     AppContext.getHistory().push(link);
 }
 
-export function redirectOnTransactionsList(transactionId: number): void {
-    const link = `/${EPaths.TRANSACTIONS}?id=${transactionId}`;
+export function redirectToTransactionList(): void {
+    const link = `/${EPaths.TRANSACTIONS}`;
     AppContext.getHistory().push(link);
 }
 
