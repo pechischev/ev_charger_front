@@ -30,10 +30,6 @@ export class Sidebar extends Component<RouteProps> {
         AppContext.getHistory().push(window.location.pathname); // Hack to push history when initial load
     }
 
-    componentWillUnmount(): void {
-        // AppContext.getUserStore().profile$.unsubscribe();
-    }
-
     render(): ReactNode {
         return (
             <div className="app-sidebar">

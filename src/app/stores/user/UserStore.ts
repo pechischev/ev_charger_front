@@ -4,12 +4,12 @@ import { EApiRoutes, TApiResponse, TAxiosResponse, Transport } from "@services/t
 import { autobind } from "core-decorators";
 import { action, observable } from "mobx";
 import { get } from "lodash";
-import { AsyncSubject } from "rxjs";
+import { Subject } from "rxjs";
 import { AuthUser } from "@entities/user";
 
 @autobind
 export class UserStore extends Store {
-    readonly profile$ = new AsyncSubject<AuthUser>();
+    readonly profile$ = new Subject<AuthUser>();
     private static readonly TOKENS = "tokens";
     @observable private tokens?: ITokens;
     @observable private user?: AuthUser;
@@ -74,6 +74,5 @@ export class UserStore extends Store {
         const data = get<TAxiosResponse<EApiRoutes.PROFILE>, "data">(response, "data");
         this.user = new AuthUser(data);
         this.profile$.next(this.user);
-        this.profile$.complete();
     }
 }
