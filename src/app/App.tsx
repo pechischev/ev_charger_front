@@ -44,7 +44,7 @@ export class App extends Component {
             <div className="app">
                 <Switch>
                     <PublicRoute exact={true} path={`/${EPaths.LOGIN}`} component={Login}/>
-                    <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
+                    <Route path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
                     <Route path={"/"}>
                         <Layout>
                             <Switch>
@@ -118,9 +118,11 @@ export class App extends Component {
                                     path={`/${EPaths.BILLING_INFO}`}
                                     component={Settings}
                                 />
+                                <Route component={() => <Redirect to={`/${EPaths.ERROR}`} />}/>
                             </Switch>
                         </Layout>
                     </Route>
+                    <Route component={() => <Redirect to={`/${EPaths.ERROR}`} />}/>
                 </Switch>
             </div>
         );

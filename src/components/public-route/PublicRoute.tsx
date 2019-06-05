@@ -34,7 +34,8 @@ export function isOneOfPaths(paths: string[], pathname: string): boolean {
             // tslint:disable-next-line:no-parameter-reassignment
             prev = false;
             return prev;
-        } else if (pathname.includes(current) && current !== "/") {
+        }
+        if (pathname.includes(current) && current !== "/") {
             // tslint:disable-next-line:no-parameter-reassignment
             prev = false;
             return prev;
