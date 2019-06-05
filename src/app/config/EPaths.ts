@@ -1,7 +1,7 @@
 export enum EPaths {
 
     LOGIN = "login",
-    ERROR = "error",
+    ERROR = "error-page",
 
     // Main
     DASHBOARD = "dashboard",

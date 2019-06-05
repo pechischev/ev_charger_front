@@ -52,7 +52,8 @@ export function isOneOfPaths(paths: string[], pathname: string): boolean {
     return paths.reduce<boolean>((prev, current) => {
         if (current === "/" && pathname === current) {
             return true;
-        } else if (pathname.includes(current) && current !== "/") {
+        }
+        if (pathname.includes(current) && current !== "/") {
             // tslint:disable-next-line:no-parameter-reassignment
             return true;
         }

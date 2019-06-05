@@ -36,7 +36,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
                     action={this.deleteCharges}
                     actionOptions={{
                         title: "Delete",
-                        type: "delete",
+                        type: !AppContext.getUserStore().isAdmin() ? "disabled" : "delete",
                     }}
                 />
             </Fragment>
@@ -66,7 +66,7 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
 
     protected onClickRow(item: IChargersListItem): void {
         const { residenceId } = this.props;
-        if (!residenceId || !AppContext.getUserStore().isAdmin()) {
+        if (!residenceId) {
             return;
         }
         this.props.onViewItem(item.id);

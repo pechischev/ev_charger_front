@@ -45,7 +45,7 @@ export class App extends Component {
             <div className="app">
                 <Switch>
                     <PublicRoute exact={true} path={`/${EPaths.LOGIN}`} component={Login}/>
-                    <Route exact={true} path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
+                    <Route path={`/${EPaths.ERROR}`} component={ErrorScreen}/>
                     <Route path={"/"}>
                         <Layout>
                             <Switch>
@@ -122,6 +122,16 @@ export class App extends Component {
                                 <PrivateRoute
                                     exact={true}
                                     path={`/${EPaths.TRANSACTIONS}`}
+                                    component={Transactions}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.TRANSACTION_PROFILE}`}
+                                    component={Transactions}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.TRANSACTION_CREATE_FORM}`}
                                     component={Transactions}
                                 />
                             </Switch>
