@@ -5,13 +5,21 @@ import "./Button.scss";
 import { IButtonProps } from "./IButtonProps";
 import { observer } from "mobx-react";
 
-export const Button: FC<IButtonProps> = observer(({ className = "", text, disabled, type, onClick, ...rest }) => {
+export const Button: FC<IButtonProps> = observer(({
+                                                      className = "",
+                                                      text,
+                                                      disabled,
+                                                      type,
+                                                      onClick,
+                                                      isBlock = true,
+                                                      ...rest
+                                                  }) => {
     const classes = classNames({
         ["custom-button"]: true,
         [className]: true,
-        ["btn-block"]: true,
+        ["btn-block"]: isBlock,
         btn: true,
-        disabled
+        disabled,
     });
     return (
         <button {...rest} className={classes} data-type={type} onClick={onClick}>
