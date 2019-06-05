@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { InputField, SelectField } from "@components/fields";
+import { AmountField, InputField, SelectField } from "@components/fields";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { ETransactionFieldTypes } from "./ETransactionFieldTypes";
@@ -9,7 +9,6 @@ import { Button } from "@components/button";
 import { redirectToTransactionList } from "@utils/history";
 import "./TransactionForm.scss";
 import { AppContext } from "@context";
-import { AmountField } from "@components/fields/AmountField";
 
 @observer
 @autobind
