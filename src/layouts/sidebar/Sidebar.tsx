@@ -59,7 +59,6 @@ export class Sidebar extends Component<RouteProps> {
 
     @action.bound
     private updateOptions() {
-        console.log("updated", AppContext.getUserStore().isAdmin);
         this.options = [...this.options, {
             value: "Settings",
             path: EPaths.SETTINGS,
