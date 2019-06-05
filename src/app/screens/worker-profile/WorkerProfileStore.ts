@@ -70,10 +70,7 @@ export class WorkerProfileStore extends Store {
             { type: EWorkerFieldTypes.STATUS, codes: [] },
             { type: EWorkerFieldTypes.ROLE, codes: [] },
         ];
-        const { role, password, confirmPassword } = values;
-        if (toNumber(role) === ERole.OPERATOR) {
-            fields.push({ type: EWorkerFieldTypes.RESIDENCES_LIST, codes: [] });
-        }
+        const { password, confirmPassword } = values;
         if (!!password || !!confirmPassword) {
             fields.push(...[
                 { type: EWorkerFieldTypes.PASSWORD, codes: [] },
