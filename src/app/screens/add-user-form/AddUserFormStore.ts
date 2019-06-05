@@ -10,7 +10,7 @@ import { EUserFieldTypes } from "@app/components/user-form";
 @autobind
 export class AddUserFormStore extends Store {
     validateData(): IFieldError[] {
-        return ([
+        const fields = [
             { type: EUserFieldTypes.FIRST_NAME, codes: [] },
             { type: EUserFieldTypes.LAST_NAME, codes: [] },
             { type: EUserFieldTypes.EMAIL, codes: [15] },
@@ -24,7 +24,9 @@ export class AddUserFormStore extends Store {
             { type: EUserFieldTypes.MAKES, codes: [] },
             { type: EUserFieldTypes.MODEL, codes: [] },
             { type: EUserFieldTypes.YEAR, codes: [] },
-        ]);
+            { type: EUserFieldTypes.PASSWORD, codes: [] },
+        ];
+        return fields;
     }
 
     async createUser(data: IUserParams): Promise<void> {
