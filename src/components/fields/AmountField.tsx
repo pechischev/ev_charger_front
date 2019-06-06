@@ -4,7 +4,7 @@ import { IField } from "./IField";
 import "./Field.scss";
 import { InputField } from "./InputField";
 import { Nullable } from "@app/config";
-import { head } from "lodash";
+import { head, isNull } from "lodash";
 import { EMessages } from "@utils/EMessage";
 
 export const AmountField: FC<IField> = ({ name, ...rest }) => {
@@ -12,18 +12,20 @@ export const AmountField: FC<IField> = ({ name, ...rest }) => {
         if (!value) {
             return void 0;
         }
-        if (!/[a-zA-Z]/g.exec(value)) {
+
+        if (!isNull(value.match(/[a-zA-Z]/g)) || isNull(value.match(/\d+[.,]\d{2}/g))) {
             return EMessages.AMOUNT_INCORRECT;
         }
+
         return void 0;
     };
 
     const parseAmountValue = (value: string): Nullable<string> => {
-        if (!value) {
-            return void 0;
+        if (!validateAmountValue(value)) {
+            return head(/\d+[.,]\d{2}/g.exec(value) || []);
         }
 
-        return head(/\d+[.,]\d{2}/g.exec(value) || []);
+        return value;
     };
 
     return (
