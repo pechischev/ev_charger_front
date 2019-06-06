@@ -10,4 +10,7 @@ export enum EMessages {
     PASSWORDS_INCORRECT = "Passwords do not match",
     CONTAINS_INVALID_VALUE = "Field is contain invalid value",
     AMOUNT_INCORRECT = "Enter a valid value",
+
+    LIST_ACTIONS_DATE = "Enter a correct date",
+    LIST_ACTIONS_DATES = "Enter a correct dates",
 }

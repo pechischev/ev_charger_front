@@ -6,9 +6,9 @@ import { InputField } from "./InputField";
 import { Nullable } from "@app/config";
 import { formatValue } from "@utils";
 
-const MAX_COUNT_DIGITS_PHONE = 7;
+const MAX_LENGTH = 8;
 
-export const DataField: FC<IField> = ({ label = "", placeholder = "MM/DD/YY", name, ...rest }) => {
+export const DateField: FC<IField> = ({ label = "", placeholder = "MM/DD/YY", name, ...rest }) => {
     const validateDataValue = (value: string): Nullable<string> => {
         return void 0;
     };
@@ -20,7 +20,7 @@ export const DataField: FC<IField> = ({ label = "", placeholder = "MM/DD/YY", na
             placeholder={placeholder}
             mask={"AA/AA/AA"}
             validate={validateDataValue}
-            parse={(value) => formatValue(value, MAX_COUNT_DIGITS_PHONE + 1)}
+            parse={(value) => formatValue(value, MAX_LENGTH + 1)}
             {...rest}
         />
     );

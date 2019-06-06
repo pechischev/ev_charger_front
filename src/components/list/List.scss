@@ -16,12 +16,20 @@
         .form-label {
             display: none;
         }
+
+        .form-group {
+            min-height: auto;
+        }
     }
 
     &__data-search {
         margin-top: 10px;
 
         .data-search {
+            display: flex;
+            width: 370px;
+            margin: 0 0 0 auto;
+
             .form-label {
                 display: none;
             }
@@ -34,7 +42,7 @@
             }
 
             > div {
-                &:first-child {
+                &:last-child {
                     margin-left: 10px;
                 }
             }

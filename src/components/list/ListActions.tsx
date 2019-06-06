@@ -2,13 +2,16 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Tab } from "@components/tab";
 import { CustomForm } from "@components/custom-form";
-import { InputField, DataField } from "@components/fields";
+import { DateField, InputField } from "@components/fields";
 import { IListActions } from "@components/list/interfaces";
-import * as _ from "lodash";
 import { IListParams } from "@services/transport/params";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { Nullable } from "@app/config";
+import { EListActionsFields } from "@components/list/EListActionsFields";
+import * as moment from "moment";
+import { get, isEmpty, isNil } from "lodash";
+import { EMessages } from "@utils/EMessage";
 
 type TSearchType = Pick<IListParams, "search">;
 
@@ -78,18 +81,28 @@ export class ListActions<T> extends Component<IListActions<T>> {
                     render={(api, submitting) => {
                         return (
                             <div className="data-search clearfix">
-                                <div className="float-right">
-                                    <DataField
-                                        name={"data_to"}
-                                        placeholder={"Date to"}
-                                    />
-                                </div>
-                                <div className="float-right">
-                                    <DataField
-                                        name={"data_from"}
-                                        placeholder={"Date from"}
-                                    />
-                                </div>
+                                <DateField
+                                    name={EListActionsFields.DATE_FROM}
+                                    placeholder={"Date from"}
+                                    validate={
+                                        (value, allValues) => this.validateDateField(
+                                            value,
+                                            allValues,
+                                            EListActionsFields.DATE_TO,
+                                        )
+                                    }
+                                />
+                                <DateField
+                                    name={EListActionsFields.DATE_TO}
+                                    placeholder={"Date to"}
+                                    validate={
+                                        (value, allValues) => this.validateDateField(
+                                            value,
+                                            allValues,
+                                            EListActionsFields.DATE_TO,
+                                        )
+                                    }
+                                />
                             </div>
                         );
                     }}
@@ -112,7 +125,37 @@ export class ListActions<T> extends Component<IListActions<T>> {
 
     private onSearch(data: TSearchType): void {
         const { store } = this.props;
-        const search = _.get<TSearchType, "search">(data, "search");
+        const search = get<TSearchType, "search">(data, "search");
         store.setSearch(search);
+    }
+
+    private validateDateField(value: string, allValues: object, type: EListActionsFields): Nullable<string> {
+        if (!value) {
+            return void 0;
+        }
+
+        const initFrom = get(allValues, EListActionsFields.DATE_FROM);
+        const initTo = get(allValues, EListActionsFields.DATE_TO);
+        const from = !isEmpty(initFrom) ? moment(initFrom).unix() : undefined;
+        const to = !isEmpty(initTo) ? moment(initTo).unix() : undefined;
+
+        if (isNil(from) || isNil(to)) {
+            return EMessages.LIST_ACTIONS_DATES;
+        }
+
+        const currentYear = (new Date()).getFullYear();
+        const start = moment({ day: 1, month: 0, year: currentYear }).unix();
+        const end = moment({ day: 1, month: 0, year: currentYear + 10 }).unix();
+        const curValue = moment(value).unix();
+
+        if (curValue < start || curValue > end) {
+            return EMessages.LIST_ACTIONS_DATE;
+        }
+
+        if (from > to) {
+            return EMessages.LIST_ACTIONS_DATE;
+        }
+
+        return void 0;
     }
 }
