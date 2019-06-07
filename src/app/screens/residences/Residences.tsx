@@ -22,9 +22,10 @@ export class Residences extends Component {
     private getActionElement(): ReactNode {
         return (
             <Button
-                type={!AppContext.getUserStore().isAdmin() ? "inactive" : "primary"}
+                type={"primary"}
                 onClick={redirectToResidenceCreateForm}
                 text="Add residence"
+                disabled={!AppContext.getUserStore().isAdmin()}
             />
         );
     }

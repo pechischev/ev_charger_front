@@ -22,9 +22,10 @@ export class Users extends Component {
     private getActionElement(): ReactNode {
         return (
             <Button
-                type={!AppContext.getUserStore().isAdmin() ? "inactive" : "primary"}
+                type={"primary"}
                 onClick={redirectOnAddUserForm}
                 text={"Add user"}
+                disabled={!AppContext.getUserStore().isAdmin()}
             />
         );
     }
