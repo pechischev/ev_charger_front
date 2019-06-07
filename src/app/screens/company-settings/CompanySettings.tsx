@@ -12,6 +12,7 @@ import { AppContext } from "@context";
 import { Button } from "@components/button";
 import { RouteProps } from "react-router";
 import { redirectToSettings } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -26,15 +27,15 @@ export class CompanySettings extends Component<RouteProps> {
     }
 
     render(): ReactNode {
+        const links: IBreadcrumb[] = [
+            { label: "Settings", handler: redirectToSettings },
+            { label: "Company Information" },
+        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Company Information</div>
-                    <div className="page-breadcrumb breadcrumb">
-                        <div className="breadcrumb_root" onClick={redirectToSettings}>Settings</div>
-                        <div className="breadcrumb_arrow"/>
-                        <div className="breadcrumb_child">Company Information</div>
-                    </div>
+                    <Breadcrumb crumbs={links}/>
                 </div>
                 <div className="page-content">
                     <Card

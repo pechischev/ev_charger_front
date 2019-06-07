@@ -8,6 +8,7 @@ import "./Workers.scss";
 import { WorkersStore } from "./WorkersStore";
 import { autobind } from "core-decorators";
 import { RouteProps } from "react-router";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @autobind
 export class Workers extends Component<RouteProps> {
@@ -20,15 +21,15 @@ export class Workers extends Component<RouteProps> {
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
+        const links: IBreadcrumb[] = [
+            { label: "Settings", handler: redirectToSettings },
+            { label: "CMS Users" },
+        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">CMS Users</div>
-                    <div className="page-breadcrumb breadcrumb">
-                        <div className="breadcrumb_root" onClick={redirectToSettings}>Settings</div>
-                        <div className="breadcrumb_arrow"/>
-                        <div className="breadcrumb_child">CMS Users</div>
-                    </div>
+                    <Breadcrumb crumbs={links}/>
                 </div>
                 <div className="page-content">
                     <Card

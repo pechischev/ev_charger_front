@@ -10,6 +10,7 @@ import { IResidenceParams } from "@services/transport/params";
 import { EResidenceFieldTypes, ResidenceForm } from "@app/components/residence-form";
 import { RouteProps } from "react-router";
 import { redirectToResidenceList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -23,17 +24,17 @@ export class AddResidence extends Component<RouteProps> {
 
     render(): ReactNode {
         const data: Partial<IResidenceParams> = {
-            [EResidenceFieldTypes.BILLING_RATE]: 99
+            [EResidenceFieldTypes.BILLING_RATE]: "99.00",
         };
+        const links: IBreadcrumb[] = [
+            { label: "Residences", handler: redirectToResidenceList },
+            { label: "New Residence" },
+        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">New Residence</div>
-                    <div className="page-breadcrumb breadcrumb">
-                        <div className="breadcrumb_root" onClick={redirectToResidenceList}>Residences</div>
-                        <div className="breadcrumb_arrow"/>
-                        <div className="breadcrumb_child">New Residence</div>
-                    </div>
+                    <Breadcrumb crumbs={links}/>
                 </div>
                 <div className="page-content">
                     <Card

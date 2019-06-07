@@ -15,6 +15,7 @@ import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CreateChargerForm, EditChargerForm } from "./view";
 import { AppContext } from "@context";
 import { redirectToResidenceList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -34,15 +35,15 @@ export class ResidenceProfile extends Component<RouteProps> {
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
+        const links: IBreadcrumb[] = [
+            { label: "Residences", handler: redirectToResidenceList },
+            { label: "Profile" },
+        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Residence</div>
-                    <div className="page-breadcrumb breadcrumb">
-                        <div className="breadcrumb_root" onClick={redirectToResidenceList}>Residences</div>
-                        <div className="breadcrumb_arrow"/>
-                        <div className="breadcrumb_child">Profile</div>
-                    </div>
+                    <Breadcrumb crumbs={links}/>
                 </div>
                 <div className="page-content">
                     <Card

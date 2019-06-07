@@ -11,6 +11,7 @@ import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { EUserFieldTypes, UserForm } from "@app/components/user-form";
 import { RouteProps } from "react-router";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -23,15 +24,15 @@ export class AddUserForm extends Component<RouteProps> {
     }
 
     render(): ReactNode {
+        const links: IBreadcrumb[] = [
+            { label: "Users", handler: redirectToUsersList },
+            { label: "New User" },
+        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">New User</div>
-                    <div className="page-breadcrumb breadcrumb">
-                        <div className="breadcrumb_root" onClick={redirectToUsersList}>Users</div>
-                        <div className="breadcrumb_arrow"/>
-                        <div className="breadcrumb_child">New User</div>
-                    </div>
+                    <Breadcrumb crumbs={links}/>
                 </div>
                 <div className="page-content">
                     <Card

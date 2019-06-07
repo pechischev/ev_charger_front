@@ -10,6 +10,7 @@ import { WorkerForm } from "@app/components/worker-form";
 import { RouteProps } from "react-router";
 import { Modal } from "@components/modal";
 import { redirectToSettings, redirectToWorkerList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -22,17 +23,16 @@ export class AddWorkerForm extends Component<RouteProps> {
     }
 
     render(): ReactNode {
+        const links: IBreadcrumb[] = [
+            { label: "Settings", handler: redirectToSettings },
+            { label: "CMS Users", handler: redirectToWorkerList },
+            { label: "Add company user" },
+        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Add company user</div>
-                    <div className="page-breadcrumb breadcrumb">
-                        <div className="breadcrumb_root" onClick={redirectToSettings}>Settings</div>
-                        <div className="breadcrumb_arrow"/>
-                        <div className="breadcrumb_root" onClick={redirectToWorkerList}>CMS Users</div>
-                        <div className="breadcrumb_arrow"/>
-                        <div className="breadcrumb_child">Add company user</div>
-                    </div>
+                    <Breadcrumb crumbs={links}/>
                 </div>
                 <div className="page-content">
                     <Card
@@ -55,7 +55,7 @@ export class AddWorkerForm extends Component<RouteProps> {
                     onClose={this.store.closeModal}
                     action={this.store.onCreateWorker}
                     actionOptions={{
-                        title: "Yes"
+                        title: "Yes",
                     }}
                 />
             </div>
