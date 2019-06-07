@@ -22,7 +22,7 @@ export class AddResidence extends Component<RouteProps> {
 
     render(): ReactNode {
         const data: Partial<IResidenceParams> = {
-            [EResidenceFieldTypes.BILLING_RATE]: 99
+            [EResidenceFieldTypes.BILLING_RATE]: "99.00"
         };
         return (
             <div className="side-app">
