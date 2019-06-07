@@ -7,23 +7,24 @@ import { InputField } from "./InputField";
 import * as React from "react";
 
 export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) => {
+
+    const dataFormatRegex = /\d+[.,]\d{2}/g;
+    const onlyLetterRegex = /[a-zA-Z]/g;
+
     const validateAmountValue = (value: string): Nullable<string> => {
         if (!value) {
             return void 0;
         }
-
-        if (!isNull(value.match(/[a-zA-Z]/g)) || isNull(value.match(/\d+[.,]\d{2}/g))) {
+        if (!isNull(value.match(onlyLetterRegex)) || isNull(value.match(dataFormatRegex))) {
             return EMessages.AMOUNT_INCORRECT;
         }
-
         return void 0;
     };
 
     const parseAmountValue = (value: string): Nullable<string> => {
         if (!validateAmountValue(value)) {
-            return head(/\d+[.,]\d{2}/g.exec(value) || []);
+            return head(dataFormatRegex.exec(value) || []);
         }
-
         return value;
     };
 
