@@ -13,6 +13,7 @@ import * as qs from "query-string";
 import { autobind } from "core-decorators";
 import { AppContext } from "@context";
 import { Nullable } from "@app/config";
+import { redirectToUsersList } from "@utils/history";
 
 @observer
 @autobind
@@ -37,10 +38,16 @@ export class UserProfile extends Component<RouteProps> {
     }
 
     render(): ReactNode {
-
         return (
             <div className="side-app">
-                <div className="page-header">User Profile</div>
+                <div className="page-header">
+                    <div className="page-title">User Profile</div>
+                    <div className="page-breadcrumb breadcrumb">
+                        <div className="breadcrumb_root" onClick={redirectToUsersList}>Users</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_child">Profile</div>
+                    </div>
+                </div>
                 <div className="page-content">
                     <Card className="customer-info" content={this.getCustomerProfile()}/>
                 </div>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { redirectToAddWorkerForm, redirectToWorkerForm } from "@utils/history";
+import { redirectToAddWorkerForm, redirectToSettings, redirectToWorkerForm } from "@utils/history";
 import { Button } from "@components/button";
 import { WorkersList } from "./WorkersList";
 import "./Workers.scss";
@@ -22,7 +22,14 @@ export class Workers extends Component<RouteProps> {
         const actionElement = this.getActionElement();
         return (
             <div className="side-app">
-                <div className="page-header">CMS Users</div>
+                <div className="page-header">
+                    <div className="page-title">CMS Users</div>
+                    <div className="page-breadcrumb breadcrumb">
+                        <div className="breadcrumb_root" onClick={redirectToSettings}>Settings</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_child">CMS Users</div>
+                    </div>
+                </div>
                 <div className="page-content">
                     <Card
                         title="Users list"

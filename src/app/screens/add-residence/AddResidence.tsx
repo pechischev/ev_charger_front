@@ -9,6 +9,7 @@ import { autobind } from "core-decorators";
 import { IResidenceParams } from "@services/transport/params";
 import { EResidenceFieldTypes, ResidenceForm } from "@app/components/residence-form";
 import { RouteProps } from "react-router";
+import { redirectToResidenceList } from "@utils/history";
 
 @observer
 @autobind
@@ -26,7 +27,14 @@ export class AddResidence extends Component<RouteProps> {
         };
         return (
             <div className="side-app">
-                <div className="page-header">New Residence</div>
+                <div className="page-header">
+                    <div className="page-title">New Residence</div>
+                    <div className="page-breadcrumb breadcrumb">
+                        <div className="breadcrumb_root" onClick={redirectToResidenceList}>Residences</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_child">New Residence</div>
+                    </div>
+                </div>
                 <div className="page-content">
                     <Card
                         title="Add Residence"

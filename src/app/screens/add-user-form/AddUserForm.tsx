@@ -25,7 +25,14 @@ export class AddUserForm extends Component<RouteProps> {
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">New User</div>
+                <div className="page-header">
+                    <div className="page-title">New User</div>
+                    <div className="page-breadcrumb breadcrumb">
+                        <div className="breadcrumb_root" onClick={redirectToUsersList}>Users</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_child">New User</div>
+                    </div>
+                </div>
                 <div className="page-content">
                     <Card
                         className="customer-info"

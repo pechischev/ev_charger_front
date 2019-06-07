@@ -14,6 +14,7 @@ import { Modal } from "@components/modal";
 import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CreateChargerForm, EditChargerForm } from "./view";
 import { AppContext } from "@context";
+import { redirectToResidenceList } from "@utils/history";
 
 @observer
 @autobind
@@ -35,7 +36,14 @@ export class ResidenceProfile extends Component<RouteProps> {
         const actionElement = this.getActionElement();
         return (
             <div className="side-app">
-                <div className="page-header">Residence</div>
+                <div className="page-header">
+                    <div className="page-title">Residence</div>
+                    <div className="page-breadcrumb breadcrumb">
+                        <div className="breadcrumb_root" onClick={redirectToResidenceList}>Residences</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_child">Profile</div>
+                    </div>
+                </div>
                 <div className="page-content">
                     <Card
                         className="residence-card"

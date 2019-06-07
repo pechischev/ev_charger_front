@@ -9,6 +9,7 @@ import { autobind } from "core-decorators";
 import { WorkerForm } from "@app/components/worker-form";
 import { RouteProps } from "react-router";
 import { Modal } from "@components/modal";
+import { redirectToSettings, redirectToWorkerList } from "@utils/history";
 
 @observer
 @autobind
@@ -23,7 +24,16 @@ export class AddWorkerForm extends Component<RouteProps> {
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">Add company user</div>
+                <div className="page-header">
+                    <div className="page-title">Add company user</div>
+                    <div className="page-breadcrumb breadcrumb">
+                        <div className="breadcrumb_root" onClick={redirectToSettings}>Settings</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_root" onClick={redirectToWorkerList}>CMS Users</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_child">Add company user</div>
+                    </div>
+                </div>
                 <div className="page-content">
                     <Card
                         className="employee-info"

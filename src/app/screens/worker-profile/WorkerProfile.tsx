@@ -12,6 +12,7 @@ import { WorkerProfileStore } from ".";
 import { WorkerForm } from "@app/components/worker-form";
 import { Modal } from "@components/modal";
 import { BindOperatorForm } from "./view";
+import { redirectToSettings, redirectToWorkerList } from "@utils/history";
 
 @observer
 @autobind
@@ -32,7 +33,16 @@ export class WorkerProfile extends Component<RouteProps> {
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">CMS User</div>
+                <div className="page-header">
+                    <div className="page-title">Add company user</div>
+                    <div className="page-breadcrumb breadcrumb">
+                        <div className="breadcrumb_root" onClick={redirectToSettings}>Settings</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_root" onClick={redirectToWorkerList}>CMS Users</div>
+                        <div className="breadcrumb_arrow"/>
+                        <div className="breadcrumb_child">Profile</div>
+                    </div>
+                </div>
                 <div className="page-content">
                     <Card
                         className="residence-card"
