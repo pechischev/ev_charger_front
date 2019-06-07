@@ -4,6 +4,7 @@ import * as React from "react";
 import { UserList } from "@app/screens/users/UserList";
 import { redirectOnAddUserForm } from "@utils/history";
 import { Button } from "@components/button";
+import { AppContext } from "@context";
 
 export class Users extends Component {
     render(): ReactNode {
@@ -21,7 +22,7 @@ export class Users extends Component {
     private getActionElement(): ReactNode {
         return (
             <Button
-                type="primary"
+                type={!AppContext.getUserStore().isAdmin() ? "inactive" : "primary"}
                 onClick={redirectOnAddUserForm}
                 text={"Add user"}
             />
