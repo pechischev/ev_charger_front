@@ -7,7 +7,7 @@ import { Nullable } from "@app/config";
 import { head, isNull } from "lodash";
 import { EMessages } from "@utils/EMessage";
 
-export const AmountField: FC<IField> = ({ name, ...rest }) => {
+export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) => {
     const validateAmountValue = (value: string): Nullable<string> => {
         if (!value) {
             return void 0;
@@ -30,9 +30,9 @@ export const AmountField: FC<IField> = ({ name, ...rest }) => {
 
     return (
         <InputField
-            label="Amount"
+            label={label}
             name={name}
-            placeholder="Enter amount"
+            placeholder={placeholder}
             validate={validateAmountValue}
             parse={parseAmountValue}
             {...rest}

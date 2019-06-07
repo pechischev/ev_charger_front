@@ -69,6 +69,8 @@ export class TransactionForm extends Component<ITransactionForm> {
                 />
                 <AmountField
                     name={ETransactionFieldTypes.AMOUNT}
+                    label="Amount"
+                    placeholder="Enter amount"
                 />
                 <div className="transactions-form-button clearfix">
                     <Button
