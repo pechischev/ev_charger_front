@@ -60,3 +60,8 @@ export function redirectToCompanyInfoSettings(): void {
     const link = `/${EPaths.COMPANY_INFO}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectToCarSettings(): void {
+    const link = `/${EPaths.CAR_INFO}`;
+    AppContext.getHistory().push(link);
+}

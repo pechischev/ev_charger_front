@@ -26,4 +26,6 @@ export enum EPaths {
 
     COMPANY_INFO = "settings/company",
     BILLING_INFO = "settings/billing",
+
+    CAR_INFO = "settings/cars",
 }

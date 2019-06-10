@@ -4,6 +4,7 @@ import { Card } from "@components/card";
 import "./Settings.scss";
 import {
     redirectToBillingInfoSettings,
+    redirectToCarSettings,
     redirectToCompanyInfoSettings,
     redirectToWorkerList,
 } from "@utils/history";
@@ -13,8 +14,9 @@ export class Settings extends Component {
         return (
             <div className="side-app">
                 <div className="page-header">Settings</div>
-                <div className="page-content settings-container">
+                <div className="page-content settings-container clearfix">
                     <Card
+                        className="settings-block"
                         content={this.getCardInfo(
                             "CMS Users",
                             "users",
@@ -23,6 +25,7 @@ export class Settings extends Component {
                         onClick={redirectToWorkerList}
                     />
                     <Card
+                        className="settings-block"
                         content={this.getCardInfo(
                             "Company Information",
                             "company",
@@ -31,12 +34,22 @@ export class Settings extends Component {
                         onClick={redirectToCompanyInfoSettings}
                     />
                     <Card
+                        className="settings-block"
                         content={this.getCardInfo(
                             "Billing / Promo",
                             "billing",
                             "Customize your payment details.",
                         )}
                         onClick={redirectToBillingInfoSettings}
+                    />
+                    <Card
+                        className="settings-block"
+                        content={this.getCardInfo(
+                            "Customize car brands",
+                            "car",
+                            "Customize car brands and their models.",
+                        )}
+                        onClick={redirectToCarSettings}
                     />
                 </div>
             </div>
