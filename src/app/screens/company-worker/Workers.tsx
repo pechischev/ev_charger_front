@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { redirectToAddWorkerForm, redirectToWorkerForm } from "@utils/history";
+import { redirectToAddWorkerForm, redirectToSettings, redirectToWorkerForm } from "@utils/history";
 import { Button } from "@components/button";
 import { WorkersList } from "./WorkersList";
 import "./Workers.scss";
 import { WorkersStore } from "./WorkersStore";
 import { autobind } from "core-decorators";
 import { RouteProps } from "react-router";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @autobind
 export class Workers extends Component<RouteProps> {
@@ -20,9 +21,16 @@ export class Workers extends Component<RouteProps> {
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
+        const links: IBreadcrumb[] = [
+            { label: "Settings", handler: redirectToSettings },
+            { label: "CMS Users" },
+        ];
         return (
             <div className="side-app">
-                <div className="page-header">CMS Users</div>
+                <div className="page-header">
+                    <div className="page-title">CMS Users</div>
+                    <Breadcrumb crumbs={links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         title="Users list"

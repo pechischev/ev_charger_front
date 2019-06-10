@@ -6,14 +6,15 @@ import {
     redirectToBillingInfoSettings,
     redirectToBrandSettings,
     redirectToCompanyInfoSettings,
-    redirectToWorkerList,
-} from "@utils/history";
+    redirectToWorkerList} from "@utils/history";
 
 export class Settings extends Component {
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">Settings</div>
+                <div className="page-header">
+                    <div className="page-title">Settings</div>
+                </div>
                 <div className="page-content settings-container clearfix">
                     <Card
                         className="settings-block"

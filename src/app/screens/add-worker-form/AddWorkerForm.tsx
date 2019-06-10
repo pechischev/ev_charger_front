@@ -9,6 +9,8 @@ import { autobind } from "core-decorators";
 import { WorkerForm } from "@app/components/worker-form";
 import { RouteProps } from "react-router";
 import { Modal } from "@components/modal";
+import { redirectToSettings, redirectToWorkerList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -21,9 +23,17 @@ export class AddWorkerForm extends Component<RouteProps> {
     }
 
     render(): ReactNode {
+        const links: IBreadcrumb[] = [
+            { label: "Settings", handler: redirectToSettings },
+            { label: "CMS Users", handler: redirectToWorkerList },
+            { label: "Add company user" },
+        ];
         return (
             <div className="side-app">
-                <div className="page-header">Add company user</div>
+                <div className="page-header">
+                    <div className="page-title">Add company user</div>
+                    <Breadcrumb crumbs={links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         className="employee-info"
@@ -45,7 +55,7 @@ export class AddWorkerForm extends Component<RouteProps> {
                     onClose={this.store.closeModal}
                     action={this.store.onCreateWorker}
                     actionOptions={{
-                        title: "Yes"
+                        title: "Yes",
                     }}
                 />
             </div>

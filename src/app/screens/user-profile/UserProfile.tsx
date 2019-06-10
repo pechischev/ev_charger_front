@@ -13,6 +13,8 @@ import * as qs from "query-string";
 import { autobind } from "core-decorators";
 import { AppContext } from "@context";
 import { Nullable } from "@app/config";
+import { redirectToUsersList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -37,10 +39,16 @@ export class UserProfile extends Component<RouteProps> {
     }
 
     render(): ReactNode {
-
+        const links: IBreadcrumb[] = [
+            { label: "Users", handler: redirectToUsersList },
+            { label: "Profile" },
+        ];
         return (
             <div className="side-app">
-                <div className="page-header">User Profile</div>
+                <div className="page-header">
+                    <div className="page-title">User Profile</div>
+                    <Breadcrumb crumbs={links}/>
+                </div>
                 <div className="page-content">
                     <Card className="customer-info" content={this.getCustomerProfile()}/>
                 </div>

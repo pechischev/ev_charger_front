@@ -56,7 +56,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 placeholder={"Select property operator"}
                                 options={this.store.operators}
                             />
-                            <AmountField
+                            <InputField
                                 name={EResidenceFieldTypes.BILLING_RATE}
                                 placeholder={"Enter user billing rate"}
                                 label={"User Billing Rate"}
