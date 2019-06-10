@@ -4,7 +4,7 @@ import { Card } from "@components/card";
 import "./Settings.scss";
 import {
     redirectToBillingInfoSettings,
-    redirectToCarSettings,
+    redirectToBrandSettings,
     redirectToCompanyInfoSettings,
     redirectToWorkerList,
 } from "@utils/history";
@@ -49,7 +49,7 @@ export class Settings extends Component {
                             "car",
                             "Customize car brands and their models.",
                         )}
-                        onClick={redirectToCarSettings}
+                        onClick={redirectToBrandSettings}
                     />
                 </div>
             </div>

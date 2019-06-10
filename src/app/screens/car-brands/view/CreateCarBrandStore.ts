@@ -1,26 +1,20 @@
 import { Store } from "@components/store";
 import { IFieldError } from "@app/config/IFieldError";
-import { EChargerFieldTypes } from "@app/components/charger-form";
 import { EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
+import { ECarBrandFields } from "./ECarBrandFields";
 
 export class CreateCarBrandStore extends Store {
     validateData(): IFieldError[] {
         return [
-            { type: EChargerFieldTypes.BRAND, codes: [] },
-            { type: EChargerFieldTypes.MODEL, codes: [] },
-            { type: EChargerFieldTypes.SERIAL_NUMBER, codes: [] },
-            { type: EChargerFieldTypes.LOCATION, codes: [] },
+            { type: ECarBrandFields.BRAND, codes: [] },
         ];
     }
 
-    async createCharger(data: TApiParams<EApiRoutes.CREATE_CHARGER>, residenceId?: string): Promise<void> {
-        if (!residenceId) {
-            return;
-        }
-        return this.asyncCall(this.transport.createCharger(data, residenceId), this.onError).then(this.onCreateCharger);
+    async createCarBrand(data: TApiParams<EApiRoutes.CREATE_CAR_BRAND>): Promise<void> {
+        return this.asyncCall(this.transport.createCarBrand(data), this.onError).then(this.onCreateCarBrand);
     }
 
-    private onCreateCharger(response: TAxiosResponse<EApiRoutes.CREATE_CHARGER>): void {
-        console.info("[CreateChargerStore.onCreateCharger]", response);
+    private onCreateCarBrand(response: TAxiosResponse<EApiRoutes.CREATE_CAR_BRAND>): void {
+        console.info("[CreateCarBrandStore.onCreateCarBrand]", response);
     }
 }

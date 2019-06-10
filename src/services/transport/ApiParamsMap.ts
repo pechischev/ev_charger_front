@@ -1,7 +1,7 @@
 import { EApiMethods } from "./EApiMethods";
 import { EApiRoutes } from "./EApiRoutes";
 import {
-    IBindOperatorParams,
+    IBindOperatorParams, ICarBrandParams,
     IChargerParams,
     ICompanyInfoParams,
     IGetBoundResidencesParams,
@@ -21,7 +21,8 @@ export type TParamsUnion = ILoginParams
     | IWorkerParams
     | IGetBoundResidencesParams
     | IBindOperatorParams
-    | IUserParams;
+    | IUserParams
+    | ICarBrandParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.SIGN_IN]: ILoginParams;
@@ -39,6 +40,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.WORKER_DATA]: IWorkerParams;
     [EApiRoutes.BIND_WORKER]: IBindOperatorParams;
     [EApiRoutes.GET_BOUND_RESIDENCES]: IGetBoundResidencesParams;
+    [EApiRoutes.CREATE_CAR_BRAND]: ICarBrandParams;
 }
 
 // @ts-ignore:2344

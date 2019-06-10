@@ -3,7 +3,7 @@ import { Subject } from "rxjs";
 import { action, observable } from "mobx";
 import { EApiMethods, EApiRoutes, TAxiosResponse } from "@services/transport";
 
-export class CarBrandsStore extends Store {
+export class CarModelsStore extends Store {
     readonly updateChargerList$ = new Subject<void>();
     @observable private isOpenChargerPopup = false;
 
@@ -22,6 +22,6 @@ export class CarBrandsStore extends Store {
     }
 
     private onRemovedCarBrand(response: TAxiosResponse<EApiRoutes.CAR_BRAND, EApiMethods.DELETE>): void {
-        console.info("[CarBrandsStore.onRemovedCarBrand]: ", response);
+        console.info("[CarModelsStore.onRemovedCarBrand]: ", response);
     }
 }

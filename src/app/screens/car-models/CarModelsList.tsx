@@ -1,28 +1,25 @@
-import { EStatus } from "@entities/user";
-import "./CarBrands.scss";
+import "./CarModels.scss";
 import { IList, List } from "@components/list";
 import { autobind } from "core-decorators";
 import { observer } from "mobx-react";
 import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
-import { IFilter } from "@components/list/interfaces";
-import { redirectToBrandModels } from "@utils/history";
-import { IBrandListItem } from "@entities/car-settings";
 import { Button } from "@components/button";
 import * as React from "react";
 import { Fragment, ReactNode } from "react";
 import { AppContext } from "@context";
 import { action, observable } from "mobx";
 import { Modal } from "@components/modal";
+import { IModelListItem } from "@entities/car-settings";
 
-interface ICarBrandsListProps extends IList<IBrandListItem> {
+interface ICarModelsListProps extends IList<IModelListItem> {
     onRemoveItem(chargerId: number): Promise<void>;
 }
 
 @observer
 @autobind
-export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
+export class CarModelsList extends List<IModelListItem, ICarModelsListProps> {
     @observable private isOpenModal = false;
 
     render(): ReactNode {
@@ -32,8 +29,8 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
                 <Modal
                     open={this.isOpenModal}
                     onClose={this.closeModal}
-                    title={"Removing a car brand"}
-                    action={this.deleteCarBrand}
+                    title={"Removing a car model"}
+                    action={this.deleteCarModel}
                     actionOptions={{
                         title: "Delete",
                         type: !AppContext.getUserStore().isAdmin() ? "disabled" : "delete",
@@ -43,17 +40,16 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
         );
     }
 
-    protected getColumns(): Array<IColumn<IBrandListItem>> {
+    protected getColumns(): Array<IColumn<IModelListItem>> {
         return [
-            { id: "car.brand", label: "Car brand", size: "1fr" },
-            { id: "car.count_models", label: "Number of automaker models", size: "3fr" },
+            { id: "brand.model", label: "Car model", size: "1fr" },
             {
                 id: "actions", label: "", size: "150px",
                 handler: () => {
                     return (
                         <Button
                             type="delete"
-                            onClick={this.onDeleteCarBrand}
+                            onClick={this.onDeleteCarModel}
                             text="Delete"
                         />
                     );
@@ -62,20 +58,20 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
         ];
     }
 
-    protected onClickRow(item: IBrandListItem): void {
-        redirectToBrandModels(item.id);
+    protected onClickRow(item: IModelListItem): void {
+        // TODO: modal edit name this car model
     }
 
-    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_CAR_BRANDS>> {
-        return this.store.transport.getUsers(params);  // getCarBrands
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_CAR_MODELS>> {
+        return this.store.transport.getUsers(params);  // getCarModels
     }
 
-    private onDeleteCarBrand(event: React.MouseEvent<HTMLElement>): void {
+    private onDeleteCarModel(event: React.MouseEvent<HTMLElement>): void {
         event.preventDefault();
         this.openModal();
     }
 
-    private deleteCarBrand(): void {
+    private deleteCarModel(): void {
         console.log(this.store.getSelectedItem());
         const item = this.store.getSelectedItem();
         if (!item) {
