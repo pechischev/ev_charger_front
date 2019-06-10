@@ -65,3 +65,8 @@ export function redirectToCarSettings(): void {
     const link = `/${EPaths.CAR_INFO}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectOnAddCarBrandForm(): void {
+    const link = `/${EPaths.USER_CREATE_FORM}`;
+    AppContext.getHistory().push(link);
+}

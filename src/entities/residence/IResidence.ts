@@ -4,7 +4,7 @@ import { IItem } from "@entities/_common";
 export interface IResidence {
     id: number;
     title: string;
-    billingRate?: number;
+    billingRate?: string;
     serviceFee?: string;
     address: string;
     extraAddress?: string;
