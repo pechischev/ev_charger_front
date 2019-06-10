@@ -6,14 +6,24 @@ import { CarModelsList, CarModelsStore } from ".";
 import { Modal } from "@components/modal";
 import { CreateCarModelForm } from "./view";
 import "./CarModels.scss";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
+import { redirectToBrandSettings, redirectToSettings } from "@utils/history";
 
 export class CarModels extends Component {
     private readonly store = new CarModelsStore();
 
     render(): ReactNode {
+        const links: IBreadcrumb[] = [
+            { label: "Settings", handler: redirectToSettings },
+            { label: "Car brands", handler: redirectToBrandSettings },
+            { label: "Car models" },
+        ];
         return (
             <div className="side-app">
-                <div className="page-header">Car models</div>
+                <div className="page-header">
+                    <div className="page-title">Car models</div>
+                    <Breadcrumb crumbs={links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         title="Car models list"
@@ -46,7 +56,8 @@ export class CarModels extends Component {
                             <Button
                                 type="primary"
                                 text="Change brand name"
-                                onClick={() => {/*TODO: реализвать попап для редактирования имени бренда*/}}
+                                onClick={() => {/*TODO: реализвать попап для редактирования имени бренда*/
+                                }}
                             />
                         </div>
                     </div>
