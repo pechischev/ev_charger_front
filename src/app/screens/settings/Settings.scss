@@ -14,15 +14,15 @@
         width: calc(100% / 3 - 20px);
         cursor: pointer;
 
-        &:nth-child(1) {
+        &:nth-child(n + 1) {
             margin: 0 auto 0 0;
         }
 
-        &:nth-child(2) {
+        &:nth-child(n + 2) {
             margin: 0 auto 0 auto;
         }
 
-        &:nth-child(3) {
+        &:nth-child(n + 3) {
             margin: 0 0 0 auto;
         }
     }

@@ -9,6 +9,8 @@ import { autobind } from "core-decorators";
 import { IResidenceParams } from "@services/transport/params";
 import { EResidenceFieldTypes, ResidenceForm } from "@app/components/residence-form";
 import { RouteProps } from "react-router";
+import { redirectToResidenceList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
@@ -22,11 +24,18 @@ export class AddResidence extends Component<RouteProps> {
 
     render(): ReactNode {
         const data: Partial<IResidenceParams> = {
-            [EResidenceFieldTypes.BILLING_RATE]: "99.00"
+            [EResidenceFieldTypes.BILLING_RATE]: 99
         };
+        const links: IBreadcrumb[] = [
+            { label: "Residences", handler: redirectToResidenceList },
+            { label: "New Residence" },
+        ];
         return (
             <div className="side-app">
-                <div className="page-header">New Residence</div>
+                <div className="page-header">
+                    <div className="page-title">New Residence</div>
+                    <Breadcrumb crumbs={links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         title="Add Residence"

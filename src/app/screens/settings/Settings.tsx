@@ -2,17 +2,15 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import "./Settings.scss";
-import {
-    redirectToBillingInfoSettings,
-    redirectToCompanyInfoSettings,
-    redirectToWorkerList,
-} from "@utils/history";
+import { redirectToBillingInfoSettings, redirectToCompanyInfoSettings, redirectToWorkerList } from "@utils/history";
 
 export class Settings extends Component {
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">Settings</div>
+                <div className="page-header">
+                    <div className="page-title">Settings</div>
+                </div>
                 <div className="page-content settings-container">
                     <Card
                         content={this.getCardInfo(
