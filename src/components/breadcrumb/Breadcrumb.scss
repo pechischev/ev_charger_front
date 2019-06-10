@@ -5,9 +5,9 @@
     font-size: 14px;
     line-height: 24px;
     padding: 0;
-    margin: 10px 0 0;
+    margin: 6px 0 0;
 
-    &_root {
+    &__root {
         color: #00d8c7;
         cursor: pointer;
 
@@ -19,18 +19,22 @@
             color: #212529;
             cursor: default;
         }
-    }
 
-    &_arrow {
-        @include square(12px);
+        &::before {
+            @include square(12px);
 
-        background-image: url("./img/arrow-right.svg");
-        background-repeat: no-repeat;
-        background-size: contain;
-        margin: 6px 8px 0;
+            content: "";
+            display: block;
+            float: right;
+            background-image: url("./img/arrow-right.svg");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin: 6px 8px 0;
+        }
 
-        &[data-visible=false] {
+        &:last-child:before {
             display: none;
         }
     }
+
 }
