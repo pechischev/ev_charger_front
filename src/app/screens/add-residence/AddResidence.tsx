@@ -24,7 +24,7 @@ export class AddResidence extends Component<RouteProps> {
 
     render(): ReactNode {
         const data: Partial<IResidenceParams> = {
-            [EResidenceFieldTypes.BILLING_RATE]: "99.00",
+            [EResidenceFieldTypes.BILLING_RATE]: 99
         };
         const links: IBreadcrumb[] = [
             { label: "Residences", handler: redirectToResidenceList },

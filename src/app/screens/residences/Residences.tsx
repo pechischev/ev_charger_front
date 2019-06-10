@@ -4,6 +4,7 @@ import { Card } from "@components/card";
 import { ResidencesList } from "@app/screens/residences/ResidencesList";
 import { redirectToResidenceCreateForm } from "@utils/history";
 import { Button } from "@components/button";
+import { AppContext } from "@context";
 
 export class Residences extends Component {
     render(): ReactNode {
@@ -23,9 +24,10 @@ export class Residences extends Component {
     private getActionElement(): ReactNode {
         return (
             <Button
+                type={"primary"}
                 onClick={redirectToResidenceCreateForm}
-                type="primary"
                 text="Add residence"
+                disabled={!AppContext.getUserStore().isAdmin()}
             />
         );
     }

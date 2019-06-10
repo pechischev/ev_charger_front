@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Component, Fragment, ReactNode } from "react";
-import { InputField, SelectField, ZipCodeField } from "@components/fields";
+import { Component, Fragment, ReactNode, ReactText } from "react";
+import { AmountField, InputField, SelectField, ZipCodeField } from "@components/fields";
 import { AppContext } from "@context";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
@@ -10,6 +10,9 @@ import { Button } from "@components/button";
 import "./ResidenceForm.scss";
 import { redirectToResidenceList } from "@utils/history";
 import { ResidenceFormStore } from "./ResidenceFormStore";
+import { Nullable } from "@app/config";
+import { get } from "lodash";
+import { EMessages } from "@utils/EMessage";
 
 @observer
 @autobind
@@ -109,11 +112,26 @@ export class ResidenceForm extends Component<IResidenceForm> {
             return void 0;
         }
         return (
-            <InputField
+            <AmountField
                 name={EResidenceFieldTypes.SERVICE_FEE}
                 placeholder={"Enter service fee"}
                 label={"Service Fee"}
+                validate={this.validateServiceField}
             />
         );
+    }
+
+    private validateServiceField(value: ReactText, allValues: object): Nullable<ReactText> {
+        const rateValue = get(allValues, EResidenceFieldTypes.BILLING_RATE);
+
+        if (!value || !rateValue) {
+            return void 0;
+        }
+
+        if (parseFloat(rateValue) < parseFloat(`${value}`)) {
+            return EMessages.SERVICE_FEE_INCORRECT;
+        }
+
+        return void 0;
     }
 }
