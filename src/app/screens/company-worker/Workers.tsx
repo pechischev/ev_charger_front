@@ -13,7 +13,10 @@ import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 @autobind
 export class Workers extends Component<RouteProps> {
     private readonly store = new WorkersStore();
-
+    private readonly links: IBreadcrumb[] = [
+        { label: "Settings", handler: redirectToSettings },
+        { label: "CMS Users" },
+    ];
     constructor(props: RouteProps) {
         super(props);
         this.store.init();
@@ -21,15 +24,11 @@ export class Workers extends Component<RouteProps> {
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
-        const links: IBreadcrumb[] = [
-            { label: "Settings", handler: redirectToSettings },
-            { label: "CMS Users" },
-        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">CMS Users</div>
-                    <Breadcrumb crumbs={links}/>
+                    <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
                     <Card

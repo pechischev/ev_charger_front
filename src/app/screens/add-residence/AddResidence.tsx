@@ -16,6 +16,10 @@ import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 @autobind
 export class AddResidence extends Component<RouteProps> {
     private readonly store = new AddResidenceStore();
+    private readonly links: IBreadcrumb[] = [
+        { label: "Residences", handler: redirectToResidenceList },
+        { label: "New Residence" },
+    ];
 
     constructor(props: RouteProps) {
         super(props);
@@ -26,15 +30,11 @@ export class AddResidence extends Component<RouteProps> {
         const data: Partial<IResidenceParams> = {
             [EResidenceFieldTypes.BILLING_RATE]: 99
         };
-        const links: IBreadcrumb[] = [
-            { label: "Residences", handler: redirectToResidenceList },
-            { label: "New Residence" },
-        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">New Residence</div>
-                    <Breadcrumb crumbs={links}/>
+                    <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
                     <Card

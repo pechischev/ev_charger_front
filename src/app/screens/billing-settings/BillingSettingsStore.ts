@@ -43,8 +43,8 @@ export class BillingSettingsStore extends Store {
     async updateBillingInfo(params: TApiParams<EApiRoutes.BILLING_SETTINGS>): Promise<void> {
         const { defaultSubscriptionValue } = params;
         return this.asyncCall(this.transport.updateBillingInfo(
-            { defaultSubscriptionValue: parseFloat(`${defaultSubscriptionValue}`) }
-            )).then(this.onUpdateBillingInfo);
+            { defaultSubscriptionValue: parseFloat(`${defaultSubscriptionValue}`) },
+        )).then(this.onUpdateBillingInfo);
     }
 
     private onUpdateBillingInfo(response: TAxiosResponse<EApiRoutes.BILLING_SETTINGS, EApiMethods.POST>): void {

@@ -18,7 +18,10 @@ import { BillingSettingsStore } from "./BillingSettingsStore";
 @autobind
 export class BillingSettings extends Component<RouteProps> {
     private readonly store = new BillingSettingsStore();
-
+    private readonly links: IBreadcrumb[] = [
+        { label: "Settings", handler: redirectToSettings },
+        { label: "Billing Information" },
+    ];
     constructor(props: RouteProps) {
         super(props);
         this.store.init();
@@ -26,15 +29,11 @@ export class BillingSettings extends Component<RouteProps> {
     }
 
     render(): ReactNode {
-        const links: IBreadcrumb[] = [
-            { label: "Settings", handler: redirectToSettings },
-            { label: "Billing Information" },
-        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Billing Information</div>
-                    <Breadcrumb crumbs={links}/>
+                    <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
                     <Card
