@@ -30,5 +30,5 @@ export enum EApiRoutes {
     BIND_WORKER = "/v1.0/cms/workers/bindOperator",
     GET_BOUND_RESIDENCES = "/v1.0/cms/workers/boundResidences",
 
-    BILLING_SETTINGS = "",
+    BILLING_SETTINGS = "/v1.0/cms/settings/assumptions",
 }

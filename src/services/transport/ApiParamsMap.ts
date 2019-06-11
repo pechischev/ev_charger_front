@@ -10,6 +10,7 @@ import {
     IResidenceParams,
     IUserParams,
     IWorkerParams,
+    IBillingSettings,
 } from "./params";
 import { IMethodMap, TMap } from "./TMap";
 
@@ -21,7 +22,8 @@ export type TParamsUnion = ILoginParams
     | IWorkerParams
     | IGetBoundResidencesParams
     | IBindOperatorParams
-    | IUserParams;
+    | IUserParams
+    | IBillingSettings;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.SIGN_IN]: ILoginParams;
@@ -39,6 +41,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.WORKER_DATA]: IWorkerParams;
     [EApiRoutes.BIND_WORKER]: IBindOperatorParams;
     [EApiRoutes.GET_BOUND_RESIDENCES]: IGetBoundResidencesParams;
+    [EApiRoutes.BILLING_SETTINGS]: IBillingSettings;
 }
 
 // @ts-ignore:2344

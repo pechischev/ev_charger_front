@@ -3,12 +3,12 @@ import { IFieldError } from "@app/config/IFieldError";
 import { autobind } from "core-decorators";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
-import { get, isEmpty, toNumber } from "lodash";
+import { get, isEmpty } from "lodash";
 import { EBillingFieldType } from "./EBillingFieldType";
 import { action, observable } from "mobx";
-import { ICompany } from "@entities/company";
 import { Nullable } from "@app/config";
 import { redirectToSettings } from "@utils/history";
+import { IBilling } from "@entities/billing-info";
 
 @autobind
 export class BillingSettingsStore extends Store {
@@ -23,7 +23,7 @@ export class BillingSettingsStore extends Store {
         return this.data;
     }
 
-    transformCompanyData(data?: ICompany): Nullable<TApiParams<EApiRoutes.BILLING_SETTINGS>> {
+    transformCompanyData(data?: IBilling): Nullable<TApiParams<EApiRoutes.BILLING_SETTINGS>> {
         if (!data || isEmpty(data)) {
             return void 0;
         }
@@ -41,9 +41,10 @@ export class BillingSettingsStore extends Store {
     }
 
     async updateBillingInfo(params: TApiParams<EApiRoutes.BILLING_SETTINGS>): Promise<void> {
-        const { state, ...rest } = params;
-        return this.asyncCall(this.transport.updateBillingInfo({ ...rest, state: toNumber(state) }))
-            .then(this.onUpdateBillingInfo);
+        const { defaultSubscriptionValue } = params;
+        return this.asyncCall(this.transport.updateBillingInfo(
+            { defaultSubscriptionValue: parseFloat(`${defaultSubscriptionValue}`) }
+            )).then(this.onUpdateBillingInfo);
     }
 
     private onUpdateBillingInfo(response: TAxiosResponse<EApiRoutes.BILLING_SETTINGS, EApiMethods.POST>): void {

@@ -1,10 +1,10 @@
+import * as React from "react";
 import { FC } from "react";
 import { IField } from "./IField";
 import { Nullable } from "@app/config";
-import { isNull, head } from "lodash";
+import { isNull } from "lodash";
 import { EMessages } from "@utils/EMessage";
 import { InputField } from "./InputField";
-import * as React from "react";
 
 export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) => {
 
@@ -21,20 +21,12 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
         return void 0;
     };
 
-    const parseAmountValue = (value: string): Nullable<string> => {
-        if (!validateAmountValue(value)) {
-            return head(dataFormatRegex.exec(value) || []);
-        }
-        return value;
-    };
-
     return (
         <InputField
             label={label}
             name={name}
             placeholder={placeholder}
             validate={validateAmountValue}
-            parse={parseAmountValue}
             {...rest}
         />
     );
