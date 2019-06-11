@@ -13,6 +13,7 @@ export class Settings extends Component {
                 </div>
                 <div className="page-content settings-container">
                     <Card
+                        className="settings-block"
                         content={this.getCardInfo(
                             "CMS Users",
                             "users",
@@ -21,6 +22,7 @@ export class Settings extends Component {
                         onClick={redirectToWorkerList}
                     />
                     <Card
+                        className="settings-block"
                         content={this.getCardInfo(
                             "Company Information",
                             "company",
@@ -29,8 +31,9 @@ export class Settings extends Component {
                         onClick={redirectToCompanyInfoSettings}
                     />
                     <Card
+                        className="settings-block"
                         content={this.getCardInfo(
-                            "Billing / Promo",
+                            "Billing Information",
                             "billing",
                             "Customize your payment details.",
                         )}

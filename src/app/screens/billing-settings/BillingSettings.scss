@@ -1,0 +1,43 @@
+@import "~styles/utils/mixins.scss";
+
+.billing-info-form {
+    width: 100%;
+    display: flex;
+
+    .column {
+        width: calc(100% / 3 - 20px);
+    }
+
+    .form {
+        &__button {
+            margin-top: 26px;
+            width: 150px;
+            float: right;
+        }
+    }
+}
+
+@media (max-width: 1400px) {
+    .billing-info-form {
+        .column {
+            width: calc(100% / 2 - 20px);
+
+            &:nth-child(3) {
+                display: none;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .billing-info-form {
+        .column {
+            width: calc(100% - 20px);
+
+            &:nth-child(2), &:nth-child(3) {
+                display: none;
+            }
+        }
+    }
+}
