@@ -5,7 +5,7 @@ import { autobind } from "core-decorators";
 import { FormRenderProps } from "react-final-form";
 import { Button } from "@components/button";
 import { CreateCarBrandStore } from "./CreateCarBrandStore";
-import { ICarBrandParams } from "@services/transport/params";
+import { IVehicleBrandParams } from "@services/transport/params";
 import { InputField } from "@components/fields";
 import "./CarBrandForms.scss";
 import { ECarBrandFields } from "./ECarBrandFields";
@@ -33,6 +33,7 @@ export class CreateCarBrandForm extends Component<ICreateChargerForm> {
             <CustomForm
                 keepDirtyOnReinitialize={false}
                 validateData={this.store.validateData}
+                error$={this.store.error$}
                 submit={this.onSubmit}
                 render={this.renderFields}
             />
@@ -66,7 +67,7 @@ export class CreateCarBrandForm extends Component<ICreateChargerForm> {
         );
     }
 
-    private async onSubmit(data: ICarBrandParams): Promise<void> {
+    private async onSubmit(data: IVehicleBrandParams): Promise<void> {
         return this.store.createCarBrand(data).then(() => {
             this.props.onClose();
             this.props.onCreate();

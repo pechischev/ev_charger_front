@@ -12,8 +12,11 @@ import { AppContext } from "@context";
 import { action, observable } from "mobx";
 import { Modal } from "@components/modal";
 import { IModelListItem } from "@entities/car-settings";
+import _ from "lodash";
 
 interface ICarModelsListProps extends IList<IModelListItem> {
+    brandId?: number;
+
     onRemoveItem(chargerId: number): Promise<void>;
 }
 
@@ -42,7 +45,7 @@ export class CarModelsList extends List<IModelListItem, ICarModelsListProps> {
 
     protected getColumns(): Array<IColumn<IModelListItem>> {
         return [
-            { id: "brand.model", label: "Car model", size: "1fr" },
+            { id: "title", label: "Car model", size: "1fr" },
             {
                 id: "actions", label: "", size: "150px",
                 handler: () => {
@@ -62,8 +65,12 @@ export class CarModelsList extends List<IModelListItem, ICarModelsListProps> {
         // TODO: modal edit name this car model
     }
 
-    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_CAR_MODELS>> {
-        return this.store.transport.getUsers(params);  // getCarModels
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_MODELS>> {
+        const { brandId } = this.props;
+        if (!brandId) {
+            return new Promise((resolve) => resolve());
+        }
+        return this.store.transport.getVehicleModels(params, _.toString(brandId));
     }
 
     private onDeleteCarModel(event: React.MouseEvent<HTMLElement>): void {
@@ -72,7 +79,6 @@ export class CarModelsList extends List<IModelListItem, ICarModelsListProps> {
     }
 
     private deleteCarModel(): void {
-        console.log(this.store.getSelectedItem());
         const item = this.store.getSelectedItem();
         if (!item) {
             return;

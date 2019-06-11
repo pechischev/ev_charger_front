@@ -23,11 +23,11 @@ export class CreateCarModelStore extends Store {
         ];
     }
 
-    async createCarModel(data: TApiParams<EApiRoutes.CREATE_CAR_MODEL>, brandId: string): Promise<void> {
-        return this.asyncCall(this.transport.createCarModel(data, brandId), this.onError).then(this.onCreateCarModel);
+    async createCarModel(data: TApiParams<EApiRoutes.CREATE_VEHICLE_MODEL>, brandId: number): Promise<void> {
+        return this.asyncCall(this.transport.createVehicleModel({...data, brandId}), this.onError).then(this.onCreateCarModel);
     }
 
-    private onCreateCarModel(response: TAxiosResponse<EApiRoutes.CREATE_CAR_MODEL>): void {
+    private onCreateCarModel(response: TAxiosResponse<EApiRoutes.CREATE_VEHICLE_MODEL>): void {
         console.info("[CreateCarModelStore.onCreateCarModel]", response);
     }
 }

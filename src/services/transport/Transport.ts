@@ -228,27 +228,51 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.post(EApiRoutes.GET_BOUND_RESIDENCES, params);
     }
 
-    async getCarBrands(params: TApiParams<EApiRoutes.GET_CAR_BRANDS>):
-        Promise<TAxiosResponse<EApiRoutes.GET_CAR_BRANDS>> {
-        return this.client.get(EApiRoutes.GET_CAR_BRANDS, { params });
+    async getVehicleBrands(params: TApiParams<EApiRoutes.GET_VEHICLE_BRANDS>):
+        Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_BRANDS>> {
+        return this.client.get(EApiRoutes.GET_VEHICLE_BRANDS, {params});
     }
 
-    async createCarBrand(params: TApiParams<EApiRoutes.CREATE_CAR_BRAND>):
-        Promise<TAxiosResponse<EApiRoutes.CREATE_CAR_BRAND>> {
-        return this.client.post(`${EApiRoutes.CREATE_CAR_BRAND}`, params);
+    async getVehicleBrand(brandId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.VEHICLE_BRAND.replace("{brandId}", brandId)}`);
     }
 
-    async removeCarBrand(brandId: string): Promise<TAxiosResponse<EApiRoutes.CAR_BRAND, EApiMethods.DELETE>> {
-        return this.client.delete(`${EApiRoutes.CAR_BRAND.replace("{brandIdId}", brandId)}`);
+    async createVehicleBrand(params: TApiParams<EApiRoutes.CREATE_VEHICLE_BRAND>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_VEHICLE_BRAND>> {
+        return this.client.post(EApiRoutes.CREATE_VEHICLE_BRAND, params);
     }
 
-    async getCarModels(params: TApiParams<EApiRoutes.GET_CAR_MODELS>):
-        Promise<TAxiosResponse<EApiRoutes.GET_CAR_MODELS>> {
-        return this.client.get(EApiRoutes.GET_CAR_MODELS, { params });
+    async updateVehicleBrand(params: TApiParams<EApiRoutes.VEHICLE_BRAND>):
+        Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND>> {
+        const {brandId, ...rest} = params;
+        return this.client.put(`${EApiRoutes.CREATE_VEHICLE_BRAND
+            .replace("{brandId}", _.toString(brandId))}`, rest
+        );
     }
 
-    async createCarModel(params: TApiParams<EApiRoutes.CREATE_CAR_MODEL>, brandId: string):
-        Promise<TAxiosResponse<EApiRoutes.CREATE_CAR_MODEL>> {
-        return this.client.post(`${EApiRoutes.CREATE_CAR_MODEL.replace("{brandId}", brandId)}`, params);
+    async removeVehicleBrand(brandId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND>> {
+        return this.client.delete(`${EApiRoutes.VEHICLE_BRAND.replace("{brandId}", _.toString(brandId))}`);
+    }
+
+    async getVehicleModels(params: TApiParams<EApiRoutes.GET_VEHICLE_MODELS>, brandId: string):
+        Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_MODELS>> {
+        return this.client.get(`${EApiRoutes.GET_VEHICLE_MODELS
+            .replace("{brandId}", brandId)}`, {params}
+        );
+    }
+
+    async createVehicleModel(params: TApiParams<EApiRoutes.CREATE_VEHICLE_MODEL>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_VEHICLE_MODEL>> {
+        const {brandId, ...rest} = params;
+        return this.client.post(`${EApiRoutes.CREATE_VEHICLE_MODEL
+            .replace("{brandId}", _.toString(brandId))}`, rest
+        );
+    }
+
+    async removeVehicleModel(brandId: string, modelId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_MODEL>> {
+        return this.client.delete(`${EApiRoutes.VEHICLE_MODEL
+            .replace("{brandId}", brandId)
+            .replace("{modelId}", modelId)
+        }`);
     }
 }

@@ -30,11 +30,13 @@ export enum EApiRoutes {
     BIND_WORKER = "/v1.0/cms/workers/bindOperator",
     GET_BOUND_RESIDENCES = "/v1.0/cms/workers/boundResidences",
 
-    GET_CAR_BRANDS = "",
-    CAR_BRAND = "",
-    CREATE_CAR_BRAND = "",
+    GET_VEHICLE_BRANDS = "/v1.0/cms/vehicles",
+    CREATE_VEHICLE_BRAND = "/v1.0/cms/vehicle",
+    VEHICLE_BRAND = "/v1.0/cms/vehicle/{brandId}",
 
-    GET_CAR_MODELS = "",
-    CAR_MODELS = "",
-    CREATE_CAR_MODEL = "",
+    GET_VEHICLE_MODELS = "/v1.0/cms/vehicle/{brandId}/models",
+    VEHICLE_MODEL = "/v1.0/cms/vehicle/{brandId}/model/{modelId}",
+    CREATE_VEHICLE_MODEL = "/v1.0/cms/vehicle/{brandId}/model",
+
+    CHECK_VEHICLE_USED_DATA = "/v1.0/cms/vehicleData/count",
 }

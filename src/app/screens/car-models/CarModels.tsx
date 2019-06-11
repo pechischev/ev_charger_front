@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, Fragment, ReactNode } from "react";
 import { Card } from "@components/card";
 import { Button } from "@components/button";
 import { CarModelsList, CarModelsStore } from ".";
@@ -8,21 +8,37 @@ import { CreateCarModelForm } from "./view";
 import "./CarModels.scss";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 import { redirectToBrandSettings, redirectToSettings } from "@utils/history";
+import { RouteProps } from "react-router";
+import * as qs from "query-string";
+import { observer } from "mobx-react";
+import { autobind } from "core-decorators";
 
-export class CarModels extends Component {
+@observer
+@autobind
+export class CarModels extends Component<RouteProps> {
     private readonly store = new CarModelsStore();
+    private readonly breadcrumbs: IBreadcrumb[] = [
+        { label: "Settings", handler: redirectToSettings },
+        { label: "Car brands", handler: redirectToBrandSettings },
+        { label: "Car models" },
+    ];
+
+    constructor(props: RouteProps) {
+        super(props);
+
+        this.store.init();
+        if (this.props.location) {
+            const { id } = qs.parse(this.props.location.search);
+            this.store.getVehicleBrand(id as string);
+        }
+    }
 
     render(): ReactNode {
-        const links: IBreadcrumb[] = [
-            { label: "Settings", handler: redirectToSettings },
-            { label: "Car brands", handler: redirectToBrandSettings },
-            { label: "Car models" },
-        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Car models</div>
-                    <Breadcrumb crumbs={links}/>
+                    <Breadcrumb crumbs={this.breadcrumbs}/>
                 </div>
                 <div className="page-content">
                     <Card
@@ -36,21 +52,18 @@ export class CarModels extends Component {
 
     private renderBrandProfile(): ReactNode {
         const actionElement = this.getActionElement();
-        const data = {
-            photo: "",
-            brandName: "Ford",
-        };
+        const { title, id } = this.store.getData();
         return (
-            <>
+            <Fragment>
                 <div className="brand-info_main main-info">
                     <div className="main-info_image">
-                    <span className="main-info_image__initial" data-shown={!!data.photo}>
-                        {this.getInitialCharacter(data.brandName)}
+                    <span className="main-info_image__initial" data-shown={false}>
+                        {this.getInitialCharacter(title)}
                     </span>
                     </div>
                     <div className="main-info_content">
                         <div className="main-info_content__name">
-                            {data.brandName}
+                            {title}
                         </div>
                         <div className="main-info_content__action">
                             <Button
@@ -63,10 +76,11 @@ export class CarModels extends Component {
                     </div>
                 </div>
                 <CarModelsList
+                    brandId={id as number}
                     actionElement={actionElement}
                     onRemoveItem={this.store.removeCarBrand}
                 />
-            </>
+            </Fragment>
         );
     }
 

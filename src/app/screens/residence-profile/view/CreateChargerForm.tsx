@@ -31,6 +31,7 @@ export class CreateChargerForm extends Component<ICreateChargerForm> {
             <CustomForm
                 keepDirtyOnReinitialize={false}
                 validateData={this.store.validateData}
+                error$={this.store.error$}
                 submit={this.onSubmit}
                 render={this.renderFields}
             />

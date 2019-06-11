@@ -1,3 +1,3 @@
 export enum ECarBrandFields {
-    BRAND = "brand"
+    BRAND = "title"
 }

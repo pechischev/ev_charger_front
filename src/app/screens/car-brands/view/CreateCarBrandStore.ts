@@ -6,15 +6,15 @@ import { ECarBrandFields } from "./ECarBrandFields";
 export class CreateCarBrandStore extends Store {
     validateData(): IFieldError[] {
         return [
-            { type: ECarBrandFields.BRAND, codes: [] },
+            { type: ECarBrandFields.BRAND, codes: [260] },
         ];
     }
 
-    async createCarBrand(data: TApiParams<EApiRoutes.CREATE_CAR_BRAND>): Promise<void> {
-        return this.asyncCall(this.transport.createCarBrand(data), this.onError).then(this.onCreateCarBrand);
+    async createCarBrand(data: TApiParams<EApiRoutes.CREATE_VEHICLE_BRAND>): Promise<void> {
+        return this.asyncCall(this.transport.createVehicleBrand(data)).then(this.onCreateCarBrand);
     }
 
-    private onCreateCarBrand(response: TAxiosResponse<EApiRoutes.CREATE_CAR_BRAND>): void {
+    private onCreateCarBrand(response: TAxiosResponse<EApiRoutes.CREATE_VEHICLE_BRAND>): void {
         console.info("[CreateCarBrandStore.onCreateCarBrand]", response);
     }
 }

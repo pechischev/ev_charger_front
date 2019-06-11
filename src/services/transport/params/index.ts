@@ -7,5 +7,6 @@ export { ICompanyInfoParams } from "./ICompanyInfoParams";
 export { IWorkerParams } from "./IWorkerParams";
 export { IBindOperatorParams } from "./IBindOperatorParams";
 export { IGetBoundResidencesParams } from "./IGetBoundResidencesParams";
-export { ICarBrandParams } from "./ICarBrandParams";
-export { ICarModelParams } from "./ICarModelParams";
+export { IVehicleBrandParams } from "./IVehicleBrandParams";
+export { IVehicleModelParams } from "./IVehicleModelParams";
+export { IVehicleDataCountParams } from "./IVehicleDataCountParams";

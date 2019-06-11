@@ -1,4 +1,3 @@
-import { EStatus } from "@entities/user";
 import "./CarBrands.scss";
 import { IList, List } from "@components/list";
 import { autobind } from "core-decorators";
@@ -6,7 +5,6 @@ import { observer } from "mobx-react";
 import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
-import { IFilter } from "@components/list/interfaces";
 import { redirectToBrandModels } from "@utils/history";
 import { IBrandListItem } from "@entities/car-settings";
 import { Button } from "@components/button";
@@ -45,8 +43,8 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
 
     protected getColumns(): Array<IColumn<IBrandListItem>> {
         return [
-            { id: "car.brand", label: "Car brand", size: "1fr" },
-            { id: "car.count_models", label: "Number of automaker models", size: "3fr" },
+            { id: "title", label: "Car brand", size: "1fr" },
+            { id: "numberModels", label: "Number of automaker models", size: "3fr" },
             {
                 id: "actions", label: "", size: "150px",
                 handler: () => {
@@ -66,8 +64,8 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
         redirectToBrandModels(item.id);
     }
 
-    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_CAR_BRANDS>> {
-        return this.store.transport.getUsers(params);  // getCarBrands
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_BRANDS>> {
+        return this.store.transport.getVehicleBrands(params);
     }
 
     private onDeleteCarBrand(event: React.MouseEvent<HTMLElement>): void {
@@ -76,7 +74,6 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
     }
 
     private deleteCarBrand(): void {
-        console.log(this.store.getSelectedItem());
         const item = this.store.getSelectedItem();
         if (!item) {
             return;

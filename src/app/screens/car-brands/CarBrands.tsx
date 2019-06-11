@@ -8,21 +8,28 @@ import { CreateCarBrandForm } from "./view";
 import "./CarBrands.scss";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 import { redirectToSettings } from "@utils/history";
+import { RouteProps } from "react-router";
 
-export class CarBrands extends Component {
+export class CarBrands extends Component<RouteProps> {
     private readonly store = new CarBrandsStore();
+    private readonly breadcrumbs: IBreadcrumb[] = [
+        { label: "Settings", handler: redirectToSettings },
+        { label: "Car brands" },
+    ];
+
+    constructor(props: RouteProps) {
+        super(props);
+
+        this.store.init();
+    }
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
-        const links: IBreadcrumb[] = [
-            { label: "Settings", handler: redirectToSettings },
-            { label: "Car brands" },
-        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Car brands</div>
-                    <Breadcrumb crumbs={links}/>
+                    <Breadcrumb crumbs={this.breadcrumbs}/>
                 </div>
                 <div className="page-content">
                     <Card
@@ -31,6 +38,7 @@ export class CarBrands extends Component {
                             <CarBrandsList
                                 actionElement={actionElement}
                                 onRemoveItem={this.store.removeCarBrand}
+                                updateList$={this.store.updateBrandList$}
                             />
                         }
                     />
@@ -53,7 +61,7 @@ export class CarBrands extends Component {
                 {(close) => <CreateCarBrandForm
                     onClose={close}
                     onCreate={() => {
-                        this.store.updateChargerList$.next();
+                        this.store.updateBrandList$.next();
                         close();
                     }}
                 />}
