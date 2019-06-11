@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component, ReactNode, ReactText } from "react";
-import { AmountField, InputField, PromoCodeField, SelectField } from "@components/fields";
+import { AmountField, InputField, MultiSelectField, PromoCodeField, SelectField } from "@components/fields";
 import { AppContext } from "@context";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
@@ -69,7 +69,7 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     validate={this.validateTimeField}
                     disabled={!isCreate}
                 />
-                <SelectField
+                <MultiSelectField
                     label={"Residence list"}
                     name={EPromoCodeFieldTypes.RESIDENCES}
                     placeholder={"Select residence"}
