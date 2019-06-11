@@ -4,7 +4,7 @@ import { Card } from "@components/card";
 import { Button } from "@components/button";
 import { CarModelsList, CarModelsStore } from ".";
 import { Modal } from "@components/modal";
-import { CreateCarModelForm } from "./view";
+import { CreateCarModelForm, EditCarBrandForm } from "./view";
 import "./CarModels.scss";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 import { redirectToBrandSettings, redirectToSettings } from "@utils/history";
@@ -67,12 +67,23 @@ export class CarModels extends Component<RouteProps> {
                             {title}
                         </div>
                         <div className="main-info_content__action">
-                            <Button
-                                type="primary"
-                                text="Change brand name"
-                                onClick={() => {/*TODO: реализвать попап для редактирования имени бренда*/
-                                }}
-                            />
+                            <Modal
+                                trigger={
+                                    <Button
+                                        type="primary"
+                                        text="Change brand name"
+                                    />
+                                }
+                                title="Edit car brand"
+                            >
+                                {(close) => <EditCarBrandForm
+                                    data={this.store.getData()}
+                                    brandId={this.store.getVehicleBrandId()}
+                                    onClose={close}
+                                    onEdit={this.store.updateBrandData}
+                                />}
+                            </Modal>
+
                         </div>
                     </div>
                 </div>
@@ -101,7 +112,6 @@ export class CarModels extends Component<RouteProps> {
                     onClose={close}
                     onCreate={() => {
                         this.store.updateModelList$.next();
-                        close();
                     }}
                 />}
             </Modal>

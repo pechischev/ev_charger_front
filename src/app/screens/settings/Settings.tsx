@@ -6,8 +6,8 @@ import {
     redirectToBillingInfoSettings,
     redirectToBrandSettings,
     redirectToCompanyInfoSettings,
-    redirectToWorkerList} from "@utils/history";
-
+    redirectToWorkerList
+} from "@utils/history";
 export class Settings extends Component {
     render(): ReactNode {
         return (

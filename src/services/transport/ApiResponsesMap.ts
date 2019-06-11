@@ -58,7 +58,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.VEHICLE_MODEL]: {
         [EApiMethods.GET]: IItem;
     };
-    [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse
+    [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse;
 
 }
 

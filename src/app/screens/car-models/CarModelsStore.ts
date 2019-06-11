@@ -28,7 +28,7 @@ export class CarModelsStore extends Store {
     }
 
     @action.bound
-    setVehicleBrandId(id: string) {
+    setVehicleBrandId(id: string): void {
         this.brandId = toNumber(id);
     }
 
@@ -48,6 +48,10 @@ export class CarModelsStore extends Store {
     async removeCarModel(modelId: number): Promise<void> {
         return this.asyncCall(this.transport.removeVehicleModel(toString(this.brandId), toString(modelId)))
             .then(this.onRemovedCarModel);
+    }
+
+    updateBrandData(): void {
+        this.getVehicleBrand(toString(this.brandId));
     }
 
     private onRemovedCarModel(response: TAxiosResponse<EApiRoutes.VEHICLE_BRAND, EApiMethods.DELETE>): void {

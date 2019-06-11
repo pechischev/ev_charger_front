@@ -245,7 +245,7 @@ export class Transport<T extends object = object> implements ITransport {
     async updateVehicleBrand(params: TApiParams<EApiRoutes.VEHICLE_BRAND>):
         Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND>> {
         const {brandId, ...rest} = params;
-        return this.client.put(`${EApiRoutes.CREATE_VEHICLE_BRAND
+        return this.client.put(`${EApiRoutes.VEHICLE_BRAND
             .replace("{brandId}", _.toString(brandId))}`, rest
         );
     }

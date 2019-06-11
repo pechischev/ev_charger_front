@@ -54,4 +54,6 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
 // @ts-ignore:2344
 export type TApiParams<K extends keyof IApiRouteParamsMap,
     // tslint:disable-next-line:no-any
-    M extends EApiMethods = any> = IApiRouteParamsMap[K] extends IMethodMap<TParamsUnion> ? IApiRouteParamsMap[K][M] : IApiRouteParamsMap[K];
+    M extends EApiMethods = any> = IApiRouteParamsMap[K] extends IMethodMap<TParamsUnion>
+        ? IApiRouteParamsMap[K][M]
+        : IApiRouteParamsMap[K];
