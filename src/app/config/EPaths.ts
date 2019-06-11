@@ -27,6 +27,9 @@ export enum EPaths {
     COMPANY_INFO = "settings/company",
     BILLING_INFO = "settings/billing",
 
+    CAR_BRANDS = "settings/brands",
+    CAR_MODELS = "settings/brands/models",
+
     PROMO_CODE_INFO = "settings/promo-code",
     PROMO_CODE_FORM = "settings/promo-code/create",
     PROMO_CODE_PROFILE = "settings/promo-code/view",

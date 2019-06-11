@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
-    .page-card {
+    .settings-block {
         width: calc(100% - 20px);
         cursor: pointer;
 
@@ -40,6 +40,7 @@
                     @include getCardInfoImage("users");
                     @include getCardInfoImage("company");
                     @include getCardInfoImage("billing");
+                    @include getCardInfoImage("car");
                     @include getCardInfoImage("promo");
 
                     background-repeat: no-repeat;

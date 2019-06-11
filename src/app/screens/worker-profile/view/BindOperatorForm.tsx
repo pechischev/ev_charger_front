@@ -33,6 +33,7 @@ export class BindOperatorForm extends Component<IBindOperatorForm> {
         return (
             <CustomForm
                 validateData={this.store.validateData}
+                error$={this.store.error$}
                 render={this.renderFields}
                 submit={this.onSubmit}
             />
