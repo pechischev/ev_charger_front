@@ -22,6 +22,7 @@ import { CompanySettings } from "@app/screens/company-settings";
 import { Workers } from "@app/screens/company-worker";
 import { AddWorkerForm } from "@app/screens/add-worker-form";
 import { WorkerProfile } from "@app/screens/worker-profile";
+import { BillingSettings } from "./screens/billing-settings";
 import { CarBrands } from "./screens/car-brands";
 import { CarModels } from "./screens/car-models";
 
@@ -118,7 +119,7 @@ export class App extends Component {
                                 <PrivateRoute
                                     exact={true}
                                     path={`/${EPaths.BILLING_INFO}`}
-                                    component={Settings}
+                                    component={BillingSettings}
                                 />
                                 <PrivateRoute
                                     exact={true}

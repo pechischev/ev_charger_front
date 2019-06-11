@@ -13,6 +13,7 @@ import {
     IVehicleDataCountParams,
     IVehicleModelParams,
     IWorkerParams,
+    IBillingSettingsParams,
 } from "./params";
 import { IMethodMap, TMap } from "./TMap";
 
@@ -24,6 +25,8 @@ export type TParamsUnion = ILoginParams
     | IWorkerParams
     | IGetBoundResidencesParams
     | IBindOperatorParams
+    | IUserParams
+    | IBillingSettingsParams
     | IUserParams
     | IVehicleModelParams
     | IVehicleBrandParams
@@ -45,6 +48,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.WORKER_DATA]: IWorkerParams;
     [EApiRoutes.BIND_WORKER]: IBindOperatorParams;
     [EApiRoutes.GET_BOUND_RESIDENCES]: IGetBoundResidencesParams;
+    [EApiRoutes.BILLING_SETTINGS]: IBillingSettingsParams;
     [EApiRoutes.GET_VEHICLE_BRANDS]: IListParams;
     [EApiRoutes.CREATE_VEHICLE_BRAND]: IVehicleBrandParams;
     [EApiRoutes.VEHICLE_BRAND]: IVehicleBrandParams;

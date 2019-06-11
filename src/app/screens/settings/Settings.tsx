@@ -37,7 +37,7 @@ export class Settings extends Component {
                     <Card
                         className="settings-block"
                         content={this.getCardInfo(
-                            "Billing / Promo",
+                            "Billing Information",
                             "billing",
                             "Customize your payment details.",
                         )}
