@@ -9,7 +9,11 @@ import "./CarBrands.scss";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 import { redirectToSettings } from "@utils/history";
 import { RouteProps } from "react-router";
+import { observer } from "mobx-react";
+import { autobind } from "core-decorators";
 
+@observer
+@autobind
 export class CarBrands extends Component<RouteProps> {
     private readonly store = new CarBrandsStore();
     private readonly breadcrumbs: IBreadcrumb[] = [
@@ -39,6 +43,7 @@ export class CarBrands extends Component<RouteProps> {
                                 actionElement={actionElement}
                                 onRemoveItem={this.store.removeCarBrand}
                                 updateList$={this.store.updateBrandList$}
+                                checkUsedModel={(params) => this.store.transport.checkUsedVehicleData(params)}
                             />
                         }
                     />

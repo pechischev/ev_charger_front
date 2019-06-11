@@ -275,4 +275,9 @@ export class Transport<T extends object = object> implements ITransport {
             .replace("{modelId}", modelId)
         }`);
     }
+
+    async checkUsedVehicleData(params: TApiParams<EApiRoutes.CHECK_VEHICLE_USED_DATA>):
+        Promise<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA>> {
+        return this.client.post(EApiRoutes.CHECK_VEHICLE_USED_DATA, params);
+    }
 }

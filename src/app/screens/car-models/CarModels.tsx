@@ -92,6 +92,7 @@ export class CarModels extends Component<RouteProps> {
                     actionElement={actionElement}
                     onRemoveItem={this.store.removeCarModel}
                     updateList$={this.store.updateModelList$}
+                    checkUsedModel={(params) => this.store.transport.checkUsedVehicleData(params)}
                 />
             </Fragment>
         );

@@ -10,6 +10,7 @@ import {
     IResidenceParams,
     IUserParams,
     IVehicleBrandParams,
+    IVehicleDataCountParams,
     IVehicleModelParams,
     IWorkerParams,
 } from "./params";
@@ -25,7 +26,8 @@ export type TParamsUnion = ILoginParams
     | IBindOperatorParams
     | IUserParams
     | IVehicleModelParams
-    | IVehicleBrandParams;
+    | IVehicleBrandParams
+    | IVehicleDataCountParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.SIGN_IN]: ILoginParams;
@@ -49,6 +51,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.GET_VEHICLE_MODELS]: IListParams;
     [EApiRoutes.CREATE_VEHICLE_MODEL]: IVehicleModelParams;
     [EApiRoutes.VEHICLE_MODEL]: IVehicleModelParams;
+    [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountParams;
 }
 
 // @ts-ignore:2344

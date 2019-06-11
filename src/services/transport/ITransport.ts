@@ -67,4 +67,7 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     createVehicleModel(params: TApiParams<EApiRoutes.CREATE_VEHICLE_MODEL>):
         Promise<TAxiosResponse<EApiRoutes.CREATE_VEHICLE_MODEL>>;
     removeVehicleModel(brandId: string, modelId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_MODEL>>;
+
+    checkUsedVehicleData(params: TApiParams<EApiRoutes.CHECK_VEHICLE_USED_DATA>):
+        Promise<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA>>;
 }

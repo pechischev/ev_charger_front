@@ -4,7 +4,7 @@ import { autobind } from "core-decorators";
 import { observer } from "mobx-react";
 import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
-import { EApiRoutes, TAxiosResponse } from "@services/transport";
+import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import { redirectToBrandModels } from "@utils/history";
 import { IBrandListItem } from "@entities/car-settings";
 import { Button } from "@components/button";
@@ -13,23 +13,33 @@ import { Fragment, ReactNode } from "react";
 import { AppContext } from "@context";
 import { action, observable } from "mobx";
 import { Modal } from "@components/modal";
+import * as _ from "lodash";
+
+enum ERemoveBrandState {
+    DENIED,
+    ALLOWED,
+    NONE,
+}
 
 interface ICarBrandsListProps extends IList<IBrandListItem> {
     onRemoveItem(chargerId: number): Promise<void>;
+
+    checkUsedModel(params: TApiParams<EApiRoutes.CHECK_VEHICLE_USED_DATA>):
+        Promise<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA>>;
 }
 
 @observer
 @autobind
 export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
-    @observable private isOpenModal = false;
+    @observable private removeModalState = ERemoveBrandState.NONE;
 
     render(): ReactNode {
         return (
             <Fragment>
                 {this.renderList()}
                 <Modal
-                    open={this.isOpenModal}
-                    onClose={this.closeModal}
+                    open={this.removeModalState === ERemoveBrandState.ALLOWED}
+                    onClose={this.resetModalState}
                     title={"Removing a car brand"}
                     action={this.deleteCarBrand}
                     actionOptions={{
@@ -37,6 +47,13 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
                         type: !AppContext.getUserStore().isAdmin() ? "disabled" : "delete",
                     }}
                 />
+                <Modal
+                    open={this.removeModalState === ERemoveBrandState.DENIED}
+                    onClose={this.resetModalState}
+                    title={"Removing a car brand"}
+                >
+                    <p>You cannot delete a car brand because the user has selected it!</p>
+                </Modal>
             </Fragment>
         );
     }
@@ -47,11 +64,11 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
             { id: "numberModels", label: "Number of automaker models", size: "3fr" },
             {
                 id: "actions", label: "", size: "150px",
-                handler: () => {
+                handler: (item) => {
                     return (
                         <Button
                             type="delete"
-                            onClick={this.onDeleteCarBrand}
+                            onClick={this.onDeleteCarBrand.bind(this, item)}
                             text="Delete"
                         />
                     );
@@ -68,9 +85,15 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
         return this.store.transport.getVehicleBrands(params);
     }
 
-    private onDeleteCarBrand(event: React.MouseEvent<HTMLElement>): void {
+    private onDeleteCarBrand(item: IBrandListItem, event: React.MouseEvent<HTMLElement>): void {
         event.preventDefault();
-        this.openModal();
+        this.props.checkUsedModel({brandId: item.id as number}).then((response) => {
+            const data = _.get<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA, EApiMethods.GET>, "data">(
+                response, "data"
+            );
+            const state = !!data.usedBrandsCount ? ERemoveBrandState.DENIED : ERemoveBrandState.ALLOWED;
+            this.setModalState(state);
+        });
     }
 
     private deleteCarBrand(): void {
@@ -81,13 +104,12 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
         this.props.onRemoveItem(item.id).then(this.updateList);
     }
 
-    @action.bound
-    private closeModal(): void {
-        this.isOpenModal = false;
+    private resetModalState(): void {
+        this.setModalState(ERemoveBrandState.NONE);
     }
 
     @action.bound
-    private openModal(): void {
-        this.isOpenModal = true;
+    private setModalState(state: ERemoveBrandState): void {
+        this.removeModalState = state;
     }
 }
