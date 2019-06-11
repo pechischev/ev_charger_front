@@ -2,16 +2,17 @@ import { Store } from "@components/store";
 import { Subject } from "rxjs";
 import { action, observable } from "mobx";
 import { EApiMethods, EApiRoutes, TAxiosResponse } from "@services/transport";
-import { toString, stubObject } from "lodash";
+import { toString, stubObject, toNumber } from "lodash";
 import { IItem } from "@entities/_common";
 import * as _ from "lodash";
 import { autobind } from "core-decorators";
 
 @autobind
 export class CarModelsStore extends Store {
-    readonly updateChargerList$ = new Subject<void>();
+    readonly updateModelList$ = new Subject<void>();
     @observable private isOpenChargerPopup = false;
     @observable private data: IItem = stubObject();
+    @observable private brandId = 0;
 
     getVehicleBrand(brandId: string): void {
         this.call(this.transport.getVehicleBrand(brandId), this.onSuccessGetData, this.onError);
@@ -27,6 +28,15 @@ export class CarModelsStore extends Store {
     }
 
     @action.bound
+    setVehicleBrandId(id: string) {
+        this.brandId = toNumber(id);
+    }
+
+    getVehicleBrandId(): number {
+        return this.brandId;
+    }
+
+    @action.bound
     setCarBrandPopupState(isOpenChargerPopup: boolean): void {
         this.isOpenChargerPopup = isOpenChargerPopup;
     }
@@ -35,13 +45,13 @@ export class CarModelsStore extends Store {
         return this.isOpenChargerPopup;
     }
 
-    async removeCarBrand(brandId: number): Promise<void> {
-        return this.asyncCall(this.transport.removeVehicleBrand(toString(brandId)))
-            .then(this.onRemovedCarBrand);
+    async removeCarModel(modelId: number): Promise<void> {
+        return this.asyncCall(this.transport.removeVehicleModel(toString(this.brandId), toString(modelId)))
+            .then(this.onRemovedCarModel);
     }
 
-    private onRemovedCarBrand(response: TAxiosResponse<EApiRoutes.VEHICLE_BRAND, EApiMethods.DELETE>): void {
-        console.info("[CarModelsStore.onRemovedCarBrand]: ", response);
+    private onRemovedCarModel(response: TAxiosResponse<EApiRoutes.VEHICLE_BRAND, EApiMethods.DELETE>): void {
+        console.info("[CarModelsStore.onRemovedCarModel]: ", response);
     }
 
     private onSuccessGetData(response: TAxiosResponse<EApiRoutes.VEHICLE_BRAND, EApiMethods.GET>): void {

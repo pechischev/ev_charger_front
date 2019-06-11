@@ -12,12 +12,12 @@ import { AppContext } from "@context";
 import { action, observable } from "mobx";
 import { Modal } from "@components/modal";
 import { IModelListItem } from "@entities/car-settings";
-import _ from "lodash";
+import { toString } from "lodash";
 
 interface ICarModelsListProps extends IList<IModelListItem> {
     brandId?: number;
 
-    onRemoveItem(chargerId: number): Promise<void>;
+    onRemoveItem(modelId: number): Promise<void>;
 }
 
 @observer
@@ -70,7 +70,7 @@ export class CarModelsList extends List<IModelListItem, ICarModelsListProps> {
         if (!brandId) {
             return new Promise((resolve) => resolve());
         }
-        return this.store.transport.getVehicleModels(params, _.toString(brandId));
+        return this.store.transport.getVehicleModels(params, toString(brandId));
     }
 
     private onDeleteCarModel(event: React.MouseEvent<HTMLElement>): void {

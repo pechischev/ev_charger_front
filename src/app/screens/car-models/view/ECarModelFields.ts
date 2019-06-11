@@ -1,3 +1,3 @@
 export enum ECarModelFields {
-    MODEL = "model"
+    MODEL = "title"
 }

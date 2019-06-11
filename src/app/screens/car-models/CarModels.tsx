@@ -30,6 +30,7 @@ export class CarModels extends Component<RouteProps> {
         if (this.props.location) {
             const { id } = qs.parse(this.props.location.search);
             this.store.getVehicleBrand(id as string);
+            this.store.setVehicleBrandId(id as string);
         }
     }
 
@@ -52,7 +53,7 @@ export class CarModels extends Component<RouteProps> {
 
     private renderBrandProfile(): ReactNode {
         const actionElement = this.getActionElement();
-        const { title, id } = this.store.getData();
+        const { title } = this.store.getData();
         return (
             <Fragment>
                 <div className="brand-info_main main-info">
@@ -76,9 +77,10 @@ export class CarModels extends Component<RouteProps> {
                     </div>
                 </div>
                 <CarModelsList
-                    brandId={id as number}
+                    brandId={this.store.getVehicleBrandId()}
                     actionElement={actionElement}
-                    onRemoveItem={this.store.removeCarBrand}
+                    onRemoveItem={this.store.removeCarModel}
+                    updateList$={this.store.updateModelList$}
                 />
             </Fragment>
         );
@@ -98,7 +100,7 @@ export class CarModels extends Component<RouteProps> {
                 {(close) => <CreateCarModelForm
                     onClose={close}
                     onCreate={() => {
-                        this.store.updateChargerList$.next();
+                        this.store.updateModelList$.next();
                         close();
                     }}
                 />}

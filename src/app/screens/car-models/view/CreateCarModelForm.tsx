@@ -5,12 +5,12 @@ import { autobind } from "core-decorators";
 import { FormRenderProps } from "react-final-form";
 import { Button } from "@components/button";
 import { CreateCarModelStore } from "./CreateCarModelStore";
-import { IVehicleModelParams } from "@services/transport/params";
 import { InputField } from "@components/fields";
 import { ECarModelFields } from ".";
 import "./CarModelForms.scss";
 import * as qs from "query-string";
 import { AppContext } from "@context";
+import { IItem } from "@entities/_common";
 
 interface ICreateCarModelForm {
     residenceId?: string;
@@ -74,10 +74,11 @@ export class CreateCarModelForm extends Component<ICreateCarModelForm> {
         );
     }
 
-    private async onSubmit(data: IVehicleModelParams): Promise<void> {
-        return;/* this.store.createCarModel(data).then(() => {
-            this.props.onClose();
-            this.props.onCreate();
-        });*/
+    private async onSubmit(data: Pick<IItem, "title">): Promise<void> {
+        return this.store.createCarModel(data)
+            .then(() => {
+                this.props.onClose();
+                this.props.onCreate();
+            });
     }
 }
