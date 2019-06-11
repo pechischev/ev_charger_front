@@ -227,4 +227,13 @@ export class Transport<T extends object = object> implements ITransport {
         Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>> {
         return this.client.post(EApiRoutes.GET_BOUND_RESIDENCES, params);
     }
+
+    async getPromoCodes(params: TApiParams<EApiRoutes.GET_PROMO_CODES>): Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>> {
+        return this.client.get(EApiRoutes.GET_PROMO_CODES, { params });
+    }
+
+    async removePromoCode(promoCodeId: string):
+        Promise<TAxiosResponse<EApiRoutes.PROMO_CODES, EApiMethods.DELETE>> {
+        return this.client.delete(`${EApiRoutes.PROMO_CODES.replace("{promoCodeId}", promoCodeId)}`);
+    }
 }

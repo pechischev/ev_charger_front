@@ -60,3 +60,13 @@ export function redirectToCompanyInfoSettings(): void {
     const link = `/${EPaths.COMPANY_INFO}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectToPromoCodeSettings(): void {
+    const link = `/${EPaths.PROMO_CODE_INFO}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToPromoCodeProfile(promoCodeId: number): void {
+    const link = `/${EPaths.PROMO_CODE_PROFILE}?id=${promoCodeId}`;
+    AppContext.getHistory().push(link);
+}

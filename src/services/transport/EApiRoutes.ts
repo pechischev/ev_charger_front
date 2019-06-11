@@ -28,5 +28,8 @@ export enum EApiRoutes {
     CREATE_WORKER = "/v1.0/cms/worker",
     WORKER_DATA = "/v1.0/cms/worker/{workerId}",
     BIND_WORKER = "/v1.0/cms/workers/bindOperator",
-    GET_BOUND_RESIDENCES = "/v1.0/cms/workers/boundResidences"
+    GET_BOUND_RESIDENCES = "/v1.0/cms/workers/boundResidences",
+
+    GET_PROMO_CODES = "",
+    PROMO_CODES = "",
 }

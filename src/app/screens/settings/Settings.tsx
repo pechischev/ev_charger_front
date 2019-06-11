@@ -2,7 +2,12 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import "./Settings.scss";
-import { redirectToBillingInfoSettings, redirectToCompanyInfoSettings, redirectToWorkerList } from "@utils/history";
+import {
+    redirectToBillingInfoSettings,
+    redirectToCompanyInfoSettings,
+    redirectToPromoCodeSettings,
+    redirectToWorkerList,
+} from "@utils/history";
 
 export class Settings extends Component {
     render(): ReactNode {
@@ -35,6 +40,14 @@ export class Settings extends Component {
                             "Customize your payment details.",
                         )}
                         onClick={redirectToBillingInfoSettings}
+                    />
+                    <Card
+                        content={this.getCardInfo(
+                            "Promo Code",
+                            "promo",
+                            "Set up your promotional codes.",
+                        )}
+                        onClick={redirectToPromoCodeSettings}
                     />
                 </div>
             </div>
