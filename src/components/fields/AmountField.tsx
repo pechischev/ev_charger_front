@@ -15,7 +15,7 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
         if (!value) {
             return void 0;
         }
-        if (!isNull(value.match(onlyLetterRegex)) || isNull(value.match(dataFormatRegex))) {
+        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(`${value}`.match(dataFormatRegex))) {
             return EMessages.AMOUNT_INCORRECT;
         }
         return void 0;

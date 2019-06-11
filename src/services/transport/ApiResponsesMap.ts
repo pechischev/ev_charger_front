@@ -6,6 +6,7 @@ import {
     ILoginResponse,
     IUserResponse,
     IVehicleDataCountResponse,
+    IBillingSettingsResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
@@ -49,6 +50,9 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_BOUND_RESIDENCES]: number[];
     [EApiRoutes.WORKER_DATA]: {
         [EApiMethods.GET]: IWorker;
+    };
+    [EApiRoutes.BILLING_SETTINGS]: {
+        [EApiMethods.GET]: IBillingSettingsResponse;
     };
     [EApiRoutes.GET_VEHICLE_BRANDS]: IListResponse<object>;
     [EApiRoutes.GET_VEHICLE_MODELS]: IListResponse<object>;

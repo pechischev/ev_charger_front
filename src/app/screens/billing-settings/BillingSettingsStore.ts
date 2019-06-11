@@ -55,6 +55,7 @@ export class BillingSettingsStore extends Store {
     private onGetBillingInfo(response: TAxiosResponse<EApiRoutes.BILLING_SETTINGS, EApiMethods.GET>): void {
         console.info("[BillingSettingsStore.onGetBillingInfo]", response);
         const data = get<TAxiosResponse<EApiRoutes.BILLING_SETTINGS, EApiMethods.GET>, "data">(response, "data");
+
         this.setData(data);
     }
 }
