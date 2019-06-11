@@ -9,3 +9,4 @@ export { LicencePlateField } from "./LicencePlateField";
 export { PasswordField } from "./PasswordField";
 export { MultiSelectField } from "./MultiSelectField";
 export { AmountField } from "./AmountField";
+export { PromoCodeField } from "./PromoCodeField";

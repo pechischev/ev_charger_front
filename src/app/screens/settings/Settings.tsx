@@ -5,7 +5,7 @@ import "./Settings.scss";
 import {
     redirectToBillingInfoSettings,
    redirectToBrandSettings, redirectToCompanyInfoSettings,
-    redirectToPromoCodeSettings,
+    redirectToPromoCodeList,
     redirectToWorkerList,
 } from "@utils/history";
 export class Settings extends Component {
@@ -59,7 +59,7 @@ export class Settings extends Component {
                             "promo",
                             "Set up your promotional codes.",
                         )}
-                        onClick={redirectToPromoCodeSettings}
+                        onClick={redirectToPromoCodeList}
                     />
                 </div>
             </div>

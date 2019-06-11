@@ -7,6 +7,7 @@ import {
     IUserResponse,
     IVehicleDataCountResponse,
     IBillingSettingsResponse,
+    IPromoCodeResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
@@ -63,6 +64,10 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.GET]: IItem;
     };
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse;
+    [EApiRoutes.PROMO_CODE]: {
+        [EApiMethods.GET]: IPromoCodeResponse;
+        [EApiMethods.POST]: IPromoCodeResponse;
+    };
 
 }
 

@@ -43,5 +43,6 @@ export enum EApiRoutes {
     CHECK_VEHICLE_USED_DATA = "/v1.0/cms/vehicleData/count",
 
     GET_PROMO_CODES = "",
-    PROMO_CODES = "",
+    CREATE_PROMO_CODES = "",
+    PROMO_CODE = "",
 }

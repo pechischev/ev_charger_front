@@ -1,0 +1,30 @@
+@import "~styles/utils/mixins.scss";
+
+.residence-card {
+    margin-bottom: 20px;
+
+    &_in-row-two {
+        display: flex;
+
+        > div {
+            width: calc(50% - 10px);
+
+            &:first-child {
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .list-actions {
+        &__add-button {
+            margin-right: 0;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.charger-form {
+    &_fields {
+        width: 400px;
+    }
+}

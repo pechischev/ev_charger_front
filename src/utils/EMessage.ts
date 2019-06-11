@@ -11,4 +11,5 @@ export enum EMessages {
     CONTAINS_INVALID_VALUE = "Field is contain invalid value",
     AMOUNT_INCORRECT = "Enter a valid value",
     SERVICE_FEE_INCORRECT = "Service fee should be less than user billing rate",
+    PROMO_CODE_INCORRECT = "Enter a valid Promo Code",
 }

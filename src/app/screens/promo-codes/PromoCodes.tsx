@@ -1,26 +1,25 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
-import { redirectOnAddUserForm, redirectToSettings } from "@utils/history";
+import { redirectOnAddPromoCodeForm, redirectToSettings } from "@utils/history";
 import { Button } from "@components/button";
-import { AppContext } from "@context";
 import { PromoCodeList, PromoCodesStore } from ".";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 export class PromoCodes extends Component {
     private readonly store = new PromoCodesStore();
+    private readonly links: IBreadcrumb[] = [
+        { label: "Settings", handler: redirectToSettings },
+        { label: "Promo Codes" },
+    ];
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
-        const links: IBreadcrumb[] = [
-            { label: "Settings", handler: redirectToSettings },
-            { label: "Promo Code" },
-        ];
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Promo Code</div>
-                    <Breadcrumb crumbs={links}/>
+                    <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
                     <Card
@@ -41,9 +40,8 @@ export class PromoCodes extends Component {
         return (
             <Button
                 type={"primary"}
-                onClick={redirectOnAddUserForm}
+                onClick={redirectOnAddPromoCodeForm}
                 text={"Add Promo Code"}
-                disabled={!AppContext.getUserStore().isAdmin()}
             />
         );
     }

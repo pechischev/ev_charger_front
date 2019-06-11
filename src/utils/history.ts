@@ -71,8 +71,13 @@ export function redirectToBrandModels(brandId: number): void {
     AppContext.getHistory().push(link);
 }
 
-export function redirectToPromoCodeSettings(): void {
+export function redirectToPromoCodeList(): void {
     const link = `/${EPaths.PROMO_CODE_INFO}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectOnAddPromoCodeForm(): void {
+    const link = `/${EPaths.PROMO_CODE_FORM}`;
     AppContext.getHistory().push(link);
 }
 

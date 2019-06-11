@@ -290,12 +290,28 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.post(EApiRoutes.CHECK_VEHICLE_USED_DATA, params);
     }
 
-    async getPromoCodes(params: TApiParams<EApiRoutes.GET_PROMO_CODES>): Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>> {
+    async getPromoCodes(params: TApiParams<EApiRoutes.GET_PROMO_CODES>):
+        Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>> {
         return this.client.get(EApiRoutes.GET_PROMO_CODES, { params });
     }
 
+    async getPromoCode(promoCodeId: string):
+        Promise<TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.GET>> {
+        return this.client.delete(`${EApiRoutes.PROMO_CODE.replace("{promoCodeId}", promoCodeId)}`);
+    }
+
     async removePromoCode(promoCodeId: string):
-        Promise<TAxiosResponse<EApiRoutes.PROMO_CODES, EApiMethods.DELETE>> {
-        return this.client.delete(`${EApiRoutes.PROMO_CODES.replace("{promoCodeId}", promoCodeId)}`);
+        Promise<TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.DELETE>> {
+        return this.client.delete(`${EApiRoutes.PROMO_CODE.replace("{promoCodeId}", promoCodeId)}`);
+    }
+
+    async createPromoCode(params: TApiParams<EApiRoutes.CREATE_PROMO_CODES>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_PROMO_CODES>> {
+        return this.client.post(EApiRoutes.CREATE_PROMO_CODES, params);
+    }
+
+    async updatePromoCode(params: TApiParams<EApiRoutes.PROMO_CODE>, promoCodeId: string):
+        Promise<TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.POST>> {
+        return this.client.get(`${EApiRoutes.PROMO_CODE.replace("{promoCodeId}", promoCodeId)}`);
     }
 }
