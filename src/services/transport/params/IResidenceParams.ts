@@ -8,5 +8,5 @@ export interface IResidenceParams {
 
     operatorId: number;
     billingRate?: number;
-    serviceFee?: string;
+    serviceFee?: number;
 }

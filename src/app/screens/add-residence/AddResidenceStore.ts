@@ -18,13 +18,16 @@ export class AddResidenceStore extends Store {
             { type: EResidenceFieldTypes.ZIP_CODE, codes: [] },
             { type: EResidenceFieldTypes.OPERATOR, codes: [] },
             { type: EResidenceFieldTypes.BILLING_RATE, codes: [] },
+            { type: EResidenceFieldTypes.SERVICE_FEE, codes: [] },
         ];
     }
 
     async createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>): Promise<void> {
-        const { stateId, operatorId, ...rest } = params;
+        const { stateId, operatorId, billingRate, serviceFee, ...rest } = params;
         return this.asyncCall(this.transport.createResidence({
             ...rest,
+            billingRate: parseFloat(`${billingRate}`),
+            serviceFee: parseFloat(`${serviceFee}`),
             stateId: toNumber(stateId),
             operatorId: toNumber(operatorId),
         }), this.onError).then(this.onCreateResidence);
