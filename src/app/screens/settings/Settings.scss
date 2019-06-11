@@ -40,6 +40,7 @@
                     @include getCardInfoImage("users");
                     @include getCardInfoImage("company");
                     @include getCardInfoImage("billing");
+                    @include getCardInfoImage("car");
 
                     background-repeat: no-repeat;
                     background-size: 32px 32px;

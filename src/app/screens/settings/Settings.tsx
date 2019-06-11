@@ -2,8 +2,12 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import "./Settings.scss";
-import { redirectToBillingInfoSettings, redirectToCompanyInfoSettings, redirectToWorkerList } from "@utils/history";
-
+import {
+    redirectToBillingInfoSettings,
+    redirectToBrandSettings,
+    redirectToCompanyInfoSettings,
+    redirectToWorkerList
+} from "@utils/history";
 export class Settings extends Component {
     render(): ReactNode {
         return (
@@ -11,7 +15,7 @@ export class Settings extends Component {
                 <div className="page-header">
                     <div className="page-title">Settings</div>
                 </div>
-                <div className="page-content settings-container">
+                <div className="page-content settings-container clearfix">
                     <Card
                         className="settings-block"
                         content={this.getCardInfo(
@@ -38,6 +42,15 @@ export class Settings extends Component {
                             "Customize your payment details.",
                         )}
                         onClick={redirectToBillingInfoSettings}
+                    />
+                    <Card
+                        className="settings-block"
+                        content={this.getCardInfo(
+                            "Customize car brands",
+                            "car",
+                            "Customize car brands and their models.",
+                        )}
+                        onClick={redirectToBrandSettings}
                     />
                 </div>
             </div>

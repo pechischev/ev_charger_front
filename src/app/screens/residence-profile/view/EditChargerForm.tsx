@@ -33,6 +33,7 @@ export class EditChargerForm extends Component<IEditChargerForm> {
             <CustomForm
                 data={this.store.transformChargerData(this.props.data)}
                 validateData={this.store.validateData}
+                error$={this.store.error$}
                 submit={this.onSubmit}
                 render={this.renderFields}
             />
