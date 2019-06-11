@@ -7,6 +7,6 @@ export interface IResidenceParams {
     zipCode: string;
 
     operatorId: number;
-    billingRate?: number;
+    billingRate?: number|string;
     serviceFee?: string;
 }

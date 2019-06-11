@@ -4,9 +4,11 @@ import { CustomForm } from "@components/custom-form";
 import { autobind } from "core-decorators";
 import { FormRenderProps } from "react-final-form";
 import { Button } from "@components/button";
-import { CreateChargerStore } from "./CreateChargerStore";
-import { ChargerForm } from "@app/components/charger-form";
-import { IChargerParams } from "@services/transport/params";
+import { CreateCarBrandStore } from "./CreateCarBrandStore";
+import { IVehicleBrandParams } from "@services/transport/params";
+import { InputField } from "@components/fields";
+import "./CarBrandForms.scss";
+import { ECarBrandFields } from "./ECarBrandFields";
 
 interface ICreateChargerForm {
     residenceId?: string;
@@ -17,8 +19,8 @@ interface ICreateChargerForm {
 }
 
 @autobind
-export class CreateChargerForm extends Component<ICreateChargerForm> {
-    private readonly store = new CreateChargerStore();
+export class CreateCarBrandForm extends Component<ICreateChargerForm> {
+    private readonly store = new CreateCarBrandStore();
 
     constructor(props: ICreateChargerForm) {
         super(props);
@@ -41,19 +43,23 @@ export class CreateChargerForm extends Component<ICreateChargerForm> {
     private renderFields(api: FormRenderProps, submitting: boolean): ReactNode {
         return (
             <Fragment>
-                <div className={"modal-body"}>
-                    <ChargerForm/>
+                <div className="modal-body create-model-fields">
+                    <InputField
+                        label="Brand"
+                        name={ECarBrandFields.BRAND}
+                        placeholder="Brand"
+                    />
                 </div>
-                <div className={"modal-footer"}>
+                <div className="modal-footer create-model-footer">
                     <Button
-                        text={"Submit"}
-                        type={"primary"}
+                        text="Create"
+                        type="primary"
                         disabled={!submitting}
                         onClick={() => api.handleSubmit()}
                     />
                     <Button
-                        type={"secondary"}
-                        text={"Cancel"}
+                        type="secondary"
+                        text="Cancel"
                         onClick={this.props.onClose}
                     />
                 </div>
@@ -61,8 +67,8 @@ export class CreateChargerForm extends Component<ICreateChargerForm> {
         );
     }
 
-    private async onSubmit(data: IChargerParams): Promise<void> {
-        return this.store.createCharger(data, this.props.residenceId).then(() => {
+    private async onSubmit(data: IVehicleBrandParams): Promise<void> {
+        return this.store.createCarBrand(data).then(() => {
             this.props.onClose();
             this.props.onCreate();
         });

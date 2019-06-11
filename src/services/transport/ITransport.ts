@@ -52,4 +52,22 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     bindOperator(params: TApiParams<EApiRoutes.BIND_WORKER>): Promise<TAxiosResponse<EApiRoutes.BIND_WORKER>>;
     getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>):
         Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>>;
+
+    getVehicleBrands(params: TApiParams<EApiRoutes.GET_VEHICLE_BRANDS>):
+        Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_BRANDS>>;
+    getVehicleBrand(brandId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND, EApiMethods.GET>>;
+    createVehicleBrand(params: TApiParams<EApiRoutes.CREATE_VEHICLE_BRAND>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_VEHICLE_BRAND>>;
+    updateVehicleBrand(params: TApiParams<EApiRoutes.VEHICLE_BRAND>):
+        Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND>>;
+    removeVehicleBrand(brandId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND>>;
+
+    getVehicleModels(params: TApiParams<EApiRoutes.GET_VEHICLE_MODELS>, brandId: string):
+        Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_MODELS>>;
+    createVehicleModel(params: TApiParams<EApiRoutes.CREATE_VEHICLE_MODEL>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_VEHICLE_MODEL>>;
+    removeVehicleModel(brandId: string, modelId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_MODEL>>;
+
+    checkUsedVehicleData(params: TApiParams<EApiRoutes.CHECK_VEHICLE_USED_DATA>):
+        Promise<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA>>;
 }

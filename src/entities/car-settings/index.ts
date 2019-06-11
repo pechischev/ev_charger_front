@@ -1,0 +1,1 @@
+export { IBrandListItem } from "./IBrandListItem";

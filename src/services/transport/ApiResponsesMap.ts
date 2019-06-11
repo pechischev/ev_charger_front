@@ -1,6 +1,12 @@
 import { AxiosResponse } from "axios";
 import { EApiMethods } from "./EApiMethods";
-import { ICompanyInfoResponse, IListResponse, ILoginResponse, IUserResponse } from "./responses";
+import {
+    ICompanyInfoResponse,
+    IListResponse,
+    ILoginResponse,
+    IUserResponse,
+    IVehicleDataCountResponse,
+} from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
 import { IAuthUser, IUser, IUserListItem } from "@entities/user";
@@ -44,6 +50,15 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.WORKER_DATA]: {
         [EApiMethods.GET]: IWorker;
     };
+    [EApiRoutes.GET_VEHICLE_BRANDS]: IListResponse<object>;
+    [EApiRoutes.GET_VEHICLE_MODELS]: IListResponse<object>;
+    [EApiRoutes.VEHICLE_BRAND]: {
+        [EApiMethods.GET]: IItem;
+    };
+    [EApiRoutes.VEHICLE_MODEL]: {
+        [EApiMethods.GET]: IItem;
+    };
+    [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse;
 
 }
 
