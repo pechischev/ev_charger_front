@@ -108,6 +108,12 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
     }
 
     private validateTimeField(value: ReactText, allValues: object): Nullable<ReactText> {
+        if (!value) {
+            return EMessages.EMPTY;
+        }
+        if (parseInt(`${value}`, 10) < 1) {
+            return EMessages.AMOUNT_INCORRECT;
+        }
         if (/\D/.test(`${value}`)) {
             return EMessages.ONLY_NUMBER;
         }
