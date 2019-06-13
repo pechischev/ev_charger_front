@@ -17,6 +17,7 @@ interface IRequestInfoMainField {
 @observer
 export class RequestInfoMainField extends Component<IRequestInfoMainField> {
     render(): ReactNode {
+        const label = this.props.type === ERequestType.LOST_CARD || this.props.type === ERequestType.CANCEL_SUBSCRIPTION ? "Request" : "Comment";
         return (
             <Fragment>
                 <InputField
@@ -31,7 +32,7 @@ export class RequestInfoMainField extends Component<IRequestInfoMainField> {
                     isVisible={this.props.type === ERequestType.OTHER}
                 />
                 <InputTextareaField
-                    label="Comment"
+                    label={label}
                     name={EServiceRequestFields.COMMENT}
                     disabled={true}
                 />
