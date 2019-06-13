@@ -26,6 +26,7 @@ import { BillingSettings } from "./screens/billing-settings";
 import { CarBrands } from "./screens/car-brands";
 import { CarModels } from "./screens/car-models";
 import { ServiceRequests } from "./screens/service-requests";
+import { ServiceRequestProfile } from "@app/screens/service-request-profile";
 
 export class App extends Component {
     constructor(props: object) {
@@ -136,6 +137,11 @@ export class App extends Component {
                                     exact={true}
                                     path={`/${EPaths.SERVICE_REQUESTS}`}
                                     component={ServiceRequests}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.SERVICE_REQUESTS_PROFILE}`}
+                                    component={ServiceRequestProfile}
                                 />
                                 <Route component={() => <Redirect to={`/${EPaths.ERROR}`} />}/>
                             </Switch>

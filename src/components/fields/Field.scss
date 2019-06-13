@@ -14,6 +14,10 @@
         margin: 0;
         font-size: 14px;
     }
+
+    &[data-visible=false] {
+        display: none;
+    }
 }
 
 .multiSelect-field {
@@ -43,5 +47,14 @@
             }
         }
 
+    }
+}
+.form-group_textarea {
+    textarea {
+        resize: none;
+    }
+
+    .form-text {
+        height: 21px;
     }
 }
