@@ -70,3 +70,13 @@ export function redirectToBrandModels(brandId: number): void {
     const link = `/${EPaths.CAR_MODELS}?id=${brandId}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectToServiceRequest(): void {
+    const link = `/${EPaths.SERVICE_REQUESTS}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToServiceRequestProfile(requestId: number): void {
+    const link = `/${EPaths.SERVICE_REQUESTS_PROFILE}?id=${requestId}`;
+    AppContext.getHistory().push(link);
+}

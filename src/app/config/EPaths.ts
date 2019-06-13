@@ -29,4 +29,7 @@ export enum EPaths {
 
     CAR_BRANDS = "settings/brands",
     CAR_MODELS = "settings/brands/models",
+
+    SERVICE_REQUESTS = "service-requests",
+    SERVICE_REQUESTS_PROFILE = "service-requests/view",
 }

@@ -70,6 +70,7 @@
         @include getMenuIcon("residences");
         @include getMenuIcon("payments");
         @include getMenuIcon("settings");
+        @include getMenuIcon("service-request");
 
         position: relative;
         display: flex;
