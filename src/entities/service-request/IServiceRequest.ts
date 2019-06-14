@@ -8,8 +8,8 @@ export interface IServiceRequest {
     user: Pick<IUser, "firstName" | "lastName">;
     address: string;
     residence: string;
-    subject: string;
+    subject?: string;
     comment: string;
-    chargerId: number;
+    chargerId?: number;
     requestStatus: string;
 }
