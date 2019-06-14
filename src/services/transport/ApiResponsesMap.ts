@@ -7,14 +7,16 @@ import {
     IUserResponse,
     IVehicleDataCountResponse,
     IBillingSettingsResponse,
+    ITransactionsResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
-import { IAuthUser, IUser, IUserListItem } from "@entities/user";
+import { IAuthUser, IBillingInfoListItem, IUser, IUserListItem } from "@entities/user";
 import { IWorker } from "@entities/worker";
 import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 import { ICustomer } from "@entities/customer";
+import { ITransactionsListItem } from "@entities/transactions";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -27,6 +29,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
     [EApiRoutes.CREATE_USER]: IUserResponse;
 
+    [EApiRoutes.GET_BILLING_DATA]: IListResponse<IBillingInfoListItem>;
     [EApiRoutes.USER_DATA]: {
         [EApiMethods.GET]: ICustomer;
         [EApiMethods.PUT]: ICustomer;
@@ -63,6 +66,11 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.GET]: IItem;
     };
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse;
+    [EApiRoutes.GET_TRANSACTIONS]: IListResponse<ITransactionsListItem>;
+    [EApiRoutes.TRANSACTION_DATA]: {
+        [EApiMethods.GET]: ITransactionsResponse;
+        [EApiMethods.POST]: ITransactionsResponse;
+    };
 
 }
 
