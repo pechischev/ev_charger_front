@@ -10,5 +10,6 @@ export interface ITransaction {
     chargeToken: string;
     paymentType: string;
     residence: IItem;
+    customer: string;
     user: Pick<IUser, "id" | "firstName" | "lastName">;
 }

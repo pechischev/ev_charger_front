@@ -12,6 +12,7 @@ export enum EApiRoutes {
     GET_USERS = "/v1.0/cms/customers",
     CREATE_USER = "/v1.0/cms/customer",
     USER_DATA = "/v1.0/cms/customer/{customerId}",
+    GET_BILLING_DATA = "/v1.0/cms/customer/{customerId}/billingInfo",
 
     GET_RESIDENCES_LIST = "/v1.0/cms/residences",
     CREATE_RESIDENCE = "/v1.0/cms/residence",

@@ -37,14 +37,11 @@ export class TransactionForm extends Component<ITransactionForm> {
                     options={AppContext.getInfoStore().residences}
                     placeholder={"Select residence"}
                 />
-                <SelectField
+                <InputField
                     name={ETransactionFieldTypes.USER}
                     label={"User"}
-                    options={[
-                        { id: "1", title: "User1" },
-                        { id: "2", title: "User2" },
-                    ]}
                     placeholder={"Select user"}
+                    disabled={true}
                 />
             </div>
         );
@@ -58,7 +55,7 @@ export class TransactionForm extends Component<ITransactionForm> {
             <div>
                 <InputField
                     label={"Status"}
-                    name={ETransactionFieldTypes.PAYMENT_TYPE}
+                    name={ETransactionFieldTypes.STATUS}
                     isVisible={!isCreate}
                     disabled={true}
                 />

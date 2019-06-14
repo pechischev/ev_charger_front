@@ -11,7 +11,7 @@ import {
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
-import { IAuthUser, IUser, IUserListItem } from "@entities/user";
+import { IAuthUser, IBillingInfoListItem, IUser, IUserListItem } from "@entities/user";
 import { IWorker } from "@entities/worker";
 import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
@@ -29,6 +29,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_USERS]: IListResponse<IUserListItem>;
     [EApiRoutes.CREATE_USER]: IUserResponse;
 
+    [EApiRoutes.GET_BILLING_DATA]: IListResponse<IBillingInfoListItem>;
     [EApiRoutes.USER_DATA]: {
         [EApiMethods.GET]: ICustomer;
         [EApiMethods.PUT]: ICustomer;

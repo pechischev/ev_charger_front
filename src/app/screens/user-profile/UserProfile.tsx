@@ -24,6 +24,7 @@ export class UserProfile extends Component<RouteProps> {
         { label: "Users", handler: redirectToUsersList },
         { label: "Profile" },
     ];
+
     constructor(props: RouteProps) {
         super(props);
         this.store.init();
@@ -119,7 +120,11 @@ export class UserProfile extends Component<RouteProps> {
                     />
                 );
             case ETabsType.BILLING_INFO:
-                return <BillingInfoTab/>;
+                return (
+                    <BillingInfoTab
+                        userId={this.store.getUserId()}
+                    />
+                );
             default:
                 return void 0;
         }

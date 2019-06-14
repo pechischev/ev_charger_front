@@ -36,7 +36,13 @@ export class TransactionProfileStore extends Store {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        return data;
+        const { paymentType, user, ...rest } = data;
+        const { firstName, lastName } = user;
+        return {
+            paymentType: paymentType || "Credit card",
+            customer: `${firstName} ${lastName}`,
+            ...rest,
+        };
     }
 
     validateData(values: TApiParams<EApiRoutes.TRANSACTION_DATA>): IFieldError[] {
