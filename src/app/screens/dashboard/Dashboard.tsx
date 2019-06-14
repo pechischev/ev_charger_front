@@ -5,6 +5,7 @@ import "./Dashboard.scss";
 import { Button } from "@components/button";
 import { redirectToTransactionList } from "@utils/history";
 import { LastTransactionsList } from ".";
+import { CustomGraph } from "@components/graph";
 
 export class Dashboard extends Component {
     render(): ReactNode {
@@ -83,7 +84,9 @@ export class Dashboard extends Component {
     }
 
     private renderGraph(): ReactNode {
-        return void 0;
+        return (
+            <CustomGraph />
+        );
     }
 
     private getActionElement(): ReactNode {
