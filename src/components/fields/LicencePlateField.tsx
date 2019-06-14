@@ -11,10 +11,7 @@ const MAX_PLATE_LENGTH = 8;
 
 export const LicencePlateField: FC<IField> = ({ name, ...rest }) => {
     const validateLicencePlateValue = (value: string): Nullable<string> => {
-        if (!value) {
-            return void 0;
-        }
-        if (value.length > MAX_PLATE_LENGTH) {
+        if (!!value && value.length > MAX_PLATE_LENGTH) {
             return EMessages.LICENCE_PLATE_INCORRECT;
         }
         return void 0;

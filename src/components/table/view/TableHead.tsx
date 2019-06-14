@@ -8,21 +8,21 @@ import { Table } from "@components/table";
 @autobind
 export class TableHead<T> extends Component<ITableHead<T>> {
     render(): ReactNode {
-        const {columns} = this.props;
+        const { columns } = this.props;
         return (
             <thead>
-            <tr
-                className="row_header"
-                style={{display: "grid", gridTemplateColumns: Table.getRowSize(columns)}}
-            >
-                {columns.map(this.renderCell)}
-            </tr>
+                <tr
+                    className="row_header"
+                    style={{ display: "grid", gridTemplateColumns: Table.getRowSize(columns) }}
+                >
+                    {columns.map(this.renderCell)}
+                </tr>
             </thead>
         );
     }
 
     private renderCell(column: IColumn<T>): ReactNode {
-        const {id, label, canSort, cellClass = ""} = column;
+        const { id, label, canSort, cellClass = "" } = column;
         const classes = classNames({
             [cellClass]: true,
         });
@@ -31,6 +31,7 @@ export class TableHead<T> extends Component<ITableHead<T>> {
                 className={`cell cell_header ${classes}`}
                 key={id}
                 onClick={() => this.sorted(id, canSort)}
+                title={label}
             >
                 {label}
             </th>

@@ -70,4 +70,12 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
 
     checkUsedVehicleData(params: TApiParams<EApiRoutes.CHECK_VEHICLE_USED_DATA>):
         Promise<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA>>;
+
+    getTransactions(params: TApiParams<EApiRoutes.GET_TRANSACTIONS>):
+        Promise<TAxiosResponse<EApiRoutes.GET_TRANSACTIONS>>;
+    getTransactionData(transactionId: number): Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA>>;
+    updateTransactionInfo(params: TApiParams<EApiRoutes.TRANSACTION_DATA>, transactionId: number):
+        Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>>;
+    getUserBillingInfo(params: TApiParams<EApiRoutes.GET_BILLING_DATA>, customerId: string):
+        Promise<TAxiosResponse<EApiRoutes.GET_BILLING_DATA>>;
 }

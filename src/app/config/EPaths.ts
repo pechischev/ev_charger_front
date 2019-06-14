@@ -29,4 +29,9 @@ export enum EPaths {
 
     CAR_BRANDS = "settings/brands",
     CAR_MODELS = "settings/brands/models",
+
+    TRANSACTIONS = "transactions",
+    TRANSACTION_PROFILE = "transactions/view",
+    TRANSACTION_CREATE_FORM = "transactions/create",
+
 }

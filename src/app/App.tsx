@@ -22,6 +22,9 @@ import { CompanySettings } from "@app/screens/company-settings";
 import { Workers } from "@app/screens/company-worker";
 import { AddWorkerForm } from "@app/screens/add-worker-form";
 import { WorkerProfile } from "@app/screens/worker-profile";
+import { Transactions } from "@app/screens/transactions";
+import { AddTransaction } from "./screens/add-transaction";
+import { TransactionProfile } from "@app/screens/transaction-profile";
 import { BillingSettings } from "./screens/billing-settings";
 import { CarBrands } from "./screens/car-brands";
 import { CarModels } from "./screens/car-models";
@@ -131,11 +134,24 @@ export class App extends Component {
                                     path={`/${EPaths.CAR_MODELS}`}
                                     component={CarModels}
                                 />
-                                <Route component={() => <Redirect to={`/${EPaths.ERROR}`} />}/>
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.TRANSACTIONS}`}
+                                    component={Transactions}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.TRANSACTION_PROFILE}`}
+                                    component={TransactionProfile}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.TRANSACTION_CREATE_FORM}`}
+                                    component={AddTransaction}
+                                />
                             </Switch>
                         </Layout>
                     </Route>
-                    <Route component={() => <Redirect to={`/${EPaths.ERROR}`} />}/>
                 </Switch>
             </div>
         );
