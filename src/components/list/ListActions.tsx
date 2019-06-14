@@ -8,7 +8,7 @@ import { IListParams } from "@services/transport/params";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { Nullable } from "@app/config";
-import { EListActionsFields } from "@components/list/EListActionsFields";
+import { EListActionsFields } from "./EListActionsFields";
 import * as moment from "moment";
 import { get, isEmpty, isNil } from "lodash";
 import { EMessages } from "@utils/EMessage";

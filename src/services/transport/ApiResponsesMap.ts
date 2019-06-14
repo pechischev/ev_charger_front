@@ -69,6 +69,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_TRANSACTIONS]: IListResponse<ITransactionsListItem>;
     [EApiRoutes.TRANSACTION_DATA]: {
         [EApiMethods.GET]: ITransactionsResponse;
+        [EApiMethods.POST]: ITransactionsResponse;
     };
 
 }

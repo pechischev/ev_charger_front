@@ -1,4 +1,4 @@
-import { ETransactionStatus } from "@entities/transactions/ETransactionStatus";
+import { ETransactionStatus } from ".";
 import { IItem } from "@entities/_common";
 import { IUser } from "@entities/user";
 

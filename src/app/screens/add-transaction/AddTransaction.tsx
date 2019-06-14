@@ -32,9 +32,8 @@ export class AddTransaction extends Component<RouteProps> {
                                 <CustomForm
                                     keepDirtyOnReinitialize={false}
                                     validateData={this.store.validateData}
-                                    data={{}}
                                     error$={this.store.error$}
-                                    submit={this.store.createResidence}
+                                    submit={() => void 0}
                                     render={this.renderResidenceForm}
                                 />
                             </div>
