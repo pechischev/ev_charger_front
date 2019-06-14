@@ -1,0 +1,90 @@
+@import "~styles/utils/mixins.scss";
+
+@mixin getMainCardIcon($icon) {
+    &[data-image="#{$icon}"] {
+        background-image: url("./img/icon-#{$icon}.svg");
+        background-size: 40px 40px;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+}
+
+.dashboard-main-cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    .main-cards {
+        max-width: calc(100% - 20px);
+        width: 100%;
+        margin-right: 20px;
+    }
+}
+
+.main-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 20px 0 20px 10px;
+
+    &_description {
+
+    }
+
+    &_icon {
+        @include getMainCardIcon("residence");
+        @include getMainCardIcon("users");
+        @include getMainCardIcon("new-users");
+        @include getMainCardIcon("revenue");
+        @include square(80px);
+
+        border-radius: 50%;
+        margin: 0 0 0 auto;
+
+        &[data-image="residence"] {
+            border: 1px solid #6574cd;
+        }
+
+        &[data-image="users"] {
+            border: 1px solid #45aaf2;
+        }
+
+        &[data-image="new-users"] {
+            border: 1px solid #2bcbba;
+        }
+
+        &[data-image="revenue"] {
+            border: 1px solid #4ecc48;
+        }
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 18px;
+        height: 36px;
+        max-width: calc(100% - 20px);
+    }
+
+    &__value {
+        margin-top: 20px;
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 32px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .dashboard-main-cards {
+        grid-template-columns: repeat(2, 1fr);
+
+        .main-cards {
+            &:nth-child(1), &:nth-child(3) {
+                margin: 0 auto 20px 0;
+            }
+
+            &:nth-child(2), &:nth-child(4) {
+                margin: 0 0 20px auto;
+            }
+        }
+    }
+}
