@@ -70,8 +70,8 @@ export class ListActions<T> extends Component<IListActions<T>> {
     }
 
     private renderDataSearchFields(): Nullable<ReactNode> {
-        const { canDataSearch } = this.props;
-        if (!canDataSearch) {
+        const { canDateSearch } = this.props;
+        if (!canDateSearch) {
             return void 0;
         }
         return (

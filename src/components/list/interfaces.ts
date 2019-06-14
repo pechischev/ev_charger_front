@@ -6,7 +6,7 @@ export interface IList<T> {
     step?: number;
     canSearch?: boolean;
     actionElement?: ReactNode;
-    canDataSearch?: boolean;
+    canDateSearch?: boolean;
     updateList$?: Subject<void>;
 }
 
@@ -20,5 +20,5 @@ export interface IListActions<T> {
     store: ListStore<T>;
     actionElement?: ReactNode;
     canSearch: boolean;
-    canDataSearch?: boolean;
+    canDateSearch?: boolean;
 }
