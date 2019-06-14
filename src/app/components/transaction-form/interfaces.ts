@@ -5,6 +5,3 @@ export interface ITransactionForm {
     submitting?: boolean;
     canCancel?: boolean;
 }
-
-export interface ITransactionData {
-}

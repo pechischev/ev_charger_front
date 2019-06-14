@@ -298,4 +298,9 @@ export class Transport<T extends object = object> implements ITransport {
     async getTransactionData(transactionId: number): Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA>> {
         return this.client.get(`${EApiRoutes.TRANSACTION_DATA.replace("{transactionId}", _.toString(transactionId))}`);
     }
+
+    async updateTransactionInfo(params: TApiParams<EApiRoutes.TRANSACTION_DATA>, transactionId: number):
+        Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>> {
+        return this.client.post(`${EApiRoutes.TRANSACTION_DATA.replace("{transactionId}", _.toString(transactionId))}`, params);
+    }
 }

@@ -82,12 +82,12 @@ export class TransactionForm extends Component<ITransactionForm> {
                     <Button
                         className="float-right"
                         type="primary"
-                        disabled={!submitting}
                         onClick={() => api.handleSubmit()}
                         text={isCreate ? "Create" : "Save"}
                         style={{
                             marginRight: 10,
                         }}
+                        disabled={!submitting}
                     />
                 </div>
             </div>

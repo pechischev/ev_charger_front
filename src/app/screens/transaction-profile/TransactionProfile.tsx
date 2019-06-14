@@ -10,26 +10,37 @@ import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { TransactionProfileStore } from ".";
 import { TransactionForm } from "@app/components/transaction-form";
+import { AppContext } from "@context";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
+import { redirectToTransactionList } from "@utils/history";
 
 @observer
 @autobind
 export class TransactionProfile extends Component<RouteProps> {
     private readonly store = new TransactionProfileStore();
+    private readonly links: IBreadcrumb[] = [
+        { label: "Transactions", handler: redirectToTransactionList },
+        { label: "Profile" },
+    ];
 
     constructor(props: RouteProps) {
         super(props);
         this.store.init();
 
-        if (this.props.location) {
-            const { id } = qs.parse(this.props.location.search);
-            this.store.setTransactionId(id as string);
+        if (AppContext.getHistory().location) {
+            const { id } = qs.parse(AppContext.getHistory().location.search);
+            this.store.setTransactionId(parseInt(`${id}`, 10));
+            this.store.getTransactionData(parseInt(`${id}`, 10));
         }
     }
 
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">Transaction ID {this.store.getTransactionId}</div>
+                <div className="page-header">
+                    <div className="page-title">Transaction ID {this.store.getTransactionId}</div>
+                    <Breadcrumb crumbs={this.links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         title="Transaction information"
@@ -39,7 +50,7 @@ export class TransactionProfile extends Component<RouteProps> {
                                 validateData={this.store.validateData}
                                 data={this.store.transformData(this.store.getData())}
                                 error$={this.store.error$}
-                                submit={this.store.onSubmit}
+                                submit={() => void 0}
                                 render={this.getTransactionForm}
                             />
                         }
@@ -51,7 +62,7 @@ export class TransactionProfile extends Component<RouteProps> {
 
     private getTransactionForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
-            <TransactionForm api={api} submitting={submitting || false} canCancel={true}/>
+            <TransactionForm api={api} submitting={false} canCancel={true}/>
         );
     }
 }

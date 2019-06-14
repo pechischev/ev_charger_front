@@ -1,31 +1,30 @@
 import { action, observable } from "mobx";
 import { Store } from "@components/store";
-import { EApiRoutes, TApiParams } from "@services/transport";
+import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
+import * as _ from "lodash";
 import { get, isEmpty, stubObject } from "lodash";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { Nullable } from "@app/config";
-import { IWorkerData } from "@app/components/worker-form";
-import { IWorker } from "@entities/worker";
-import { ETransactionFieldTypes, ITransactionData } from "@app/components/transaction-form";
+import { ETransactionFieldTypes } from "@app/components/transaction-form";
+import { ITransaction } from "@entities/transactions";
 
 @autobind
 export class TransactionProfileStore extends Store {
-    @observable private data: IWorker = stubObject();
-    @observable private formData: IWorkerData = stubObject();
-    private transactionId?: string;
+    @observable private data: ITransaction = stubObject();
+    private transactionId?: number;
 
     @action.bound
-    setData(data: IWorker): void {
+    setData(data: ITransaction): void {
         this.data = data;
     }
 
-    getData(): IWorker {
+    getData(): ITransaction {
         return this.data;
     }
 
     @action.bound
-    setTransactionId(id: string): void {
+    setTransactionId(id: number): void {
         this.transactionId = id;
     }
 
@@ -33,14 +32,14 @@ export class TransactionProfileStore extends Store {
         return get(this.data, "transactionId");
     }
 
-    transformData(data?: ITransactionData): Nullable<ITransactionData> {
+    transformData(data?: ITransaction): Nullable<ITransaction> {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        return { data };
+        return data;
     }
 
-    validateData(values: TApiParams<EApiRoutes.CREATE_WORKER>): IFieldError[] {
+    validateData(values: TApiParams<EApiRoutes.TRANSACTION_DATA>): IFieldError[] {
         const fields = [
             { type: ETransactionFieldTypes.RESIDENCE, codes: [] },
             { type: ETransactionFieldTypes.USER, codes: [] },
@@ -51,9 +50,13 @@ export class TransactionProfileStore extends Store {
         return fields;
     }
 
-    @action.bound
-    async onSubmit(data: ITransactionData): Promise<void> {
-
+    async getTransactionData(transactionId: number): Promise<void> {
+        return this.asyncCall(this.transport.getTransactionData(transactionId)).then(this.onSuccessGetData);
     }
 
+    private onSuccessGetData(response: TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.GET>): void {
+        console.info("[TransactionProfileStore.onSuccessGetData]: ", response);
+        const data = _.get<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.GET>, "data">(response, "data");
+        this.setData(data);
+    }
 }

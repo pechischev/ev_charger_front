@@ -1,8 +1,8 @@
-import { ETransactionStatus } from "@entities/transactions";
-import { IUser } from "@entities/user";
+import { ETransactionStatus } from "@entities/transactions/ETransactionStatus";
 import { IItem } from "@entities/_common";
+import { IUser } from "@entities/user";
 
-export interface ITransactionsResponse {
+export interface ITransaction {
     id: number;
     status: ETransactionStatus;
     amount: number;
