@@ -73,6 +73,20 @@
     }
 }
 
+.dashboard-graph {
+    margin: 20px 20px 20px 0;
+}
+
+.dashboard-table {
+    margin: 20px 20px 20px 0;
+
+    .list-actions {
+        &__add-button {
+            margin-right: 0;
+        }
+    }
+}
+
 @media (max-width: 1400px) {
     .dashboard-main-cards {
         grid-template-columns: repeat(2, 1fr);
@@ -86,5 +100,9 @@
                 margin: 0 0 20px auto;
             }
         }
+    }
+
+    .dashboard-graph, .dashboard-table {
+        margin: 20px 0;
     }
 }

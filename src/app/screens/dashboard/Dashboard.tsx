@@ -2,9 +2,13 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import "./Dashboard.scss";
+import { Button } from "@components/button";
+import { redirectToTransactionList } from "@utils/history";
+import { LastTransactionsList } from ".";
 
 export class Dashboard extends Component {
     render(): ReactNode {
+        const actionElement = this.getActionElement();
         return (
             <div className="side-app">
                 <div className="page-header">
@@ -45,6 +49,22 @@ export class Dashboard extends Component {
                             )}
                         />
                     </div>
+                    <Card
+                        className="dashboard-graph"
+                        title="Statistics"
+                        content={this.renderGraph}
+                    />
+                    <Card
+                        className="dashboard-table"
+                        title="Last transactions"
+                        content={
+                            <LastTransactionsList
+                                step={10}
+                                canSearch={false}
+                                actionElement={actionElement}
+                            />
+                        }
+                    />
                 </div>
             </div>
         );
@@ -59,6 +79,20 @@ export class Dashboard extends Component {
                 </div>
                 <div className="main-card_icon" data-image={icon}/>
             </div>
+        );
+    }
+
+    private renderGraph(): ReactNode {
+        return void 0;
+    }
+
+    private getActionElement(): ReactNode {
+        return (
+            <Button
+                type={"primary"}
+                onClick={redirectToTransactionList}
+                text="See more"
+            />
         );
     }
 }
