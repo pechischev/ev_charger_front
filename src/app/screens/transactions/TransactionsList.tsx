@@ -24,14 +24,14 @@ export class TransactionsList extends List<ITransactionsListItem> {
 
     protected getColumns(): Array<IColumn<ITransactionsListItem>> {
         return [
-            { id: "a", label: "Transaction Id", size: "0.5fr" },
-            { id: "b", label: "User Id", size: "100px" },
-            { id: "c", label: "Name" },
-            { id: "d", label: "Surname" },
-            { id: "e", label: "Data transaction", size: "0.75fr" },
-            { id: "t", label: "Date of resumption of payment", size: "0.75fr" },
-            { id: "y", label: "Transaction cost", size: "0.75fr" },
-            { id: "u", label: "Status", size: "100px" },
+            { id: "id", label: "Transaction Id", size: "0.5fr" },
+            { id: "customer.id", label: "User Id", size: "100px" },
+            { id: "customer.firstName", label: "Name" },
+            { id: "customer.lastName", label: "Surname" },
+            { id: "payDate", label: "Data transaction", size: "0.75fr" },
+            { id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr" },
+            { id: "amount", label: "Transaction cost", size: "0.75fr" },
+            { id: "status", label: "Status", size: "100px" },
         ];
     }
 
@@ -39,7 +39,7 @@ export class TransactionsList extends List<ITransactionsListItem> {
         redirectOnTransactionProfile(item.id);
     }
 
-    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_USERS>> {
-        return this.store.transport.getUsers(params);
+    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_TRANSACTIONS>> {
+        return this.store.transport.getTransactions(params);
     }
 }

@@ -25,6 +25,9 @@ import { WorkerProfile } from "@app/screens/worker-profile";
 import { Transactions } from "@app/screens/transactions";
 import { AddTransaction } from "./screens/add-transaction";
 import { TransactionProfile } from "@app/screens/transaction-profile";
+import { BillingSettings } from "./screens/billing-settings";
+import { CarBrands } from "./screens/car-brands";
+import { CarModels } from "./screens/car-models";
 
 export class App extends Component {
     constructor(props: object) {
@@ -119,7 +122,17 @@ export class App extends Component {
                                 <PrivateRoute
                                     exact={true}
                                     path={`/${EPaths.BILLING_INFO}`}
-                                    component={Settings}
+                                    component={BillingSettings}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.CAR_BRANDS}`}
+                                    component={CarBrands}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.CAR_MODELS}`}
+                                    component={CarModels}
                                 />
                                 <PrivateRoute
                                     exact={true}

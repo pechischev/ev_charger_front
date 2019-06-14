@@ -1,6 +1,14 @@
 import { AxiosResponse } from "axios";
 import { EApiMethods } from "./EApiMethods";
-import { ICompanyInfoResponse, IListResponse, ILoginResponse, IUserResponse } from "./responses";
+import {
+    ICompanyInfoResponse,
+    IListResponse,
+    ILoginResponse,
+    IUserResponse,
+    IVehicleDataCountResponse,
+    IBillingSettingsResponse,
+    ITransactionsResponse,
+} from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
 import { IAuthUser, IUser, IUserListItem } from "@entities/user";
@@ -8,6 +16,7 @@ import { IWorker } from "@entities/worker";
 import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 import { ICustomer } from "@entities/customer";
+import { ITransactionsListItem } from "@entities/transactions";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -43,6 +52,22 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_BOUND_RESIDENCES]: number[];
     [EApiRoutes.WORKER_DATA]: {
         [EApiMethods.GET]: IWorker;
+    };
+    [EApiRoutes.BILLING_SETTINGS]: {
+        [EApiMethods.GET]: IBillingSettingsResponse;
+    };
+    [EApiRoutes.GET_VEHICLE_BRANDS]: IListResponse<object>;
+    [EApiRoutes.GET_VEHICLE_MODELS]: IListResponse<object>;
+    [EApiRoutes.VEHICLE_BRAND]: {
+        [EApiMethods.GET]: IItem;
+    };
+    [EApiRoutes.VEHICLE_MODEL]: {
+        [EApiMethods.GET]: IItem;
+    };
+    [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse;
+    [EApiRoutes.GET_TRANSACTIONS]: IListResponse<ITransactionsListItem>;
+    [EApiRoutes.TRANSACTION_DATA]: {
+        [EApiMethods.GET]: ITransactionsResponse;
     };
 
 }

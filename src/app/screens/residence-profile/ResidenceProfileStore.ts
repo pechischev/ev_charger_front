@@ -2,7 +2,7 @@ import { action, observable } from "mobx";
 import { Store } from "@components/store";
 import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
-import { toNumber, isEmpty, toString, get } from "lodash";
+import { get, isEmpty, toNumber, toString } from "lodash";
 import { autobind } from "core-decorators";
 import { ICharger, IResidence } from "@entities/residence";
 import { IFieldError } from "@app/config/IFieldError";
@@ -60,9 +60,11 @@ export class ResidenceProfileStore extends Store {
         }
         const { title, state, city, address, extraAddress, billingRate, operator, zipCode, serviceFee } = data;
         return {
-            ...{title, city, address, extraAddress, zipCode, billingRate, serviceFee},
-            operatorId: toNumber(get(operator, "id")),
-            stateId: toNumber(get(state, "id")),
+            ...{
+                title, city, address, extraAddress, zipCode, billingRate: parseFloat(`${billingRate}`),
+                serviceFee: parseFloat(`${serviceFee}`), operatorId: toNumber(get(operator, "id")),
+                stateId: toNumber(get(state, "id")),
+            },
         };
     }
 
@@ -75,6 +77,7 @@ export class ResidenceProfileStore extends Store {
             { type: EResidenceFieldTypes.ZIP_CODE, codes: [] },
             { type: EResidenceFieldTypes.OPERATOR, codes: [] },
             { type: EResidenceFieldTypes.BILLING_RATE, codes: [] },
+            { type: EResidenceFieldTypes.SERVICE_FEE, codes: [] },
         ];
     }
 
@@ -95,9 +98,11 @@ export class ResidenceProfileStore extends Store {
     }
 
     async updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>): Promise<void> {
-        const { stateId, operatorId, ...rest } = params;
+        const { stateId, operatorId, billingRate, serviceFee,  ...rest } = params;
         return this.asyncCall(this.transport.updateResidence({
             ...rest,
+            billingRate: parseFloat(`${billingRate}`),
+            serviceFee: parseFloat(`${serviceFee}`),
             stateId: toNumber(stateId),
             operatorId: toNumber(operatorId),
         }, this.residenceId as string), this.onError).then(this.onUpdateResidence);

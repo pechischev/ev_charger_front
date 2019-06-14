@@ -11,9 +11,7 @@ export class Transactions extends Component {
                 <div className="page-content">
                     <Card
                         title="Transactions table"
-                        content={
-                            <TransactionsList canDateSearch={true}/>
-                        }
+                        content={<TransactionsList canDateSearch={true}/>}
                     />
                 </div>
             </div>

@@ -12,11 +12,18 @@ import { WorkerProfileStore } from ".";
 import { WorkerForm } from "@app/components/worker-form";
 import { Modal } from "@components/modal";
 import { BindOperatorForm } from "./view";
+import { redirectToSettings, redirectToWorkerList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
 export class WorkerProfile extends Component<RouteProps> {
     private readonly store = new WorkerProfileStore();
+    private readonly links: IBreadcrumb[] = [
+        { label: "Settings", handler: redirectToSettings },
+        { label: "CMS Users", handler: redirectToWorkerList },
+        { label: "Profile" },
+    ];
 
     constructor(props: RouteProps) {
         super(props);
@@ -32,7 +39,10 @@ export class WorkerProfile extends Component<RouteProps> {
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">CMS User</div>
+                <div className="page-header">
+                    <div className="page-title">Add company user</div>
+                    <Breadcrumb crumbs={this.links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         className="residence-card"

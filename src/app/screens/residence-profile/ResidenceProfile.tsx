@@ -14,11 +14,17 @@ import { Modal } from "@components/modal";
 import { BillingList, ChargersList, ResidenceProfileStore, UsersList } from ".";
 import { CreateChargerForm, EditChargerForm } from "./view";
 import { AppContext } from "@context";
+import { redirectToResidenceList } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
 export class ResidenceProfile extends Component<RouteProps> {
     private readonly store = new ResidenceProfileStore();
+    private readonly links: IBreadcrumb[] = [
+        { label: "Residences", handler: redirectToResidenceList },
+        { label: "Profile" },
+    ];
 
     constructor(props: RouteProps) {
         super(props);
@@ -35,7 +41,10 @@ export class ResidenceProfile extends Component<RouteProps> {
         const actionElement = this.getActionElement();
         return (
             <div className="side-app">
-                <div className="page-header">Residence</div>
+                <div className="page-header">
+                    <div className="page-title">Residence</div>
+                    <Breadcrumb crumbs={this.links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         className="residence-card"

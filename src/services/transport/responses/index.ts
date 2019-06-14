@@ -4,3 +4,6 @@ export { ILoginResponse } from "./ILoginResponse";
 export { IListResponse } from "./IListResponse";
 export { IUserResponse } from "./IUserResponse";
 export { ICompanyInfoResponse } from "./ICompanyInfoResponse";
+export { IVehicleDataCountResponse } from "./IVehicleDataCountResponse";
+export { IBillingSettingsResponse } from "./IBillingSettingsResponse";
+export { ITransactionsResponse } from "./ITransactionsResponse";

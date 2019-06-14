@@ -11,12 +11,17 @@ import { EmailField, InputField, PhoneField, SelectField, ZipCodeField } from "@
 import { AppContext } from "@context";
 import { Button } from "@components/button";
 import { RouteProps } from "react-router";
+import { redirectToSettings } from "@utils/history";
+import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 
 @observer
 @autobind
 export class CompanySettings extends Component<RouteProps> {
     private readonly store = new CompanySettingsStore();
-
+    private readonly links: IBreadcrumb[] = [
+        { label: "Settings", handler: redirectToSettings },
+        { label: "Company Information" },
+    ];
     constructor(props: RouteProps) {
         super(props);
         this.store.init();
@@ -27,7 +32,10 @@ export class CompanySettings extends Component<RouteProps> {
     render(): ReactNode {
         return (
             <div className="side-app">
-                <div className="page-header">Company Information</div>
+                <div className="page-header">
+                    <div className="page-title">Company Information</div>
+                    <Breadcrumb crumbs={this.links}/>
+                </div>
                 <div className="page-content">
                     <Card
                         title="Customize your Company Information"

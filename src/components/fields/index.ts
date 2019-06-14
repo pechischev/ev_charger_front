@@ -8,5 +8,5 @@ export { YearField } from "./YearField";
 export { LicencePlateField } from "./LicencePlateField";
 export { PasswordField } from "./PasswordField";
 export { MultiSelectField } from "./MultiSelectField";
-export { DateField } from "./DateField";
 export { AmountField } from "./AmountField";
+export { DateField } from "./DateField";

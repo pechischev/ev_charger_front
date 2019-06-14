@@ -5,7 +5,7 @@ export interface IResidence {
     id: number;
     title: string;
     billingRate?: number;
-    serviceFee?: string;
+    serviceFee?: number;
     address: string;
     extraAddress?: string;
     city: string;
