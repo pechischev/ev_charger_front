@@ -5,7 +5,6 @@ import {
     ICompanyInfoResponse,
     IListResponse,
     ILoginResponse,
-    ITransactionsResponse,
     IUserResponse,
     IVehicleDataCountResponse,
 } from "./responses";
@@ -16,7 +15,7 @@ import { IWorker } from "@entities/worker";
 import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 import { ICustomer } from "@entities/customer";
-import { ITransactionsListItem } from "@entities/transactions";
+import { TTransactionInfo, TTransactionListItem } from "@entities/transactions";
 import { TPromoCodeInfo, TPromoCodeListItem } from "@entities/promo-code";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
@@ -67,10 +66,9 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.GET]: IItem;
     };
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse;
-    [EApiRoutes.GET_TRANSACTIONS]: IListResponse<ITransactionsListItem>;
+    [EApiRoutes.GET_TRANSACTIONS]: IListResponse<TTransactionListItem>;
     [EApiRoutes.TRANSACTION_DATA]: {
-        [EApiMethods.GET]: ITransactionsResponse;
-        [EApiMethods.POST]: ITransactionsResponse;
+        [EApiMethods.GET]: TTransactionInfo;
     };
     [EApiRoutes.GET_PROMO_CODES]: IListResponse<TPromoCodeListItem>;
     [EApiRoutes.PROMO_CODE]: {

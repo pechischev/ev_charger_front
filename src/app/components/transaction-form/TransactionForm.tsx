@@ -36,6 +36,7 @@ export class TransactionForm extends Component<ITransactionForm> {
                     label={"Residence"}
                     options={AppContext.getInfoStore().residences}
                     placeholder={"Select residence"}
+                    disabled={true}
                 />
                 <InputField
                     name={ETransactionFieldTypes.USER}
@@ -68,6 +69,7 @@ export class TransactionForm extends Component<ITransactionForm> {
                     name={ETransactionFieldTypes.AMOUNT}
                     label="Amount"
                     placeholder="Enter amount"
+                    disabled={true}
                 />
                 <div className="transactions-form-button clearfix">
                     <Button

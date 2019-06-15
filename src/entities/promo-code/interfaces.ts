@@ -20,7 +20,7 @@ export type TPromoCodeFormData = Pick<IPromoCodeInfo, "code" | "discount" | "act
     discountType: IItem;
     status: IItem;
     residences: IItem[];
-}
+};
 
 export type TPromoCodeInfo = IPromoCodeInfo & { residences: IItem[] };
 

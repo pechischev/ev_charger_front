@@ -29,7 +29,6 @@ export class TransactionProfile extends Component<RouteProps> {
 
         if (AppContext.getHistory().location) {
             const { id } = qs.parse(AppContext.getHistory().location.search);
-            this.store.setTransactionId(parseInt(`${id}`, 10));
             this.store.getTransactionData(parseInt(`${id}`, 10));
         }
     }
