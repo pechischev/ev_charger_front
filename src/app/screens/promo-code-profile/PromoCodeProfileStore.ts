@@ -1,17 +1,18 @@
 import { action, observable } from "mobx";
 import { Store } from "@components/store";
-import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
+import { EApiMethods, EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
 import { isEmpty } from "lodash";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { Nullable } from "@app/config";
 import { EPromoCodeFieldTypes } from "@app/components/promo-code-form";
-import { IPromoCode } from "@entities/promo-code";
+import { EDiscountType, TPromoCodeFormData, TPromoCodeInfo } from "@entities/promo-code";
+import { EStatus } from "@entities/user";
 
 @autobind
 export class PromoCodeProfileStore extends Store {
-    @observable private data: IPromoCode = _.stubObject();
+    @observable private data: TPromoCodeInfo = _.stubObject();
     private promoCodeId?: string;
 
     getPromoCode(promoCodeId: string): void {
@@ -19,11 +20,11 @@ export class PromoCodeProfileStore extends Store {
     }
 
     @action.bound
-    setData(data: IPromoCode): void {
+    setData(data: TPromoCodeInfo): void {
         this.data = data;
     }
 
-    getData(): IPromoCode {
+    getData(): TPromoCodeInfo {
         return this.data;
     }
 
@@ -36,31 +37,32 @@ export class PromoCodeProfileStore extends Store {
         return this.promoCodeId;
     }
 
-    transformPromoCodeData(data?: IPromoCode): Nullable<TApiParams<EApiRoutes.PROMO_CODE>> {
+    transformPromoCodeData(data?: TPromoCodeInfo): Nullable<TPromoCodeFormData> {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        const { amount, ...rest } = data;
-        return { amount: parseFloat(`${amount}`), ...rest };
+        const { discount, status, discountType, ...rest } = data;
+        const discountSymbol = discountType === EDiscountType.PERCENTAGE ? "%" : "$";
+        return {
+            discount: parseFloat(`${discount}`),
+            status: { id: status, title: _.capitalize(status) },
+            discountType: { id: discountType, title: discountSymbol },
+            ...rest,
+        };
     }
 
     validateData(): IFieldError[] {
         return [
-            { type: EPromoCodeFieldTypes.CODE, codes: [] },
-            { type: EPromoCodeFieldTypes.AMOUNT_TYPE, codes: [] },
-            { type: EPromoCodeFieldTypes.AMOUNT, codes: [] },
-            { type: EPromoCodeFieldTypes.TIME_ACTION, codes: [] },
-            { type: EPromoCodeFieldTypes.RESIDENCES, codes: [] },
             { type: EPromoCodeFieldTypes.STATUS, codes: [] },
         ];
     }
 
-    async updatePromoCode(params: TApiParams<EApiRoutes.PROMO_CODE>): Promise<void> {
-        const { amount, ...rest } = params;
-        return this.asyncCall(this.transport.updatePromoCode({
-            ...rest,
-            amount: parseFloat(`${amount}`),
-        }, this.promoCodeId), this.onError).then(this.onUpdatePromoCode);
+    async updatePromoCode(params: TPromoCodeFormData): Promise<void> {
+        const { status } = params;
+        return this.asyncCall(
+            this.transport.updatePromoCode({ status: status.id as EStatus }, _.toString(this.promoCodeId))
+        )
+            .then(this.onUpdatePromoCode);
     }
 
     private onSuccessGetData(response: TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.GET>): void {
@@ -71,7 +73,5 @@ export class PromoCodeProfileStore extends Store {
 
     private onUpdatePromoCode(response: TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.POST>): void {
         console.info("[PromoCodeProfileStore.onUpdatePromoCode]: ", response);
-        const data = _.get<TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.POST>, "data">(response, "data");
-        this.setData(data);
     }
 }

@@ -5,13 +5,24 @@ import { redirectOnAddPromoCodeForm, redirectToSettings } from "@utils/history";
 import { Button } from "@components/button";
 import { PromoCodeList, PromoCodesStore } from ".";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
+import { autobind } from "core-decorators";
+import { observer } from "mobx-react";
+import { RouteProps } from "react-router";
 
+@observer
+@autobind
 export class PromoCodes extends Component {
     private readonly store = new PromoCodesStore();
     private readonly links: IBreadcrumb[] = [
         { label: "Settings", handler: redirectToSettings },
         { label: "Promo Codes" },
     ];
+
+    constructor(props: RouteProps) {
+        super(props);
+
+        this.store.init();
+    }
 
     render(): ReactNode {
         const actionElement = this.getActionElement();

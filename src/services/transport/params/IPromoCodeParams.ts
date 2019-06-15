@@ -1,11 +1,6 @@
-import { IItem } from "@entities/_common";
+import { IPromoCodeInfo } from "@entities/promo-code";
+import { Omit } from "utility-types";
 
-export interface IPromoCodeParams {
-    id: number;
-    code: string;
-    timeAction: number;
-    amount: number;
-    amountType: string;
-    residences: IItem[];
-    status: string;
+export interface IPromoCodeParams extends Omit<IPromoCodeInfo, "id"> {
+    residences: number[];
 }

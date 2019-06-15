@@ -10,7 +10,7 @@ export class PromoCodesStore extends Store {
             .then(this.onRemovedPromoCode);
     }
 
-    private onRemovedPromoCode(response: TAxiosResponse<EApiRoutes.PROMO_CODES, EApiMethods.DELETE>): void {
+    private onRemovedPromoCode(response: TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.DELETE>): void {
         console.info("[PromoCodesStore.onRemovedPromoCode]: ", response);
     }
 }

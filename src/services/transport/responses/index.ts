@@ -7,4 +7,3 @@ export { ICompanyInfoResponse } from "./ICompanyInfoResponse";
 export { IVehicleDataCountResponse } from "./IVehicleDataCountResponse";
 export { IBillingSettingsResponse } from "./IBillingSettingsResponse";
 export { ITransactionsResponse } from "./ITransactionsResponse";
-export { IPromoCodeResponse } from "./IPromoCodeResponse";

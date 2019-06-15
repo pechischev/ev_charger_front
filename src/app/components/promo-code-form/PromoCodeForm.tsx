@@ -11,6 +11,8 @@ import { IPromoCodeForm } from "@app/components/promo-code-form/interfaces";
 import { Button } from "@components/button";
 import { redirectToPromoCodeList } from "@utils/history";
 import "./PromoCodeForm.scss";
+import { EDiscountType } from "@entities/promo-code";
+import { EStatus } from "@entities/user";
 
 @observer
 @autobind
@@ -44,7 +46,10 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     name={EPromoCodeFieldTypes.AMOUNT_TYPE}
                     placeholder={"Select value discount type"}
                     options={
-                        [{ id: "1", title: "%" }, { id: "2", title: "$" }]
+                        [
+                            { id: EDiscountType.PERCENTAGE, title: "%" },
+                            { id: EDiscountType.VALUE, title: "$" }
+                        ]
                     }
                     disabled={!isCreate}
                 />
@@ -77,11 +82,14 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     disabled={!isCreate}
                 />
                 <SelectField
-                    label={"Ststus"}
+                    label={"Status"}
                     name={EPromoCodeFieldTypes.STATUS}
                     placeholder={"Select status"}
                     options={
-                        [{ id: "1", title: "Active" }, { id: "2", title: "Inactive" }]
+                        [
+                            { id: EStatus.ACTIVE, title: "Active" },
+                            { id: EStatus.INACTIVE, title: "Inactive" }
+                        ]
                     }
                     isVisible={isCreate}
                 />

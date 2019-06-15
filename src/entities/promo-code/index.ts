@@ -1,2 +1,1 @@
-export { IPromoCodeListItem } from "./IPromoCodeListItem";
-export { IPromoCode } from "./IPromoCode";
+export { EDiscountType, IPromoCodeInfo, TPromoCodeInfo, TPromoCodeListItem, TPromoCodeFormData } from "./interfaces";

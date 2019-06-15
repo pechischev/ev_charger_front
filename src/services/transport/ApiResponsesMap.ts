@@ -1,14 +1,13 @@
 import { AxiosResponse } from "axios";
 import { EApiMethods } from "./EApiMethods";
 import {
+    IBillingSettingsResponse,
     ICompanyInfoResponse,
     IListResponse,
     ILoginResponse,
+    ITransactionsResponse,
     IUserResponse,
     IVehicleDataCountResponse,
-    IBillingSettingsResponse,
-    IPromoCodeResponse,
-    ITransactionsResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
@@ -18,6 +17,7 @@ import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 import { ICustomer } from "@entities/customer";
 import { ITransactionsListItem } from "@entities/transactions";
+import { TPromoCodeInfo, TPromoCodeListItem } from "@entities/promo-code";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -72,9 +72,9 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.GET]: ITransactionsResponse;
         [EApiMethods.POST]: ITransactionsResponse;
     };
+    [EApiRoutes.GET_PROMO_CODES]: IListResponse<TPromoCodeListItem>;
     [EApiRoutes.PROMO_CODE]: {
-        [EApiMethods.GET]: IPromoCodeResponse;
-        [EApiMethods.POST]: IPromoCodeResponse;
+        [EApiMethods.GET]: TPromoCodeInfo;
     };
 
 }
@@ -90,4 +90,4 @@ export type TAxiosResponse<K extends keyof IApiRoutesResponsesMap,
 export type TApiResponse<K extends keyof IApiRoutesResponsesMap,
     // tslint:disable-next-line:no-any
     M extends EApiMethods = any> = IApiRoutesResponsesMap[K] extends IMethodMap<{}>
-        ? IApiRoutesResponsesMap[K][M] : IApiRoutesResponsesMap[K];
+    ? IApiRoutesResponsesMap[K][M] : IApiRoutesResponsesMap[K];

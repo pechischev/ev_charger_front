@@ -14,15 +14,16 @@ import * as React from "react";
 import { Fragment, ReactNode } from "react";
 import { action, observable } from "mobx";
 import { Modal } from "@components/modal";
-import { IPromoCodeListItem } from "@entities/promo-code";
+import { EDiscountType, TPromoCodeListItem } from "@entities/promo-code";
+import * as _ from "lodash";
 
-interface IPromoCodeListProps extends IList<IPromoCodeListItem> {
+interface IPromoCodeListProps extends IList<TPromoCodeListItem> {
     onRemoveItem(promoCodeId: number): Promise<void>;
 }
 
 @observer
 @autobind
-export class PromoCodeList extends List<IPromoCodeListItem, IPromoCodeListProps> {
+export class PromoCodeList extends List<TPromoCodeListItem, IPromoCodeListProps> {
     @observable private isOpenModal = false;
 
     render(): ReactNode {
@@ -51,16 +52,15 @@ export class PromoCodeList extends List<IPromoCodeListItem, IPromoCodeListProps>
         ];
     }
 
-    protected getColumns(): Array<IColumn<IPromoCodeListItem>> {
+    protected getColumns(): Array<IColumn<TPromoCodeListItem>> {
         return [
-            { id: "a", label: "Promo Code" },
-            { id: "b", label: "Value Discount Type" },
-            { id: "c", label: "Discount Amount" },
-            { id: "d", label: "Residences list" },
-            { id: "e", label: "Status" },
+            { id: "code", label: "Promo Code" },
+            { id: "discount", label: "Discount Amount", handler: this.getDiscountValue },
+            { id: "residences", label: "Residences list", handler: this.renderResidences },
+            { id: "status", label: "Status" },
             {
                 id: "action", label: "", size: "150px",
-                handler: (item: IPromoCodeListItem) => {
+                handler: (item: TPromoCodeListItem) => {
                     return (
                         <Button
                             type="delete"
@@ -74,21 +74,20 @@ export class PromoCodeList extends List<IPromoCodeListItem, IPromoCodeListProps>
         ];
     }
 
-    protected onClickRow(item: IPromoCodeListItem): void {
+    protected onClickRow(item: TPromoCodeListItem): void {
         redirectToPromoCodeProfile(item.id);
     }
 
     protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>> {
-        return this.store.transport.getUsers(params); // TODO: getPromoCodes
+        return this.store.transport.getPromoCodesList(params);
     }
 
-    private onDeletePromoCode(item: IPromoCodeListItem, event: React.MouseEvent<HTMLElement>): void {
+    private onDeletePromoCode(item: TPromoCodeListItem, event: React.MouseEvent<HTMLElement>): void {
         event.preventDefault();
         this.openModal();
     }
 
     private deletePromoCode(): void {
-        console.log(this.store.getSelectedItem());
         const item = this.store.getSelectedItem();
         if (!item) {
             return;
@@ -104,5 +103,19 @@ export class PromoCodeList extends List<IPromoCodeListItem, IPromoCodeListProps>
     @action.bound
     private openModal(): void {
         this.isOpenModal = true;
+    }
+
+    private getDiscountValue(item: TPromoCodeListItem): ReactNode {
+        const character = item.discountType === EDiscountType.PERCENTAGE ? "%" : "$";
+        return `${item.discount}${character}`;
+    }
+
+    private renderResidences(item: TPromoCodeListItem): ReactNode {
+        const residence = _.head(item.residences);
+        const canTruncate = item.residences.length > 1;
+        if (!_.isObject(residence)) {
+            return void 0;
+        }
+        return `${residence.title}${canTruncate ? ", ..." : ""}`;
     }
 }

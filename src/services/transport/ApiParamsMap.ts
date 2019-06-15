@@ -31,6 +31,7 @@ export type TParamsUnion = ILoginParams
     | IVehicleModelParams
     | IVehicleBrandParams
     | IVehicleDataCountParams
+    | Partial<IPromoCodeParams>
     | IPromoCodeParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
@@ -57,7 +58,8 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.CREATE_VEHICLE_MODEL]: IVehicleModelParams;
     [EApiRoutes.VEHICLE_MODEL]: IVehicleModelParams;
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountParams;
-    [EApiRoutes.PROMO_CODE]: IPromoCodeParams;
+    [EApiRoutes.PROMO_CODE]: Partial<IPromoCodeParams>;
+    [EApiRoutes.CREATE_PROMO_CODE]: IPromoCodeParams;
 }
 
 // @ts-ignore:2344
