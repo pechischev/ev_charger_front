@@ -13,7 +13,7 @@ import {
     IVehicleDataCountParams,
     IVehicleModelParams,
     IWorkerParams,
-    IBillingSettingsParams,
+    IBillingSettingsParams, IPromoCodeParams,
 } from "./params";
 import { IMethodMap, TMap } from "./TMap";
 
@@ -30,7 +30,9 @@ export type TParamsUnion = ILoginParams
     | IUserParams
     | IVehicleModelParams
     | IVehicleBrandParams
-    | IVehicleDataCountParams;
+    | IVehicleDataCountParams
+    | Partial<IPromoCodeParams>
+    | IPromoCodeParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.SIGN_IN]: ILoginParams;
@@ -56,6 +58,8 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.CREATE_VEHICLE_MODEL]: IVehicleModelParams;
     [EApiRoutes.VEHICLE_MODEL]: IVehicleModelParams;
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountParams;
+    [EApiRoutes.PROMO_CODE]: Partial<IPromoCodeParams>;
+    [EApiRoutes.CREATE_PROMO_CODE]: IPromoCodeParams;
 }
 
 // @ts-ignore:2344

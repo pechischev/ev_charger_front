@@ -28,6 +28,9 @@ import { TransactionProfile } from "@app/screens/transaction-profile";
 import { BillingSettings } from "./screens/billing-settings";
 import { CarBrands } from "./screens/car-brands";
 import { CarModels } from "./screens/car-models";
+import { PromoCodes } from "@app/screens/promo-codes";
+import { AddPromoCodeForm } from "@app/screens/add-promo-code";
+import { PromoCodeProfile } from "./screens/promo-code-profile";
 
 export class App extends Component {
     constructor(props: object) {
@@ -149,6 +152,22 @@ export class App extends Component {
                                     path={`/${EPaths.TRANSACTION_CREATE_FORM}`}
                                     component={AddTransaction}
                                 />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.PROMO_CODE_INFO}`}
+                                    component={PromoCodes}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.PROMO_CODE_FORM}`}
+                                    component={AddPromoCodeForm}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.PROMO_CODE_PROFILE}`}
+                                    component={PromoCodeProfile}
+                                />
+                                <Route component={() => <Redirect to={`/${EPaths.ERROR}`} />}/>
                             </Switch>
                         </Layout>
                     </Route>

@@ -45,4 +45,8 @@ export enum EApiRoutes {
 
     GET_TRANSACTIONS = "/v1.0/cms/transactions",
     TRANSACTION_DATA = "/v1.0/cms/transaction/{transactionId}",
+
+    GET_PROMO_CODES = "/v1.0/cms/codes",
+    CREATE_PROMO_CODE = "/v1.0/cms/code",
+    PROMO_CODE = "/v1.0/cms/code/{codeId}",
 }

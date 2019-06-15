@@ -1,3 +1,7 @@
-export { ITransactionsListItem } from "./ITransactionsListItem";
-export { ITransaction } from "./ITransaction";
-export { ETransactionStatus } from "./ETransactionStatus";
+export {
+    ETransactionStatus,
+    ITransaction,
+    TTransactionInfo,
+    TTransactionListItem,
+    TTransactionFormData,
+} from "./interfaces";

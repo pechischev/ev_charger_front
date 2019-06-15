@@ -11,3 +11,4 @@ export { IBillingSettingsParams } from "./IBillingSettingsParams";
 export { IVehicleBrandParams } from "./IVehicleBrandParams";
 export { IVehicleModelParams } from "./IVehicleModelParams";
 export { IVehicleDataCountParams } from "./IVehicleDataCountParams";
+export { IPromoCodeParams } from "./IPromoCodeParams";

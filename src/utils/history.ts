@@ -85,3 +85,18 @@ export function redirectOnAddTransactionForm(): void {
     const link = `/${EPaths.TRANSACTION_CREATE_FORM}`;
     AppContext.getHistory().push(link);
 }
+
+export function redirectToPromoCodeList(): void {
+    const link = `/${EPaths.PROMO_CODE_INFO}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectOnAddPromoCodeForm(): void {
+    const link = `/${EPaths.PROMO_CODE_FORM}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToPromoCodeProfile(promoCodeId: number): void {
+    const link = `/${EPaths.PROMO_CODE_PROFILE}?id=${promoCodeId}`;
+    AppContext.getHistory().push(link);
+}

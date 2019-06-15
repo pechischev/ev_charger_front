@@ -87,13 +87,14 @@ export class CarBrandsList extends List<IBrandListItem, ICarBrandsListProps> {
 
     private onDeleteCarBrand(item: IBrandListItem, event: React.MouseEvent<HTMLElement>): void {
         event.preventDefault();
-        this.props.checkUsedModel({brandId: item.id as number}).then((response) => {
-            const data = _.get<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA, EApiMethods.GET>, "data">(
-                response, "data"
-            );
-            const state = !!data.usedBrandsCount ? ERemoveBrandState.DENIED : ERemoveBrandState.ALLOWED;
-            this.setModalState(state);
-        });
+        this.props.checkUsedModel({brandId: item.id})
+            .then((response) => {
+                const data = _.get<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA, EApiMethods.GET>, "data">(
+                    response, "data"
+                );
+                const state = !!data.usedBrandsCount ? ERemoveBrandState.DENIED : ERemoveBrandState.ALLOWED;
+                this.setModalState(state);
+            });
     }
 
     private deleteCarBrand(): void {

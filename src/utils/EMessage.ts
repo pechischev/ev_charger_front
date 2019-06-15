@@ -14,4 +14,5 @@ export enum EMessages {
 
     LIST_ACTIONS_DATE = "Enter a correct date",
     LIST_ACTIONS_DATES = "Enter a correct dates",
+    PROMO_CODE_INCORRECT = "Enter a valid Promo Code",
 }
