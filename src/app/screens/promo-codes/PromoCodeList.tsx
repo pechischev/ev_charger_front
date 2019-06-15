@@ -14,7 +14,7 @@ import * as React from "react";
 import { Fragment, ReactNode } from "react";
 import { action, observable } from "mobx";
 import { Modal } from "@components/modal";
-import { EDiscountType, TPromoCodeListItem } from "@entities/promo-code";
+import { EDiscountCharacter, EDiscountType, TPromoCodeListItem } from "@entities/promo-code";
 import * as _ from "lodash";
 
 interface IPromoCodeListProps extends IList<TPromoCodeListItem> {
@@ -106,7 +106,9 @@ export class PromoCodeList extends List<TPromoCodeListItem, IPromoCodeListProps>
     }
 
     private getDiscountValue(item: TPromoCodeListItem): ReactNode {
-        const character = item.discountType === EDiscountType.PERCENTAGE ? "%" : "$";
+        const character = item.discountType === EDiscountType.PERCENTAGE
+            ? EDiscountCharacter.PERCENTAGE
+            : EDiscountCharacter.CURRENCY;
         return `${item.discount}${character}`;
     }
 

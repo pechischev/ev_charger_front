@@ -11,7 +11,7 @@ import { IPromoCodeForm } from "@app/components/promo-code-form/interfaces";
 import { Button } from "@components/button";
 import { redirectToPromoCodeList } from "@utils/history";
 import "./PromoCodeForm.scss";
-import { EDiscountType } from "@entities/promo-code";
+import { EDiscountCharacter, EDiscountType } from "@entities/promo-code";
 import { EStatus } from "@entities/user";
 
 @observer
@@ -47,8 +47,8 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     placeholder={"Select value discount type"}
                     options={
                         [
-                            { id: EDiscountType.PERCENTAGE, title: "%" },
-                            { id: EDiscountType.VALUE, title: "$" }
+                            { id: EDiscountType.PERCENTAGE, title: EDiscountCharacter.PERCENTAGE },
+                            { id: EDiscountType.VALUE, title: EDiscountCharacter.CURRENCY }
                         ]
                     }
                     disabled={!isCreate}

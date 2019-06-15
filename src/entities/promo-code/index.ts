@@ -1,1 +1,8 @@
-export { EDiscountType, IPromoCodeInfo, TPromoCodeInfo, TPromoCodeListItem, TPromoCodeFormData } from "./interfaces";
+export {
+    EDiscountType,
+    IPromoCodeInfo,
+    TPromoCodeInfo,
+    TPromoCodeListItem,
+    TPromoCodeFormData,
+    EDiscountCharacter,
+} from "./interfaces";

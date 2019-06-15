@@ -7,7 +7,7 @@ import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { Nullable } from "@app/config";
 import { EPromoCodeFieldTypes } from "@app/components/promo-code-form";
-import { EDiscountType, TPromoCodeFormData, TPromoCodeInfo } from "@entities/promo-code";
+import { EDiscountCharacter, EDiscountType, TPromoCodeFormData, TPromoCodeInfo } from "@entities/promo-code";
 import { EStatus } from "@entities/user";
 
 @autobind
@@ -42,7 +42,9 @@ export class PromoCodeProfileStore extends Store {
             return void 0;
         }
         const { discount, status, discountType, ...rest } = data;
-        const discountSymbol = discountType === EDiscountType.PERCENTAGE ? "%" : "$";
+        const discountSymbol = discountType === EDiscountType.PERCENTAGE
+            ? EDiscountCharacter.PERCENTAGE
+            : EDiscountCharacter.CURRENCY;
         return {
             discount: parseFloat(`${discount}`),
             status: { id: status, title: _.capitalize(status) },

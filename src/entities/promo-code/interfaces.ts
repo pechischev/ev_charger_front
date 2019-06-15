@@ -7,6 +7,11 @@ export enum EDiscountType {
     VALUE = "value"
 }
 
+export enum EDiscountCharacter {
+    PERCENTAGE = "%",
+    CURRENCY = "$"
+}
+
 export interface IPromoCodeInfo {
     id: number;
     code: string;
