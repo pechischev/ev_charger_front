@@ -290,6 +290,27 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.post(EApiRoutes.CHECK_VEHICLE_USED_DATA, params);
     }
 
+    async getTransactions(params: TApiParams<EApiRoutes.GET_TRANSACTIONS>):
+        Promise<TAxiosResponse<EApiRoutes.GET_TRANSACTIONS>> {
+        return this.client.get(EApiRoutes.GET_TRANSACTIONS, { params });
+    }
+
+    async getTransactionData(transactionId: number): Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA>> {
+        return this.client.get(`${EApiRoutes.TRANSACTION_DATA.replace("{transactionId}", _.toString(transactionId))}`);
+    }
+
+    async updateTransactionInfo(params: TApiParams<EApiRoutes.TRANSACTION_DATA>, transactionId: number):
+        Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>> {
+        return this.client.post(
+            `${EApiRoutes.TRANSACTION_DATA.replace("{transactionId}", _.toString(transactionId))}`, params
+        );
+    }
+
+    async getUserBillingInfo(params: TApiParams<EApiRoutes.GET_BILLING_DATA>, customerId: string):
+        Promise<TAxiosResponse<EApiRoutes.GET_BILLING_DATA>> {
+        return this.client.get(`${EApiRoutes.GET_BILLING_DATA.replace("{customerId}", customerId)}`, {params});
+    }
+
     async getPromoCodes(params: TApiParams<EApiRoutes.GET_PROMO_CODES>):
         Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>> {
         return this.client.get(EApiRoutes.GET_PROMO_CODES, { params });

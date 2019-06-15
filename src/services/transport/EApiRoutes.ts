@@ -12,6 +12,7 @@ export enum EApiRoutes {
     GET_USERS = "/v1.0/cms/customers",
     CREATE_USER = "/v1.0/cms/customer",
     USER_DATA = "/v1.0/cms/customer/{customerId}",
+    GET_BILLING_DATA = "/v1.0/cms/customer/{customerId}/billingInfo",
 
     GET_RESIDENCES_LIST = "/v1.0/cms/residences",
     CREATE_RESIDENCE = "/v1.0/cms/residence",
@@ -41,6 +42,9 @@ export enum EApiRoutes {
     CREATE_VEHICLE_MODEL = "/v1.0/cms/vehicle/{brandId}/model",
 
     CHECK_VEHICLE_USED_DATA = "/v1.0/cms/vehicleData/count",
+
+    GET_TRANSACTIONS = "/v1.0/cms/transactions",
+    TRANSACTION_DATA = "/v1.0/cms/transaction/{transactionId}",
 
     GET_PROMO_CODES = "",
     CREATE_PROMO_CODES = "",
