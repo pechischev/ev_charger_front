@@ -8,6 +8,7 @@ import { IFieldError } from "@app/config/IFieldError";
 import { Nullable } from "@app/config";
 import { ETransactionFieldTypes } from "@app/components/transaction-form";
 import { TTransactionFormData, TTransactionInfo } from "@entities/transactions";
+import { parseAmountFieldValue } from "@utils";
 
 @autobind
 export class TransactionProfileStore extends Store {
@@ -35,7 +36,8 @@ export class TransactionProfileStore extends Store {
         return {
             paymentType: "Credit card",
             customer: `${firstName} ${lastName}`,
-            status, residence, amount
+            status, residence,
+            amount: parseAmountFieldValue(amount.toString()),
         };
     }
 

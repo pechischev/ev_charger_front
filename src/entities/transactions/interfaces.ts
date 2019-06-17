@@ -9,7 +9,7 @@ export enum ETransactionStatus {
 export interface ITransaction {
     id: number;
     status: ETransactionStatus;
-    amount: number;
+    amount: string;
     payDate: number;
     chargeToken: string;
 }
