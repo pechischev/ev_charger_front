@@ -28,6 +28,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
     }
 
     render(): ReactNode {
+        const readonly = !AppContext.getUserStore().isAdmin();
         return (
             <div className="residence-main-info clearfix">
                 <Fragment>
@@ -37,20 +38,20 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 name={EResidenceFieldTypes.TITLE}
                                 placeholder={"Enter residence name"}
                                 label={"Residence Name"}
-                                disabled={!AppContext.getUserStore().isAdmin()}
+                                disabled={readonly}
                             />
                             <InputField
                                 name={EResidenceFieldTypes.CITY}
                                 placeholder={"Enter city"}
                                 label={"City"}
-                                disabled={!AppContext.getUserStore().isAdmin()}
+                                disabled={readonly}
                             />
                         </div>
                         <InputField
                             name={EResidenceFieldTypes.ADDRESS}
                             placeholder={"Enter first address"}
                             label={"Address 1"}
-                            disabled={!AppContext.getUserStore().isAdmin()}
+                            disabled={readonly}
                         />
                         <div className="two-object-column clearfix">
                             <SelectField
@@ -58,13 +59,13 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 label={"Property Operator"}
                                 placeholder={"Select property operator"}
                                 options={this.store.operators}
-                                disabled={!AppContext.getUserStore().isAdmin()}
+                                disabled={readonly}
                             />
                             <AmountField
                                 name={EResidenceFieldTypes.BILLING_RATE}
                                 placeholder={"Enter user billing rate"}
                                 label={"User Billing Rate"}
-                                disabled={!AppContext.getUserStore().isAdmin()}
+                                disabled={readonly}
                             />
                         </div>
                     </div>
@@ -75,18 +76,18 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 label={"State"}
                                 options={AppContext.getInfoStore().states}
                                 placeholder={"Select state"}
-                                disabled={!AppContext.getUserStore().isAdmin()}
+                                disabled={readonly}
                             />
                             <ZipCodeField
                                 name={EResidenceFieldTypes.ZIP_CODE}
-                                disabled={!AppContext.getUserStore().isAdmin()}
+                                disabled={readonly}
                             />
                         </div>
                         <InputField
                             name={EResidenceFieldTypes.EXTRA_ADDRESS}
                             placeholder={"Enter second address"}
                             label={"Address 2"}
-                            disabled={!AppContext.getUserStore().isAdmin()}
+                            disabled={readonly}
                         />
                         <div className="two-object-column clearfix">
                             {this.renderServiceFeeField()}
@@ -100,7 +101,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 <Button
                                     className="float-right"
                                     type="primary"
-                                    disabled={!this.props.submitting || !AppContext.getUserStore().isAdmin()}
+                                    disabled={!this.props.submitting || readonly}
                                     onClick={() => this.props.api.handleSubmit()}
                                     text={"Save"}
                                     style={{
