@@ -4,7 +4,7 @@ import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { Subject } from "rxjs";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
-import { ELoginFieldTypes } from "@app/screens/login/ELoginFieldTypes";
+import { EFormTypes } from "@app/config";
 
 @autobind
 export class LoginStore extends Store {
@@ -16,8 +16,8 @@ export class LoginStore extends Store {
 
     validateData(): IFieldError[] {
         return [
-            { type: ELoginFieldTypes.EMAIL, codes: [] },
-            { type: ELoginFieldTypes.PASSWORD, codes: [] },
+            { type: EFormTypes.EMAIL, codes: [0, 15, 16] },
+            { type: EFormTypes.PASSWORD, codes: [0, 14, 19, 20] },
         ];
     }
 

@@ -11,7 +11,6 @@ import { AppContext } from "@context";
 import { LoginStore } from "./LoginStore";
 import { EApiRoutes, TApiResponse } from "@services/transport";
 import { Button } from "@components/button";
-import { ELoginFieldTypes } from ".";
 
 @autobind
 export class Login extends Component {
@@ -52,8 +51,8 @@ export class Login extends Component {
             <div className="card">
                 <div className="card-body p-6">
                     <div className="card-title text-center">Login to Loop EVChargers CMS</div>
-                    <EmailField name={ELoginFieldTypes.EMAIL}/>
-                    <PasswordField label={"Password"} name={ELoginFieldTypes.PASSWORD}/>
+                    <EmailField name={"email"}/>
+                    <PasswordField label={"Password"} name={"password"}/>
                     <div className="form-footer">
                         <Button
                             disabled={!submitting}
