@@ -6,6 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IUsersListItem } from "@entities/residence";
 import { redirectOnUserProfile } from "@utils/history";
+import { StatusMap } from "@entities/user/EStatus";
 
 interface IUsersListProps extends IList<IUsersListItem> {
     residenceId?: string;
@@ -23,7 +24,10 @@ export class UsersList extends List<IUsersListItem, IUsersListProps> {
                 label: "First name",
                 handler: (item: IUsersListItem) => this.getFullUserName(item),
             },
-            { id: "subscription.status", label: "Status" },
+            {
+                id: "subscription.status", label: "Status",
+                handler: (item: IUsersListItem) => StatusMap.get(item.subscription.status),
+            },
         ];
     }
 

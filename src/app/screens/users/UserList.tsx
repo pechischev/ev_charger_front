@@ -27,7 +27,7 @@ export class UserList extends List<IUserListItem> {
             { id: "user.firstName", label: "First name" },
             { id: "user.lastName", label: "Last name" },
             { id: "residence.title", label: "Residence" },
-            { id: "status", label: "Status" },
+            { id: "subscription.status", label: "Status" },
         ];
     }
 
