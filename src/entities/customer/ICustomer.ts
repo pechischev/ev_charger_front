@@ -5,7 +5,10 @@ import { IItem } from "@entities/_common";
 export interface ICustomer {
     userData: Omit<IUser, "status">;
     phone: string;
-    status: Pick<IUser, "status">;
+    subscription: {
+        status: Pick<IUser, "status">;
+        canceled: string;
+    };
 
     contactData: {
         address: string;
