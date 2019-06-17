@@ -23,7 +23,7 @@ export class UsersList extends List<IUsersListItem, IUsersListProps> {
                 label: "First name",
                 handler: (item: IUsersListItem) => this.getFullUserName(item),
             },
-            { id: "status", label: "Status" },
+            { id: "subscription.status", label: "Status" },
         ];
     }
 
