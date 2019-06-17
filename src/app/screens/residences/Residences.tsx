@@ -22,12 +22,13 @@ export class Residences extends Component {
     }
 
     private getActionElement(): ReactNode {
+        const readOnly = !AppContext.getUserStore().isAdmin();
         return (
             <Button
                 type={"primary"}
                 onClick={redirectToResidenceCreateForm}
                 text="Add residence"
-                disabled={!AppContext.getUserStore().isAdmin()}
+                disabled={readOnly}
             />
         );
     }

@@ -22,12 +22,13 @@ export class Users extends Component {
     }
 
     private getActionElement(): ReactNode {
+        const readOnly = !AppContext.getUserStore().isAdmin();
         return (
             <Button
                 type={"primary"}
                 onClick={redirectOnAddUserForm}
                 text={"Add user"}
-                disabled={!AppContext.getUserStore().isAdmin()}
+                disabled={readOnly}
             />
         );
     }

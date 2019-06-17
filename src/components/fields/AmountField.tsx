@@ -16,7 +16,29 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
             return void 0;
         }
         if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(`${value}`.match(dataFormatRegex))) {
-            return EMessages.AMOUNT_INCORRECT;
+            return EMessages.AMOUNT_VALUE_FORMAT_INCORRECT;
+        }
+        return void 0;
+    };
+
+    const parseAmountValue = (value: string): Nullable<string> => {
+        if (!value || !!value) {
+            return void 0;
+        }
+        if (value === "0") {
+            return "0,00";
+        }
+        value = value.replace(".", ",");
+        const arr = value.split(",");
+        let retValue = arr[0] + ",";
+        if (arr[1].length === 0) {
+            return retValue + "00";
+        }
+        if (arr[1].length === 1) {
+            return retValue + arr[1] + "0";
+        }
+        if (arr[1].length === 2) {
+            return retValue + arr[1];
         }
         return void 0;
     };
@@ -27,6 +49,7 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
             name={name}
             placeholder={placeholder}
             validate={validateAmountValue}
+            parse={parseAmountValue}
             {...rest}
         />
     );

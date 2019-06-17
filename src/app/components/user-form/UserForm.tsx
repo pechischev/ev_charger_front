@@ -55,25 +55,35 @@ export class UserForm extends Component<IUserForm> {
 
     private getProfileInfoFields(): ReactNode {
         const { passwordFields } = this.props;
+        const readonly = !AppContext.getUserStore().isAdmin();
         return (
             <Fragment>
                 <InputField
                     label={"First name"}
                     name={EUserFieldTypes.FIRST_NAME}
                     placeholder={"Enter first name"}
+                    disabled={readonly}
                 />
                 <InputField
                     label={"Last name"}
                     name={EUserFieldTypes.LAST_NAME}
                     placeholder={"Enter last name"}
+                    disabled={readonly}
                 />
-                <EmailField name={EUserFieldTypes.EMAIL}/>
-                <PhoneField name={EUserFieldTypes.PHONE}/>
+                <EmailField
+                    name={EUserFieldTypes.EMAIL}
+                    disabled={readonly}
+                />
+                <PhoneField
+                    name={EUserFieldTypes.PHONE}
+                    disabled={readonly}
+                />
                 <SelectField
                     label={"Residence"}
                     name={EUserFieldTypes.RESIDENCE}
                     placeholder={"Select residence"}
                     options={AppContext.getInfoStore().residences}
+                    disabled={readonly}
                 />
                 {passwordFields}
             </Fragment>
@@ -81,35 +91,44 @@ export class UserForm extends Component<IUserForm> {
     }
 
     private getMailingAddressFields(): ReactNode {
+        const readonly = !AppContext.getUserStore().isAdmin();
         return (
             <Fragment>
                 <InputField
                     label={"Address"}
                     name={EUserFieldTypes.ADDRESS}
                     placeholder={"Enter address"}
+                    disabled={readonly}
                 />
                 <InputField
                     label={"Apt/Unit"}
                     name={EUserFieldTypes.APT_UNIT}
                     placeholder={"Enter apt/unit"}
+                    disabled={readonly}
                 />
                 <InputField
                     label={"City"}
                     name={EUserFieldTypes.CITY}
                     placeholder={"Enter city"}
+                    disabled={readonly}
                 />
-                <ZipCodeField name={EUserFieldTypes.ZIP_CODE}/>
+                <ZipCodeField
+                    name={EUserFieldTypes.ZIP_CODE}
+                    disabled={readonly}
+                />
                 <SelectField
                     label={"State"}
                     name={EUserFieldTypes.STATE}
                     placeholder={"Select state"}
                     options={AppContext.getInfoStore().states}
+                    disabled={readonly}
                 />
             </Fragment>
         );
     }
 
     private getVehicleFields(): ReactNode {
+        const readonly = !AppContext.getUserStore().isAdmin();
         return (
             <Fragment>
                 <SelectField
@@ -117,15 +136,23 @@ export class UserForm extends Component<IUserForm> {
                     name={EUserFieldTypes.MAKES}
                     placeholder={"Select make"}
                     options={AppContext.getInfoStore().makes}
+                    disabled={readonly}
                 />
                 <SelectField
                     label={"Model"}
                     name={EUserFieldTypes.MODEL}
                     placeholder={"Select model"}
                     options={AppContext.getInfoStore().models}
+                    disabled={readonly}
                 />
-                <YearField name={EUserFieldTypes.YEAR}/>
-                <LicencePlateField name={EUserFieldTypes.LICENSE_PLATE}/>
+                <YearField
+                    name={EUserFieldTypes.YEAR}
+                    disabled={readonly}
+                />
+                <LicencePlateField
+                    name={EUserFieldTypes.LICENSE_PLATE}
+                    disabled={readonly}
+                />
             </Fragment>
         );
     }

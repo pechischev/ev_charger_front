@@ -17,7 +17,7 @@ export const InputField: FC<IField> = ({
             return validate(value, allValues);
         }
         const onlyWords = /^[\w+_.,]+( [\w_.,]+)*$/g;
-        if (isString(value) && isEmpty(value.match(onlyWords))) {
+        if (isString(value) && isEmpty(value.trim().match(onlyWords))) {
             return EMessages.CONTAINS_INVALID_VALUE;
         }
         return void 0;

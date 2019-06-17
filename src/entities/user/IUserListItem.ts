@@ -2,7 +2,9 @@ import { EStatus } from "./EStatus";
 import { IUser } from "./IUser";
 
 export interface IUserListItem {
-    status: EStatus;
+    subscription: {
+        status: EStatus
+    };
     residence: {
         id: number;
         title: string;
