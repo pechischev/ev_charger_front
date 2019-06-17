@@ -8,6 +8,7 @@ import { EditChargerStore } from "./EditChargerStore";
 import { ChargerForm } from "@app/components/charger-form";
 import { IChargerParams } from "@services/transport/params";
 import { ICharger } from "@entities/residence";
+import { AppContext } from "@context";
 
 interface IEditChargerForm {
     residenceId?: string;
@@ -50,7 +51,7 @@ export class EditChargerForm extends Component<IEditChargerForm> {
                     <Button
                         text={"Submit"}
                         type={"primary"}
-                        disabled={!submitting}
+                        disabled={!submitting || !AppContext.getUserStore().isAdmin()}
                         onClick={() => api.handleSubmit()}
                     />
                     <Button

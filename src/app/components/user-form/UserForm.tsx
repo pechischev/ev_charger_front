@@ -61,19 +61,28 @@ export class UserForm extends Component<IUserForm> {
                     label={"First name"}
                     name={EUserFieldTypes.FIRST_NAME}
                     placeholder={"Enter first name"}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
                 <InputField
                     label={"Last name"}
                     name={EUserFieldTypes.LAST_NAME}
                     placeholder={"Enter last name"}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
-                <EmailField name={EUserFieldTypes.EMAIL}/>
-                <PhoneField name={EUserFieldTypes.PHONE}/>
+                <EmailField
+                    name={EUserFieldTypes.EMAIL}
+                    disabled={!AppContext.getUserStore().isAdmin()}
+                />
+                <PhoneField
+                    name={EUserFieldTypes.PHONE}
+                    disabled={!AppContext.getUserStore().isAdmin()}
+                />
                 <SelectField
                     label={"Residence"}
                     name={EUserFieldTypes.RESIDENCE}
                     placeholder={"Select residence"}
                     options={AppContext.getInfoStore().residences}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
                 {passwordFields}
             </Fragment>
@@ -87,23 +96,30 @@ export class UserForm extends Component<IUserForm> {
                     label={"Address"}
                     name={EUserFieldTypes.ADDRESS}
                     placeholder={"Enter address"}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
                 <InputField
                     label={"Apt/Unit"}
                     name={EUserFieldTypes.APT_UNIT}
                     placeholder={"Enter apt/unit"}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
                 <InputField
                     label={"City"}
                     name={EUserFieldTypes.CITY}
                     placeholder={"Enter city"}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
-                <ZipCodeField name={EUserFieldTypes.ZIP_CODE}/>
+                <ZipCodeField
+                    name={EUserFieldTypes.ZIP_CODE}
+                    disabled={!AppContext.getUserStore().isAdmin()}
+                />
                 <SelectField
                     label={"State"}
                     name={EUserFieldTypes.STATE}
                     placeholder={"Select state"}
                     options={AppContext.getInfoStore().states}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
             </Fragment>
         );
@@ -117,15 +133,23 @@ export class UserForm extends Component<IUserForm> {
                     name={EUserFieldTypes.MAKES}
                     placeholder={"Select make"}
                     options={AppContext.getInfoStore().makes}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
                 <SelectField
                     label={"Model"}
                     name={EUserFieldTypes.MODEL}
                     placeholder={"Select model"}
                     options={AppContext.getInfoStore().models}
+                    disabled={!AppContext.getUserStore().isAdmin()}
                 />
-                <YearField name={EUserFieldTypes.YEAR}/>
-                <LicencePlateField name={EUserFieldTypes.LICENSE_PLATE}/>
+                <YearField
+                    name={EUserFieldTypes.YEAR}
+                    disabled={!AppContext.getUserStore().isAdmin()}
+                />
+                <LicencePlateField
+                    name={EUserFieldTypes.LICENSE_PLATE}
+                    disabled={!AppContext.getUserStore().isAdmin()}
+                />
             </Fragment>
         );
     }
