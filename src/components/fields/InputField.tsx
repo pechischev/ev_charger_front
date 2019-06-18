@@ -5,19 +5,19 @@ import { IField } from "@components/fields/IField";
 import { getError } from "@utils";
 import "./Field.scss";
 import formatStringByPattern from "format-string-by-pattern";
-import { isString, isEmpty } from "lodash";
+import { isEmpty, isString } from "lodash";
 import { Nullable } from "@app/config";
 import { EMessages } from "@utils/EMessage";
 
 export const InputField: FC<IField> = ({
-        name, label, placeholder, mask, isVisible = true, disabled = false, type, validate, ...rest
-    }) => {
+    name, label, placeholder, mask, isVisible = true, disabled = false, type, validate, ...rest
+                                       }) => {
     const validateField = (value: ReactText, allValues: object): Nullable<ReactText> => {
         if (validate) {
             return validate(value, allValues);
         }
-        const onlyWords = /^[\w+_]+( [\w_]+)*$/g;
-        if (isString(value) && isEmpty(value.match(onlyWords))) {
+        const onlyWords = /^[\w+_.,]+( [\w_.,]+)*$/g;
+        if (isString(value) && isEmpty(value.trim().match(onlyWords))) {
             return EMessages.CONTAINS_INVALID_VALUE;
         }
         return void 0;
@@ -48,7 +48,7 @@ export const InputField: FC<IField> = ({
                                     className="form-control"
                                     disabled={disabled}
                                     {...props.input}
-                                    {...{placeholder, type}}
+                                    {...{ placeholder, type }}
                                 />
                                 <span className="form-text text-danger">{error}</span>
                             </Fragment>

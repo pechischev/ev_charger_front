@@ -62,7 +62,7 @@ export class BillingSettings extends Component<RouteProps> {
                     <AmountField
                         name={EBillingFieldType.SERVICE_FEE}
                         placeholder={"Enter service fee"}
-                        label={"Service Fee"}
+                        label={"Service Fee, %"}
                     />
                     <div className="form__button clearfix">
                         <Button

@@ -17,6 +17,8 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
 
     profile(): Promise<TAxiosResponse<EApiRoutes.PROFILE>>;
 
+    /** Customer */
+
     getUsers(params: TApiParams<EApiRoutes.GET_USERS>): Promise<TAxiosResponse<EApiRoutes.GET_USERS>>;
     getUserData(userId: string): Promise<TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.GET>>;
     createUser(params: TApiParams<EApiRoutes.CREATE_USER>):
@@ -24,6 +26,10 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     updateUser(params: TApiParams<EApiRoutes.USER_DATA>, userId: string):
         Promise<TAxiosResponse<EApiRoutes.USER_DATA, EApiMethods.PUT>>;
 
+    /** Residences */
+
+    getResidencesList(params: TApiParams<EApiRoutes.GET_RESIDENCES_LIST>):
+        Promise<TAxiosResponse<EApiRoutes.GET_RESIDENCES_LIST>>;
     createResidence(params: TApiParams<EApiRoutes.CREATE_RESIDENCE>):
         Promise<TAxiosResponse<EApiRoutes.CREATE_RESIDENCE>>;
     updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>, residenceId: string):
@@ -37,6 +43,8 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
         Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.PUT>>;
     removeCharger(residenceId: string, chargerId: string):
         Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.DELETE>>;
+
+    /** Setting Company */
 
     getCompanyInfo(): Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.GET>>;
     updateCompanyInfo(params: TApiParams<EApiRoutes.COMPANY_SETTINGS>):
@@ -52,6 +60,8 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     bindOperator(params: TApiParams<EApiRoutes.BIND_WORKER>): Promise<TAxiosResponse<EApiRoutes.BIND_WORKER>>;
     getBoundResidences(params: TApiParams<EApiRoutes.GET_BOUND_RESIDENCES>):
         Promise<TAxiosResponse<EApiRoutes.GET_BOUND_RESIDENCES>>;
+
+    /** Vehicle Data */
 
     getVehicleBrands(params: TApiParams<EApiRoutes.GET_VEHICLE_BRANDS>):
         Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_BRANDS>>;
@@ -70,4 +80,25 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
 
     checkUsedVehicleData(params: TApiParams<EApiRoutes.CHECK_VEHICLE_USED_DATA>):
         Promise<TAxiosResponse<EApiRoutes.CHECK_VEHICLE_USED_DATA>>;
+
+    /** Transaction */
+
+    getTransactions(params: TApiParams<EApiRoutes.GET_TRANSACTIONS>):
+        Promise<TAxiosResponse<EApiRoutes.GET_TRANSACTIONS>>;
+    getTransactionData(transactionId: number): Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA>>;
+    updateTransactionInfo(params: TApiParams<EApiRoutes.TRANSACTION_DATA>, transactionId: number):
+        Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>>;
+    getUserBillingInfo(params: TApiParams<EApiRoutes.GET_BILLING_DATA>, customerId: string):
+        Promise<TAxiosResponse<EApiRoutes.GET_BILLING_DATA>>;
+
+    /** PromoCodes */
+
+    getPromoCodesList(params: TApiParams<EApiRoutes.GET_PROMO_CODES>):
+        Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>>;
+    createPromoCode(params: TApiParams<EApiRoutes.CREATE_PROMO_CODE>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_PROMO_CODE>>;
+    getPromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.GET>>;
+    updatePromoCode(params: TApiParams<EApiRoutes.PROMO_CODE>, codeId: string):
+        Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>>;
+    removePromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>>;
 }

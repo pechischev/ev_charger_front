@@ -4,9 +4,9 @@ import { Card } from "@components/card";
 import "./Settings.scss";
 import {
     redirectToBillingInfoSettings,
-    redirectToBrandSettings,
-    redirectToCompanyInfoSettings,
-    redirectToWorkerList
+   redirectToBrandSettings, redirectToCompanyInfoSettings,
+    redirectToPromoCodeList,
+    redirectToWorkerList,
 } from "@utils/history";
 export class Settings extends Component {
     render(): ReactNode {
@@ -51,6 +51,15 @@ export class Settings extends Component {
                             "Customize car brands and their models.",
                         )}
                         onClick={redirectToBrandSettings}
+                    />
+                    <Card
+                        className="settings-block"
+                        content={this.getCardInfo(
+                            "Promo Code",
+                            "promo",
+                            "Set up your promotional codes.",
+                        )}
+                        onClick={redirectToPromoCodeList}
                     />
                 </div>
             </div>

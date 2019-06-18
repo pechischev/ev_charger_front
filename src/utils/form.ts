@@ -38,3 +38,27 @@ export function formatValue(value: string, maxLength?: number): string {
     }
     return value;
 }
+
+export function parseAmountFieldValue(value: string): string {
+    if (!value) {
+        return value;
+    }
+    if (value === "0") {
+        return "0.00";
+    }
+    const endNumberLength = 2;
+    const arr = value.split(".");
+    if (arr.length === 1) {
+        return `${arr[0]}.00`;
+    }
+    if (arr[1].length === 0) {
+        return `${arr[0]}.00`;
+    }
+    if (arr[1].length === 1) {
+        return `${arr[0]}.${arr[1]}0`;
+    }
+    if (arr[1].length === endNumberLength) {
+        return `${arr[0]}.${arr[1]}`;
+    }
+    return value;
+}

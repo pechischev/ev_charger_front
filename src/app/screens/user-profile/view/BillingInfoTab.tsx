@@ -3,11 +3,15 @@ import { Component, ReactNode } from "react";
 import { BillingList } from "./BillingList";
 import "./BillingInfoTab.scss";
 
-export class BillingInfoTab extends Component {
+interface IBillingInfoTabProps {
+    userId?: string;
+}
+
+export class BillingInfoTab extends Component<IBillingInfoTabProps> {
     render(): ReactNode {
         return (
             <div className="billing-list">
-                <BillingList canSearch={false} />
+                <BillingList canSearch={false} userId={this.props.userId} />
             </div>
         );
     }

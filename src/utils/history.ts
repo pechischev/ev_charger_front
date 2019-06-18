@@ -71,6 +71,36 @@ export function redirectToBrandModels(brandId: number): void {
     AppContext.getHistory().push(link);
 }
 
+export function redirectToTransactionList(): void {
+    const link = `/${EPaths.TRANSACTIONS}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectOnTransactionProfile(transactionId: number): void {
+    const link = `/${EPaths.TRANSACTION_PROFILE}?id=${transactionId}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectOnAddTransactionForm(): void {
+    const link = `/${EPaths.TRANSACTION_CREATE_FORM}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToPromoCodeList(): void {
+    const link = `/${EPaths.PROMO_CODE_INFO}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectOnAddPromoCodeForm(): void {
+    const link = `/${EPaths.PROMO_CODE_FORM}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToPromoCodeProfile(promoCodeId: number): void {
+    const link = `/${EPaths.PROMO_CODE_PROFILE}?id=${promoCodeId}`;
+    AppContext.getHistory().push(link);
+}
+
 export function redirectToServiceRequest(): void {
     const link = `/${EPaths.SERVICE_REQUESTS}`;
     AppContext.getHistory().push(link);
