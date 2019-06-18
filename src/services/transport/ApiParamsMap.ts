@@ -8,13 +8,13 @@ import {
     IGetBoundResidencesParams,
     IListParams,
     ILoginParams,
+    IPromoCodeParams,
     IResidenceParams,
     IUserParams,
     IVehicleBrandParams,
     IVehicleDataCountParams,
     IVehicleModelParams,
     IWorkerParams,
-    IPromoCodeParams,
 } from "./params";
 import { IMethodMap, TMap } from "./TMap";
 
@@ -61,6 +61,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountParams;
     [EApiRoutes.PROMO_CODE]: Partial<IPromoCodeParams>;
     [EApiRoutes.CREATE_PROMO_CODE]: IPromoCodeParams;
+    [EApiRoutes.GET_SERVICE_REQUESTS]: IListParams;
 }
 
 // @ts-ignore:2344

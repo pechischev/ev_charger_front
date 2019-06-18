@@ -302,18 +302,18 @@ export class Transport<T extends object = object> implements ITransport {
     async updateTransactionInfo(params: TApiParams<EApiRoutes.TRANSACTION_DATA>, transactionId: number):
         Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>> {
         return this.client.post(
-            `${EApiRoutes.TRANSACTION_DATA.replace("{transactionId}", _.toString(transactionId))}`, params
+            `${EApiRoutes.TRANSACTION_DATA.replace("{transactionId}", _.toString(transactionId))}`, params,
         );
     }
 
     async getUserBillingInfo(params: TApiParams<EApiRoutes.GET_BILLING_DATA>, customerId: string):
         Promise<TAxiosResponse<EApiRoutes.GET_BILLING_DATA>> {
-        return this.client.get(`${EApiRoutes.GET_BILLING_DATA.replace("{customerId}", customerId)}`, {params});
+        return this.client.get(`${EApiRoutes.GET_BILLING_DATA.replace("{customerId}", customerId)}`, { params });
     }
 
     async getPromoCodesList(params: TApiParams<EApiRoutes.GET_PROMO_CODES>):
         Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>> {
-        return this.client.get(EApiRoutes.GET_PROMO_CODES, {params});
+        return this.client.get(EApiRoutes.GET_PROMO_CODES, { params });
     }
 
     async createPromoCode(params: TApiParams<EApiRoutes.CREATE_PROMO_CODE>):
@@ -332,5 +332,19 @@ export class Transport<T extends object = object> implements ITransport {
 
     async removePromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>> {
         return this.client.delete(`${EApiRoutes.PROMO_CODE.replace("{codeId}", codeId)}`);
+    }
+
+    async getServiceRequestsList(params: TApiParams<EApiRoutes.GET_SERVICE_REQUESTS>):
+        Promise<TAxiosResponse<EApiRoutes.GET_SERVICE_REQUESTS>> {
+        return this.client.get(EApiRoutes.GET_SERVICE_REQUESTS, { params });
+    }
+
+    async getServiceRequest(requestId: string): Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.SERVICE_REQUEST.replace("{requestId}", requestId)}`);
+    }
+
+    async updateServiceRequest(params: TApiParams<EApiRoutes.SERVICE_REQUEST>, requestId: string):
+        Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST>> {
+        return this.client.post(`${EApiRoutes.SERVICE_REQUEST.replace("{requestId}", requestId)}`, params);
     }
 }

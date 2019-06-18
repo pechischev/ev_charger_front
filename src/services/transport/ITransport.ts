@@ -101,4 +101,12 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     updatePromoCode(params: TApiParams<EApiRoutes.PROMO_CODE>, codeId: string):
         Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>>;
     removePromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>>;
+
+    /** ServiceRequests */
+
+    getServiceRequestsList(params: TApiParams<EApiRoutes.GET_SERVICE_REQUESTS>):
+        Promise<TAxiosResponse<EApiRoutes.GET_SERVICE_REQUESTS>>;
+    getServiceRequest(requestId: string): Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST, EApiMethods.GET>>;
+    updateServiceRequest(params: TApiParams<EApiRoutes.SERVICE_REQUEST>, requestId: string):
+        Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST>>;
 }

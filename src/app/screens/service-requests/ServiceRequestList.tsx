@@ -7,37 +7,33 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { redirectToServiceRequestProfile } from "@utils/history";
-import { IServiceRequestListItem } from "@entities/service-request";
+import { IServiceRequestListItem, RequestTypeMap } from "@entities/service-request";
+import { ReactText } from "react";
 
 @observer
 @autobind
 export class ServiceRequestList extends List<IServiceRequestListItem> {
 
-    constructor(props: IServiceRequestListItem) {
-        super(props);
-
-        this.store.setData([]);
-    }
-
     protected getFilterItems(): IFilter[] {
         return [
             { text: "All", value: void 0 },
             { text: "Active", value: EStatus.ACTIVE },
-            { text: "Resolved", value: EStatus.INACTIVE },
+            { text: "Resolved", value: EStatus.RESOLVED },
         ];
     }
 
     protected getColumns(): Array<IColumn<IServiceRequestListItem>> {
         return [
             { id: "id", label: "Id" },
-            { id: "user.firstName", label: "First name" },
-            { id: "user.lastName", label: "Last name" },
-            { id: "requestType", label: "Request Type" },
+            { id: "customer.firstName", label: "First name" },
+            { id: "customer.lastName", label: "Last name" },
+            {
+                id: "type", label: "Request Type",
+                handler: (item: IServiceRequestListItem) => RequestTypeMap.get(item.type),
+            },
             {
                 id: "data", label: "Data/Time",
-                handler: (item: IServiceRequestListItem) => {
-                    return item.data; // TODO; reforming to format (MM.DD.YYYY / HH:MM PM/AM)
-                },
+                handler: (item: IServiceRequestListItem) => this.formatedDataTime(item.sendingDate),
             },
         ];
     }
@@ -47,6 +43,35 @@ export class ServiceRequestList extends List<IServiceRequestListItem> {
     }
 
     protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_SERVICE_REQUESTS>> {
-        return new Promise(resolve => resolve());
+        return this.store.transport.getServiceRequestsList(params);
+    }
+
+    private formatedDataTime(value: number): string {
+        const newDate = new Date(value * 1000);
+
+        const sMonth = this.padValue(newDate.getMonth() + 1);
+        const sDay = this.padValue(newDate.getDate());
+        const sYear = newDate.getFullYear();
+        let sHour = newDate.getHours();
+        const sMinute = this.padValue(newDate.getMinutes());
+        let sAMPM = "AM";
+
+        const iHourCheck = parseInt(sHour);
+
+        if (iHourCheck > 12) {
+            sAMPM = "PM";
+            sHour = iHourCheck - 12;
+        }
+        else if (iHourCheck === 0) {
+            sHour = "12";
+        }
+
+        sHour = this.padValue(sHour);
+
+        return `${sMonth}.${sDay}.${sYear} / ${sHour}:${sMinute} ${sAMPM}`;
+    }
+
+    private padValue(value: number): ReactText {
+        return (value < 10) ? "0" + value : value;
     }
 }
