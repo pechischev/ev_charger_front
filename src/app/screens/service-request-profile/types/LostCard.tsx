@@ -66,13 +66,13 @@ export class LostCard extends Component<ILostCardProps> {
                 <div className="request-container_column">
                     <div className="request-container__title">Client details</div>
                     <div className="request-container__content">
-                        <ClientDetailsField type={ERequestType.LOST_CARD}/>
+                        <ClientDetailsField type={ERequestType.LOST_ACCESS}/>
                     </div>
                 </div>
                 <div className="request-container_column">
                     <div className="request-container__title">Request Information</div>
                     <div className="request-container__content">
-                        <RequestInfoMainField type={ERequestType.LOST_CARD} api={api} submitting={submitting}/>
+                        <RequestInfoMainField type={ERequestType.LOST_ACCESS} api={api} submitting={submitting}/>
                     </div>
                 </div>
                 <div className="request-container_column"/>

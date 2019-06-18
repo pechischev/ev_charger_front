@@ -15,9 +15,9 @@ export class ServiceRequestProfile extends Component<RouteProps> {
 
     render(): ReactNode {
         const data = {} as IServiceRequest;
-        const typeRequest = ERequestType.LOST_CARD;
+        const typeRequest = ERequestType.LOST_ACCESS;
         switch (typeRequest) {
-            case ERequestType.LOST_CARD:
+            case ERequestType.LOST_ACCESS:
                 return <LostCard data={data}/>;
             case ERequestType.BROKEN_CHARGER:
                 return <BrokenCharger data={data}/>;

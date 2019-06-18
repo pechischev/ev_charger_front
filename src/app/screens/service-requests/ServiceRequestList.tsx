@@ -33,7 +33,7 @@ export class ServiceRequestList extends List<IServiceRequestListItem> {
             },
             {
                 id: "data", label: "Data/Time",
-                handler: (item: IServiceRequestListItem) => this.formatedDataTime(item.sendingDate),
+                handler: (item: IServiceRequestListItem) => this.formattedDataTime(item.sendingDate),
             },
         ];
     }
@@ -46,7 +46,7 @@ export class ServiceRequestList extends List<IServiceRequestListItem> {
         return this.store.transport.getServiceRequestsList(params);
     }
 
-    private formatedDataTime(value: number): string {
+    private formattedDataTime(value: number): string {
         const newDate = new Date(value * 1000);
 
         const sMonth = this.padValue(newDate.getMonth() + 1);

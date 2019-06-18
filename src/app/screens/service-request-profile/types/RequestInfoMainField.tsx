@@ -17,7 +17,7 @@ interface IRequestInfoMainField {
 @observer
 export class RequestInfoMainField extends Component<IRequestInfoMainField> {
     render(): ReactNode {
-        const label = this.props.type === ERequestType.LOST_CARD || this.props.type === ERequestType.CANCEL_SUBSCRIPTION ? "Request" : "Comment";
+        const label = this.props.type === ERequestType.LOST_ACCESS || this.props.type === ERequestType.CANCEL_SUBSCRIPTION ? "Request" : "Comment";
         return (
             <Fragment>
                 <InputField
