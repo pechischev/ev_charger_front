@@ -12,12 +12,15 @@ interface IRequestInfoMainField {
     type: ERequestType;
     api: FormRenderProps;
     submitting?: boolean;
+    status: boolean;
 }
 
 @observer
 export class RequestInfoMainField extends Component<IRequestInfoMainField> {
     render(): ReactNode {
-        const label = this.props.type === ERequestType.LOST_ACCESS || this.props.type === ERequestType.CANCEL_SUBSCRIPTION ? "Request" : "Comment";
+        const label = ((this.props.type === ERequestType.LOST_ACCESS)
+            || (this.props.type === ERequestType.CANCEL_SUBSCRIPTION)) ? "Request" : "Comment";
+        console.log(this.props.status);
         return (
             <Fragment>
                 <InputField
@@ -40,8 +43,9 @@ export class RequestInfoMainField extends Component<IRequestInfoMainField> {
                     label={"Request Status"}
                     name={EServiceRequestFields.STATUS}
                     options={[
-                        { id: "1", title: "Resolved" }, { id: "2", title: "Active" },
+                        { id: "active", title: "Active" }, { id: "resolved", title: "Resolved" },
                     ]}
+                    disabled={this.props.status}
                 />
                 <div className="request-container__button clearfix">
                     <Button
@@ -53,7 +57,7 @@ export class RequestInfoMainField extends Component<IRequestInfoMainField> {
                     <Button
                         className="float-right"
                         type="primary"
-                        disabled={!this.props.submitting}
+                        disabled={!this.props.submitting || this.props.status}
                         onClick={() => this.props.api.handleSubmit()}
                         text={"Save"}
                         style={{

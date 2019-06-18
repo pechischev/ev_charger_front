@@ -343,8 +343,8 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.get(`${EApiRoutes.SERVICE_REQUEST.replace("{requestId}", requestId)}`);
     }
 
-    async updateServiceRequest(params: TApiParams<EApiRoutes.SERVICE_REQUEST>, requestId: string):
+    async updateServiceRequest(requestId: string):
         Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST>> {
-        return this.client.post(`${EApiRoutes.SERVICE_REQUEST.replace("{requestId}", requestId)}`, params);
+        return this.client.post(`${EApiRoutes.SERVICE_REQUEST.replace("{requestId}", requestId)}`);
     }
 }

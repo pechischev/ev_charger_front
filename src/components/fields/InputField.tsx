@@ -13,6 +13,9 @@ export const InputField: FC<IField> = ({
     name, label, placeholder, mask, isVisible = true, disabled = false, type, validate, ...rest
                                        }) => {
     const validateField = (value: ReactText, allValues: object): Nullable<ReactText> => {
+        if (disabled) {
+            return void 0;
+        }
         if (validate) {
             return validate(value, allValues);
         }

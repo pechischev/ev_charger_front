@@ -107,6 +107,6 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     getServiceRequestsList(params: TApiParams<EApiRoutes.GET_SERVICE_REQUESTS>):
         Promise<TAxiosResponse<EApiRoutes.GET_SERVICE_REQUESTS>>;
     getServiceRequest(requestId: string): Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST, EApiMethods.GET>>;
-    updateServiceRequest(params: TApiParams<EApiRoutes.SERVICE_REQUEST>, requestId: string):
+    updateServiceRequest(requestId: string):
         Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST>>;
 }

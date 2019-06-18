@@ -42,8 +42,9 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
         if (arr[1].length === endNumberLength) {
             return `${arr[0]}.${arr[1]}`;
         }
-        if (!!value.match(dataFormatRegex)) {
-            return value.match(dataFormatRegex)[0];
+        const findingValue = value.match(dataFormatRegex);
+        if (!!findingValue) {
+            return findingValue[0];
         }
         return value;
     };

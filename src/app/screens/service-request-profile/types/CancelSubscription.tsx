@@ -3,7 +3,6 @@ import { autobind } from "core-decorators";
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { FormRenderProps } from "react-final-form";
-import { get } from "lodash";
 import { ERequestType, IServiceRequest } from "@entities/service-request";
 import { ServiceRequestProfileStore } from "..";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
@@ -11,6 +10,9 @@ import { redirectToServiceRequest } from "@utils/history";
 import { Card } from "@components/card";
 import { CustomForm } from "@components/custom-form";
 import { ClientDetailsField, RequestInfoMainField } from ".";
+import { AppContext } from "@context";
+import * as qs from "query-string";
+import { get } from "lodash";
 
 interface ICancelSubscriptionProps {
     data: IServiceRequest;
@@ -28,9 +30,12 @@ export class CancelSubscription extends Component<ICancelSubscriptionProps> {
     constructor(props: ICancelSubscriptionProps) {
         super(props);
 
-        const { data } = this.props;
-        this.store.setRequestId(get(data, "id", "1").toString());
-        this.store.setData(data);
+        this.store.init();
+        if (AppContext.getHistory().location) {
+            const { id } = qs.parse(AppContext.getHistory().location.search);
+            this.store.setRequestId(`${id}`);
+            this.store.setData(this.props.data);
+        }
     }
 
     render(): ReactNode {
@@ -47,10 +52,9 @@ export class CancelSubscription extends Component<ICancelSubscriptionProps> {
                         content={
                             <CustomForm
                                 keepDirtyOnReinitialize={false}
-                                validateData={this.store.validateData}
                                 data={this.store.transformRequestData(this.store.getData())}
                                 error$={this.store.error$}
-                                submit={() => void 0}
+                                submit={this.store.updateServiceRequest}
                                 render={this.getSettingsForm}
                             />
                         }
@@ -72,7 +76,12 @@ export class CancelSubscription extends Component<ICancelSubscriptionProps> {
                 <div className="request-container_column">
                     <div className="request-container__title">Request Information</div>
                     <div className="request-container__content">
-                        <RequestInfoMainField type={ERequestType.CANCEL_SUBSCRIPTION} api={api} submitting={submitting}/>
+                        <RequestInfoMainField
+                            status={get(this.props.data, "request.resolved")}
+                            type={ERequestType.CANCEL_SUBSCRIPTION}
+                            api={api}
+                            submitting={submitting}
+                        />
                     </div>
                 </div>
                 <div className="request-container_column"/>

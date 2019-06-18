@@ -3,14 +3,16 @@ import { autobind } from "core-decorators";
 import * as React from "react";
 import { Component, ReactNode } from "react";
 import { FormRenderProps } from "react-final-form";
-import { get } from "lodash";
 import { ERequestType, IServiceRequest } from "@entities/service-request";
 import { ServiceRequestProfileStore } from "..";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 import { redirectToServiceRequest } from "@utils/history";
 import { Card } from "@components/card";
 import { CustomForm } from "@components/custom-form";
-import { ClientDetailsField, RequestInfoMainField  } from ".";
+import { ClientDetailsField, RequestInfoMainField } from ".";
+import * as qs from "query-string";
+import { AppContext } from "@context";
+import { get } from "lodash";
 
 interface ILostCardProps {
     data: IServiceRequest;
@@ -28,9 +30,12 @@ export class LostCard extends Component<ILostCardProps> {
     constructor(props: ILostCardProps) {
         super(props);
 
-        const { data } = this.props;
-        this.store.setRequestId(get(data, "id", "1").toString());
-        this.store.setData(data);
+        this.store.init();
+        if (AppContext.getHistory().location) {
+            const { id } = qs.parse(AppContext.getHistory().location.search);
+            this.store.setRequestId(`${id}`);
+            this.store.setData(this.props.data);
+        }
     }
 
     render(): ReactNode {
@@ -47,10 +52,9 @@ export class LostCard extends Component<ILostCardProps> {
                         content={
                             <CustomForm
                                 keepDirtyOnReinitialize={false}
-                                validateData={this.store.validateData}
                                 data={this.store.transformRequestData(this.store.getData())}
                                 error$={this.store.error$}
-                                submit={() => void 0}
+                                submit={this.store.updateServiceRequest}
                                 render={this.getSettingsForm}
                             />
                         }
@@ -72,7 +76,12 @@ export class LostCard extends Component<ILostCardProps> {
                 <div className="request-container_column">
                     <div className="request-container__title">Request Information</div>
                     <div className="request-container__content">
-                        <RequestInfoMainField type={ERequestType.LOST_ACCESS} api={api} submitting={submitting}/>
+                        <RequestInfoMainField
+                            status={get(this.props.data, "request.resolved")}
+                            type={ERequestType.LOST_ACCESS}
+                            api={api}
+                            submitting={submitting}
+                        />
                     </div>
                 </div>
                 <div className="request-container_column"/>

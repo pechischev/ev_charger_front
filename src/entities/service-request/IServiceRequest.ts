@@ -1,15 +1,27 @@
 import { IUser } from "@entities/user";
 import { ERequestType } from "@entities/service-request/ERequestType";
+import { IItem } from "@entities/_common";
 
 export interface IServiceRequest {
     id: number;
-    requestType: ERequestType;
-    dataTime: string;
-    user: Pick<IUser, "firstName" | "lastName">;
-    address: string;
-    residence: string;
-    subject?: string;
-    comment: string;
-    chargerId?: number;
-    requestStatus: string;
+    user: Pick<IUser, "id" | "firstName" | "lastName" | "email">;
+    contactData: {
+        address: string;
+        city: string;
+        zipCode: string;
+        aptUnit: string;
+        state: IItem;
+        residence: IItem;
+    };
+    request: {
+        type: ERequestType;
+        sendingDate: number;
+        resolved: boolean;
+        info: {
+            subject: string;
+            message: string;
+            chargerId: number;
+            residenceId: string;
+        };
+    };
 }

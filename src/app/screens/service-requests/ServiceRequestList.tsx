@@ -8,7 +8,7 @@ import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { redirectToServiceRequestProfile } from "@utils/history";
 import { IServiceRequestListItem, RequestTypeMap } from "@entities/service-request";
-import { ReactText } from "react";
+import { formattedDataTime } from "@utils";
 
 @observer
 @autobind
@@ -33,7 +33,7 @@ export class ServiceRequestList extends List<IServiceRequestListItem> {
             },
             {
                 id: "data", label: "Data/Time",
-                handler: (item: IServiceRequestListItem) => this.formattedDataTime(item.sendingDate),
+                handler: (item: IServiceRequestListItem) => formattedDataTime(item.sendingDate),
             },
         ];
     }
@@ -46,32 +46,4 @@ export class ServiceRequestList extends List<IServiceRequestListItem> {
         return this.store.transport.getServiceRequestsList(params);
     }
 
-    private formattedDataTime(value: number): string {
-        const newDate = new Date(value * 1000);
-
-        const sMonth = this.padValue(newDate.getMonth() + 1);
-        const sDay = this.padValue(newDate.getDate());
-        const sYear = newDate.getFullYear();
-        let sHour = newDate.getHours();
-        const sMinute = this.padValue(newDate.getMinutes());
-        let sAMPM = "AM";
-
-        const iHourCheck = parseInt(sHour);
-
-        if (iHourCheck > 12) {
-            sAMPM = "PM";
-            sHour = iHourCheck - 12;
-        }
-        else if (iHourCheck === 0) {
-            sHour = "12";
-        }
-
-        sHour = this.padValue(sHour);
-
-        return `${sMonth}.${sDay}.${sYear} / ${sHour}:${sMinute} ${sAMPM}`;
-    }
-
-    private padValue(value: number): ReactText {
-        return (value < 10) ? "0" + value : value;
-    }
 }
