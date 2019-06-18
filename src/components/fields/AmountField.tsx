@@ -15,32 +15,37 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
         if (!value) {
             return void 0;
         }
-        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(`${value}`.match(dataFormatRegex))) {
+        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(value.toString().match(dataFormatRegex))) {
             return EMessages.AMOUNT_VALUE_FORMAT_INCORRECT;
         }
         return void 0;
     };
 
     const parseAmountValue = (value: string): Nullable<string> => {
-        if (!value || !!value) {
+        if (!value) {
             return void 0;
         }
         if (value === "0") {
-            return "0,00";
+            return "0.00";
         }
-        value = value.replace(".", ",");
-        const arr = value.split(",");
-        let retValue = arr[0] + ",";
+        const arr = value.split(".");
+        const endNumberLength = 2;
+        if (arr.length === 1) {
+            return `${arr[0]}.00`;
+        }
         if (arr[1].length === 0) {
-            return retValue + "00";
+            return `${arr[0]}.00`;
         }
         if (arr[1].length === 1) {
-            return retValue + arr[1] + "0";
+            return `${arr[0]}.${arr[1]}0`;
         }
-        if (arr[1].length === 2) {
-            return retValue + arr[1];
+        if (arr[1].length === endNumberLength) {
+            return `${arr[0]}.${arr[1]}`;
         }
-        return void 0;
+        if (!!value.match(dataFormatRegex)) {
+            return value.match(dataFormatRegex)[0];
+        }
+        return value;
     };
 
     return (

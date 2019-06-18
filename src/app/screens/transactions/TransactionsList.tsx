@@ -9,6 +9,7 @@ import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { redirectOnTransactionProfile } from "@utils/history";
 import { TTransactionListItem } from "@entities/transactions";
+import { parseAmountFieldValue } from "@utils";
 
 @observer
 @autobind
@@ -28,13 +29,18 @@ export class TransactionsList extends List<TTransactionListItem> {
             { id: "customer.id", label: "User Id", size: "100px" },
             { id: "customer.firstName", label: "Name" },
             { id: "customer.lastName", label: "Surname" },
-            { id: "payDate", label: "Data transaction", size: "0.75fr",
-                handler: (item: TTransactionListItem) => this.formatDate(item.payDate)
+            {
+                id: "payDate", label: "Data transaction", size: "0.75fr",
+                handler: (item: TTransactionListItem) => this.formatDate(item.payDate),
             },
-            { id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
-                handler: (item: TTransactionListItem) => this.formatDate(item.nextPaymentDate)
+            {
+                id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
+                handler: (item: TTransactionListItem) => this.formatDate(item.nextPaymentDate),
             },
-            { id: "amount", label: "Transaction cost", size: "0.75fr" },
+            {
+                id: "amount", label: "Transaction cost", size: "0.75fr",
+                handler: (item: TTransactionListItem) => parseAmountFieldValue(item.amount.toString()),
+            },
             { id: "status", label: "Status", size: "100px" },
         ];
     }
