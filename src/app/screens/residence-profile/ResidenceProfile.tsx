@@ -91,7 +91,12 @@ export class ResidenceProfile extends Component<RouteProps> {
                     <Card
                         className="residence-card"
                         title="Billing History"
-                        content={<BillingList residenceId={this.store.getResidenceId()} canSearch={false}/>}
+                        content={
+                            <BillingList
+                                residenceId={this.store.getResidenceId()}
+                                canSearch={false}
+                            />
+                        }
                     />
                 </div>
                 <Modal

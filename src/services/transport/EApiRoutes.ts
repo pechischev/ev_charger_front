@@ -22,6 +22,7 @@ export enum EApiRoutes {
     RESIDENCE_CHARGES = "/v1.0/cms/residence/{residenceId}/chargers",
     CREATE_CHARGER = "/v1.0/cms/residence/{residenceId}/charger",
     CHARGER = "/v1.0/cms/residence/{residenceId}/charger/{chargerId}",
+    BILLING_HISTORY = "/v1.0/cms/residence/{residenceId}/billingHistory",
 
     COMPANY_SETTINGS = "/v1.0/cms/settings/companyInfo",
 

@@ -188,6 +188,11 @@ export class Transport<T extends object = object> implements ITransport {
             .replace("{chargerId}", chargerId)}`);
     }
 
+    async getBillingHistory(params: TApiParams<EApiRoutes.BILLING_HISTORY>, residenceId: string):
+        Promise<TAxiosResponse<EApiRoutes.BILLING_HISTORY, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.BILLING_HISTORY.replace("{residenceId}", residenceId)}`);
+    }
+
     async getCompanyInfo(): Promise<TAxiosResponse<EApiRoutes.COMPANY_SETTINGS, EApiMethods.GET>> {
         return this.client.get(EApiRoutes.COMPANY_SETTINGS);
     }

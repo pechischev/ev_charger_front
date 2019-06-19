@@ -40,7 +40,7 @@ export class WorkerProfile extends Component<RouteProps> {
         return (
             <div className="side-app">
                 <div className="page-header">
-                    <div className="page-title">Add company user</div>
+                    <div className="page-title">Company user profile</div>
                     <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">

@@ -45,6 +45,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.RESIDENCE_DATA]: IResidenceParams;
     [EApiRoutes.CREATE_CHARGER]: IChargerParams;
     [EApiRoutes.CHARGER]: IChargerParams;
+    [EApiRoutes.BILLING_HISTORY]: IListParams;
     [EApiRoutes.COMPANY_SETTINGS]: ICompanyInfoParams;
     [EApiRoutes.GET_WORKERS]: IListParams;
     [EApiRoutes.CREATE_WORKER]: IWorkerParams;
