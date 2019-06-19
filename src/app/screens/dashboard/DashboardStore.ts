@@ -1,8 +1,8 @@
 import { Store } from "@components/store";
 import { action, observable, toJS } from "mobx";
+import * as _ from "lodash";
 import { LineSerieData } from "@nivo/line";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
-import * as _ from "lodash";
 import { IStatisticDataResponse } from "@services/transport/responses";
 import * as moment from "moment";
 
@@ -12,6 +12,17 @@ export class DashboardStore extends Store {
 
     getData(): LineSerieData[] {
         return toJS(this.data);
+    }
+
+    isExistData(): boolean {
+        if (_.isEmpty(this.data)) {
+            return false;
+        }
+        const newData = this.data.filter(item => !_.isEmpty(item.data));
+        if (this.data.length !== newData.length) {
+            return false;
+        }
+        return true;
     }
 
     getStatisticsData(): IStatisticDataResponse {
@@ -42,7 +53,7 @@ export class DashboardStore extends Store {
         const userData = [];
         for (const value of data) {
             const { date, residenceCount, userCount } = value;
-            const month = moment(date * 1000).format('MMMM');
+            const month = moment(date * 1000).format("MMMM");
             residenceData.push({ x: month, y: residenceCount });
             userData.push({ x: month, y: userCount });
         }

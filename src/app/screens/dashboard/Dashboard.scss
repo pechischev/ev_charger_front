@@ -19,6 +19,14 @@
         width: 100%;
         margin-right: 20px;
     }
+
+    &[data-full=false] {
+        grid-template-columns: repeat(3, 1fr);
+
+        .main-cards:last-child {
+            display: none;
+        }
+    }
 }
 
 .main-card {
@@ -75,6 +83,10 @@
 
 .dashboard-graph {
     margin: 20px 20px 20px 0;
+
+    &_hidden {
+        display: none;
+    }
 }
 
 .dashboard-table {
@@ -99,6 +111,10 @@
             &:nth-child(2), &:nth-child(4) {
                 margin: 0 0 20px auto;
             }
+        }
+
+        &[data-full=false] {
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 

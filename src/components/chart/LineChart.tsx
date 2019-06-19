@@ -35,14 +35,15 @@ export class LineChart extends Component<ILineChartProps> {
                     legendPosition: "middle",
                 }}
 
-                colors={["#53a0fd", "#111111"]}
+                colors={["#6574cd", "#45aaf2"]}
                 enableGridX={false}
                 pointSize={5}
                 pointColor={{ from: "color", modifiers: [] }}
                 pointBorderWidth={2}
                 pointBorderColor={{ from: "serieColor", modifiers: [] }}
                 areaOpacity={0.05}
-                enableCrosshair={false}
+                enableCrosshair={true}
+                enableSlices="x"
                 useMesh={true}
 
                 legends={[

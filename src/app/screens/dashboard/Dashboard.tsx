@@ -11,7 +11,7 @@ import { RouteProps } from "react-router";
 import { autobind } from "core-decorators";
 import { observer } from "mobx-react";
 import { Nullable } from "@app/config";
-import * as _ from "lodash";
+import { AppContext } from "@context";
 
 @autobind
 @observer
@@ -29,13 +29,14 @@ export class Dashboard extends Component<RouteProps> {
     render(): ReactNode {
         const actionElement = this.getActionElement();
         const { userCount, amountSum, countNewUsers, residenceCount } = this.store.getStatisticsData();
+        const iaAdmin = AppContext.getUserStore().isAdmin();
         return (
             <div className="side-app">
                 <div className="page-header">
                     <div className="page-title">Dashboards</div>
                 </div>
                 <div className="page-content">
-                    <div className="dashboard-main-cards">
+                    <div className="dashboard-main-cards" data-full={iaAdmin}>
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
@@ -70,7 +71,7 @@ export class Dashboard extends Component<RouteProps> {
                         />
                     </div>
                     <Card
-                        className="dashboard-graph"
+                        className={`dashboard-graph ${!this.store.isExistData() ? "dashboard-graph_hidden" : ""}`}
                         title="Statistics"
                         content={this.renderGraph()}
                     />
@@ -90,7 +91,7 @@ export class Dashboard extends Component<RouteProps> {
         );
     }
 
-    private renderMainCard(value: string|number, title: string, icon: string): ReactNode {
+    private renderMainCard(value: string | number, title: string, icon: string): ReactNode {
         return (
             <div className="main-card">
                 <div className="main-card_description">
@@ -103,27 +104,31 @@ export class Dashboard extends Component<RouteProps> {
     }
 
     private renderGraph(): Nullable<ReactNode> {
-        const data =  this.store.getData();
-        if (_.isEmpty(data)) {
+        if (!this.store.isExistData()) {
             return null;
         }
+        const data = this.store.getData();
         return (
-            <div style={{
-                width: "100%",
-                height: 300,
-                display: "flex",
-            }}>
+            <div
+                style={{
+                    width: "100%",
+                    height: 400,
+                    display: "flex",
+                }}
+            >
                 <LineChart data={data}/>
             </div>
         );
     }
 
     private getActionElement(): ReactNode {
+        const iaAdmin = AppContext.getUserStore().isAdmin();
         return (
             <Button
                 type={"primary"}
                 onClick={redirectToTransactionList}
                 text="See more"
+                disabled={!iaAdmin}
             />
         );
     }
