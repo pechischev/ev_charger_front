@@ -6,6 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { redirectOnTransactionProfile } from "@utils/history";
 import { TTransactionListItem } from "@entities/transactions";
+import { parseAmountFieldValue } from "@utils";
 
 @observer
 @autobind
@@ -25,7 +26,10 @@ export class LastTransactionsList extends List<TTransactionListItem> {
                 id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
                 handler: (item: TTransactionListItem) => this.formatDate(item.nextPaymentDate * 1000),
             },
-            { id: "amount", label: "Transaction cost", size: "0.75fr" },
+            {
+                id: "amount", label: "Transaction cost", size: "0.75fr",
+                handler: (item: TTransactionListItem) => parseAmountFieldValue(`${item.amount}`),
+            },
             { id: "status", label: "Status", size: "100px" },
         ];
     }
