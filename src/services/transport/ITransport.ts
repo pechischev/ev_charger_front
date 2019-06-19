@@ -101,4 +101,9 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     updatePromoCode(params: TApiParams<EApiRoutes.PROMO_CODE>, codeId: string):
         Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>>;
     removePromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>>;
+
+    /** Dashboard */
+
+    getStatistics(): Promise<TAxiosResponse<EApiRoutes.STATISTICS>>;
+    getReportData(): Promise<TAxiosResponse<EApiRoutes.REPORT_DATA>>;
 }

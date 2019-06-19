@@ -49,4 +49,7 @@ export enum EApiRoutes {
     GET_PROMO_CODES = "/v1.0/cms/codes",
     CREATE_PROMO_CODE = "/v1.0/cms/code",
     PROMO_CODE = "/v1.0/cms/code/{codeId}",
+
+    STATISTICS = "/v1.0/cms/statistics",
+    REPORT_DATA = "/v1.0/cms/report/dynamic",
 }

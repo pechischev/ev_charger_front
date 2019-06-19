@@ -333,4 +333,12 @@ export class Transport<T extends object = object> implements ITransport {
     async removePromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>> {
         return this.client.delete(`${EApiRoutes.PROMO_CODE.replace("{codeId}", codeId)}`);
     }
+
+    async getStatistics(): Promise<TAxiosResponse<EApiRoutes.STATISTICS>> {
+        return this.client.get(EApiRoutes.STATISTICS);
+    }
+
+    async getReportData(): Promise<TAxiosResponse<EApiRoutes.REPORT_DATA>> {
+        return this.client.get(EApiRoutes.REPORT_DATA);
+    }
 }

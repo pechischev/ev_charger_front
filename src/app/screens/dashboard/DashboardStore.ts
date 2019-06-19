@@ -1,114 +1,54 @@
 import { Store } from "@components/store";
+import { action, observable, toJS } from "mobx";
+import { LineSerieData } from "@nivo/line";
+import { EApiRoutes, TAxiosResponse } from "@services/transport";
+import * as _ from "lodash";
+import { IStatisticDataResponse } from "@services/transport/responses";
+import * as moment from "moment";
 
 export class DashboardStore extends Store {
-    readonly data = [
-        {
-            "id": "japan",
-            "color": "hsl(65, 70%, 50%)",
-            "data": [
-                {
-                    "x": "plane",
-                    "y": 274,
-                },
-                {
-                    "x": "helicopter",
-                    "y": 40,
-                },
-                {
-                    "x": "boat",
-                    "y": 147,
-                },
-                {
-                    "x": "train",
-                    "y": 14,
-                },
-                {
-                    "x": "subway",
-                    "y": 214,
-                },
-                {
-                    "x": "bus",
-                    "y": 78,
-                },
-                {
-                    "x": "car",
-                    "y": 41,
-                },
-                {
-                    "x": "moto",
-                    "y": 69,
-                },
-                {
-                    "x": "bicycle",
-                    "y": 61,
-                },
-                {
-                    "x": "horse",
-                    "y": 64,
-                },
-                {
-                    "x": "skateboard",
-                    "y": 137,
-                },
-                {
-                    "x": "others",
-                    "y": 147,
-                },
-            ],
-        },
-        {
-            "id": "france",
-            "color": "hsl(18, 70%, 50%)",
-            "data": [
-                {
-                    "x": "plane",
-                    "y": 10,
-                },
-                {
-                    "x": "helicopter",
-                    "y": 211,
-                },
-                {
-                    "x": "boat",
-                    "y": 150,
-                },
-                {
-                    "x": "train",
-                    "y": 293,
-                },
-                {
-                    "x": "subway",
-                    "y": 243,
-                },
-                {
-                    "x": "bus",
-                    "y": 275,
-                },
-                {
-                    "x": "car",
-                    "y": 291,
-                },
-                {
-                    "x": "moto",
-                    "y": 294,
-                },
-                {
-                    "x": "bicycle",
-                    "y": 76,
-                },
-                {
-                    "x": "horse",
-                    "y": 272,
-                },
-                {
-                    "x": "skateboard",
-                    "y": 173,
-                },
-                {
-                    "x": "others",
-                    "y": 177,
-                },
-            ],
-        },
-    ]
+    @observable private data: LineSerieData[] = [];
+    @observable private statistics: IStatisticDataResponse = _.stubObject();
+
+    getData(): LineSerieData[] {
+        return toJS(this.data);
+    }
+
+    getStatisticsData(): IStatisticDataResponse {
+        return this.statistics;
+    }
+
+    getStatistics(): void {
+        this.asyncCall(this.transport.getStatistics())
+            .then(this.onGetStatistics);
+    }
+
+    getReportData(): void {
+        this.asyncCall(this.transport.getReportData())
+            .then(this.onGetReportData);
+    }
+
+    @action.bound
+    private onGetStatistics(response: TAxiosResponse<EApiRoutes.STATISTICS>): void {
+        console.info("[DashboardStore.onGetStatistics]", response);
+        this.statistics = _.get<TAxiosResponse<EApiRoutes.STATISTICS>, "data">(response, "data");
+    }
+
+    @action.bound
+    private onGetReportData(response: TAxiosResponse<EApiRoutes.REPORT_DATA>): void {
+        console.info("[DashboardStore.onGetReportData]", response);
+        const data = _.get<TAxiosResponse<EApiRoutes.REPORT_DATA>, "data">(response, "data");
+        const residenceData = [];
+        const userData = [];
+        for (const value of data) {
+            const { date, residenceCount, userCount } = value;
+            const month = moment(date * 1000).format('MMMM');
+            residenceData.push({ x: month, y: residenceCount });
+            userData.push({ x: month, y: userCount });
+        }
+        this.data = [
+            { id: "New residences", data: residenceData },
+            { id: "New users", data: userData },
+        ];
+    }
 }

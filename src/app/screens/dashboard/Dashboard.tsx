@@ -10,6 +10,8 @@ import { DashboardStore } from "./DashboardStore";
 import { RouteProps } from "react-router";
 import { autobind } from "core-decorators";
 import { observer } from "mobx-react";
+import { Nullable } from "@app/config";
+import * as _ from "lodash";
 
 @autobind
 @observer
@@ -20,10 +22,13 @@ export class Dashboard extends Component<RouteProps> {
         super(props);
 
         this.store.init();
+        this.store.getStatistics();
+        this.store.getReportData();
     }
 
     render(): ReactNode {
         const actionElement = this.getActionElement();
+        const { userCount, amountSum, countNewUsers, residenceCount } = this.store.getStatisticsData();
         return (
             <div className="side-app">
                 <div className="page-header">
@@ -34,7 +39,7 @@ export class Dashboard extends Component<RouteProps> {
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                "25",
+                                residenceCount,
                                 "Number of active residences",
                                 "residence",
                             )}
@@ -42,7 +47,7 @@ export class Dashboard extends Component<RouteProps> {
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                "25",
+                                userCount,
                                 "Number of active users",
                                 "users",
                             )}
@@ -50,7 +55,7 @@ export class Dashboard extends Component<RouteProps> {
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                "25",
+                                countNewUsers,
                                 "Number of new users this month",
                                 "new-users",
                             )}
@@ -58,7 +63,7 @@ export class Dashboard extends Component<RouteProps> {
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                `${25}$`,
+                                `${amountSum}$`,
                                 "Total revenue this month",
                                 "revenue",
                             )}
@@ -85,7 +90,7 @@ export class Dashboard extends Component<RouteProps> {
         );
     }
 
-    private renderMainCard(value: string, title: string, icon: string): ReactNode {
+    private renderMainCard(value: string|number, title: string, icon: string): ReactNode {
         return (
             <div className="main-card">
                 <div className="main-card_description">
@@ -97,14 +102,18 @@ export class Dashboard extends Component<RouteProps> {
         );
     }
 
-    private renderGraph(): ReactNode {
+    private renderGraph(): Nullable<ReactNode> {
+        const data =  this.store.getData();
+        if (_.isEmpty(data)) {
+            return null;
+        }
         return (
             <div style={{
                 width: "100%",
                 height: 300,
                 display: "flex",
             }}>
-                <LineChart data={this.store.data}/>
+                <LineChart data={data}/>
             </div>
         );
     }

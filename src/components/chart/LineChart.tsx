@@ -18,7 +18,7 @@ export class LineChart extends Component<ILineChartProps> {
 
                 margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
                 xScale={{ type: "point" }}
-                yScale={{ type: "linear", stacked: true, min: -13, max: "auto" }}
+                yScale={{ type: "linear", stacked: true, min: 0, max: "auto" }}
 
                 axisBottom={{
                     tickSize: 5,
@@ -35,6 +35,7 @@ export class LineChart extends Component<ILineChartProps> {
                     legendPosition: "middle",
                 }}
 
+                colors={["#53a0fd", "#111111"]}
                 enableGridX={false}
                 pointSize={5}
                 pointColor={{ from: "color", modifiers: [] }}
