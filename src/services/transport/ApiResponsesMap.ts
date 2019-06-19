@@ -14,7 +14,7 @@ import { EApiRoutes } from "./EApiRoutes";
 import { IAuthUser, IBillingInfoListItem, IUser, IUserListItem } from "@entities/user";
 import { IWorker } from "@entities/worker";
 import { IItem } from "@entities/_common";
-import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
+import { IBillingListItem, ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 import { ICustomer } from "@entities/customer";
 import { TTransactionInfo, TTransactionListItem } from "@entities/transactions";
 import { TPromoCodeInfo, TPromoCodeListItem } from "@entities/promo-code";
@@ -47,6 +47,7 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.POST]: ICompanyInfoResponse;
         [EApiMethods.GET]: ICompanyInfoResponse;
     };
+    [EApiRoutes.BILLING_HISTORY]: IBillingListItem[];
     [EApiRoutes.CHARGER]: {
         [EApiMethods.GET]: ICharger;
         [EApiMethods.PUT]: ICharger;

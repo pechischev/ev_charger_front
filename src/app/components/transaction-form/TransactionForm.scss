@@ -6,7 +6,8 @@
 
     &-button {
         > button {
-            width: 150px;
+            max-width: 150px;
+            width: calc(100% / 2 - 20px);
         }
     }
 

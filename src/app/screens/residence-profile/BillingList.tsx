@@ -3,53 +3,60 @@ import { autobind } from "core-decorators";
 import { observer } from "mobx-react";
 import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
-import { EApiRoutes, TAxiosResponse } from "@services/transport";
-import * as React from "react";
 import { IBillingListItem } from "@entities/residence";
-import { Button } from "@components/button";
+import { parseAmountFieldValue } from "@utils";
+import { IListResponse } from "@services/transport/responses";
+import { AxiosResponse } from "axios";
 
-interface IChargersListProps extends IList<IBillingListItem> {
+interface IBillingListProps extends IList<IBillingListItem> {
     residenceId?: string;
 }
 
-@observer
 @autobind
-export class BillingList extends List<IBillingListItem, IChargersListProps> {
+@observer
+export class BillingList extends List<IBillingListItem, IBillingListProps> {
 
     protected getColumns(): Array<IColumn<IBillingListItem>> {
         return [
-            { id: "a", label: "Date" },
-            { id: "user.firstName", label: "First name" },
-            { id: "user.lastName", label: "Last name" },
-            { id: "b", label: "Successful transactions" },
-            { id: "c", label: "Unsuccessful transactions" },
-            { id: "d", label: "Total Revenue" },
-            { id: "e", label: "Service Fee" },
-            { id: "f", label: "Net Revenue" },
             {
-                id: "viewAction", label: "", size: "185px", handler: (item: IBillingListItem) => {
-                    return (
-                        <Button
-                            type="secondary"
-                            onClick={() => this.viewReport(item.id)}
-                            text="View Billing Report"
-                        />
-                    );
-                },
+                id: "date", label: "Date",
+                handler: (item: IBillingListItem) => this.formatDate(item.date),
+            },
+            {
+                id: "successful", label: "Successful transactions",
+                handler: (item: IBillingListItem) => parseAmountFieldValue(item.successful.toString()),
+            },
+            {
+                id: "unsuccessful", label: "Unsuccessful transactions",
+                handler: (item: IBillingListItem) => parseAmountFieldValue(item.unsuccessful.toString()),
+            },
+            {
+                id: "totalAmount", label: "Total Revenue",
+                handler: (item: IBillingListItem) => parseAmountFieldValue(item.totalAmount.toString()),
+            },
+            {
+                id: "totalServiceFee", label: "Service Fee",
+                handler: (item: IBillingListItem) => parseAmountFieldValue(item.totalServiceFee.toString()),
+            },
+            {
+                id: "revenue", label: "Net Revenue",
+                handler: (item: IBillingListItem) => parseAmountFieldValue(item.revenue.toString()),
             },
         ];
     }
 
-    protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.RESIDENCE_CHARGES>> {
+    protected async getAction(params: IListParams): Promise<AxiosResponse<IListResponse<IBillingListItem>>> {
         const { residenceId } = this.props;
         if (!residenceId) {
             return new Promise((resolve) => resolve());
         }
-        return this.store.transport.getResidenceChargesData(params, residenceId);
+        const {data, ...rest} = await this.store.transport.getBillingHistory(params, residenceId);
+        return {data: {count: data.length, rows: data}, ...rest};
     }
 
-    private viewReport(id: number): void {
-        // remove chargers request
-        // this.updateList
+    private formatDate(value: number): string {
+        const TIMESTAMP_COEFFICIENT = 1000;
+        const dateValue = new Date(value * TIMESTAMP_COEFFICIENT);
+        return `${dateValue.getMonth()}/${dateValue.getDate()}/${dateValue.getFullYear()}`;
     }
 }

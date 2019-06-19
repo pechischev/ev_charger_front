@@ -43,6 +43,8 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
         Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.PUT>>;
     removeCharger(residenceId: string, chargerId: string):
         Promise<TAxiosResponse<EApiRoutes.CHARGER, EApiMethods.DELETE>>;
+    getBillingHistory(params: TApiParams<EApiRoutes.BILLING_HISTORY>, residenceId: string):
+        Promise<TAxiosResponse<EApiRoutes.BILLING_HISTORY, EApiMethods.GET>>;
 
     /** Setting Company */
 

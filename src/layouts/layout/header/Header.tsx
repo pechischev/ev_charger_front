@@ -5,6 +5,7 @@ import { Dropdown, DropdownContent, DropdownTrigger } from "@components/dropdown
 import { HeaderStore } from "./HeaderStore";
 import { AppContext } from "@context";
 import { observer } from "mobx-react";
+import { redirectToWorkerForm } from "@utils/history";
 
 interface IHeaderProps {
     userName?: string;
@@ -61,7 +62,12 @@ export class Header extends Component<IHeaderProps> {
                     options={[
                         {
                             value: <Fragment>Profile</Fragment>,
-                            onClick: () => void 0,
+                            onClick: () => {
+                                if (!data) {
+                                    return;
+                                }
+                                redirectToWorkerForm(data.getId());
+                            },
                         },
                         { divider: true },
                         {
