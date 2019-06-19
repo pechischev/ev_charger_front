@@ -1,6 +1,6 @@
 import { action, observable } from "mobx";
 import * as _ from "lodash";
-import { get, isEmpty } from "lodash";
+import { get, isEmpty, isNil } from "lodash";
 import { Store } from "@components/store";
 import { autobind } from "core-decorators";
 import { Nullable } from "@app/config";
@@ -64,7 +64,7 @@ export class ServiceRequestProfileStore extends Store {
     }
 
     private getMessageByRequestType(type: ERequestType, message: string): string {
-        if (!isEmpty(message)) {
+        if (!isNil(message)) {
             return message;
         }
         if (type === ERequestType.LOST_ACCESS) {

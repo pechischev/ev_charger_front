@@ -3,7 +3,7 @@ import { Component, Fragment, ReactNode } from "react";
 import { observer } from "mobx-react";
 import { ERequestType } from "@entities/service-request";
 import { InputField, InputTextareaField, SelectField } from "@components/fields";
-import { EServiceRequestFields } from "@app/screens/service-request-profile/types/EServiceRequestFields";
+import { EServiceRequestFields } from "./EServiceRequestFields";
 import { Button } from "@components/button";
 import { redirectToServiceRequest } from "@utils/history";
 import { FormRenderProps } from "react-final-form";
@@ -18,9 +18,9 @@ interface IRequestInfoMainField {
 @observer
 export class RequestInfoMainField extends Component<IRequestInfoMainField> {
     render(): ReactNode {
-        const label = ((this.props.type === ERequestType.LOST_ACCESS)
-            || (this.props.type === ERequestType.CANCEL_SUBSCRIPTION)) ? "Request" : "Comment";
-        console.log(this.props.status);
+        const { submitting, api, status, type } = this.props;
+        const isSystemRequest = (type === ERequestType.LOST_ACCESS) || (type === ERequestType.CANCEL_SUBSCRIPTION);
+        const label = isSystemRequest ? "Request" : "Comment";
         return (
             <Fragment>
                 <InputField
@@ -32,7 +32,7 @@ export class RequestInfoMainField extends Component<IRequestInfoMainField> {
                     label="Subject"
                     name={EServiceRequestFields.SUBJECT}
                     disabled={true}
-                    isVisible={this.props.type === ERequestType.OTHER}
+                    isVisible={type === ERequestType.OTHER}
                 />
                 <InputTextareaField
                     label={label}
@@ -43,9 +43,10 @@ export class RequestInfoMainField extends Component<IRequestInfoMainField> {
                     label={"Request Status"}
                     name={EServiceRequestFields.STATUS}
                     options={[
-                        { id: "active", title: "Active" }, { id: "resolved", title: "Resolved" },
+                        { id: "active", title: "Active" },
+                        { id: "resolved", title: "Resolved" },
                     ]}
-                    disabled={this.props.status}
+                    disabled={status}
                 />
                 <div className="request-container__button clearfix">
                     <Button
@@ -57,8 +58,8 @@ export class RequestInfoMainField extends Component<IRequestInfoMainField> {
                     <Button
                         className="float-right"
                         type="primary"
-                        disabled={!this.props.submitting || this.props.status}
-                        onClick={() => this.props.api.handleSubmit()}
+                        disabled={!submitting || status}
+                        onClick={() => api.handleSubmit()}
                         text={"Save"}
                         style={{
                             marginRight: 10,

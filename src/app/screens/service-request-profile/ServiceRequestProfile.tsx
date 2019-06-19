@@ -39,7 +39,7 @@ export class ServiceRequestProfile extends Component<RouteProps> {
             case ERequestType.OTHER:
                 return <Other data={this.store.getData()}/>;
             default:
-                return "";
+                return null;
         }
     }
 }
