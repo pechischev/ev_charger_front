@@ -109,4 +109,9 @@ export interface ITransport<T = any> extends Subscribable<T>, Unsubscribable {
     getServiceRequest(requestId: string): Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST, EApiMethods.GET>>;
     updateServiceRequest(requestId: string):
         Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST>>;
+
+    /** Dashboard */
+
+    getStatistics(): Promise<TAxiosResponse<EApiRoutes.STATISTICS>>;
+    getReportData(): Promise<TAxiosResponse<EApiRoutes.REPORT_DATA>>;
 }

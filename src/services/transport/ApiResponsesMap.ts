@@ -5,6 +5,7 @@ import {
     ICompanyInfoResponse,
     IListResponse,
     ILoginResponse,
+    IStatisticDataResponse,
     IUserResponse,
     IVehicleDataCountResponse,
 } from "./responses";
@@ -18,6 +19,7 @@ import { ICustomer } from "@entities/customer";
 import { TTransactionInfo, TTransactionListItem } from "@entities/transactions";
 import { TPromoCodeInfo, TPromoCodeListItem } from "@entities/promo-code";
 import { IServiceRequest, IServiceRequestListItem } from "@entities/service-request";
+import { IReportData } from "@entities/company";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -79,6 +81,8 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.SERVICE_REQUEST]: {
         [EApiMethods.GET]: IServiceRequest;
     };
+    [EApiRoutes.STATISTICS]: IStatisticDataResponse;
+    [EApiRoutes.REPORT_DATA]: IReportData[];
 }
 
 // @ts-ignore:2344

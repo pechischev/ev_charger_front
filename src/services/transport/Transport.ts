@@ -347,4 +347,12 @@ export class Transport<T extends object = object> implements ITransport {
         Promise<TAxiosResponse<EApiRoutes.SERVICE_REQUEST>> {
         return this.client.post(`${EApiRoutes.SERVICE_REQUEST.replace("{requestId}", requestId)}`);
     }
+
+    async getStatistics(): Promise<TAxiosResponse<EApiRoutes.STATISTICS>> {
+        return this.client.get(EApiRoutes.STATISTICS);
+    }
+
+    async getReportData(): Promise<TAxiosResponse<EApiRoutes.REPORT_DATA>> {
+        return this.client.get(EApiRoutes.REPORT_DATA);
+    }
 }
