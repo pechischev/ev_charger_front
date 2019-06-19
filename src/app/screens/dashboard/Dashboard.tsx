@@ -5,9 +5,23 @@ import "./Dashboard.scss";
 import { Button } from "@components/button";
 import { redirectToTransactionList } from "@utils/history";
 import { LastTransactionsList } from ".";
-import { CustomGraph } from "@components/graph";
+import { LineChart } from "@components/chart";
+import { DashboardStore } from "./DashboardStore";
+import { RouteProps } from "react-router";
+import { autobind } from "core-decorators";
+import { observer } from "mobx-react";
 
-export class Dashboard extends Component {
+@autobind
+@observer
+export class Dashboard extends Component<RouteProps> {
+    private readonly store = new DashboardStore();
+
+    constructor(props: RouteProps) {
+        super(props);
+
+        this.store.init();
+    }
+
     render(): ReactNode {
         const actionElement = this.getActionElement();
         return (
@@ -53,7 +67,7 @@ export class Dashboard extends Component {
                     <Card
                         className="dashboard-graph"
                         title="Statistics"
-                        content={this.renderGraph}
+                        content={this.renderGraph()}
                     />
                     <Card
                         className="dashboard-table"
@@ -85,7 +99,13 @@ export class Dashboard extends Component {
 
     private renderGraph(): ReactNode {
         return (
-            <CustomGraph />
+            <div style={{
+                width: "100%",
+                height: 300,
+                display: "flex",
+            }}>
+                <LineChart data={this.store.data}/>
+            </div>
         );
     }
 
