@@ -14,8 +14,8 @@ export class ProfileTabStore extends Store {
         return ([
             { type: EUserFieldTypes.FIRST_NAME, codes: [] },
             { type: EUserFieldTypes.LAST_NAME, codes: [] },
-            { type: EUserFieldTypes.EMAIL, codes: [15] },
-            { type: EUserFieldTypes.PHONE, codes: [19] },
+            { type: EUserFieldTypes.EMAIL, codes: [0, 15] },
+            { type: EUserFieldTypes.PHONE, codes: [0, 19] },
             { type: EUserFieldTypes.RESIDENCE, codes: [] },
             { type: EUserFieldTypes.ADDRESS, codes: [] },
             { type: EUserFieldTypes.APT_UNIT, codes: [] },
