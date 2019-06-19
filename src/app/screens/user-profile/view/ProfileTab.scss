@@ -1,27 +1,5 @@
 @import "~styles/utils/mixins.scss";
 
 .tab-container-profile {
-    .profile-form-fields {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(300px, 540px));
-    }
-
-    .profile-form-button {
-        margin: 0 40px 25px 0;
-
-        > button {
-            width: 100px;
-        }
-    }
-
-    .profile-settings {
-        padding-right: 40px;
-        margin-top: 20px;
-
-        &__title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-    }
+    width: 100%;
 }

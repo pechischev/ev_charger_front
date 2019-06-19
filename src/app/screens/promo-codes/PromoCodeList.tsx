@@ -16,6 +16,7 @@ import { action, observable } from "mobx";
 import { Modal } from "@components/modal";
 import { EDiscountCharacter, EDiscountType, TPromoCodeListItem } from "@entities/promo-code";
 import * as _ from "lodash";
+import { StatusMap } from "@entities/user/EStatus";
 
 interface IPromoCodeListProps extends IList<TPromoCodeListItem> {
     onRemoveItem(promoCodeId: number): Promise<void>;
@@ -57,7 +58,10 @@ export class PromoCodeList extends List<TPromoCodeListItem, IPromoCodeListProps>
             { id: "code", label: "Promo Code" },
             { id: "discount", label: "Discount Amount", handler: this.getDiscountValue },
             { id: "residences", label: "Residences list", handler: this.renderResidences },
-            { id: "status", label: "Status" },
+            {
+                id: "status", label: "Status",
+                handler: (item: TPromoCodeListItem) => StatusMap.get(item.status),
+            },
             {
                 id: "action", label: "", size: "150px",
                 handler: (item: TPromoCodeListItem) => {

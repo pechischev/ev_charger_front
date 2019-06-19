@@ -8,6 +8,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { redirectOnUserProfile } from "@utils/history";
+import { StatusMap } from "@entities/user/EStatus";
 
 @observer
 @autobind
@@ -27,7 +28,10 @@ export class UserList extends List<IUserListItem> {
             { id: "user.firstName", label: "First name" },
             { id: "user.lastName", label: "Last name" },
             { id: "residence.title", label: "Residence" },
-            { id: "subscription.status", label: "Status" },
+            {
+                id: "subscription.status", label: "Status",
+                handler: (item: IUserListItem) => StatusMap.get(item.subscription.status),
+            },
         ];
     }
 

@@ -1,14 +1,9 @@
 import { IItem } from "@entities/_common";
-import { IUser } from "@entities/user";
-
-export enum ETransactionStatus {
-    PAID = "paid",
-    OVERDUE = "overdue"
-}
+import { EStatus, IUser } from "@entities/user";
 
 export interface ITransaction {
     id: number;
-    status: ETransactionStatus;
+    status: EStatus;
     amount: string;
     payDate: number;
     chargeToken: string;

@@ -28,12 +28,7 @@ export class Header extends Component<IHeaderProps> {
                 <div className="container-fluid">
                     <div className="d-flex">
                         {this.renderLogo()}
-                        <a aria-label="Hide Sidebar" className="app-sidebar__toggle" data-toggle="sidebar" href="#">
-                            <span/><span/><span/>
-                        </a>
-                        <div className="d-flex order-lg-2 ml-auto">
-                            {this.renderUserAvatar()}
-                        </div>
+                        {this.renderUserAvatar()}
                     </div>
                 </div>
             </header>
@@ -51,10 +46,15 @@ export class Header extends Component<IHeaderProps> {
     private renderUserAvatar(): ReactNode {
         const data = AppContext.getUserStore().getUser();
         return (
-            <Dropdown>
+            <Dropdown className="ml-auto">
                 <DropdownTrigger className="nav-link pr-0 leading-none d-flex header-bar-person">
-                    <span className="header-bar-person__image"/>
-                    <span className="ml-2 d-none d-lg-block header-bar-person__value">
+                    <div className="header-bar-person__image">
+                        <span data-show="true">
+                            {this.getInitialCharacter(data && data.getFirstName())}
+                            {this.getInitialCharacter(data && data.getLastName())}
+                        </span>
+                    </div>
+                    <span className="ml-2 header-bar-person__value">
                         <span className="text-dark">{data && data.getName()}</span>
                     </span>
                 </DropdownTrigger>
@@ -79,5 +79,9 @@ export class Header extends Component<IHeaderProps> {
                 />
             </Dropdown>
         );
+    }
+
+    private getInitialCharacter(line: string = ""): string {
+        return line.charAt(0);
     }
 }

@@ -28,11 +28,11 @@
 
         &-img {
             background-image: url("./img/logo-loop.svg");
-            background-size: 120px 39px;
+            background-size: 117px 36px;
             background-repeat: no-repeat;
             margin: auto;
-            width: 120px;
-            height: 39px;
+            width: 110px;
+            height: 36px;
         }
     }
 
@@ -43,9 +43,19 @@
             &__image {
                 @include square(40px);
 
-                background-color: #f7f7f7;
+                background-color: #edeff3;
                 border-radius: 50%;
                 margin: 5px;
+                display: flex;
+
+                > span {
+                    display: flex;
+                    margin: auto;
+
+                    &[data-show=false] {
+                        display: none;
+                    }
+                }
             }
 
             &__value {

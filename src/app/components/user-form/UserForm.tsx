@@ -17,6 +17,7 @@ import { autobind } from "core-decorators";
 import { get } from "lodash";
 import { IUserForm } from "./interfaces";
 import { EUserFieldTypes } from "./EUserFieldTypes";
+import "./UserForm.scss";
 
 @observer
 @autobind
@@ -57,7 +58,7 @@ export class UserForm extends Component<IUserForm> {
         const { passwordFields } = this.props;
         const readonly = !AppContext.getUserStore().isAdmin();
         return (
-            <Fragment>
+            <div className="profile-form-fields_block">
                 <InputField
                     label={"First name"}
                     name={EUserFieldTypes.FIRST_NAME}
@@ -86,14 +87,14 @@ export class UserForm extends Component<IUserForm> {
                     disabled={readonly}
                 />
                 {passwordFields}
-            </Fragment>
+            </div>
         );
     }
 
     private getMailingAddressFields(): ReactNode {
         const readonly = !AppContext.getUserStore().isAdmin();
         return (
-            <Fragment>
+            <div className="profile-form-fields_block">
                 <InputField
                     label={"Address"}
                     name={EUserFieldTypes.ADDRESS}
@@ -123,14 +124,14 @@ export class UserForm extends Component<IUserForm> {
                     options={AppContext.getInfoStore().states}
                     disabled={readonly}
                 />
-            </Fragment>
+            </div>
         );
     }
 
     private getVehicleFields(): ReactNode {
         const readonly = !AppContext.getUserStore().isAdmin();
         return (
-            <Fragment>
+            <div className="profile-form-fields_block">
                 <SelectField
                     label={"Makes"}
                     name={EUserFieldTypes.MAKES}
@@ -153,7 +154,7 @@ export class UserForm extends Component<IUserForm> {
                     name={EUserFieldTypes.LICENSE_PLATE}
                     disabled={readonly}
                 />
-            </Fragment>
+            </div>
         );
     }
 

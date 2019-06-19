@@ -33,27 +33,6 @@
         margin: 0;
     }
 
-    &__toggle {
-        padding: 7px;
-        height: 35px;
-        margin: 7px 0;
-
-        > span {
-            display: block;
-            width: 18px;
-            height: 3px;
-            background-color: $color-font-primary;
-            transition: background-color 0.25s ease;
-            margin: 3px 0;
-        }
-
-        &:hover {
-            > span {
-                background-color: $color-primary;
-            }
-        }
-    }
-
     &[data-sidebar="minimize"] {
         width: 50px;
     }

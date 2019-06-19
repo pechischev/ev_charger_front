@@ -1,9 +1,12 @@
+@import "~styles/utils/mixins.scss";
+
 $tabsHeight: 48px;
 $icon-size: 30px;
 
 .tabs-container {
+    @include square(100%);
+
     position: relative;
-    height: 100%;
     float: left;
     margin-top: 5px;
 
