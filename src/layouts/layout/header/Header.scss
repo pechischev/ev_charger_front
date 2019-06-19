@@ -43,9 +43,19 @@
             &__image {
                 @include square(40px);
 
-                background-color: #f7f7f7;
+                background-color: #edeff3;
                 border-radius: 50%;
                 margin: 5px;
+                display: flex;
+
+                > span {
+                    display: flex;
+                    margin: auto;
+
+                    &[data-show=false] {
+                        display: none;
+                    }
+                }
             }
 
             &__value {
