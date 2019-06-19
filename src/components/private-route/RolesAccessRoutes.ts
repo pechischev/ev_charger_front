@@ -23,6 +23,8 @@ export const OperatorAccessRoute = new Map([
     [EPaths.PROMO_CODE_INFO, false],
     [EPaths.PROMO_CODE_FORM, false],
     [EPaths.PROMO_CODE_PROFILE, false],
+    [EPaths.SERVICE_REQUESTS, true],
+    [EPaths.SERVICE_REQUESTS_PROFILE, true],
 ]);
 
 export const OperatorAccessRoutes = [
@@ -30,5 +32,7 @@ export const OperatorAccessRoutes = [
     EPaths.RESIDENCE_LIST,
     EPaths.RESIDENCE_PROFILE,
     EPaths.USER_LIST,
-    EPaths.USER_PROFILE
+    EPaths.USER_PROFILE,
+    EPaths.SERVICE_REQUESTS,
+    EPaths.SERVICE_REQUESTS_PROFILE,
 ];

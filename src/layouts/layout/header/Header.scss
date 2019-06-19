@@ -38,44 +38,19 @@
 
     &-bar {
         &-person {
-            margin: 10px;
-        }
-    }
+            margin: 0 10px;
 
-    .icon {
-        @include square(40px);
+            &__image {
+                @include square(40px);
 
-        background-color: #f7f7f7;
-        border-radius: 50%;
-        margin: 5px;
-        position: relative;
-        display: flex;
-        padding: 0;
-
-        &_mail {
-            display: flex;
-            margin: auto;
-            width: 18px;
-            height: 14px;
-            background-image: url("img/envelope-of-white-paper.svg");
-            background-size: 18px 14px;
-            background-repeat: no-repeat;
-        }
-
-        .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            padding: 3px 6px;
-
-            &-info {
-                background: #00d8c7;
+                background-color: #f7f7f7;
+                border-radius: 50%;
+                margin: 5px;
             }
-        }
 
-        &:hover {
-            transition: 0.25s;
-            background-color: #ebeff5;
+            &__value {
+                margin: 12px 0 0;
+            }
         }
     }
 }

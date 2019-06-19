@@ -1,6 +1,7 @@
 import { FieldErrors } from "@app/config";
 import * as _ from "lodash";
 import { FieldRenderProps } from "react-final-form";
+import { ReactText } from "react";
 
 function isEmptyField(value: string | number): boolean {
     const currentValue = _.isNumber(value) ? value.toString() : value;
@@ -61,4 +62,36 @@ export function parseAmountFieldValue(value: string): string {
         return `${arr[0]}.${arr[1]}`;
     }
     return value;
+}
+
+export function formattedDataTime(value: number): string {
+    const milliseconds = 1000;
+    const hourInEngFormat = 12;
+
+    const newDate = new Date(value * milliseconds);
+
+    const sMonth = padValue(newDate.getMonth() + 1);
+    const sDay = padValue(newDate.getDate());
+    const sYear = newDate.getFullYear();
+    let sHour = newDate.getHours();
+    const sMinute = padValue(newDate.getMinutes());
+    let sAMPM = "AM";
+
+    const iHourCheck = parseInt(`${sHour}`, 10);
+
+    if (iHourCheck > hourInEngFormat) {
+        sAMPM = "PM";
+        sHour = iHourCheck - hourInEngFormat;
+    } else if (iHourCheck === 0) {
+        sHour = hourInEngFormat;
+    }
+
+    const hour = padValue(sHour);
+
+    return `${sMonth}.${sDay}.${sYear} / ${hour}:${sMinute} ${sAMPM}`;
+}
+
+export function padValue(value: number): ReactText {
+    const radix = 10;
+    return (value < radix) ? `0${value}` : value.toString();
 }

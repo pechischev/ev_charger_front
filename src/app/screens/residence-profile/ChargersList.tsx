@@ -86,7 +86,6 @@ export class ChargersList extends List<IChargersListItem, IChargersListProps> {
     }
 
     private deleteCharges(): void {
-        console.log(this.store.getSelectedItem());
         const item = this.store.getSelectedItem();
         if (!item) {
             return;

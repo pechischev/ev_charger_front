@@ -71,6 +71,7 @@
         @include getMenuIcon("payments");
         @include getMenuIcon("settings");
         @include getMenuIcon("transactions");
+        @include getMenuIcon("service-request");
 
         position: relative;
         display: flex;

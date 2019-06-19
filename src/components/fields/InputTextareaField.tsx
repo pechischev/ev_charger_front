@@ -5,28 +5,32 @@ import { IField } from "@components/fields/IField";
 import { getError } from "@utils";
 import "./Field.scss";
 import formatStringByPattern from "format-string-by-pattern";
-import { isEmpty, isString } from "lodash";
+import { isString, isEmpty } from "lodash";
 import { Nullable } from "@app/config";
 import { EMessages } from "@utils/EMessage";
+import * as autosize from "autosize";
 
-export const InputField: FC<IField> = ({
-    name, label, placeholder, mask, isVisible = true, disabled = false, type, validate, ...rest
-                                       }) => {
+export const InputTextareaField: FC<IField> = ({
+        name, label, placeholder, mask, isVisible = true, disabled = false, type, validate, ...rest
+    }) => {
     const validateField = (value: ReactText, allValues: object): Nullable<ReactText> => {
-        if (disabled) {
-            return void 0;
-        }
         if (validate) {
             return validate(value, allValues);
         }
-        const onlyWords = /^[\w+_.,]+( [\w_.,]+)*$/g;
-        if (isString(value) && isEmpty(value.trim().match(onlyWords))) {
+        const onlyWords = /^[\w+_]+( [\w_]+)*$/g;
+        if (isString(value) && isEmpty(value.match(onlyWords))) {
             return EMessages.CONTAINS_INVALID_VALUE;
         }
         return void 0;
     };
+
+    const field = document.querySelector(`textarea[name=${name}]`);
+    if (!!field) {
+        autosize(field);
+    }
+
     return (
-        <div className="form-group" data-visible={isVisible}>
+        <div className="form-group form-group_textarea" data-visible={isVisible}>
             <label className="form-label">{label}</label>
             <Field
                 name={name}
@@ -47,12 +51,14 @@ export const InputField: FC<IField> = ({
                         const error = getError(props, type);
                         return (
                             <Fragment>
-                                <input
+                                <textarea
                                     className="form-control"
                                     disabled={disabled}
                                     {...props.input}
-                                    {...{ placeholder, type }}
-                                />
+                                    {...{placeholder, type}}
+                                >
+                                    {...props.input.value}
+                                </textarea>
                                 <span className="form-text text-danger">{error}</span>
                             </Fragment>
                         );

@@ -17,6 +17,7 @@ import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 import { ICustomer } from "@entities/customer";
 import { TTransactionInfo, TTransactionListItem } from "@entities/transactions";
 import { TPromoCodeInfo, TPromoCodeListItem } from "@entities/promo-code";
+import { IServiceRequest, IServiceRequestListItem } from "@entities/service-request";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -74,7 +75,10 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.PROMO_CODE]: {
         [EApiMethods.GET]: TPromoCodeInfo;
     };
-
+    [EApiRoutes.GET_SERVICE_REQUESTS]: IListResponse<IServiceRequestListItem>;
+    [EApiRoutes.SERVICE_REQUEST]: {
+        [EApiMethods.GET]: IServiceRequest;
+    };
 }
 
 // @ts-ignore:2344
