@@ -6,7 +6,6 @@ import { autobind } from "core-decorators";
 import { Nullable } from "@app/config";
 import { ERequestType, IServiceRequest } from "@entities/service-request";
 import { EApiMethods, EApiRoutes, TAxiosResponse } from "@services/transport";
-import { TPromoCodeFormData } from "@entities/promo-code";
 import { formattedDataTime } from "@utils";
 import { redirectToServiceRequest } from "@utils/history";
 
@@ -40,8 +39,7 @@ export class ServiceRequestProfileStore extends Store {
         const { user, contactData, request } = data;
         const { firstName, lastName } = user;
         const { address, city, aptUnit, state, residence } = contactData;
-        const { type, sendingDate, resolved, info = {} } = request;
-        const { subject = "", message = "", chargerId = 0 } = info;
+        const { type, sendingDate, resolved, subject, charger, message } = request;
         return {
             firstName,
             secondName: lastName,
@@ -49,7 +47,7 @@ export class ServiceRequestProfileStore extends Store {
             address: `${get(state, "title")} ${city} ${address} ${aptUnit}`,
             dateTime: formattedDataTime(sendingDate),
             subject,
-            chargerId,
+            charger,
             comment: this.getMessageByRequestType(type, message),
             status: resolved ? "resolved" : "active",
         };
@@ -59,9 +57,9 @@ export class ServiceRequestProfileStore extends Store {
         this.call(this.transport.getServiceRequest(requestId), this.onSuccessGetData, this.onError);
     }
 
-    async updateServiceRequest(params: TPromoCodeFormData): Promise<void> {
+    async updateServiceRequest(): Promise<void> {
         return this.asyncCall(
-            this.transport.updateServiceRequest(_.toString(this.requestId))
+            this.transport.updateServiceRequest(_.toString(this.requestId)),
         ).then(this.onUpdateServiceRequest);
     }
 

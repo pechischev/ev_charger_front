@@ -1,4 +1,4 @@
-import { EPaths } from "@app/config";
+import { EPaths, Nullable } from "@app/config";
 import { PrivateRoute } from "@components/private-route";
 import { AppContext, stores } from "@context";
 import * as React from "react";
@@ -45,7 +45,7 @@ export class App extends Component {
         AppContext.getUserStore().profile$.subscribe(this.changeLoad);
     }
 
-    render(): ReactNode {
+    render(): Nullable<ReactNode> {
         if (!this.loaded) {
             return null;
         }
@@ -58,12 +58,12 @@ export class App extends Component {
         );
     }
 
-    async componentDidMount() {
-        await AppContext.getUserStore().updateProfile();
+    componentDidMount(): void {
+        AppContext.getUserStore().updateProfile();
     }
 
     @action.bound
-    private changeLoad() {
+    private changeLoad(): void {
         this.loaded = true;
     }
 

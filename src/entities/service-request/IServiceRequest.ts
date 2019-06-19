@@ -17,11 +17,8 @@ export interface IServiceRequest {
         type: ERequestType;
         sendingDate: number;
         resolved: boolean;
-        info: {
-            subject: string;
-            message: string;
-            chargerId: number;
-            residenceId: string;
-        };
+        subject: string;
+        message: string;
+        charger: string;
     };
 }

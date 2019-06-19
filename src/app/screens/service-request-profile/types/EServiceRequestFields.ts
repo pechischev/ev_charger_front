@@ -6,6 +6,6 @@ export enum EServiceRequestFields {
     DATE_TIME = "dateTime",
     SUBJECT = "subject",
     COMMENT = "comment",
-    CHARGER_ID = "chargerId",
+    CHARGER = "charger",
     STATUS = "status",
 }

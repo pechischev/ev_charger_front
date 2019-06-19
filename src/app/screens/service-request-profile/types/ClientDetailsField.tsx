@@ -36,7 +36,7 @@ export class ClientDetailsField extends Component<IClientDetailsField> {
                 />
                 <InputField
                     label="EV Charger ID"
-                    name={EServiceRequestFields.CHARGER_ID}
+                    name={EServiceRequestFields.CHARGER}
                     disabled={true}
                     isVisible={this.props.type === ERequestType.BROKEN_CHARGER}
                 />
