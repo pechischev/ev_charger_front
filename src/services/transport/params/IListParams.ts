@@ -4,4 +4,6 @@ export interface IListParams {
 
     type?: string;
     search?: string;
+    from?: number;
+    to?: number;
 }

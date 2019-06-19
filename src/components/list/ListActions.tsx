@@ -13,7 +13,7 @@ import * as moment from "moment";
 import { get, isEmpty, isNil } from "lodash";
 import { EMessages } from "@utils/EMessage";
 
-type TSearchType = Pick<IListParams, "search">;
+type TSearchType = Pick<IListParams, "search" | "from" | "to">;
 
 @observer
 @autobind

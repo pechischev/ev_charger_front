@@ -7,6 +7,7 @@ import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { redirectOnTransactionProfile } from "@utils/history";
 import { TTransactionListItem } from "@entities/transactions";
 import { parseAmountFieldValue } from "@utils";
+import { StatusMap } from "@entities/user/EStatus";
 
 @observer
 @autobind
@@ -30,7 +31,10 @@ export class LastTransactionsList extends List<TTransactionListItem> {
                 id: "amount", label: "Transaction cost", size: "0.75fr",
                 handler: (item: TTransactionListItem) => parseAmountFieldValue(`${item.amount}`),
             },
-            { id: "status", label: "Status", size: "100px" },
+            {
+                id: "status", label: "Status", size: "100px",
+                handler: (item: TTransactionListItem) => StatusMap.get(item.status),
+            },
         ];
     }
 
