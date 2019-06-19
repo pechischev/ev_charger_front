@@ -43,6 +43,7 @@ export class App extends Component {
         super(props);
         AppContext.getUserStore().login();
         AppContext.getUserStore().profile$.subscribe(this.changeLoad);
+        AppContext.getUserStore().error$.subscribe(this.changeLoad);
     }
 
     render(): Nullable<ReactNode> {
