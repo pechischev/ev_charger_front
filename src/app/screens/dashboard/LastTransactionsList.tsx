@@ -6,7 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { redirectOnTransactionProfile } from "@utils/history";
 import { TTransactionListItem } from "@entities/transactions";
-import { parseAmountFieldValue } from "@utils";
+import { formatDate, parseAmountFieldValue } from "@utils";
 import { StatusMap } from "@entities/user/EStatus";
 
 @observer
@@ -14,6 +14,7 @@ import { StatusMap } from "@entities/user/EStatus";
 export class LastTransactionsList extends List<TTransactionListItem> {
 
     protected getColumns(): Array<IColumn<TTransactionListItem>> {
+        const milliseconds = 1000;
         return [
             { id: "id", label: "Transaction Id", size: "0.5fr" },
             { id: "customer.id", label: "User Id", size: "100px" },
@@ -21,11 +22,11 @@ export class LastTransactionsList extends List<TTransactionListItem> {
             { id: "customer.lastName", label: "Surname" },
             {
                 id: "payDate", label: "Data transaction", size: "0.75fr",
-                handler: (item: TTransactionListItem) => this.formatDate(item.payDate * 1000),
+                handler: (item: TTransactionListItem) => formatDate(item.payDate * milliseconds),
             },
             {
                 id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
-                handler: (item: TTransactionListItem) => this.formatDate(item.nextPaymentDate * 1000),
+                handler: (item: TTransactionListItem) => formatDate(item.nextPaymentDate * milliseconds),
             },
             {
                 id: "amount", label: "Transaction cost", size: "0.75fr",
@@ -46,8 +47,4 @@ export class LastTransactionsList extends List<TTransactionListItem> {
         return this.store.transport.getTransactions(params);
     }
 
-    private formatDate(value: number): string {
-        const dateValue = new Date(value);
-        return `${dateValue.getMonth()}/${dateValue.getDate()}/${dateValue.getFullYear()}`;
-    }
 }

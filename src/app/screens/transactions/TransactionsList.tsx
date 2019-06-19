@@ -9,7 +9,7 @@ import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { redirectOnTransactionProfile } from "@utils/history";
 import { TTransactionListItem } from "@entities/transactions";
-import { parseAmountFieldValue } from "@utils";
+import { formatDate, parseAmountFieldValue } from "@utils";
 import { StatusMap } from "@entities/user/EStatus";
 
 @observer
@@ -32,11 +32,11 @@ export class TransactionsList extends List<TTransactionListItem> {
             { id: "customer.lastName", label: "Surname" },
             {
                 id: "payDate", label: "Data transaction", size: "0.75fr",
-                handler: (item: TTransactionListItem) => this.formatDate(item.payDate),
+                handler: (item: TTransactionListItem) => formatDate(item.payDate),
             },
             {
                 id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
-                handler: (item: TTransactionListItem) => this.formatDate(item.nextPaymentDate),
+                handler: (item: TTransactionListItem) => formatDate(item.nextPaymentDate),
             },
             {
                 id: "amount", label: "Transaction cost", size: "0.75fr",
@@ -54,11 +54,5 @@ export class TransactionsList extends List<TTransactionListItem> {
 
     protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_TRANSACTIONS>> {
         return this.store.transport.getTransactions(params);
-    }
-
-    private formatDate(value: number): string {
-        const TIMESTAMP_COEFFICIENT = 1000;
-        const dateValue = new Date(value * TIMESTAMP_COEFFICIENT);
-        return `${dateValue.getMonth()}/${dateValue.getDate()}/${dateValue.getFullYear()}`;
     }
 }

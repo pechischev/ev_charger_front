@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { IListParams } from "@services/transport/params";
 import { IColumn } from "@components/table";
 import { IBillingListItem } from "@entities/residence";
-import { parseAmountFieldValue } from "@utils";
+import { formatDate, parseAmountFieldValue } from "@utils";
 import { IListResponse } from "@services/transport/responses";
 import { AxiosResponse } from "axios";
 
@@ -17,10 +17,11 @@ interface IBillingListProps extends IList<IBillingListItem> {
 export class BillingList extends List<IBillingListItem, IBillingListProps> {
 
     protected getColumns(): Array<IColumn<IBillingListItem>> {
+        const milliseconds = 1000;
         return [
             {
                 id: "date", label: "Date",
-                handler: (item: IBillingListItem) => this.formatDate(item.date),
+                handler: (item: IBillingListItem) => formatDate(item.date * milliseconds),
             },
             {
                 id: "successful", label: "Successful transactions",
@@ -52,11 +53,5 @@ export class BillingList extends List<IBillingListItem, IBillingListProps> {
         }
         const {data, ...rest} = await this.store.transport.getBillingHistory(params, residenceId);
         return {data: {count: data.length, rows: data}, ...rest};
-    }
-
-    private formatDate(value: number): string {
-        const TIMESTAMP_COEFFICIENT = 1000;
-        const dateValue = new Date(value * TIMESTAMP_COEFFICIENT);
-        return `${dateValue.getMonth()}/${dateValue.getDate()}/${dateValue.getFullYear()}`;
     }
 }

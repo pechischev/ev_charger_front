@@ -6,6 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { IBillingInfoListItem } from "@entities/user";
+import { formatDate } from "@utils";
 
 interface IBillingList extends IList<IBillingInfoListItem> {
     userId?: string;
@@ -20,9 +21,11 @@ export class BillingList extends List<IBillingInfoListItem, IBillingList> {
     }
 
     protected getColumns(): Array<IColumn<IBillingInfoListItem>> {
+        const milliseconds = 1000;
         return [
-            { id: "payDate", label: "Date",
-                handler: (item: IBillingInfoListItem) => this.formatingDate(item.payDate * 1000),
+            {
+                id: "payDate", label: "Date",
+                handler: (item: IBillingInfoListItem) => formatDate(item.payDate * milliseconds),
             },
             { id: "amount", label: "Transaction value" },
             { id: "status", label: "Status" },
@@ -30,14 +33,10 @@ export class BillingList extends List<IBillingInfoListItem, IBillingList> {
     }
 
     protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_BILLING_DATA>> {
-        if (this.props.userId) {
-            return this.store.transport.getUserBillingInfo(params, this.props.userId);
+        const {userId} = this.props;
+        if (!userId) {
+            return new Promise((resolve) => resolve);
         }
-        return new Promise((resolve) => resolve);
-    }
-
-    private formatingDate(value: number): string {
-        const dateValue = new Date(value);
-        return `${dateValue.getMonth()}/${dateValue.getDate()}/${dateValue.getFullYear()}`;
+        return this.store.transport.getUserBillingInfo(params, userId);
     }
 }

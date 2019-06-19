@@ -95,3 +95,8 @@ export function padValue(value: number): ReactText {
     const radix = 10;
     return (value < radix) ? `0${value}` : value.toString();
 }
+
+export function formatDate(value: number): string {
+    const dateValue = new Date(value);
+    return `${dateValue.getMonth()}/${dateValue.getDate()}/${dateValue.getFullYear()}`;
+}
