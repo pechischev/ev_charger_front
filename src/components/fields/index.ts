@@ -1,5 +1,6 @@
 export { IField } from "./IField";
 export { InputField } from "./InputField";
+export { InputTextareaField } from "./InputTextareaField";
 export { SelectField } from "./SelectField";
 export { PhoneField } from "./PhoneField";
 export { EmailField } from "./EmailField";

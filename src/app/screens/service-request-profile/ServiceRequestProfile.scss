@@ -1,0 +1,37 @@
+@import "~styles/utils/mixins.scss";
+
+.request-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    &_column {
+        padding-right: 40px;
+    }
+
+    &__title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    &__button {
+        > button {
+            max-width: 150px;
+            width: calc(100% / 2 - 20px);
+        }
+    }
+}
+
+@media (max-width: 1400px) {
+    .request-container {
+        grid-template-columns: repeat(2, 1fr);
+
+        &_column {
+            &:nth-child(3) {
+                display: none;
+            }
+        }
+    }
+}

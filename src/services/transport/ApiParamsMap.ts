@@ -1,19 +1,20 @@
 import { EApiMethods } from "./EApiMethods";
 import { EApiRoutes } from "./EApiRoutes";
 import {
+    IBillingSettingsParams,
     IBindOperatorParams,
     IChargerParams,
     ICompanyInfoParams,
     IGetBoundResidencesParams,
     IListParams,
     ILoginParams,
+    IPromoCodeParams,
     IResidenceParams,
     IUserParams,
     IVehicleBrandParams,
     IVehicleDataCountParams,
     IVehicleModelParams,
     IWorkerParams,
-    IBillingSettingsParams, IPromoCodeParams,
 } from "./params";
 import { IMethodMap, TMap } from "./TMap";
 
@@ -60,11 +61,12 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountParams;
     [EApiRoutes.PROMO_CODE]: Partial<IPromoCodeParams>;
     [EApiRoutes.CREATE_PROMO_CODE]: IPromoCodeParams;
+    [EApiRoutes.GET_SERVICE_REQUESTS]: IListParams;
 }
 
 // @ts-ignore:2344
 export type TApiParams<K extends keyof IApiRouteParamsMap,
     // tslint:disable-next-line:no-any
     M extends EApiMethods = any> = IApiRouteParamsMap[K] extends IMethodMap<TParamsUnion>
-        ? IApiRouteParamsMap[K][M]
-        : IApiRouteParamsMap[K];
+    ? IApiRouteParamsMap[K][M]
+    : IApiRouteParamsMap[K];

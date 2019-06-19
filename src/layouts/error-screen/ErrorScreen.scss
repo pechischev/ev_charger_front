@@ -2,6 +2,8 @@
 @import "~styles/utils/mixins.scss";
 
 .error-screen {
+    background-color: #f2f4f8;
+
     .error-message {
         &__code {
             font-size: 10.5rem;

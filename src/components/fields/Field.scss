@@ -49,3 +49,12 @@
 
     }
 }
+.form-group_textarea {
+    textarea {
+        resize: none;
+    }
+
+    .form-text {
+        height: 21px;
+    }
+}

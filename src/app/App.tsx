@@ -1,4 +1,4 @@
-import { EPaths } from "@app/config";
+import { EPaths, Nullable } from "@app/config";
 import { PrivateRoute } from "@components/private-route";
 import { AppContext, stores } from "@context";
 import * as React from "react";
@@ -32,6 +32,8 @@ import { PromoCodes } from "@app/screens/promo-codes";
 import { AddPromoCodeForm } from "@app/screens/add-promo-code";
 import { PromoCodeProfile } from "./screens/promo-code-profile";
 import { action, observable } from "mobx";
+import { ServiceRequests } from "./screens/service-requests";
+import { ServiceRequestProfile } from "@app/screens/service-request-profile";
 
 @observer
 export class App extends Component {
@@ -41,9 +43,10 @@ export class App extends Component {
         super(props);
         AppContext.getUserStore().login();
         AppContext.getUserStore().profile$.subscribe(this.changeLoad);
+        AppContext.getUserStore().error$.subscribe(this.changeLoad);
     }
 
-    render(): ReactNode {
+    render(): Nullable<ReactNode> {
         if (!this.loaded) {
             return null;
         }
@@ -56,12 +59,12 @@ export class App extends Component {
         );
     }
 
-    async componentDidMount() {
-        await AppContext.getUserStore().updateProfile();
+    componentDidMount(): void {
+        AppContext.getUserStore().updateProfile();
     }
 
     @action.bound
-    private changeLoad() {
+    private changeLoad(): void {
         this.loaded = true;
     }
 
@@ -184,7 +187,17 @@ export class App extends Component {
                                     path={`/${EPaths.PROMO_CODE_PROFILE}`}
                                     component={PromoCodeProfile}
                                 />
-                                <Route component={() => <Redirect to={`/${EPaths.ERROR}`}/>}/>
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.SERVICE_REQUESTS}`}
+                                    component={ServiceRequests}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.SERVICE_REQUESTS_PROFILE}`}
+                                    component={ServiceRequestProfile}
+                                />
+                                <Route component={() => <Redirect to={`/${EPaths.ERROR}`} />}/>
                             </Switch>
                         </Layout>
                     </Route>
