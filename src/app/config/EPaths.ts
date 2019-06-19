@@ -34,4 +34,7 @@ export enum EPaths {
     TRANSACTION_PROFILE = "transactions/view",
     TRANSACTION_CREATE_FORM = "transactions/create",
 
+    PROMO_CODE_INFO = "settings/promo-codes",
+    PROMO_CODE_FORM = "settings/promo-codes/create",
+    PROMO_CODE_PROFILE = "settings/promo-codes/view",
 }

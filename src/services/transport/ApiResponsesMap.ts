@@ -1,13 +1,12 @@
 import { AxiosResponse } from "axios";
 import { EApiMethods } from "./EApiMethods";
 import {
+    IBillingSettingsResponse,
     ICompanyInfoResponse,
     IListResponse,
     ILoginResponse,
     IUserResponse,
     IVehicleDataCountResponse,
-    IBillingSettingsResponse,
-    ITransactionsResponse,
 } from "./responses";
 import { IMethodMap, TMap } from "./TMap";
 import { EApiRoutes } from "./EApiRoutes";
@@ -16,7 +15,8 @@ import { IWorker } from "@entities/worker";
 import { IItem } from "@entities/_common";
 import { ICharger, IResidence, IResidenceListItem } from "@entities/residence";
 import { ICustomer } from "@entities/customer";
-import { ITransactionsListItem } from "@entities/transactions";
+import { TTransactionInfo, TTransactionListItem } from "@entities/transactions";
+import { TPromoCodeInfo, TPromoCodeListItem } from "@entities/promo-code";
 
 export interface IApiRoutesResponsesMap extends TMap<{}> {
     [EApiRoutes.GET_STATES]: IItem[];
@@ -66,10 +66,13 @@ export interface IApiRoutesResponsesMap extends TMap<{}> {
         [EApiMethods.GET]: IItem;
     };
     [EApiRoutes.CHECK_VEHICLE_USED_DATA]: IVehicleDataCountResponse;
-    [EApiRoutes.GET_TRANSACTIONS]: IListResponse<ITransactionsListItem>;
+    [EApiRoutes.GET_TRANSACTIONS]: IListResponse<TTransactionListItem>;
     [EApiRoutes.TRANSACTION_DATA]: {
-        [EApiMethods.GET]: ITransactionsResponse;
-        [EApiMethods.POST]: ITransactionsResponse;
+        [EApiMethods.GET]: TTransactionInfo;
+    };
+    [EApiRoutes.GET_PROMO_CODES]: IListResponse<TPromoCodeListItem>;
+    [EApiRoutes.PROMO_CODE]: {
+        [EApiMethods.GET]: TPromoCodeInfo;
     };
 
 }
@@ -85,4 +88,4 @@ export type TAxiosResponse<K extends keyof IApiRoutesResponsesMap,
 export type TApiResponse<K extends keyof IApiRoutesResponsesMap,
     // tslint:disable-next-line:no-any
     M extends EApiMethods = any> = IApiRoutesResponsesMap[K] extends IMethodMap<{}>
-        ? IApiRoutesResponsesMap[K][M] : IApiRoutesResponsesMap[K];
+    ? IApiRoutesResponsesMap[K][M] : IApiRoutesResponsesMap[K];

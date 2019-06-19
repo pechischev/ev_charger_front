@@ -239,7 +239,7 @@ export class Transport<T extends object = object> implements ITransport {
 
     async getVehicleBrands(params: TApiParams<EApiRoutes.GET_VEHICLE_BRANDS>):
         Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_BRANDS>> {
-        return this.client.get(EApiRoutes.GET_VEHICLE_BRANDS, {params});
+        return this.client.get(EApiRoutes.GET_VEHICLE_BRANDS, { params });
     }
 
     async getVehicleBrand(brandId: string): Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND, EApiMethods.GET>> {
@@ -253,9 +253,9 @@ export class Transport<T extends object = object> implements ITransport {
 
     async updateVehicleBrand(params: TApiParams<EApiRoutes.VEHICLE_BRAND>):
         Promise<TAxiosResponse<EApiRoutes.VEHICLE_BRAND>> {
-        const {brandId, ...rest} = params;
+        const { brandId, ...rest } = params;
         return this.client.put(`${EApiRoutes.VEHICLE_BRAND
-            .replace("{brandId}", _.toString(brandId))}`, rest
+            .replace("{brandId}", _.toString(brandId))}`, rest,
         );
     }
 
@@ -266,15 +266,15 @@ export class Transport<T extends object = object> implements ITransport {
     async getVehicleModels(params: TApiParams<EApiRoutes.GET_VEHICLE_MODELS>, brandId: string):
         Promise<TAxiosResponse<EApiRoutes.GET_VEHICLE_MODELS>> {
         return this.client.get(`${EApiRoutes.GET_VEHICLE_MODELS
-            .replace("{brandId}", brandId)}`, {params}
+            .replace("{brandId}", brandId)}`, { params },
         );
     }
 
     async createVehicleModel(params: TApiParams<EApiRoutes.CREATE_VEHICLE_MODEL>):
         Promise<TAxiosResponse<EApiRoutes.CREATE_VEHICLE_MODEL>> {
-        const {brandId, ...rest} = params;
+        const { brandId, ...rest } = params;
         return this.client.post(`${EApiRoutes.CREATE_VEHICLE_MODEL
-            .replace("{brandId}", _.toString(brandId))}`, rest
+            .replace("{brandId}", _.toString(brandId))}`, rest,
         );
     }
 
@@ -282,7 +282,7 @@ export class Transport<T extends object = object> implements ITransport {
         return this.client.delete(`${EApiRoutes.VEHICLE_MODEL
             .replace("{brandId}", brandId)
             .replace("{modelId}", modelId)
-        }`);
+            }`);
     }
 
     async checkUsedVehicleData(params: TApiParams<EApiRoutes.CHECK_VEHICLE_USED_DATA>):
@@ -309,5 +309,28 @@ export class Transport<T extends object = object> implements ITransport {
     async getUserBillingInfo(params: TApiParams<EApiRoutes.GET_BILLING_DATA>, customerId: string):
         Promise<TAxiosResponse<EApiRoutes.GET_BILLING_DATA>> {
         return this.client.get(`${EApiRoutes.GET_BILLING_DATA.replace("{customerId}", customerId)}`, {params});
+    }
+
+    async getPromoCodesList(params: TApiParams<EApiRoutes.GET_PROMO_CODES>):
+        Promise<TAxiosResponse<EApiRoutes.GET_PROMO_CODES>> {
+        return this.client.get(EApiRoutes.GET_PROMO_CODES, {params});
+    }
+
+    async createPromoCode(params: TApiParams<EApiRoutes.CREATE_PROMO_CODE>):
+        Promise<TAxiosResponse<EApiRoutes.CREATE_PROMO_CODE>> {
+        return this.client.post(EApiRoutes.CREATE_PROMO_CODE, params);
+    }
+
+    async getPromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE, EApiMethods.GET>> {
+        return this.client.get(`${EApiRoutes.PROMO_CODE.replace("{codeId}", codeId)}`);
+    }
+
+    async updatePromoCode(params: TApiParams<EApiRoutes.PROMO_CODE>, codeId: string):
+        Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>> {
+        return this.client.put(`${EApiRoutes.PROMO_CODE.replace("{codeId}", codeId)}`, params);
+    }
+
+    async removePromoCode(codeId: string): Promise<TAxiosResponse<EApiRoutes.PROMO_CODE>> {
+        return this.client.delete(`${EApiRoutes.PROMO_CODE.replace("{codeId}", codeId)}`);
     }
 }

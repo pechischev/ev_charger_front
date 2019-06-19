@@ -124,13 +124,14 @@ export class ResidenceProfile extends Component<RouteProps> {
     }
 
     private getActionElement(): ReactNode {
+        const readonly = !AppContext.getUserStore().isAdmin();
         return (
             <Modal
                 trigger={
                     <Button
                         type="primary"
                         text="Add charger"
-                        disabled={!AppContext.getUserStore().isAdmin()}
+                        disabled={readonly}
                     />
                 }
                 title="Add Charger"

@@ -1,59 +1,54 @@
 import { action, observable } from "mobx";
 import { Store } from "@components/store";
-import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
+import { EApiMethods, EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
 import { get, isEmpty, stubObject } from "lodash";
 import { autobind } from "core-decorators";
 import { IFieldError } from "@app/config/IFieldError";
 import { Nullable } from "@app/config";
 import { ETransactionFieldTypes } from "@app/components/transaction-form";
-import { ITransaction } from "@entities/transactions";
+import { TTransactionFormData, TTransactionInfo } from "@entities/transactions";
+import { parseAmountFieldValue } from "@utils";
 
 @autobind
 export class TransactionProfileStore extends Store {
-    @observable private data: ITransaction = stubObject();
-    private transactionId?: number;
+    @observable private data: TTransactionInfo = stubObject();
 
     @action.bound
-    setData(data: ITransaction): void {
+    setData(data: TTransactionInfo): void {
         this.data = data;
     }
 
-    getData(): ITransaction {
+    getData(): TTransactionInfo {
         return this.data;
-    }
-
-    @action.bound
-    setTransactionId(id: number): void {
-        this.transactionId = id;
     }
 
     getTransactionId(): Nullable<number> {
         return get(this.data, "transactionId");
     }
 
-    transformData(data?: ITransaction): Nullable<ITransaction> {
+    transformData(data?: TTransactionInfo): Nullable<TTransactionFormData> {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        const { paymentType, user, ...rest } = data;
+        const { user, status, residence, amount } = data;
         const { firstName, lastName } = user;
         return {
-            paymentType: paymentType || "Credit card",
+            paymentType: "Credit card",
             customer: `${firstName} ${lastName}`,
-            ...rest,
+            status, residence,
+            amount: parseAmountFieldValue(amount.toString()),
         };
     }
 
-    validateData(values: TApiParams<EApiRoutes.TRANSACTION_DATA>): IFieldError[] {
-        const fields = [
+    validateData(): IFieldError[] {
+        return [
             { type: ETransactionFieldTypes.RESIDENCE, codes: [] },
             { type: ETransactionFieldTypes.USER, codes: [] },
             { type: ETransactionFieldTypes.STATUS, codes: [] },
             { type: ETransactionFieldTypes.PAYMENT_TYPE, codes: [] },
             { type: ETransactionFieldTypes.AMOUNT, codes: [] },
         ];
-        return fields;
     }
 
     async getTransactionData(transactionId: number): Promise<void> {

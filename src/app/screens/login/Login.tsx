@@ -6,7 +6,7 @@ import { EPaths } from "@app/config";
 import { Page } from "@layouts/page";
 import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
-import { PasswordField, EmailField } from "@components/fields";
+import { EmailField, PasswordField } from "@components/fields";
 import { AppContext } from "@context";
 import { LoginStore } from "./LoginStore";
 import { EApiRoutes, TApiResponse } from "@services/transport";
@@ -34,6 +34,7 @@ export class Login extends Component {
                     <div className="row">
                         <div className="col col-login mx-auto">
                             <CustomForm
+                                validateData={this.store.validateData}
                                 error$={this.store.error$}
                                 submit={this.store.login}
                                 render={this.renderForm}

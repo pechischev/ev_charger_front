@@ -41,6 +41,7 @@
                     @include getCardInfoImage("company");
                     @include getCardInfoImage("billing");
                     @include getCardInfoImage("car");
+                    @include getCardInfoImage("promo");
 
                     background-repeat: no-repeat;
                     background-size: 32px 32px;

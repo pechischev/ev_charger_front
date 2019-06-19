@@ -11,7 +11,7 @@ interface ISelectField extends IField<HTMLSelectElement> {
     options: IItem[];
 }
 
-export const SelectField: FC<ISelectField> = ({ options = [], name, label, placeholder, type, ...rest }) => {
+export const SelectField: FC<ISelectField> = ({ options = [], name, label, placeholder, disabled, type, ...rest }) => {
     return (
         <div className="form-group">
             <label className="form-label">{label}</label>
@@ -30,7 +30,7 @@ export const SelectField: FC<ISelectField> = ({ options = [], name, label, place
                                     className="form-control"
                                     {...props.input}
                                     {...{ type, value }}
-                                    disabled={!options.length}
+                                    disabled={!options.length || disabled}
                                 >
                                     <option value="" style={{ display: "none" }}>{placeholder}</option>
                                     {options.map((option) => (

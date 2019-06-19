@@ -5,7 +5,7 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Redirect, Route, Router, Switch } from "react-router";
 import "./App.scss";
-import { Provider } from "mobx-react";
+import { observer, Provider } from "mobx-react";
 import { Dashboard } from "@app/screens/dashboard";
 import { Layout } from "@layouts/layout";
 import { PublicRoute } from "@components/public-route";
@@ -28,14 +28,25 @@ import { TransactionProfile } from "@app/screens/transaction-profile";
 import { BillingSettings } from "./screens/billing-settings";
 import { CarBrands } from "./screens/car-brands";
 import { CarModels } from "./screens/car-models";
+import { PromoCodes } from "@app/screens/promo-codes";
+import { AddPromoCodeForm } from "@app/screens/add-promo-code";
+import { PromoCodeProfile } from "./screens/promo-code-profile";
+import { action, observable } from "mobx";
 
+@observer
 export class App extends Component {
+    @observable private loaded = false;
+
     constructor(props: object) {
         super(props);
         AppContext.getUserStore().login();
+        AppContext.getUserStore().profile$.subscribe(this.changeLoad);
     }
 
     render(): ReactNode {
+        if (!this.loaded) {
+            return null;
+        }
         return (
             <Provider {...stores}>
                 <Router history={AppContext.getHistory()}>
@@ -43,6 +54,15 @@ export class App extends Component {
                 </Router>
             </Provider>
         );
+    }
+
+    async componentDidMount() {
+        await AppContext.getUserStore().updateProfile();
+    }
+
+    @action.bound
+    private changeLoad() {
+        this.loaded = true;
     }
 
     private renderRoutes(): ReactNode {
@@ -149,6 +169,22 @@ export class App extends Component {
                                     path={`/${EPaths.TRANSACTION_CREATE_FORM}`}
                                     component={AddTransaction}
                                 />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.PROMO_CODE_INFO}`}
+                                    component={PromoCodes}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.PROMO_CODE_FORM}`}
+                                    component={AddPromoCodeForm}
+                                />
+                                <PrivateRoute
+                                    exact={true}
+                                    path={`/${EPaths.PROMO_CODE_PROFILE}`}
+                                    component={PromoCodeProfile}
+                                />
+                                <Route component={() => <Redirect to={`/${EPaths.ERROR}`}/>}/>
                             </Switch>
                         </Layout>
                     </Route>

@@ -2,7 +2,6 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { UserProfileStore } from "./UserProfileStore";
-import * as _ from "lodash";
 import { ETabsType } from "@components/tab/ETabsType";
 import { observer } from "mobx-react";
 import "./UserProfile.scss";
@@ -15,6 +14,7 @@ import { AppContext } from "@context";
 import { Nullable } from "@app/config";
 import { redirectToUsersList } from "@utils/history";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
+import { get, isEmpty } from "lodash";
 
 @observer
 @autobind
@@ -33,7 +33,7 @@ export class UserProfile extends Component<RouteProps> {
             const { id } = qs.parse(this.props.location.search);
             this.store.setUserId(id as string);
             this.store.getUserData(id as string).then(() => {
-                const makesId = _.get(this.store.getData(), "vehicle.makes.id");
+                const makesId = get(this.store.getData(), "vehicle.makes.id");
                 AppContext.getInfoStore().getModels(makesId);
             });
         }
@@ -67,10 +67,10 @@ export class UserProfile extends Component<RouteProps> {
 
     private getMainInfo(): Nullable<ReactNode> {
         const data = this.store.getData();
-        if (_.isEmpty(data)) {
+        if (isEmpty(data)) {
             return void 0;
         }
-        const { userData, status } = data;
+        const { userData, subscription } = data;
         const { firstName, lastName, photo, email } = userData;
         return (
             <div className="customer-info_main main-info">
@@ -87,8 +87,8 @@ export class UserProfile extends Component<RouteProps> {
                     <div className="main-info_content__email">
                         {email}
                     </div>
-                    <div className="main-info_content__status" data-status={status}>
-                        {status}
+                    <div className="main-info_content__status" data-status={get(subscription, "status")}>
+                        {get(subscription, "status")}
                     </div>
                 </div>
             </div>

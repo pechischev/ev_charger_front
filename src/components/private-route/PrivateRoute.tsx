@@ -5,6 +5,7 @@ import { FC } from "react";
 import { Redirect, Route, RouteComponentProps } from "react-router";
 import * as UrlPattern from "url-pattern";
 import { IPrivateRouteProps } from "./IPrivateRouteProps";
+import { OperatorAccessRoutes } from "./RolesAccessRoutes";
 
 export const PrivateRoute: FC<IPrivateRouteProps> = ({ component: Component, ...rest }) => {
     return (
@@ -12,7 +13,18 @@ export const PrivateRoute: FC<IPrivateRouteProps> = ({ component: Component, ...
             {...rest}
             render={(props: RouteComponentProps) => {
                 return isAccessGranted(props) ? (
-                    <Component {...props} />
+                    isAccessRoleGranted(props) ? (
+                        <Component {...props} />
+                    ) : (
+                        <Redirect
+                            exact={true}
+                            push={true}
+                            to={{
+                                pathname: `/${EPaths.DASHBOARD}`,
+                                state: { from: props.location },
+                            }}
+                        />
+                    )
                 ) : (
                     <Redirect
                         exact={true}
@@ -38,6 +50,14 @@ export function isId(pathname: string, template: string): string {
         return "";
     }
     return matched.id;
+}
+
+function isAccessRoleGranted(props: RouteComponentProps): boolean {
+    const pathname = props.location.pathname;
+    if (!AppContext.getUserStore().isAdmin()) {
+        return OperatorAccessRoutes.indexOf(pathname.substring(1, pathname.length) as EPaths) !== -1;
+    }
+    return true;
 }
 
 function isAccessGranted(props: RouteComponentProps): boolean {
