@@ -13,7 +13,8 @@ import * as moment from "moment";
 import { get, isEmpty, isNil } from "lodash";
 import { EMessages } from "@utils/EMessage";
 
-type TSearchType = Pick<IListParams, "search" | "from" | "to">;
+type TSearchType = Pick<IListParams, "search">;
+type TDateType = Pick<IListParams, "from" | "to">;
 
 @observer
 @autobind
@@ -58,7 +59,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
                         return (
                             <div className="search-field">
                                 <InputField
-                                    name={"search"}
+                                    name={EListActionsFields.SEARCH}
                                     placeholder={"Search"}
                                 />
                             </div>
@@ -77,7 +78,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
         return (
             <div className="list-actions__data-search">
                 <CustomForm
-                    submit={this.onSearch}
+                    submit={this.onDateFilter}
                     render={(api, submitting) => {
                         return (
                             <div className="data-search clearfix">
@@ -123,6 +124,16 @@ export class ListActions<T> extends Component<IListActions<T>> {
         );
     }
 
+    private onDateFilter(data: TDateType): void {
+        const { store } = this.props;
+        const start = get<TDateType, "from">(data, "from");
+        const end = get<TDateType, "to">(data, "to");
+        if (!start && !end) {
+            return;
+        }
+        store.setDateRange({ start: moment(start).unix(), end: moment(end).unix() });
+    }
+
     private onSearch(data: TSearchType): void {
         const { store } = this.props;
         const search = get<TSearchType, "search">(data, "search");
@@ -133,29 +144,16 @@ export class ListActions<T> extends Component<IListActions<T>> {
         if (!value) {
             return void 0;
         }
-
         const initFrom = get(allValues, EListActionsFields.DATE_FROM);
         const initTo = get(allValues, EListActionsFields.DATE_TO);
         const from = !isEmpty(initFrom) ? moment(initFrom).unix() : undefined;
         const to = !isEmpty(initTo) ? moment(initTo).unix() : undefined;
-
         if (isNil(from) || isNil(to)) {
             return EMessages.LIST_ACTIONS_DATES;
         }
-
-        const currentYear = (new Date()).getFullYear();
-        const start = moment({ day: 1, month: 0, year: currentYear }).unix();
-        const end = moment({ day: 1, month: 0, year: currentYear + 10 }).unix();
-        const curValue = moment(value).unix();
-
-        if (curValue < start || curValue > end) {
-            return EMessages.LIST_ACTIONS_DATE;
-        }
-
         if (from > to) {
             return EMessages.LIST_ACTIONS_DATE;
         }
-
         return void 0;
     }
 }

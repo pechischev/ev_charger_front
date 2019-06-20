@@ -8,6 +8,7 @@ import { AxiosResponse } from "axios";
 import { IListResponse } from "@services/transport/responses";
 import { autobind } from "core-decorators";
 import { PaginationStore } from "@components/table/store";
+import { IRange } from "@components/table/store/IPaginationData";
 
 @autobind
 export class ListStore<T> extends Store {
@@ -61,6 +62,15 @@ export class ListStore<T> extends Store {
         const { search } = this.listData;
         this.setListData({ ...this.listData, search: newSearch });
         if (search !== newSearch) {
+            this._getListData$.next();
+        }
+    }
+
+    setDateRange(range: IRange ): void {
+        const { from, to } = this.listData;
+        const { start, end } = range;
+        this.setListData({ ...this.listData, from: start, to: end });
+        if ( from !== start || to !== end) {
             this._getListData$.next();
         }
     }

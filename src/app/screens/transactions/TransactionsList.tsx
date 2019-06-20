@@ -11,6 +11,7 @@ import { redirectOnTransactionProfile } from "@utils/history";
 import { TTransactionListItem } from "@entities/transactions";
 import { formatDate, parseAmountFieldValue } from "@utils";
 import { StatusMap } from "@entities/user/EStatus";
+import * as moment from "moment";
 
 @observer
 @autobind
@@ -32,11 +33,14 @@ export class TransactionsList extends List<TTransactionListItem> {
             { id: "customer.lastName", label: "Surname" },
             {
                 id: "payDate", label: "Data transaction", size: "0.75fr",
-                handler: (item: TTransactionListItem) => formatDate(item.payDate),
+                handler: (item: TTransactionListItem) => formatDate(item.payDate * 1000),
             },
             {
                 id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
-                handler: (item: TTransactionListItem) => formatDate(item.nextPaymentDate),
+                handler: (item: TTransactionListItem) => {
+                    const nextPaymentDate = moment(item.payDate * 1000).add({month: 1}).unix();
+                    return formatDate(nextPaymentDate * 1000);
+                },
             },
             {
                 id: "amount", label: "Transaction cost", size: "0.75fr",

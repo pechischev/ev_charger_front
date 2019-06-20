@@ -1,5 +1,5 @@
 export enum EListActionsFields {
     SEARCH = "search",
-    DATE_TO = "dateTo",
-    DATE_FROM = "dateFrom",
+    DATE_TO = "to",
+    DATE_FROM = "from",
 }
