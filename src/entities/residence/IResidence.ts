@@ -4,8 +4,8 @@ import { IItem } from "@entities/_common";
 export interface IResidence {
     id: number;
     title: string;
-    billingRate?: number;
-    serviceFee?: number;
+    billingRate: string;
+    serviceFee: string;
     address: string;
     extraAddress?: string;
     city: string;
@@ -16,4 +16,6 @@ export interface IResidence {
         id: number;
         user: Pick<IUser, "firstName" | "lastName">;
     };
+    operatorId?: number;
+    stateId?: number;
 }
