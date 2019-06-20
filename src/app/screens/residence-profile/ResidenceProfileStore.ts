@@ -1,14 +1,15 @@
 import { action, observable } from "mobx";
 import { Store } from "@components/store";
-import { EApiMethods, EApiRoutes, TApiParams, TAxiosResponse } from "@services/transport";
+import { EApiMethods, EApiRoutes, TAxiosResponse } from "@services/transport";
 import * as _ from "lodash";
 import { get, isEmpty, toNumber, toString } from "lodash";
 import { autobind } from "core-decorators";
-import { ICharger, IResidence } from "@entities/residence";
+import { ICharger, IResidence, IResidenceForm } from "@entities/residence";
 import { IFieldError } from "@app/config/IFieldError";
 import { EResidenceFieldTypes } from "@app/components/residence-form";
 import { Nullable } from "@app/config";
 import { Subject } from "rxjs";
+import { parseAmountFieldValue } from "@utils";
 
 @autobind
 export class ResidenceProfileStore extends Store {
@@ -54,17 +55,18 @@ export class ResidenceProfileStore extends Store {
         return this.charger;
     }
 
-    transformResidenceData(data?: IResidence): Nullable<TApiParams<EApiRoutes.RESIDENCE_DATA>> {
+    transformResidenceData(data?: IResidence): Nullable<IResidenceForm> {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        const { title, state, city, address, extraAddress, billingRate, operator, zipCode, serviceFee } = data;
+        const { title, state, city, address, extraAddress, billingRate, operator, zipCode, serviceFee, ...rest } = data;
         return {
-            ...{
-                title, city, address, extraAddress, zipCode, billingRate: parseFloat(`${billingRate}`),
-                serviceFee: parseFloat(`${serviceFee}`), operatorId: toNumber(get(operator, "id")),
-                stateId: toNumber(get(state, "id")),
-            },
+            title, city, address, extraAddress, zipCode,
+            billingRate: parseAmountFieldValue(`${billingRate}`),
+            serviceFee: parseAmountFieldValue(`${serviceFee}`),
+            operatorId: toNumber(get(operator, "id")),
+            stateId: toNumber(get(state, "id")),
+            ...rest,
         };
     }
 
@@ -97,8 +99,8 @@ export class ResidenceProfileStore extends Store {
             .then(this.onGetChargerData);
     }
 
-    async updateResidence(params: TApiParams<EApiRoutes.RESIDENCE_DATA>): Promise<void> {
-        const { stateId, operatorId, billingRate, serviceFee,  ...rest } = params;
+    async updateResidence(params: IResidenceForm): Promise<void> {
+        const { stateId, operatorId, billingRate, serviceFee, ...rest } = params;
         return this.asyncCall(this.transport.updateResidence({
             ...rest,
             billingRate: parseFloat(`${billingRate}`),

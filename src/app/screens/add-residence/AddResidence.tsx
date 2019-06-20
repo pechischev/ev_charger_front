@@ -6,11 +6,13 @@ import { CustomForm } from "@components/custom-form";
 import { FormRenderProps } from "react-final-form";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
-import { IResidenceParams } from "@services/transport/params";
 import { EResidenceFieldTypes, ResidenceForm } from "@app/components/residence-form";
 import { RouteProps } from "react-router";
 import { redirectToResidenceList } from "@utils/history";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
+import { IResidence } from "@entities/residence";
+import { get } from "lodash";
+import { parseAmountFieldValue } from "@utils";
 
 @observer
 @autobind
@@ -24,11 +26,20 @@ export class AddResidence extends Component<RouteProps> {
     constructor(props: RouteProps) {
         super(props);
         this.store.init();
+
+        this.store.getBillingInfo();
     }
 
     render(): ReactNode {
-        const data: Partial<IResidenceParams> = {
-            [EResidenceFieldTypes.BILLING_RATE]: 99
+        const percent = 100;
+        const defaultBilling = 99;
+        const defaultServiceFee = get(this.store.getBillingData(), "defaultSubscriptionValue", 10) / percent;
+
+        const data: Partial<IResidence> = {
+            [EResidenceFieldTypes.BILLING_RATE]: "99.00",
+            [EResidenceFieldTypes.SERVICE_FEE]: parseAmountFieldValue(
+                `${Math.round(defaultBilling * defaultServiceFee * percent) / percent}`
+            ),
         };
         return (
             <div className="side-app">
