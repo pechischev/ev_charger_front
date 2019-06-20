@@ -1,4 +1,4 @@
-export interface IResidenceParams {
+export interface IResidenceForm {
     title: string;
     stateId: number;
     city: string;
@@ -7,6 +7,6 @@ export interface IResidenceParams {
     zipCode: string;
 
     operatorId: number;
-    billingRate: number;
-    serviceFee: number;
+    billingRate: string;
+    serviceFee: string;
 }
