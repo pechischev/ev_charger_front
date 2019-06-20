@@ -29,11 +29,11 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
         if (updateList$) {
             updateList$.subscribe(this.getListData);
         }
-        this.store.getListData$.subscribe(this.getListData);
-        this.getListData();
         if (isNumber(step)) {
             this.store.setLimit(step);
         }
+        this.store.getListData$.subscribe(this.getListData);
+        this.getListData();
     }
 
     componentWillUnmount(): void {
