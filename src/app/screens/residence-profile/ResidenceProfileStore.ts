@@ -80,6 +80,7 @@ export class ResidenceProfileStore extends Store {
             { type: EResidenceFieldTypes.OPERATOR, codes: [] },
             { type: EResidenceFieldTypes.BILLING_RATE, codes: [] },
             { type: EResidenceFieldTypes.SERVICE_FEE, codes: [] },
+            { type: EResidenceFieldTypes.STATUS, codes: [] },
         ];
     }
 

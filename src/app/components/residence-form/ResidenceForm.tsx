@@ -11,7 +11,7 @@ import "./ResidenceForm.scss";
 import { redirectToResidenceList } from "@utils/history";
 import { ResidenceFormStore } from "./ResidenceFormStore";
 import { Nullable } from "@app/config";
-import { get } from "lodash";
+import { get, isNull } from "lodash";
 import { EMessages } from "@utils/EMessage";
 
 @observer
@@ -144,9 +144,16 @@ export class ResidenceForm extends Component<IResidenceForm> {
 
     private validateServiceField(value: ReactText, allValues: object): Nullable<ReactText> {
         const rateValue = get(allValues, EResidenceFieldTypes.BILLING_RATE);
+        const dataFormatRegex = /\d+[.,]\d{2}/g;
+        const onlyLetterRegex = /[a-zA-Z]/g;
 
         if (!value || !rateValue) {
             return void 0;
+        }
+        const regValue = `${value}`.match(dataFormatRegex);
+        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(regValue)
+            || regValue[0].length !== `${value}`.length) {
+            return EMessages.AMOUNT_VALUE_FORMAT_INCORRECT;
         }
 
         if (parseFloat(rateValue) < parseFloat(`${value}`)) {
