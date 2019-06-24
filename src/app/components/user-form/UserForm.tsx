@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, Fragment, ReactNode } from "react";
+import { Component, ReactNode } from "react";
 import { FormSpy } from "react-final-form";
 import {
     EmailField,

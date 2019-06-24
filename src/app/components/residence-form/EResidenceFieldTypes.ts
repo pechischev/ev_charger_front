@@ -5,6 +5,7 @@ export enum EResidenceFieldTypes {
     CITY = "city",
     STATE = "stateId",
     ZIP_CODE = "zipCode",
+    STATUS = "status",
 
     BILLING_RATE = "billingRate",
     SERVICE_FEE = "serviceFee",

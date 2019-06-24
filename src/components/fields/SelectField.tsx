@@ -11,9 +11,11 @@ interface ISelectField extends IField<HTMLSelectElement> {
     options: IItem[];
 }
 
-export const SelectField: FC<ISelectField> = ({ options = [], name, label, placeholder, disabled, type, ...rest }) => {
+export const SelectField: FC<ISelectField> = ({
+    options = [], name, label, placeholder, isVisible = true, disabled, type, ...rest
+                                               }) => {
     return (
-        <div className="form-group">
+        <div className="form-group" data-visible={isVisible}>
             <label className="form-label">{label}</label>
             <Field
                 component={"select"}

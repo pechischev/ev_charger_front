@@ -120,6 +120,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
         return (
             <Tab
                 items={filters.map(({ text, value }) => ({ text, handler: () => store.setFilter(value) }))}
+                className="list-actions__tabs"
             />
         );
     }

@@ -35,3 +35,14 @@
         }
     }
 }
+
+@media (max-width: 1024px) {
+    .request-container {
+        display: block;
+
+        &_column {
+            margin-bottom: 40px;
+            padding: 0 !important;
+        }
+    }
+}

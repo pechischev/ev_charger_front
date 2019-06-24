@@ -6,25 +6,24 @@
 
     &-button {
         > button {
-            width: 150px;
+            width: calc(100% / 2 - 20px);
+            max-width: 150px;
         }
     }
 
     > div {
         width: calc(100% / 3 - 20px);
-        min-width: 310px;
 
         &:nth-child(1) {
             margin: 0 auto 0 0;
         }
 
         &:nth-child(2) {
-            margin: 0 auto 0 0;
+            margin: 0 0 0 auto;
         }
     }
 
     .employee-settings {
-        padding-right: 40px;
         margin-top: 40px;
 
         &__title {
@@ -43,6 +42,17 @@
             &:last-child {
                 display: none;
             }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .employee-form {
+        display: block;
+
+        > div {
+            width: 100%;
+            margin: 0 0 15px 0 !important;
         }
     }
 }

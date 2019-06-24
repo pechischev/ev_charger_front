@@ -11,7 +11,7 @@ import "./ResidenceForm.scss";
 import { redirectToResidenceList } from "@utils/history";
 import { ResidenceFormStore } from "./ResidenceFormStore";
 import { Nullable } from "@app/config";
-import { get } from "lodash";
+import { get, isNull } from "lodash";
 import { EMessages } from "@utils/EMessage";
 
 @observer
@@ -65,6 +65,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 name={EResidenceFieldTypes.BILLING_RATE}
                                 placeholder={"Enter user billing rate"}
                                 label={"User Billing Rate"}
+                                validate={this.validateBillingRateField}
                                 disabled={readonly}
                             />
                         </div>
@@ -90,56 +91,85 @@ export class ResidenceForm extends Component<IResidenceForm> {
                             disabled={readonly}
                         />
                         <div className="two-object-column clearfix">
-                            {this.renderServiceFeeField()}
-                            <div className="residence-info__buttons clearfix">
-                                <Button
-                                    className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
-                                    type="secondary"
-                                    onClick={redirectToResidenceList}
-                                    text={"Cancel"}
-                                />
-                                <Button
-                                    className="float-right"
-                                    type="primary"
-                                    disabled={!this.props.submitting || readonly}
-                                    onClick={() => this.props.api.handleSubmit()}
-                                    text={"Save"}
-                                    style={{
-                                        marginRight: 10,
-                                    }}
-                                />
-                            </div>
+                            {this.renderAdminFields()}
                         </div>
                     </div>
                 </Fragment>
+                <div className="residence-info__buttons clearfix">
+                    <Button
+                        className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
+                        type="secondary"
+                        onClick={redirectToResidenceList}
+                        text="Cancel"
+                    />
+                    <Button
+                        className="float-right"
+                        type="primary"
+                        disabled={!this.props.submitting || readonly}
+                        onClick={() => this.props.api.handleSubmit()}
+                        text="Save"
+                    />
+                </div>
             </div>
         );
     }
 
-    private renderServiceFeeField(): ReactNode {
+    private renderAdminFields(): ReactNode {
         if (!AppContext.getUserStore().isAdmin()) {
             return void 0;
         }
+        const isCreate = !!~AppContext.getHistory().location.pathname.indexOf("create");
         return (
-            <AmountField
-                name={EResidenceFieldTypes.SERVICE_FEE}
-                placeholder={"Enter service fee"}
-                label={"Service Fee"}
-                validate={this.validateServiceField}
-                disabled={!AppContext.getUserStore().isAdmin()}
-            />
+            <Fragment>
+                <AmountField
+                    name={EResidenceFieldTypes.SERVICE_FEE}
+                    placeholder={"Enter service fee"}
+                    label={"Service Fee"}
+                    validate={this.validateServiceField}
+                    disabled={!AppContext.getUserStore().isAdmin()}
+                />
+
+                <SelectField
+                    label={"Residence Status"}
+                    name={EResidenceFieldTypes.STATUS}
+                    options={[
+                        { id: "active", title: "Active" },
+                        { id: "inactive", title: "Inactive" },
+                    ]}
+                    isVisible={!isCreate}
+                />
+            </Fragment>
         );
     }
 
     private validateServiceField(value: ReactText, allValues: object): Nullable<ReactText> {
         const rateValue = get(allValues, EResidenceFieldTypes.BILLING_RATE);
+        const dataFormatRegex = /\d+[.,]\d{2}/g;
+        const onlyLetterRegex = /[a-zA-Z]/g;
 
         if (!value || !rateValue) {
             return void 0;
         }
+        const regValue = `${value}`.match(dataFormatRegex);
+        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(regValue)
+            || regValue[0].length !== `${value}`.length) {
+            return EMessages.AMOUNT_VALUE_FORMAT_INCORRECT;
+        }
 
         if (parseFloat(rateValue) < parseFloat(`${value}`)) {
             return EMessages.SERVICE_FEE_INCORRECT;
+        }
+
+        return void 0;
+    }
+
+    private validateBillingRateField(value: ReactText, allValues: object): Nullable<ReactText> {
+        if (!value) {
+            return void 0;
+        }
+
+        if (parseFloat(`${value}`) <= 0) {
+            return EMessages.AMOUNT_INCORRECT;
         }
 
         return void 0;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, Fragment } from "react";
 import { AmountField, InputField, SelectField } from "@components/fields";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
@@ -30,7 +30,7 @@ export class TransactionForm extends Component<ITransactionForm> {
 
     private getProfileInfoFields(): ReactNode {
         return (
-            <div>
+            <Fragment>
                 <SelectField
                     name={ETransactionFieldTypes.RESIDENCE}
                     label={"Residence"}
@@ -44,16 +44,15 @@ export class TransactionForm extends Component<ITransactionForm> {
                     placeholder={"Select user"}
                     disabled={true}
                 />
-            </div>
+            </Fragment>
         );
     }
 
     private getRoleSettingsFields(): ReactNode {
-        const { submitting, api } = this.props;
         const pathname = AppContext.getHistory().location.pathname;
         const isCreate = !!~pathname.indexOf("create");
         return (
-            <div>
+            <Fragment>
                 <InputField
                     label={"Status"}
                     name={ETransactionFieldTypes.STATUS}
@@ -76,20 +75,10 @@ export class TransactionForm extends Component<ITransactionForm> {
                         className="float-right"
                         type="secondary"
                         onClick={redirectToTransactionList}
-                        text={"Cancel"}
-                    />
-                    <Button
-                        className="float-right"
-                        type="primary"
-                        onClick={() => api.handleSubmit()}
-                        text={isCreate ? "Create" : "Save"}
-                        style={{
-                            marginRight: 10,
-                        }}
-                        disabled={!submitting}
+                        text="Back"
                     />
                 </div>
-            </div>
+            </Fragment>
         );
     }
 

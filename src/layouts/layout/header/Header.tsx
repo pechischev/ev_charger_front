@@ -45,6 +45,27 @@ export class Header extends Component<IHeaderProps> {
 
     private renderUserAvatar(): ReactNode {
         const data = AppContext.getUserStore().getUser();
+        const options = [];
+        if (AppContext.getUserStore().isAdmin()) {
+            options.push(
+                {
+                    value: <Fragment>Profile</Fragment>,
+                    onClick: () => {
+                        if (!data) {
+                            return;
+                        }
+                        redirectToWorkerForm(data.getId());
+                    },
+                },
+                { divider: true },
+            );
+        }
+        options.push(
+            {
+                value: <Fragment><i className="dropdown-icon mdi mdi-logout-variant"/>Sign out</Fragment>,
+                onClick: () => this.store.logout(),
+            },
+        );
         return (
             <Dropdown className="ml-auto">
                 <DropdownTrigger className="nav-link pr-0 leading-none d-flex header-bar-person">
@@ -59,22 +80,7 @@ export class Header extends Component<IHeaderProps> {
                     </span>
                 </DropdownTrigger>
                 <DropdownContent
-                    options={[
-                        {
-                            value: <Fragment>Profile</Fragment>,
-                            onClick: () => {
-                                if (!data) {
-                                    return;
-                                }
-                                redirectToWorkerForm(data.getId());
-                            },
-                        },
-                        { divider: true },
-                        {
-                            value: <Fragment><i className="dropdown-icon mdi mdi-logout-variant"/>Sign out</Fragment>,
-                            onClick: () => this.store.logout(),
-                        },
-                    ]}
+                    options={options}
                     className="option__menu"
                 />
             </Dropdown>
