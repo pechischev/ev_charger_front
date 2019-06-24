@@ -55,3 +55,15 @@
         }
     }
 }
+
+@media (max-width: 1150px) {
+    .list-actions {
+        &__tabs {
+            margin-bottom: 10px;
+        }
+
+        &__search {
+            margin-bottom: 10px;
+        }
+    }
+}
