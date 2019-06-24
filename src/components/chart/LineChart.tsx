@@ -51,7 +51,7 @@ export class LineChart extends Component<ILineChartProps> {
                         anchor: "right",
                         direction: "column",
                         justify: false,
-                        translateX: 100,
+                        translateX: 90,
                         translateY: 0,
                         itemsSpacing: 0,
                         itemDirection: "left-to-right",
