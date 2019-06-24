@@ -100,14 +100,14 @@ export class ResidenceForm extends Component<IResidenceForm> {
                         className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
                         type="secondary"
                         onClick={redirectToResidenceList}
-                        text={"Cancel"}
+                        text="Cancel"
                     />
                     <Button
                         className="float-right"
                         type="primary"
                         disabled={!this.props.submitting || readonly}
                         onClick={() => this.props.api.handleSubmit()}
-                        text={"Save"}
+                        text="Save"
                     />
                 </div>
             </div>

@@ -8,7 +8,14 @@ $widthForTwoBlocksPerLine: calc(50% - 20px);
 
     > div {
         width: calc(100% / 3 - 20px);
-        margin-right: 20px;
+
+        &:nth-child(1) {
+            margin: 0 auto 0 0;
+        }
+
+        &:nth-child(2) {
+            margin: 0 0 0 auto;
+        }
     }
 
     &__buttons {
@@ -33,6 +40,16 @@ $widthForTwoBlocksPerLine: calc(50% - 20px);
             &:last-child {
                 display: none;
             }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .code-form-fields {
+        display: block;
+
+        > div {
+            width: 100%;
         }
     }
 }
