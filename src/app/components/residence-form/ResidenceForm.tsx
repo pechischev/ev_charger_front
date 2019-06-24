@@ -90,44 +90,54 @@ export class ResidenceForm extends Component<IResidenceForm> {
                             disabled={readonly}
                         />
                         <div className="two-object-column clearfix">
-                            {this.renderServiceFeeField()}
-                            <div className="residence-info__buttons clearfix">
-                                <Button
-                                    className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
-                                    type="secondary"
-                                    onClick={redirectToResidenceList}
-                                    text={"Cancel"}
-                                />
-                                <Button
-                                    className="float-right"
-                                    type="primary"
-                                    disabled={!this.props.submitting || readonly}
-                                    onClick={() => this.props.api.handleSubmit()}
-                                    text={"Save"}
-                                    style={{
-                                        marginRight: 10,
-                                    }}
-                                />
-                            </div>
+                            {this.renderAdminFields()}
                         </div>
                     </div>
                 </Fragment>
+                <div className="residence-info__buttons clearfix">
+                    <Button
+                        className={`float-right ${this.props.canCancel ? "button-view" : "button-hidden"}`}
+                        type="secondary"
+                        onClick={redirectToResidenceList}
+                        text={"Cancel"}
+                    />
+                    <Button
+                        className="float-right"
+                        type="primary"
+                        disabled={!this.props.submitting || readonly}
+                        onClick={() => this.props.api.handleSubmit()}
+                        text={"Save"}
+                    />
+                </div>
             </div>
         );
     }
 
-    private renderServiceFeeField(): ReactNode {
+    private renderAdminFields(): ReactNode {
         if (!AppContext.getUserStore().isAdmin()) {
             return void 0;
         }
+        const isCreate = !!~AppContext.getHistory().location.pathname.indexOf("create");
         return (
-            <AmountField
-                name={EResidenceFieldTypes.SERVICE_FEE}
-                placeholder={"Enter service fee"}
-                label={"Service Fee"}
-                validate={this.validateServiceField}
-                disabled={!AppContext.getUserStore().isAdmin()}
-            />
+            <Fragment>
+                <AmountField
+                    name={EResidenceFieldTypes.SERVICE_FEE}
+                    placeholder={"Enter service fee"}
+                    label={"Service Fee"}
+                    validate={this.validateServiceField}
+                    disabled={!AppContext.getUserStore().isAdmin()}
+                />
+
+                <SelectField
+                    label={"Residence Status"}
+                    name={EResidenceFieldTypes.STATUS}
+                    options={[
+                        { id: "active", title: "Active" },
+                        { id: "inactive", title: "Inactive" },
+                    ]}
+                    isVisible={!isCreate}
+                />
+            </Fragment>
         );
     }
 

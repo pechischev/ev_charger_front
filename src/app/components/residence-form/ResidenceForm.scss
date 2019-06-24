@@ -7,14 +7,14 @@ $widthForTwoBlocksPerLine: calc(50% - 20px);
         width: $widthForTwoBlocksPerLine;
 
         &__buttons {
-            margin-top: 25px;
+            margin: 25px 0 0 auto;
 
             > button {
                 max-width: 150px;
                 width: $widthForTwoBlocksPerLine;
 
                 &:first-child {
-                    margin-right: 10px;
+                    margin-left: 10px;
                 }
             }
         }
