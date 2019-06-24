@@ -15,7 +15,8 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
         if (!value) {
             return void 0;
         }
-        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(value.toString().match(dataFormatRegex))) {
+        const regValue = `${value}`.match(dataFormatRegex);
+        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(regValue) || regValue[0].length !== value.length) {
             return EMessages.AMOUNT_VALUE_FORMAT_INCORRECT;
         }
         return void 0;
@@ -25,9 +26,13 @@ export const AmountField: FC<IField> = ({ name, placeholder, label, ...rest }) =
         if (!value) {
             return void 0;
         }
+        if (!!validateAmountValue(value)) {
+            return value;
+        }
         if (value === "0") {
             return "0.00";
         }
+        value = value.replace(",", ".");
         const arr = value.split(".");
         const endNumberLength = 2;
         if (arr.length === 1) {

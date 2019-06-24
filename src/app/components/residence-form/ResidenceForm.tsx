@@ -65,6 +65,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                                 name={EResidenceFieldTypes.BILLING_RATE}
                                 placeholder={"Enter user billing rate"}
                                 label={"User Billing Rate"}
+                                validate={this.validateBillingRateField}
                                 disabled={readonly}
                             />
                         </div>
@@ -150,6 +151,18 @@ export class ResidenceForm extends Component<IResidenceForm> {
 
         if (parseFloat(rateValue) < parseFloat(`${value}`)) {
             return EMessages.SERVICE_FEE_INCORRECT;
+        }
+
+        return void 0;
+    }
+
+    private validateBillingRateField(value: ReactText, allValues: object): Nullable<ReactText> {
+        if (!value) {
+            return void 0;
+        }
+
+        if (parseFloat(`${value}`) <= 0) {
+            return EMessages.AMOUNT_INCORRECT;
         }
 
         return void 0;
