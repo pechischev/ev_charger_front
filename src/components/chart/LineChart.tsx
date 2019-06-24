@@ -18,7 +18,7 @@ export class LineChart extends Component<ILineChartProps> {
 
                 margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
                 xScale={{ type: "point" }}
-                yScale={{ type: "linear", stacked: true, min: 0, max: "auto" }}
+                yScale={{ type: "linear", min: 0, max: "auto" }}
 
                 axisBottom={{
                     tickSize: 5,
