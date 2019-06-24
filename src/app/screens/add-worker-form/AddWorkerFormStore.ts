@@ -26,7 +26,7 @@ export class AddWorkerFormStore extends Store {
         const fields = [
             { type: EWorkerFieldTypes.FIRST_NAME, codes: [] },
             { type: EWorkerFieldTypes.LAST_NAME, codes: [] },
-            { type: EWorkerFieldTypes.EMAIL, codes: [15] },
+            { type: EWorkerFieldTypes.EMAIL, codes: [0, 15] },
             { type: EWorkerFieldTypes.PASSWORD, codes: [] },
             { type: EWorkerFieldTypes.CONFIRM_PASSWORD, codes: [] },
             { type: EWorkerFieldTypes.STATUS, codes: [] },

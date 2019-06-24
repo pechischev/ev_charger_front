@@ -6,7 +6,7 @@ import { ECarBrandFields } from "./ECarBrandFields";
 export class CreateCarBrandStore extends Store {
     validateData(): IFieldError[] {
         return [
-            { type: ECarBrandFields.BRAND, codes: [260] },
+            { type: ECarBrandFields.BRAND, codes: [0, 260] },
         ];
     }
 

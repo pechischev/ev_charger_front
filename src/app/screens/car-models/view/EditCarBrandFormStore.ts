@@ -9,7 +9,7 @@ import { IItem } from "@entities/_common";
 export class EditCarBrandFormStore extends Store {
     validateData(): IFieldError[] {
         return [
-            { type: ECarBrandFields.BRAND, codes: [260] },
+            { type: ECarBrandFields.BRAND, codes: [0, 260] },
         ];
     }
 
