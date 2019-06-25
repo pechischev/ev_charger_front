@@ -59,7 +59,7 @@ export class ResidenceProfileStore extends Store {
         if (!data || isEmpty(data)) {
             return void 0;
         }
-        const { title, state, city, address, extraAddress, billingRate, operator, zipCode, serviceFee, ...rest } = data;
+        const { id, title, state, city, address, extraAddress, billingRate, operator, zipCode, serviceFee, ...rest } = data;
         return {
             title, city, address, extraAddress, zipCode,
             billingRate: parseAmountFieldValue(`${billingRate}`),
