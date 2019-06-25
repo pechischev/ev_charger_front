@@ -13,6 +13,7 @@ import { redirectToPromoCodeList } from "@utils/history";
 import "./PromoCodeForm.scss";
 import { EDiscountCharacter, EDiscountType } from "@entities/promo-code";
 import { EStatus } from "@entities/user";
+import { isNull } from "lodash";
 
 @observer
 @autobind
@@ -48,7 +49,7 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     options={
                         [
                             { id: EDiscountType.PERCENTAGE, title: EDiscountCharacter.PERCENTAGE },
-                            { id: EDiscountType.VALUE, title: EDiscountCharacter.CURRENCY }
+                            { id: EDiscountType.VALUE, title: EDiscountCharacter.CURRENCY },
                         ]
                     }
                     disabled={!isCreate}
@@ -57,6 +58,7 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     label={"Discount Amount"}
                     name={EPromoCodeFieldTypes.AMOUNT}
                     placeholder={"Enter discount amount"}
+                    validate={this.validateDiscountField}
                     disabled={!isCreate}
                 />
             </div>
@@ -88,7 +90,7 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     options={
                         [
                             { id: EStatus.ACTIVE, title: "Active" },
-                            { id: EStatus.INACTIVE, title: "Inactive" }
+                            { id: EStatus.INACTIVE, title: "Inactive" },
                         ]
                     }
                     isVisible={isCreate}
@@ -113,6 +115,27 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                 </div>
             </div>
         );
+    }
+
+    private validateDiscountField(value: ReactText, allValues: object): Nullable<ReactText> {
+        const dataFormatRegex = /\d+[.,]\d{2}/g;
+        const onlyLetterRegex = /[a-zA-Z]/g;
+        const maxDiscount = 100;
+
+        if (!value) {
+            return void 0;
+        }
+        const regValue = `${value}`.match(dataFormatRegex);
+        if (!isNull(`${value}`.match(onlyLetterRegex)) || isNull(regValue)
+            || regValue[0].length !== `${value}`.length) {
+            return EMessages.AMOUNT_VALUE_FORMAT_INCORRECT;
+        }
+
+        if (parseFloat(`${value}`) >= maxDiscount) {
+            return EMessages.AMOUNT_INCORRECT;
+        }
+
+        return void 0;
     }
 
     private validateTimeField(value: ReactText, allValues: object): Nullable<ReactText> {
