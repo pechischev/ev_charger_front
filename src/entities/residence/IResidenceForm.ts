@@ -6,7 +6,7 @@ export interface IResidenceForm {
     extraAddress?: string;
     zipCode: string;
 
-    operatorId: number;
+    operatorId?: number;
     billingRate: string;
     serviceFee: string;
 }

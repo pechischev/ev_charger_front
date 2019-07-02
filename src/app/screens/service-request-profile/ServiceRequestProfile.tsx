@@ -10,6 +10,7 @@ import { ServiceRequestProfileStore } from ".";
 import * as qs from "query-string";
 import { AppContext } from "@context";
 import { get } from "lodash";
+import { Nullable } from "@app/config";
 
 @observer
 @autobind
@@ -27,7 +28,7 @@ export class ServiceRequestProfile extends Component<RouteProps> {
         }
     }
 
-    render(): ReactNode {
+    render(): Nullable<ReactNode> {
         const typeRequest = get(this.store.getData(), "request.type");
         switch (typeRequest) {
             case ERequestType.LOST_ACCESS:

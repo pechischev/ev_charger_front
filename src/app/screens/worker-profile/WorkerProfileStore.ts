@@ -66,7 +66,7 @@ export class WorkerProfileStore extends Store {
         const fields = [
             { type: EWorkerFieldTypes.FIRST_NAME, codes: [] },
             { type: EWorkerFieldTypes.LAST_NAME, codes: [] },
-            { type: EWorkerFieldTypes.EMAIL, codes: [0, 15] },
+            { type: EWorkerFieldTypes.EMAIL, codes: [0, 15, 101] },
             { type: EWorkerFieldTypes.STATUS, codes: [] },
             { type: EWorkerFieldTypes.ROLE, codes: [] },
         ];
