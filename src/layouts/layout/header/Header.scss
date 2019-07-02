@@ -27,12 +27,15 @@
         display: flex;
 
         &-img {
+            $imageWidth: 90px;
+            $imageHeight: 30px;
+
             background-image: url("./img/loop.png");
-            background-size: 110px 36px;
+            background-size: $imageWidth $imageHeight;
             background-repeat: no-repeat;
             margin: auto;
-            width: 110px;
-            height: 36px;
+            width: $imageWidth;
+            height: $imageHeight;
         }
     }
 

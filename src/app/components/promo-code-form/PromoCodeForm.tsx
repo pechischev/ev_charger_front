@@ -13,7 +13,7 @@ import { redirectToPromoCodeList } from "@utils/history";
 import "./PromoCodeForm.scss";
 import { EDiscountCharacter, EDiscountType } from "@entities/promo-code";
 import { EStatus } from "@entities/user";
-import { isNull } from "lodash";
+import { isNull, get } from "lodash";
 
 @observer
 @autobind
@@ -93,7 +93,6 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                             { id: EStatus.INACTIVE, title: "Inactive" },
                         ]
                     }
-                    isVisible={isCreate}
                 />
                 <div className="code-form-fields__buttons clearfix">
                     <Button
@@ -131,8 +130,11 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
             return EMessages.AMOUNT_VALUE_FORMAT_INCORRECT;
         }
 
-        if (parseFloat(`${value}`) >= maxDiscount) {
-            return EMessages.AMOUNT_INCORRECT;
+        const discountType = get(allValues, "discountType");
+        const floatValue = parseFloat(`${value}`);
+        const isPercentage = discountType === EDiscountType.PERCENTAGE;
+        if (isPercentage && (floatValue < 0 || floatValue > maxDiscount)) {
+            return EMessages.AMOUNT_INCORRECT_RANGE;
         }
 
         return void 0;
