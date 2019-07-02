@@ -93,7 +93,6 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                             { id: EStatus.INACTIVE, title: "Inactive" },
                         ]
                     }
-                    isVisible={isCreate}
                 />
                 <div className="code-form-fields__buttons clearfix">
                     <Button

@@ -62,7 +62,7 @@ export class PromoCodeProfileStore extends Store {
     async updatePromoCode(params: TPromoCodeFormData): Promise<void> {
         const { status } = params;
         return this.asyncCall(
-            this.transport.updatePromoCode({ status: status.id as EStatus }, _.toString(this.promoCodeId))
+            this.transport.updatePromoCode({ status: status as unknown as EStatus }, _.toString(this.promoCodeId))
         )
             .then(this.onUpdatePromoCode);
     }
