@@ -39,7 +39,7 @@
     }
 
     &_icon {
-        @include getMainCardIcon("residence");
+        @include getMainCardIcon("site");
         @include getMainCardIcon("users");
         @include getMainCardIcon("new-users");
         @include getMainCardIcon("revenue");
@@ -48,7 +48,7 @@
         border-radius: 50%;
         margin: 0 0 0 auto;
 
-        &[data-image="residence"] {
+        &[data-image="site"] {
             border: 1px solid #6574cd;
         }
 

@@ -77,9 +77,9 @@ export class PromoCodeForm extends Component<IPromoCodeForm> {
                     disabled={!isCreate}
                 />
                 <MultiSelectField
-                    label={"Residence list"}
+                    label={"Site list"}
                     name={EPromoCodeFieldTypes.RESIDENCES}
-                    placeholder={"Select residence"}
+                    placeholder={"Select site"}
                     options={AppContext.getInfoStore().residences}
                     disabled={!isCreate}
                 />

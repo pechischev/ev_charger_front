@@ -27,7 +27,7 @@ export class UserList extends List<IUserListItem> {
             { id: "user.id", label: "Id" },
             { id: "user.firstName", label: "First name" },
             { id: "user.lastName", label: "Last name" },
-            { id: "residence.title", label: "Residence" },
+            { id: "residence.title", label: "Site" },
             {
                 id: "subscription.status", label: "Status",
                 handler: (item: IUserListItem) => StatusMap.get(item.subscription.status),

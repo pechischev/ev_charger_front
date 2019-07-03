@@ -57,7 +57,7 @@ export class PromoCodeList extends List<TPromoCodeListItem, IPromoCodeListProps>
         return [
             { id: "code", label: "Promo Code" },
             { id: "discount", label: "Discount Amount", handler: this.getDiscountValue },
-            { id: "residences", label: "Residences list", handler: this.renderResidences },
+            { id: "residences", label: "Sites list", handler: this.renderResidences },
             {
                 id: "status", label: "Status",
                 handler: (item: TPromoCodeListItem) => StatusMap.get(item.status),

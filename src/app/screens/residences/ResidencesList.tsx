@@ -25,10 +25,10 @@ export class ResidencesList extends List<IResidenceListItem> {
 
     protected getColumns(): Array<IColumn<IResidenceListItem>> {
         return [
-            {id: "title", label: "Residence Name"},
+            {id: "title", label: "Site Name"},
             {
                 id: "address",
-                label: "Residence Address",
+                label: "Site Address",
                 handler: (item: IResidenceListItem) => this.getFullAddress(item)
             },
             {

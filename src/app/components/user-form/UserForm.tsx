@@ -80,9 +80,9 @@ export class UserForm extends Component<IUserForm> {
                     disabled={readonly}
                 />
                 <SelectField
-                    label={"Residence"}
+                    label={"Site"}
                     name={EUserFieldTypes.RESIDENCE}
-                    placeholder={"Select residence"}
+                    placeholder={"Select site"}
                     options={AppContext.getInfoStore().residences}
                     disabled={readonly}
                 />

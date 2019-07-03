@@ -25,7 +25,7 @@ export class ClientDetailsField extends Component<IClientDetailsField> {
                     disabled={true}
                 />
                 <InputField
-                    label="Residence"
+                    label="Site"
                     name={EServiceRequestFields.RESIDENCE}
                     disabled={true}
                 />

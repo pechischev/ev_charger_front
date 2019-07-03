@@ -58,7 +58,7 @@ export class DashboardStore extends Store {
             userData.push({ x: month, y: userCount });
         }
         this.data = [
-            { id: "New residences", data: residenceData },
+            { id: "New sites", data: residenceData },
             { id: "New users", data: userData },
         ];
     }

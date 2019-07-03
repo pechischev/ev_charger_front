@@ -8,9 +8,9 @@ export enum EPaths {
     COMPANY_PROFILE = "company-profile",
     COMPANIES = "companies",
 
-    RESIDENCE_LIST = "residences",
-    RESIDENCE_PROFILE = "residences/view",
-    RESIDENCE_CREATE_FORM = "residences/create",
+    RESIDENCE_LIST = "sites",
+    RESIDENCE_PROFILE = "sites/view",
+    RESIDENCE_CREATE_FORM = "sites/create",
 
     USER_LIST = "users",
     USER_PROFILE = "users/view",

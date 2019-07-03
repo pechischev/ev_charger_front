@@ -33,9 +33,9 @@ export class TransactionForm extends Component<ITransactionForm> {
             <Fragment>
                 <SelectField
                     name={ETransactionFieldTypes.RESIDENCE}
-                    label={"Residence"}
+                    label={"Site"}
                     options={AppContext.getInfoStore().residences}
-                    placeholder={"Select residence"}
+                    placeholder={"Select site"}
                     disabled={true}
                 />
                 <InputField
