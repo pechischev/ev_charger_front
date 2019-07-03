@@ -19,8 +19,8 @@ import { parseAmountFieldValue } from "@utils";
 export class AddResidence extends Component<RouteProps> {
     private readonly store = new AddResidenceStore();
     private readonly links: IBreadcrumb[] = [
-        { label: "Residences", handler: redirectToResidenceList },
-        { label: "New Residence" },
+        { label: "Sites", handler: redirectToResidenceList },
+        { label: "New site" },
     ];
 
     constructor(props: RouteProps) {
@@ -44,12 +44,12 @@ export class AddResidence extends Component<RouteProps> {
         return (
             <div className="side-app">
                 <div className="page-header">
-                    <div className="page-title">New Residence</div>
+                    <div className="page-title">New site</div>
                     <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
                     <Card
-                        title="Add Residence"
+                        title="Add site"
                         className="customer-info"
                         content={
                             <div className="tab-container-profile">

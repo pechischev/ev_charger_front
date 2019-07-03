@@ -98,9 +98,9 @@ export class WorkerForm extends Component<IWorkerForm> {
                 />
                 <MultiSelectField
                     name={EWorkerFieldTypes.RESIDENCES_LIST}
-                    label={"Residences list"}
+                    label={"Sites list"}
                     options={AppContext.getInfoStore().residences}
-                    placeholder={"Select residences list"}
+                    placeholder={"Select sites list"}
                     disabled={!this.activeResidenceList(api)}
                 />
                 <div className="employee-form-button clearfix">

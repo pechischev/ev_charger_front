@@ -12,10 +12,10 @@ export class Residences extends Component {
         return (
             <div className="side-app">
                 <div className="page-header">
-                    <div className="page-title">Residences</div>
+                    <div className="page-title">Sites</div>
                 </div>
                 <div className="page-content">
-                    <Card title="Residence list" content={<ResidencesList actionElement={actionElement}/>}/>
+                    <Card title="Site list" content={<ResidencesList actionElement={actionElement}/>}/>
                 </div>
             </div>
         );
@@ -27,7 +27,7 @@ export class Residences extends Component {
             <Button
                 type={"primary"}
                 onClick={redirectToResidenceCreateForm}
-                text="Add residence"
+                text="Add site"
                 disabled={readOnly}
             />
         );

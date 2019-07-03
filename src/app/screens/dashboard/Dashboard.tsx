@@ -33,22 +33,22 @@ export class Dashboard extends Component<RouteProps> {
         return (
             <div className="side-app">
                 <div className="page-header">
-                    <div className="page-title">Dashboards</div>
+                    <div className="page-title">Dashboard</div>
                 </div>
                 <div className="page-content">
                     <div className="dashboard-main-cards" data-full={iaAdmin}>
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                residenceCount,
-                                "Number of active residences",
-                                "residence",
+                                residenceCount || 0,
+                                "Number of active sites",
+                                "site",
                             )}
                         />
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                userCount,
+                                userCount || 0,
                                 "Number of active users",
                                 "users",
                             )}
@@ -56,7 +56,7 @@ export class Dashboard extends Component<RouteProps> {
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                countNewUsers,
+                                countNewUsers || 0,
                                 "Number of new users this month",
                                 "new-users",
                             )}
@@ -64,7 +64,7 @@ export class Dashboard extends Component<RouteProps> {
                         <Card
                             className="main-cards"
                             content={this.renderMainCard(
-                                `${amountSum}$`,
+                                `$ ${amountSum || 0}`,
                                 "Total revenue this month",
                                 "revenue",
                             )}

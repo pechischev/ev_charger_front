@@ -44,7 +44,7 @@ export class TransactionsList extends List<TTransactionListItem> {
             },
             {
                 id: "amount", label: "Transaction cost", size: "0.75fr",
-                handler: (item: TTransactionListItem) => parseAmountFieldValue(item.amount.toString()),
+                handler: (item: TTransactionListItem) => `$ ${parseAmountFieldValue(item.amount.toString())}`,
             },
             { id: "status", label: "Status", size: "100px",
                 handler: (item: TTransactionListItem) => StatusMap.get(item.status)

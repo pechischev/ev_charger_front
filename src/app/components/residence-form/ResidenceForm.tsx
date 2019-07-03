@@ -36,8 +36,8 @@ export class ResidenceForm extends Component<IResidenceForm> {
                         <div className="two-object-column clearfix">
                             <InputField
                                 name={EResidenceFieldTypes.TITLE}
-                                placeholder={"Enter residence name"}
-                                label={"Residence Name"}
+                                placeholder={"Enter site name"}
+                                label={"Site Name"}
                                 disabled={readonly}
                             />
                             <InputField
@@ -130,7 +130,7 @@ export class ResidenceForm extends Component<IResidenceForm> {
                 />
 
                 <SelectField
-                    label={"Residence Status"}
+                    label={"Site Status"}
                     name={EResidenceFieldTypes.STATUS}
                     options={[
                         { id: "active", title: "Active" },

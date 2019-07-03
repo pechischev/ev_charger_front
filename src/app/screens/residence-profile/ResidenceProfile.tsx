@@ -22,7 +22,7 @@ import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 export class ResidenceProfile extends Component<RouteProps> {
     private readonly store = new ResidenceProfileStore();
     private readonly links: IBreadcrumb[] = [
-        { label: "Residences", handler: redirectToResidenceList },
+        { label: "Sites", handler: redirectToResidenceList },
         { label: "Profile" },
     ];
 
@@ -42,13 +42,13 @@ export class ResidenceProfile extends Component<RouteProps> {
         return (
             <div className="side-app">
                 <div className="page-header">
-                    <div className="page-title">Residence</div>
+                    <div className="page-title">Site</div>
                     <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
                     <Card
                         className="residence-card"
-                        title="Residence Profile"
+                        title="Site Profile"
                         content={
                             <CustomForm
                                 keepDirtyOnReinitialize={false}

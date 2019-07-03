@@ -46,7 +46,7 @@
     &__item {
         @include getMenuIcon("dashboard");
         @include getMenuIcon("users");
-        @include getMenuIcon("residences");
+        @include getMenuIcon("sites");
         @include getMenuIcon("payments");
         @include getMenuIcon("settings");
         @include getMenuIcon("transactions");

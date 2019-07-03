@@ -38,7 +38,7 @@ export const PhoneField: FC<IField> = ({ name, ...rest }) => {
             label={"Phone number"}
             name={name}
             placeholder={"Enter phone"}
-            mask={"+9 (999) 999 99-99"}
+            mask={"(999) 999 99-99"}
             validate={validatePhoneValue}
             parse={formatPhoneValue}
             {...rest}

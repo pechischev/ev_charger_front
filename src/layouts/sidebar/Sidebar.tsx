@@ -15,7 +15,7 @@ export class Sidebar extends Component<RouteProps> {
     @observable private options: ILink[] = [
         { value: "Dashboard", path: EPaths.DASHBOARD, iconType: "dashboard", isEnabled: true },
         { value: "Users", path: EPaths.USER_LIST, iconType: "users", isEnabled: true },
-        { value: "Residences", path: EPaths.RESIDENCE_LIST, iconType: "residences", isEnabled: true },
+        { value: "Sites", path: EPaths.RESIDENCE_LIST, iconType: "sites", isEnabled: true },
         { value: "Service request", path: EPaths.SERVICE_REQUESTS, iconType: "service-request", isEnabled: true },
 
     ];
