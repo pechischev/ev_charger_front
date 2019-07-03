@@ -6,7 +6,7 @@ import { IColumn } from "@components/table";
 import { EApiRoutes, TAxiosResponse } from "@services/transport";
 import { IFilter } from "@components/list/interfaces";
 import { IBillingInfoListItem } from "@entities/user";
-import { formatDate } from "@utils";
+import { formatDate, parseAmountFieldValue } from "@utils";
 
 interface IBillingList extends IList<IBillingInfoListItem> {
     userId?: string;
@@ -27,13 +27,17 @@ export class BillingList extends List<IBillingInfoListItem, IBillingList> {
                 id: "payDate", label: "Date",
                 handler: (item: IBillingInfoListItem) => formatDate(item.payDate * milliseconds),
             },
-            { id: "amount", label: "Transaction value" },
+            {
+                id: "amount",
+                label: "Transaction value",
+                handler: (item: IBillingInfoListItem) => `$ ${parseAmountFieldValue(item.amount.toString())}`,
+            },
             { id: "status", label: "Status" },
         ];
     }
 
     protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_BILLING_DATA>> {
-        const {userId} = this.props;
+        const { userId } = this.props;
         if (!userId) {
             return new Promise((resolve) => resolve);
         }

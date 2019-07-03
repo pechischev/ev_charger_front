@@ -15,6 +15,7 @@ import { Nullable } from "@app/config";
 import { redirectToUsersList } from "@utils/history";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 import { get, isEmpty } from "lodash";
+import { EStatus, StatusMap } from "@entities/user/EStatus";
 
 @observer
 @autobind
@@ -88,7 +89,7 @@ export class UserProfile extends Component<RouteProps> {
                         {email}
                     </div>
                     <div className="main-info_content__status" data-status={get(subscription, "status")}>
-                        {get(subscription, "status")}
+                        {StatusMap.get(get(subscription, "status") as EStatus)}
                     </div>
                 </div>
             </div>
