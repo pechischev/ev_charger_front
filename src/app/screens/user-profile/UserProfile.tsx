@@ -51,7 +51,7 @@ export class UserProfile extends Component<RouteProps> {
                     <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
-                    <Card className="customer-info" content={this.getCustomerProfile()}/>
+                    <Card className="customer-info" isPrint={true} content={this.getCustomerProfile()}/>
                 </div>
             </div>
         );

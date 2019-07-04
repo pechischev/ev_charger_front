@@ -40,3 +40,14 @@
         margin: 24px 0;
     }
 }
+
+@media print {
+    .page {
+        &-header {
+            display: none;
+        }
+        &-content {
+             margin: 0;
+        }
+    }
+}

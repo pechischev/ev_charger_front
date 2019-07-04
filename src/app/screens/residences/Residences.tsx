@@ -15,7 +15,7 @@ export class Residences extends Component {
                     <div className="page-title">Sites</div>
                 </div>
                 <div className="page-content">
-                    <Card title="Site list" content={<ResidencesList actionElement={actionElement}/>}/>
+                    <Card title="Site list" isPrint={true} content={<ResidencesList actionElement={actionElement}/>}/>
                 </div>
             </div>
         );

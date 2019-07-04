@@ -117,3 +117,9 @@
         flex: 1 1 auto;
     }
 }
+
+@media print {
+    .app-sidebar {
+        display: none;
+    }
+}

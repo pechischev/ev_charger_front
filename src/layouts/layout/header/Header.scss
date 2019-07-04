@@ -94,3 +94,9 @@
         padding-right: 15px;
     }
 }
+
+@media print {
+    .header {
+        display: none;
+    }
+}

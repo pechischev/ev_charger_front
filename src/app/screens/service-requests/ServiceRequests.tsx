@@ -12,7 +12,7 @@ export class ServiceRequests extends Component {
                     <div className="page-title">Service Request</div>
                 </div>
                 <div className="page-content">
-                    <Card title="Request list" content={<ServiceRequestList/>}/>
+                    <Card title="Request list" isPrint={true} content={<ServiceRequestList/>}/>
                 </div>
             </div>
         );
