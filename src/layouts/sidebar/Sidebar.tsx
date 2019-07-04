@@ -17,7 +17,6 @@ export class Sidebar extends Component<RouteProps> {
         { value: "Users", path: EPaths.USER_LIST, iconType: "users", isEnabled: true },
         { value: "Sites", path: EPaths.RESIDENCE_LIST, iconType: "sites", isEnabled: true },
         { value: "Service request", path: EPaths.SERVICE_REQUESTS, iconType: "service-request", isEnabled: true },
-
     ];
 
     @observable private currentPath = "";
@@ -32,7 +31,7 @@ export class Sidebar extends Component<RouteProps> {
 
     render(): ReactNode {
         return (
-            <div className="app-sidebar">
+            <div className="app-sidebar" data-show={AppContext.getSideBarStore().mode}>
                 <ul className="side-menu">
                     {
                         this.options.map((link, index) => this.renderLink(link, index))
@@ -48,9 +47,9 @@ export class Sidebar extends Component<RouteProps> {
             return void 0;
         }
         return (
-            <li key={index}>
+            <li key={index} title={value}>
                 <NavLink className={`side-menu__item ${path === this.currentPath ? "active" : ""}`} to={`/${path}`}>
-                    <span className="side-menu__icon" data-icon={iconType}/>
+                    <span className="side-menu__icon" data-icon={iconType} />
                     <span className="side-menu__label">{value}</span>
                 </NavLink>
             </li>

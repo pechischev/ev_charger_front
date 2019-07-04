@@ -4,6 +4,7 @@ import { UiStore } from "@app/stores/ui";
 import { UserStore } from "@app/stores/user";
 import { createBrowserHistory, History } from "history";
 import { InfoStore } from "@app/stores/info";
+import { SideBarStore } from "@app/stores/side-bar";
 
 const history = createBrowserHistory();
 
@@ -12,6 +13,7 @@ export const stores = {
     uiStore: new UiStore(),
     userStore: new UserStore(),
     infoStore: new InfoStore(),
+    sideBarStore: new SideBarStore(),
 };
 
 const INDIRECT_PATHS = [
@@ -51,6 +53,10 @@ export namespace AppContext {
 
     export function getInfoStore(): InfoStore {
         return stores.infoStore;
+    }
+
+    export function getSideBarStore(): SideBarStore {
+        return stores.sideBarStore;
     }
 
     export function getPublicPaths(): string[] {
