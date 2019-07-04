@@ -5,6 +5,7 @@ import { EPaths } from "@app/config";
 
 @autobind
 export class HeaderStore extends Store {
+
     logout(): void {
         AppContext.getUserStore().logout();
         AppContext.getHistory().push(`/${EPaths.LOGIN}`);

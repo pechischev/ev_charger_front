@@ -5,3 +5,9 @@
     padding: 24px 30px;
     min-height: calc(100vh - 133.5px);
 }
+
+@media print {
+    .app-content {
+        padding: 0;
+    }
+}

@@ -66,10 +66,37 @@
             }
         }
     }
+
+    &-menu-controller {
+        padding: 15px 15px 10px;
+        cursor: pointer;
+        height: 48px;
+
+        > span {
+            width: 18px;
+            height: 3px;
+            display: block;
+            background: #3e4b5b;
+            margin: 3px 0;
+            transition: 0.25s;
+        }
+
+        &:hover {
+            > span {
+                background: #37d7c6;
+            }
+        }
+    }
 }
 
 @media (min-width: 768px) {
     .header {
         padding-right: 15px;
+    }
+}
+
+@media print {
+    .header {
+        display: none;
     }
 }

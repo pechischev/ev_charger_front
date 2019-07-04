@@ -33,6 +33,7 @@ export class Workers extends Component<RouteProps> {
                 <div className="page-content">
                     <Card
                         title="Users list"
+                        isPrint={true}
                         content={
                             <WorkersList
                                 actionElement={actionElement}

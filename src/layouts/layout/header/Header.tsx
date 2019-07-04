@@ -28,6 +28,7 @@ export class Header extends Component<IHeaderProps> {
                 <div className="container-fluid">
                     <div className="d-flex">
                         {this.renderLogo()}
+                        {this.renderMenuButton()}
                         {this.renderUserAvatar()}
                     </div>
                 </div>
@@ -40,6 +41,19 @@ export class Header extends Component<IHeaderProps> {
             <a className="header-brand" href={"/"}>
                 <div className="header-brand-img"/>
             </a>
+        );
+    }
+
+    private renderMenuButton(): ReactNode {
+        const sideBarStore = AppContext.getSideBarStore();
+        return (
+            <div
+                className="header-menu-controller"
+                data-show={sideBarStore.mode}
+                onClick={sideBarStore.changeSideBarMode}
+            >
+                <span/><span/><span/>
+            </div>
         );
     }
 
@@ -90,4 +104,5 @@ export class Header extends Component<IHeaderProps> {
     private getInitialCharacter(line: string = ""): string {
         return line.charAt(0);
     }
+
 }

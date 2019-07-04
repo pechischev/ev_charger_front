@@ -15,7 +15,7 @@ export class Users extends Component {
                     <div className="page-title">Users</div>
                 </div>
                 <div className="page-content">
-                    <Card title="Users table" content={<UserList actionElement={actionElement}/>}/>
+                    <Card title="Users table" isPrint={true} content={<UserList actionElement={actionElement}/>}/>
                 </div>
             </div>
         );

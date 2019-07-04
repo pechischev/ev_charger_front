@@ -7,7 +7,15 @@
 
     &-container {
         overflow-y: auto;
-        width: calc(100% - 230px);
         height: 100%;
+        transition: 0.25s;
+        width: 100%;
+    }
+}
+
+@media print {
+    .main-body {
+        margin-top: 0;
+        height: 100vh;
     }
 }

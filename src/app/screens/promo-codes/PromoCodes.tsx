@@ -35,6 +35,7 @@ export class PromoCodes extends Component {
                 <div className="page-content">
                     <Card
                         title="Promo Code list"
+                        isPrint={true}
                         content={
                             <PromoCodeList
                                 actionElement={actionElement}

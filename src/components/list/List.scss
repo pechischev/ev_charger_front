@@ -69,3 +69,9 @@
         }
     }
 }
+
+@media print {
+    .list-actions__add-button {
+        display: none;
+    }
+}
