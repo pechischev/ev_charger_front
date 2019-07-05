@@ -3,7 +3,12 @@ import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import "./Dashboard.scss";
 import { Button } from "@components/button";
-import { redirectToTransactionList } from "@utils/history";
+import {
+    redirectToActiveResidence,
+    redirectToActiveUsers,
+    redirectToTransactionList, redirectToTransactionsThisMonth,
+    redirectToUsersThisMonth,
+} from "@utils/history";
 import { LastTransactionsList } from ".";
 import { LineChart } from "@components/chart";
 import { DashboardStore } from "./DashboardStore";
@@ -27,6 +32,12 @@ export class Dashboard extends Component<RouteProps> {
     }
 
     render(): ReactNode {
+        const date = new Date();
+        const thisMonth = date.getMonth();
+        const thisYear = date.getFullYear();
+        const toDay = (new Date(thisYear, thisMonth + 1, 0)).getDate();
+        const from = new Date(thisYear, thisMonth, 1).getTime();
+        const to = new Date(thisYear, thisMonth, toDay).getTime();
         const actionElement = this.getActionElement();
         const { userCount, amountSum, countNewUsers, residenceCount } = this.store.getStatisticsData();
         const iaAdmin = AppContext.getUserStore().isAdmin();
@@ -44,6 +55,7 @@ export class Dashboard extends Component<RouteProps> {
                                 "Number of active sites",
                                 "site",
                             )}
+                            onClick={redirectToActiveResidence}
                         />
                         <Card
                             className="main-cards"
@@ -52,6 +64,7 @@ export class Dashboard extends Component<RouteProps> {
                                 "Number of active users",
                                 "users",
                             )}
+                            onClick={redirectToActiveUsers}
                         />
                         <Card
                             className="main-cards"
@@ -60,6 +73,7 @@ export class Dashboard extends Component<RouteProps> {
                                 "Number of new users this month",
                                 "new-users",
                             )}
+                            onClick={() => redirectToUsersThisMonth(from, to)}
                         />
                         <Card
                             className="main-cards"
@@ -68,6 +82,7 @@ export class Dashboard extends Component<RouteProps> {
                                 "Total revenue this month",
                                 "revenue",
                             )}
+                            onClick={() => redirectToTransactionsThisMonth(from, to)}
                         />
                     </div>
                     <Card

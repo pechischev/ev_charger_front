@@ -7,10 +7,14 @@ import { get, isNil, isNull } from "lodash";
 import * as classNames from "classnames";
 import { observer } from "mobx-react";
 import { Table } from "@components/table";
+import { parseAmountFieldValue } from "@utils";
+import { IItem } from "@entities/_common";
+import { EDiscountCharacter } from "@entities/promo-code";
 
 interface ITableBodyProps<T> {
     data: Array<ITableData<T>>;
     columns: Array<IColumn<T>>;
+    isSum?: boolean;
 
     selectStore: SelectedStore;
     canSelect?: boolean;
@@ -24,13 +28,16 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
     render(): ReactNode {
         const { data } = this.props;
         return (
-            <tbody>{data.map(this.renderRow)}</tbody>
+            <tbody>
+                {data.map(this.renderRow)}
+                {this.renderSummaryRow()}
+            </tbody>
         );
     }
 
     private renderRow(data: ITableData<T>): ReactNode {
         const { columns, canSelect, selectStore } = this.props;
-        const isSelected = selectStore.isSelected(data.counter );
+        const isSelected = selectStore.isSelected(data.counter);
         return (
             <tr
                 key={data.counter}
@@ -72,6 +79,76 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
         }
         if (canSelect) {
             selectStore.updateSelectedItems(line.counter);
+        }
+    }
+
+    private renderSummaryRow(): ReactNode {
+        const { data, columns, isSum } = this.props;
+        if (!isSum) {
+            return void 0;
+        }
+        let amount = 0;
+        let serviceFee = 0;
+        const tableRow: IItem[] = [];
+        data.forEach((column, index) => {
+            const localAmount = get(column.item, "amount", 0);
+            amount = amount + localAmount;
+            const localServiceFee = get(column.item, "residence.serviceFee", 0);
+            serviceFee = serviceFee + localServiceFee;
+        });
+        amount = Math.round(amount * 100) / 100;
+        serviceFee = Math.round(serviceFee * 100) / 100;
+        columns.forEach((item, index) => {
+            tableRow.push(
+                {
+                    id: item.id,
+                    title: this.switchValueById(item.id, amount, serviceFee),
+                },
+            );
+        });
+        return (
+            <tr
+                className="row_body"
+                style={{ display: "grid", gridTemplateColumns: Table.getRowSize(columns) }}
+            >
+                {
+                    tableRow.map((item, index) => {
+                        return (
+                            <td
+                                key={index}
+                                className={classNames({
+                                    ["cell_summary"]: true,
+                                    ["cell"]: true,
+                                    ["cell_body"]: true,
+                                })}
+                            >
+                                <span>
+                                    {index >= tableRow.length - 2 ? `${EDiscountCharacter.CURRENCY} ` : ""}
+                                    {index >= tableRow.length - 2
+                                        ?
+                                        parseAmountFieldValue(get(item, "title", ""))
+                                        :
+                                        get(item, "title", "")
+                                    }
+                                </span>
+                            </td>
+                        );
+                    })
+                }
+            </tr>
+        );
+    }
+
+    private switchValueById(id: string, amount: number, serviceFee: number): string {
+        switch (id) {
+            case "status":
+                return "Summary:";
+            case "amount":
+                return amount.toString();
+            case "residence.serviceFee":
+                return serviceFee.toString();
+            default:
+                return "";
         }
     }
 }

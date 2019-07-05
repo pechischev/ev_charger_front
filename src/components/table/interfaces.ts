@@ -20,6 +20,7 @@ export interface IColumn<T> {
     canSort?: boolean;
     cellClass?: string;
     size?: string;
+    isSum?: boolean;
 
     handler?(data?: T): ReactNode;
 }
@@ -45,6 +46,7 @@ export interface ITable<T> {
     rowsPerPage?: number;
     className?: string;
     canSelect?: boolean;
+    isSum?: boolean;
     totalCount?: number;
     showPagination?: boolean;
     contextItems?: IContextMenuItem[];

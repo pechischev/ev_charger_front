@@ -49,7 +49,6 @@ export class Header extends Component<IHeaderProps> {
         return (
             <div
                 className="header-menu-controller"
-                data-show={sideBarStore.mode}
                 onClick={sideBarStore.changeSideBarMode}
             >
                 <span/><span/><span/>

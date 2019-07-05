@@ -25,23 +25,33 @@ export class BillingList extends List<IBillingListItem, IBillingListProps> {
             },
             {
                 id: "successful", label: "Successful transactions",
-                handler: (item: IBillingListItem) => parseAmountFieldValue(item.successful.toString()),
+                handler: (item: IBillingListItem) => (
+                    `$ ${parseAmountFieldValue((item.successful || "0").toString())}`
+                ),
             },
             {
                 id: "unsuccessful", label: "Unsuccessful transactions",
-                handler: (item: IBillingListItem) => parseAmountFieldValue(item.unsuccessful.toString()),
+                handler: (item: IBillingListItem) => (
+                    `$ ${parseAmountFieldValue((item.unsuccessful || "0").toString())}`
+                ),
             },
             {
                 id: "totalAmount", label: "Total Revenue",
-                handler: (item: IBillingListItem) => parseAmountFieldValue(item.totalAmount.toString()),
+                handler: (item: IBillingListItem) => (
+                    `$ ${parseAmountFieldValue((item.totalAmount || "0").toString())}`
+                ),
             },
             {
                 id: "totalServiceFee", label: "Service Fee",
-                handler: (item: IBillingListItem) => parseAmountFieldValue(item.totalServiceFee.toString()),
+                handler: (item: IBillingListItem) => (
+                    `$ ${parseAmountFieldValue((item.totalServiceFee || "0").toString())}`
+                ),
             },
             {
                 id: "revenue", label: "Net Revenue",
-                handler: (item: IBillingListItem) => parseAmountFieldValue(item.revenue.toString()),
+                handler: (item: IBillingListItem) => (
+                    `$ ${parseAmountFieldValue((item.revenue || "0").toString())}`
+                ),
             },
         ];
     }
@@ -51,7 +61,7 @@ export class BillingList extends List<IBillingListItem, IBillingListProps> {
         if (!residenceId) {
             return new Promise((resolve) => resolve());
         }
-        const {data, ...rest} = await this.store.transport.getBillingHistory(params, residenceId);
-        return {data: {count: data.length, rows: data}, ...rest};
+        const { data, ...rest } = await this.store.transport.getBillingHistory(params, residenceId);
+        return { data: { count: data.length, rows: data }, ...rest };
     }
 }

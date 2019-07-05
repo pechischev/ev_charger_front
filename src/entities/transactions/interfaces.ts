@@ -7,6 +7,10 @@ export interface ITransaction {
     amount: string;
     payDate: number;
     chargeToken: string;
+    residence: {
+        title: string;
+        serviceFee: string;
+    };
 }
 
 export type TTransactionInfo = ITransaction & {

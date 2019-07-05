@@ -47,11 +47,16 @@ export class UserProfile extends Component<RouteProps> {
         return (
             <div className="side-app">
                 <div className="page-header">
-                    <div className="page-title">User Profile</div>
+                    <div className="page-title">User</div>
                     <Breadcrumb crumbs={this.links}/>
                 </div>
                 <div className="page-content">
-                    <Card className="customer-info" isPrint={true} content={this.getCustomerProfile()}/>
+                    <Card
+                        title="User profile"
+                        className="customer-info"
+                        isPrint={true}
+                        content={this.getCustomerProfile()}
+                    />
                 </div>
             </div>
         );
