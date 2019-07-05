@@ -5,12 +5,12 @@ import { observer } from "mobx-react";
 import * as classnames from "classnames";
 import * as _ from "lodash";
 import "./tabs.scss";
-import { ETabsType, ITabItem } from "@components/tab";
+import { ITabItem } from "@components/tab";
 
 export interface ICustomTabProps {
     items: ITabItem[];
     className?: string;
-    type?: ETabsType;
+    type?: string;
 }
 
 @observer
@@ -23,7 +23,11 @@ export class Tab extends Component<ICustomTabProps> {
     }
 
     componentWillUpdate(nextProps: ICustomTabProps): void {
-        if (_.difference(this.props.items, nextProps.items).length) {
+        const { type, items } = this.props;
+        if (!!type) {
+            this.store.setActiveTab(1);
+        }
+        if (_.difference(items, nextProps.items).length) {
             this.store.setItems(nextProps.items);
         }
     }

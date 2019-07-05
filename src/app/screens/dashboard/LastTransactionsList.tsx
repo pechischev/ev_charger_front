@@ -8,6 +8,8 @@ import { redirectOnTransactionProfile } from "@utils/history";
 import { TTransactionListItem } from "@entities/transactions";
 import { formatDate, parseAmountFieldValue } from "@utils";
 import { StatusMap } from "@entities/user/EStatus";
+import * as moment from "moment";
+import * as React from "react";
 
 @observer
 @autobind
@@ -25,16 +27,29 @@ export class LastTransactionsList extends List<TTransactionListItem> {
                 handler: (item: TTransactionListItem) => formatDate(item.payDate * milliseconds),
             },
             {
-                id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
-                handler: (item: TTransactionListItem) => formatDate(item.nextPaymentDate * milliseconds),
+                id: "nextPaymentDate", label: "Next due date", size: "0.75fr",
+                handler: (item: TTransactionListItem) => {
+                    const nextPaymentDate = moment(item.payDate * milliseconds).add({ month: 1 }).unix();
+                    return formatDate(nextPaymentDate * milliseconds);
+                },
+            },
+            {
+                id: "status", label: "Status", size: "0.5fr",
+                handler: (item: TTransactionListItem) => (
+                    <span data-status={item.status}>{StatusMap.get(item.status)}</span>
+                ),
             },
             {
                 id: "amount", label: "Transaction cost", size: "0.75fr",
-                handler: (item: TTransactionListItem) => `$ ${parseAmountFieldValue(item.amount.toString())}`,
+                handler: (item: TTransactionListItem) => (
+                    `$ ${parseAmountFieldValue(item.amount.toString())}`
+                ),
             },
             {
-                id: "status", label: "Status", size: "100px",
-                handler: (item: TTransactionListItem) => StatusMap.get(item.status),
+                id: "residence.serviceFee", label: "Service Fee", size: "0.5fr",
+                handler: (item: TTransactionListItem) => (
+                    `$ ${parseAmountFieldValue(item.residence.serviceFee.toString())}`
+                ),
             },
         ];
     }

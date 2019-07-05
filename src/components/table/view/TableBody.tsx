@@ -9,6 +9,7 @@ import { observer } from "mobx-react";
 import { Table } from "@components/table";
 import { parseAmountFieldValue } from "@utils";
 import { IItem } from "@entities/_common";
+import { EDiscountCharacter } from "@entities/promo-code";
 
 interface ITableBodyProps<T> {
     data: Array<ITableData<T>>;
@@ -92,7 +93,7 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
         data.forEach((column, index) => {
             const localAmount = get(column.item, "amount", 0);
             amount = amount + localAmount;
-            const localServiceFee = get(column.item, "serviceFee", 0);
+            const localServiceFee = get(column.item, "residence.serviceFee", 0);
             serviceFee = serviceFee + localServiceFee;
         });
         amount = Math.round(amount * 100) / 100;
@@ -122,7 +123,7 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
                                 })}
                             >
                                 <span>
-                                    {index >= tableRow.length - 2 ? "$ " : ""}
+                                    {index >= tableRow.length - 2 ? `${EDiscountCharacter.CURRENCY} ` : ""}
                                     {index >= tableRow.length - 2
                                         ?
                                         parseAmountFieldValue(get(item, "title", ""))
@@ -144,7 +145,7 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
                 return "Summary:";
             case "amount":
                 return amount.toString();
-            case "serviceFee":
+            case "residence.serviceFee":
                 return serviceFee.toString();
             default:
                 return "";

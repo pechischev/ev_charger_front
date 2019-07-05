@@ -1,4 +1,5 @@
 import { EPaths } from "@app/config";
+import { EStatus } from "@entities/user";
 import { AppContext } from "@context";
 
 export function redirectOnUserProfile(userId: number): void {
@@ -108,5 +109,25 @@ export function redirectToServiceRequest(): void {
 
 export function redirectToServiceRequestProfile(requestId: number): void {
     const link = `/${EPaths.SERVICE_REQUESTS_PROFILE}?id=${requestId}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToActiveResidence(): void {
+    const link = `/${EPaths.RESIDENCE_LIST}?type=${EStatus.ACTIVE}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToActiveUsers(): void {
+    const link = `/${EPaths.USER_LIST}?type=${EStatus.ACTIVE}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToUsersThisMonth(from: number, to: number): void {
+    const link = `/${EPaths.USER_LIST}?from=${from}&to=${to}`;
+    AppContext.getHistory().push(link);
+}
+
+export function redirectToTransactionsThisMonth(from: number, to: number): void {
+    const link = `/${EPaths.TRANSACTIONS}?from=${from}&to=${to}`;
     AppContext.getHistory().push(link);
 }

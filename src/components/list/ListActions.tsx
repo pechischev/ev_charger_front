@@ -71,14 +71,23 @@ export class ListActions<T> extends Component<IListActions<T>> {
     }
 
     private renderDataSearchFields(): Nullable<ReactNode> {
-        const { canDateSearch } = this.props;
+        const { canDateSearch, range } = this.props;
         if (!canDateSearch) {
             return void 0;
+        }
+        let transformData = {};
+        const milliseconds = 1000;
+        if (!!range && get(range, "start") !== 0 && get(range, "end") !== 0) {
+            transformData = {
+                from: moment(get(range, "start") * milliseconds).format("MM/DD/YY"),
+                to: moment(get(range, "end") * milliseconds).format("MM/DD/YY"),
+            };
         }
         return (
             <div className="list-actions__data-search">
                 <CustomForm
                     submit={this.onDateFilter}
+                    data={transformData}
                     render={(api, submitting) => {
                         return (
                             <div className="data-search clearfix">
@@ -113,7 +122,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
     }
 
     private renderFilters(): Nullable<ReactNode> {
-        const { store, filters } = this.props;
+        const { store, filters, type } = this.props;
         if (!filters.length) {
             return void 0;
         }
@@ -121,6 +130,7 @@ export class ListActions<T> extends Component<IListActions<T>> {
             <Tab
                 items={filters.map(({ text, value }) => ({ text, handler: () => store.setFilter(value) }))}
                 className="list-actions__tabs"
+                type={type}
             />
         );
     }

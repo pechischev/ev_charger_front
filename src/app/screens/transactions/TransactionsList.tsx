@@ -53,13 +53,13 @@ export class TransactionsList extends List<TTransactionListItem> {
             {
                 id: "amount", label: "Transaction cost", size: "0.75fr",
                 handler: (item: TTransactionListItem) => (
-                    `$ ${parseAmountFieldValue((item.amount || "0").toString())}`
+                    `$ ${parseAmountFieldValue(item.amount.toString())}`
                 ),
             },
             {
-                id: "serviceFee", label: "Service Fee", size: "0.5fr",
+                id: "residence.serviceFee", label: "Service Fee", size: "0.5fr",
                 handler: (item: TTransactionListItem) => (
-                    `$ ${parseAmountFieldValue((item.serviceFee || "0").toString())}`
+                    `$ ${parseAmountFieldValue(item.residence.serviceFee.toString())}`
                 ),
             },
         ];

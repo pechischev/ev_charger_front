@@ -9,7 +9,7 @@ import { AppContext } from "@context";
 import { IListParams } from "@services/transport/params";
 import { ListActions } from "./ListActions";
 import "./List.scss";
-import { isNumber } from "lodash";
+import { isNumber, get, isNil } from "lodash";
 
 @autobind
 export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P> {
@@ -25,12 +25,18 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     componentDidMount(): void {
-        const {updateList$, step} = this.props;
+        const {updateList$, step, type, range } = this.props;
         if (updateList$) {
             updateList$.subscribe(this.getListData);
         }
         if (isNumber(step)) {
             this.store.setLimit(step);
+        }
+        if (!!type && !isNil(type) && !isNaN(type)) {
+            this.store.setFilter(type);
+        }
+        if (!!range && get(range, "start") !== 0 && get(range, "end") !== 0) {
+            this.store.setDateRange(range);
         }
         this.store.getListData$.subscribe(this.getListData);
         this.getListData();
@@ -45,7 +51,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     protected renderList(): ReactNode {
-        const { canSearch = true, canDateSearch = false, actionElement, isSum = false } = this.props;
+        const { canSearch = true, canDateSearch = false, actionElement, isSum = false, range, type } = this.props;
         return (
             <Fragment>
                 <ListActions
@@ -54,6 +60,8 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
                     canSearch={canSearch}
                     actionElement={actionElement}
                     canDateSearch={canDateSearch}
+                    range={range}
+                    type={type}
                 />
                 <Table
                     data={this.store.getData()}
