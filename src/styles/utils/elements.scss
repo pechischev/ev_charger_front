@@ -1,0 +1,9 @@
+span {
+    &[data-status="paid"] {
+        color: #4ecc48 !important;
+    }
+
+    &[data-status="overdue"] {
+        color: #c21a1a !important;
+    }
+}

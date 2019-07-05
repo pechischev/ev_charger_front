@@ -8,6 +8,7 @@ export interface IList<T> {
     actionElement?: ReactNode;
     canDateSearch?: boolean;
     updateList$?: Subject<void>;
+    isSum?: boolean;
 }
 
 export interface IFilter {

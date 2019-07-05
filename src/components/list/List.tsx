@@ -45,7 +45,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     protected renderList(): ReactNode {
-        const { canSearch = true, canDateSearch = false, actionElement } = this.props;
+        const { canSearch = true, canDateSearch = false, actionElement, isSum = false } = this.props;
         return (
             <Fragment>
                 <ListActions
@@ -62,6 +62,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
                     onClickRow={this.onClickRowImpl}
                     onChangePage={this.onChangePage}
                     rowsPerPage={this.props.step}
+                    isSum={isSum}
                 />
             </Fragment>
         );

@@ -12,6 +12,7 @@ import { TTransactionListItem } from "@entities/transactions";
 import { formatDate, parseAmountFieldValue } from "@utils";
 import { StatusMap } from "@entities/user/EStatus";
 import * as moment from "moment";
+import * as React from "react";
 
 @observer
 @autobind
@@ -26,6 +27,7 @@ export class TransactionsList extends List<TTransactionListItem> {
     }
 
     protected getColumns(): Array<IColumn<TTransactionListItem>> {
+        const milliseconds = 1000;
         return [
             { id: "id", label: "Transaction Id", size: "0.5fr" },
             { id: "customer.id", label: "User Id", size: "100px" },
@@ -33,21 +35,32 @@ export class TransactionsList extends List<TTransactionListItem> {
             { id: "customer.lastName", label: "Surname" },
             {
                 id: "payDate", label: "Data transaction", size: "0.75fr",
-                handler: (item: TTransactionListItem) => formatDate(item.payDate * 1000),
+                handler: (item: TTransactionListItem) => formatDate(item.payDate * milliseconds),
             },
             {
-                id: "nextPaymentDate", label: "Date of resumption of payment", size: "0.75fr",
+                id: "nextPaymentDate", label: "Next due date", size: "0.75fr",
                 handler: (item: TTransactionListItem) => {
-                    const nextPaymentDate = moment(item.payDate * 1000).add({month: 1}).unix();
-                    return formatDate(nextPaymentDate * 1000);
+                    const nextPaymentDate = moment(item.payDate * milliseconds).add({ month: 1 }).unix();
+                    return formatDate(nextPaymentDate * milliseconds);
                 },
             },
             {
-                id: "amount", label: "Transaction cost", size: "0.75fr",
-                handler: (item: TTransactionListItem) => `$ ${parseAmountFieldValue(item.amount.toString())}`,
+                id: "status", label: "Status", size: "0.5fr",
+                handler: (item: TTransactionListItem) => (
+                    <span data-status={item.status}>{StatusMap.get(item.status)}</span>
+                ),
             },
-            { id: "status", label: "Status", size: "100px",
-                handler: (item: TTransactionListItem) => StatusMap.get(item.status)
+            {
+                id: "amount", label: "Transaction cost", size: "0.75fr",
+                handler: (item: TTransactionListItem) => (
+                    `$ ${parseAmountFieldValue((item.amount || "0").toString())}`
+                ),
+            },
+            {
+                id: "serviceFee", label: "Service Fee", size: "0.5fr",
+                handler: (item: TTransactionListItem) => (
+                    `$ ${parseAmountFieldValue((item.serviceFee || "0").toString())}`
+                ),
             },
         ];
     }
@@ -59,4 +72,5 @@ export class TransactionsList extends List<TTransactionListItem> {
     protected async getAction(params: IListParams): Promise<TAxiosResponse<EApiRoutes.GET_TRANSACTIONS>> {
         return this.store.transport.getTransactions(params);
     }
+
 }

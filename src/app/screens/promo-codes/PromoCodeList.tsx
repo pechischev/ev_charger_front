@@ -113,7 +113,7 @@ export class PromoCodeList extends List<TPromoCodeListItem, IPromoCodeListProps>
         const character = item.discountType === EDiscountType.PERCENTAGE
             ? EDiscountCharacter.PERCENTAGE
             : EDiscountCharacter.CURRENCY;
-        return `${item.discount}${character}`;
+        return character === EDiscountCharacter.CURRENCY ? `${character} ${item.discount}` : `${item.discount}${character}`;
     }
 
     private renderResidences(item: TPromoCodeListItem): ReactNode {

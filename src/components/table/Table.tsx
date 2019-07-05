@@ -38,7 +38,7 @@ export class Table<T> extends Component<ITable<T>> {
     }
 
     render(): ReactNode {
-        const { columns, canSelect, onClickRow, onChangePage } = this.props;
+        const { columns, canSelect, onClickRow, onChangePage, isSum } = this.props;
         return (
             <div className="table-responsive">
                 <table className="table table-striped table-bordered" style={{width: "100%"}}>
@@ -51,7 +51,7 @@ export class Table<T> extends Component<ITable<T>> {
                     <TableBody
                         selectStore={this.selectStore}
                         data={this.store.getData()}
-                        {...{canSelect, onClickRow, columns}}
+                        {...{canSelect, onClickRow, columns, isSum}}
                     />
                 </table>
                 <TablePagination

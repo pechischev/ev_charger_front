@@ -12,7 +12,7 @@ export class Transactions extends Component {
                     <Card
                         title="Transactions table"
                         isPrint={true}
-                        content={<TransactionsList canDateSearch={true}/>}
+                        content={<TransactionsList isSum={true} canDateSearch={true}/>}
                     />
                 </div>
             </div>
