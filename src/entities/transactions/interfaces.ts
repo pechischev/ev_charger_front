@@ -5,6 +5,7 @@ export interface ITransaction {
     id: number;
     status: EStatus;
     amount: string;
+    comment: string;
     payDate: number;
     chargeToken: string;
     serviceFee: string;
@@ -23,7 +24,7 @@ export type TTransactionListItem = ITransaction & {
     customer: Pick<IUser, "id" | "firstName" | "lastName">;
 };
 
-export type TTransactionFormData = Pick<TTransactionInfo, "status" | "amount" | "residence"> & {
+export type TTransactionFormData = Pick<TTransactionInfo, "status" | "amount" | "residence" | "comment"> & {
     paymentType: string;
     customer: string;
 };

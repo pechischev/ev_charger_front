@@ -13,6 +13,7 @@ import { TransactionForm } from "@app/components/transaction-form";
 import { AppContext } from "@context";
 import { Breadcrumb, IBreadcrumb } from "@components/breadcrumb";
 import { redirectToTransactionList } from "@utils/history";
+import { get } from "lodash";
 
 @observer
 @autobind
@@ -29,6 +30,7 @@ export class TransactionProfile extends Component<RouteProps> {
 
         if (AppContext.getHistory().location) {
             const { id } = qs.parse(AppContext.getHistory().location.search);
+            this.store.setTransactionId(`${id}`);
             this.store.getTransactionData(parseInt(`${id}`, 10));
         }
     }
@@ -49,7 +51,7 @@ export class TransactionProfile extends Component<RouteProps> {
                                 validateData={this.store.validateData}
                                 data={this.store.transformData(this.store.getData())}
                                 error$={this.store.error$}
-                                submit={() => void 0}
+                                submit={this.store.updateTransaction}
                                 render={this.getTransactionForm}
                             />
                         }
@@ -60,8 +62,9 @@ export class TransactionProfile extends Component<RouteProps> {
     }
 
     private getTransactionForm(api: FormRenderProps, submitting?: boolean): ReactNode {
+        const isChangeStatus = (this.store.getData().status === "overdue") && get(api.values, "status") === "paid";
         return (
-            <TransactionForm api={api} submitting={false} canCancel={true}/>
+            <TransactionForm api={api} submitting={submitting} canCancel={true} isChangeStatus={isChangeStatus}/>
         );
     }
 }
