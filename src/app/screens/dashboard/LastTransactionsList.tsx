@@ -46,9 +46,9 @@ export class LastTransactionsList extends List<TTransactionListItem> {
                 ),
             },
             {
-                id: "residence.serviceFee", label: "Service Fee", size: "0.5fr",
+                id: "serviceFee", label: "Service Fee", size: "0.5fr",
                 handler: (item: TTransactionListItem) => (
-                    `$ ${parseAmountFieldValue(item.residence.serviceFee.toString())}`
+                    `$ ${parseAmountFieldValue(item.serviceFee.toString())}`
                 ),
             },
         ];
