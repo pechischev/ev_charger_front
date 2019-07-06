@@ -32,10 +32,10 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
         if (isNumber(step)) {
             this.store.setLimit(step);
         }
-        if (!!type && !isNil(type) && !isNaN(type)) {
+        if (!!type && !isNil(type)) {
             this.store.setFilter(type);
         }
-        if (!!range && get(range, "start") !== 0 && get(range, "end") !== 0) {
+        if (!!range && !isNil(range)) {
             this.store.setDateRange(range);
         }
         this.store.getListData$.subscribe(this.getListData);

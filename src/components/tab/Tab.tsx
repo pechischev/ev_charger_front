@@ -23,12 +23,16 @@ export class Tab extends Component<ICustomTabProps> {
     }
 
     componentWillUpdate(nextProps: ICustomTabProps): void {
-        const { type, items } = this.props;
-        if (!!type) {
-            this.store.setActiveTab(1);
-        }
+        const { items } = this.props;
         if (_.difference(items, nextProps.items).length) {
             this.store.setItems(nextProps.items);
+        }
+    }
+
+    componentDidMount(): void {
+        const { type } = this.props;
+        if (!!type) {
+            this.store.setActiveTab(1);
         }
     }
 

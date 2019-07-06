@@ -2,20 +2,11 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { Card } from "@components/card";
 import { TransactionsList } from ".";
-import { AppContext } from "@context";
-import * as qs from "query-string";
+import { getRange } from "@utils";
 
 export class Transactions extends Component {
     render(): ReactNode {
-        let fromFilter = 0;
-        let toFilter = 0;
-        if (AppContext.getHistory().location) {
-            const { from, to } = qs.parse(AppContext.getHistory().location.search);
-            if (!!from && !!to) {
-                fromFilter = parseInt(`${from}`, 10) / 1000;
-                toFilter = parseInt(`${to}`, 10) / 1000;
-            }
-        }
+        const range = getRange();
         return (
             <div className="side-app">
                 <div className="page-header">Transactions</div>
@@ -27,10 +18,7 @@ export class Transactions extends Component {
                             <TransactionsList
                                 isSum={true}
                                 canDateSearch={true}
-                                range={{
-                                    start: fromFilter,
-                                    end: toFilter,
-                                }}
+                                range={range}
                             />
                         }
                     />

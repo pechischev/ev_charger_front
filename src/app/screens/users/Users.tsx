@@ -5,21 +5,12 @@ import { UserList } from "@app/screens/users/UserList";
 import { redirectOnAddUserForm } from "@utils/history";
 import { Button } from "@components/button";
 import { AppContext } from "@context";
-import * as qs from "query-string";
+import { getTypeTab, getRange } from "@utils";
 
 export class Users extends Component {
     render(): ReactNode {
-        let typeTab = "";
-        let fromFilter = 0;
-        let toFilter = 0;
-        if (AppContext.getHistory().location) {
-            const { type = "", from, to } = qs.parse(AppContext.getHistory().location.search);
-            typeTab = `${type}`;
-            if (!!from && !!to) {
-                fromFilter = parseInt(`${from}`, 10) / 1000;
-                toFilter = parseInt(`${to}`, 10) / 1000;
-            }
-        }
+        const typeTab = getTypeTab();
+        const range = getRange();
         const actionElement = this.getActionElement();
         return (
             <div className="side-app">
@@ -35,10 +26,7 @@ export class Users extends Component {
                                 actionElement={actionElement}
                                 canDateSearch={true}
                                 type={typeTab}
-                                range={{
-                                    start: fromFilter,
-                                    end: toFilter,
-                                }}
+                                range={range}
                             />
                         }
                     />

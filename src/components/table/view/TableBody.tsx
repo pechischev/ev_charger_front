@@ -93,7 +93,7 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
         data.forEach((column, index) => {
             const localAmount = get(column.item, "amount", 0);
             amount = amount + localAmount;
-            const localServiceFee = get(column.item, "residence.serviceFee", 0);
+            const localServiceFee = get(column.item, "serviceFee", 0);
             serviceFee = serviceFee + localServiceFee;
         });
         amount = Math.round(amount * 100) / 100;
@@ -145,7 +145,7 @@ export class TableBody<T> extends Component<ITableBodyProps<T>> {
                 return "Summary:";
             case "amount":
                 return amount.toString();
-            case "residence.serviceFee":
+            case "serviceFee":
                 return serviceFee.toString();
             default:
                 return "";

@@ -1,9 +1,13 @@
 span {
-    &[data-status="paid"] {
+    &[data-status="paid"], &[data-status="active"] {
         color: #4ecc48 !important;
     }
 
     &[data-status="overdue"] {
         color: #c21a1a !important;
+    }
+
+    &[data-status="inactive"] {
+        color: #3e4b5b !important;
     }
 }
