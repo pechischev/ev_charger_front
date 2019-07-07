@@ -4,4 +4,5 @@ export interface ITransactionForm {
     api: FormRenderProps;
     submitting?: boolean;
     canCancel?: boolean;
+    isChangeStatus?: boolean;
 }

@@ -360,4 +360,9 @@ export class Transport<T extends object = object> implements ITransport {
     async getReportData(): Promise<TAxiosResponse<EApiRoutes.REPORT_DATA>> {
         return this.client.get(EApiRoutes.REPORT_DATA);
     }
+
+    async updateTransaction(params: TApiParams<EApiRoutes.TRANSACTION_DATA>, transactionId: string):
+        Promise<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>> {
+        return this.client.post(`${EApiRoutes.TRANSACTION_DATA.replace("{transactionId}", transactionId)}`, params);
+    }
 }

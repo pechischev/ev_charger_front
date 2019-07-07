@@ -24,13 +24,14 @@ export class AddUserFormStore extends Store {
             { type: EUserFieldTypes.MAKES, codes: [] },
             { type: EUserFieldTypes.MODEL, codes: [] },
             { type: EUserFieldTypes.YEAR, codes: [] },
+            { type: EUserFieldTypes.LICENSE_PLATE, codes: [] },
             { type: EUserFieldTypes.PASSWORD, codes: [] },
         ];
         return fields;
     }
 
     async createUser(data: IUserParams): Promise<void> {
-        const { contactInfo, vehicle, ...rest } = data;
+        const { contactInfo, vehicle, status, ...rest } = data;
         const { residenceId, stateId } = contactInfo;
         const { makesId, modelId } = vehicle;
         return this.asyncCall(this.transport.createUser({

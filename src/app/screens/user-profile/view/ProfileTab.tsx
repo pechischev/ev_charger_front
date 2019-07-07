@@ -46,7 +46,7 @@ export class ProfileTab extends Component<IProfileProps> {
     private getSettingsForm(api: FormRenderProps, submitting?: boolean): ReactNode {
         return (
             <Fragment>
-                <UserForm passwordFields={void 0}/>
+                <UserForm />
                 <div className="profile-form-button clearfix">
                     <Button
                         className="float-right"

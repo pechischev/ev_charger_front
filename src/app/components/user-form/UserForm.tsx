@@ -5,6 +5,7 @@ import {
     EmailField,
     InputField,
     LicencePlateField,
+    PasswordField,
     PhoneField,
     SelectField,
     YearField,
@@ -18,10 +19,11 @@ import { get } from "lodash";
 import { IUserForm } from "./interfaces";
 import { EUserFieldTypes } from "./EUserFieldTypes";
 import "./UserForm.scss";
+import { EStatus } from "@entities/user";
 
 @observer
 @autobind
-export class UserForm extends Component<IUserForm> {
+export class UserForm extends Component {
     constructor(props: IUserForm) {
         super(props);
 
@@ -55,7 +57,7 @@ export class UserForm extends Component<IUserForm> {
     }
 
     private getProfileInfoFields(): ReactNode {
-        const { passwordFields } = this.props;
+        const isCreate = !!~AppContext.getHistory().location.pathname.indexOf("create");
         const readonly = !AppContext.getUserStore().isAdmin();
         return (
             <div className="profile-form-fields_block">
@@ -80,13 +82,26 @@ export class UserForm extends Component<IUserForm> {
                     disabled={readonly}
                 />
                 <SelectField
+                    name={EUserFieldTypes.STATUS}
+                    label={"Status"}
+                    options={[
+                        { id: EStatus.ACTIVE, title: "Active" },
+                        { id: EStatus.INACTIVE, title: "Inactive" },
+                    ]}
+                    placeholder={"Select status"}
+                    isVisible={!isCreate}
+                />
+                <SelectField
                     label={"Site"}
                     name={EUserFieldTypes.RESIDENCE}
                     placeholder={"Select site"}
                     options={AppContext.getInfoStore().residences}
                     disabled={readonly}
                 />
-                {passwordFields}
+                <PasswordField
+                    label={"Password"}
+                    name={EUserFieldTypes.PASSWORD}
+                />
             </div>
         );
     }

@@ -16,5 +16,7 @@ export enum EUserFieldTypes {
     MAKES = "vehicle.makesId",
     MODEL = "vehicle.modelId",
     YEAR = "vehicle.year",
-    LICENSE_PLATE = "vehicle.licensePlate"
+    LICENSE_PLATE = "vehicle.licensePlate",
+
+    STATUS = "status"
 }

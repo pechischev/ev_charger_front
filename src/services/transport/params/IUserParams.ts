@@ -1,3 +1,5 @@
+import { EStatus } from "@entities/user";
+
 export interface IUserParams {
     userData: {
         email: string;
@@ -20,4 +22,5 @@ export interface IUserParams {
         year: string,
         licensePlate: string
     };
+    status?: EStatus;
 }

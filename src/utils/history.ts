@@ -15,6 +15,7 @@ export function redirectOnAddUserForm(): void {
 export function redirectToUsersList(): void {
     const link = `/${EPaths.USER_LIST}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectOnResidenceProfile(resideceId: number): void {

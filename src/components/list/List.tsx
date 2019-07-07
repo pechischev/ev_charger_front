@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode, Fragment } from "react";
+import { Component, Fragment, ReactNode } from "react";
 import { ListStore } from "./ListStore";
 import { autobind } from "core-decorators";
 import { IColumn, Table } from "@components/table";
@@ -9,7 +9,7 @@ import { AppContext } from "@context";
 import { IListParams } from "@services/transport/params";
 import { ListActions } from "./ListActions";
 import "./List.scss";
-import { isNumber, get, isNil } from "lodash";
+import { isNil, isNumber } from "lodash";
 
 @autobind
 export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P> {
@@ -25,17 +25,17 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     componentDidMount(): void {
-        const {updateList$, step, type, range } = this.props;
+        const { updateList$, step, type, range } = this.props;
         if (updateList$) {
             updateList$.subscribe(this.getListData);
         }
         if (isNumber(step)) {
             this.store.setLimit(step);
         }
-        if (!!type && !isNil(type) && !isNaN(type)) {
+        if (!!type && !isNil(type)) {
             this.store.setFilter(type);
         }
-        if (!!range && get(range, "start") !== 0 && get(range, "end") !== 0) {
+        if (!!range && !isNil(range)) {
             this.store.setDateRange(range);
         }
         this.store.getListData$.subscribe(this.getListData);
@@ -43,7 +43,7 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     componentWillUnmount(): void {
-        const {updateList$} = this.props;
+        const { updateList$ } = this.props;
         if (updateList$) {
             updateList$.unsubscribe();
         }
@@ -93,8 +93,8 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
     }
 
     private onChangePage(newPage: number): void {
-        const {page, ...rest} = this.store.getListData();
-        this.store.setListData({...rest, page: newPage});
+        const { page, ...rest } = this.store.getListData();
+        this.store.setListData({ ...rest, page: newPage });
         this.updateList();
     }
 

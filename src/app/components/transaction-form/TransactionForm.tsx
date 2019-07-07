@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Component, ReactNode, Fragment } from "react";
-import { AmountField, InputField, SelectField } from "@components/fields";
+import { Component, Fragment, ReactNode } from "react";
+import { AmountField, InputField, InputTextareaField, SelectField } from "@components/fields";
 import { observer } from "mobx-react";
 import { autobind } from "core-decorators";
 import { ETransactionFieldTypes } from "./ETransactionFieldTypes";
@@ -9,6 +9,7 @@ import { Button } from "@components/button";
 import { redirectToTransactionList } from "@utils/history";
 import "./TransactionForm.scss";
 import { AppContext } from "@context";
+import { get, isEmpty } from "lodash";
 
 @observer
 @autobind
@@ -29,6 +30,8 @@ export class TransactionForm extends Component<ITransactionForm> {
     }
 
     private getProfileInfoFields(): ReactNode {
+        const { isChangeStatus, api } = this.props;
+        const comment = get(api.values, "comment", "");
         return (
             <Fragment>
                 <SelectField
@@ -44,20 +47,25 @@ export class TransactionForm extends Component<ITransactionForm> {
                     placeholder={"Select user"}
                     disabled={true}
                 />
+                <InputTextareaField
+                    label={"Payment Source"}
+                    name={ETransactionFieldTypes.COMMENT}
+                    isVisible={isChangeStatus || !isEmpty(comment)}
+                />
             </Fragment>
         );
     }
 
     private getRoleSettingsFields(): ReactNode {
-        const pathname = AppContext.getHistory().location.pathname;
-        const isCreate = !!~pathname.indexOf("create");
         return (
             <Fragment>
-                <InputField
+                <SelectField
                     label={"Status"}
                     name={ETransactionFieldTypes.STATUS}
-                    isVisible={!isCreate}
-                    disabled={true}
+                    options={[
+                        { id: "paid", title: "Paid" },
+                        { id: "overdue", title: "Overdue" },
+                    ]}
                 />
                 <InputField
                     label={"Payment type"}
@@ -76,6 +84,13 @@ export class TransactionForm extends Component<ITransactionForm> {
                         type="secondary"
                         onClick={redirectToTransactionList}
                         text="Back"
+                    />
+                    <Button
+                        className="float-right"
+                        type="primary"
+                        disabled={!this.props.submitting}
+                        onClick={() => this.props.api.handleSubmit()}
+                        text="Save"
                     />
                 </div>
             </Fragment>

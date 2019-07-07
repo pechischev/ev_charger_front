@@ -7,12 +7,15 @@ import { Button } from "@components/button";
 import { AppContext } from "@context";
 import * as qs from "query-string";
 import { get } from "lodash";
+import { Nullable } from "@app/config";
 
 export class Residences extends Component {
     render(): ReactNode {
-        let typeTab = "";
+        let typeTab: Nullable<string> = void 0;
         if (AppContext.getHistory().location) {
-            typeTab = `${get(qs.parse(AppContext.getHistory().location.search), "type")}`;
+            typeTab = get(
+                qs.parse(AppContext.getHistory().location.search) as unknown as Nullable<string>, "type", void 0,
+            );
         }
         const actionElement = this.getActionElement();
         return (

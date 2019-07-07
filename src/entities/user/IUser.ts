@@ -6,5 +6,5 @@ export interface IUser {
     lastName: string;
     email: string;
     photo?: string;
-    status?: EStatus;
+    status: EStatus;
 }
