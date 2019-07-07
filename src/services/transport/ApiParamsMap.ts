@@ -9,7 +9,7 @@ import {
     IListParams,
     ILoginParams,
     IPromoCodeParams,
-    IResidenceParams,
+    IResidenceParams, ITransactionParams,
     IUserParams,
     IVehicleBrandParams,
     IVehicleDataCountParams,
@@ -33,6 +33,7 @@ export type TParamsUnion = ILoginParams
     | IVehicleBrandParams
     | IVehicleDataCountParams
     | Partial<IPromoCodeParams>
+    | ITransactionParams
     | IPromoCodeParams;
 
 export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
@@ -63,6 +64,7 @@ export interface IApiRouteParamsMap extends TMap<TParamsUnion> {
     [EApiRoutes.PROMO_CODE]: Partial<IPromoCodeParams>;
     [EApiRoutes.CREATE_PROMO_CODE]: IPromoCodeParams;
     [EApiRoutes.GET_SERVICE_REQUESTS]: IListParams;
+    [EApiRoutes.TRANSACTION_DATA]: ITransactionParams;
 }
 
 // @ts-ignore:2344

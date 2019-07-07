@@ -5,7 +5,7 @@ export class User {
     private readonly firstName: string;
     private readonly lastName: string;
     private readonly email: string;
-    private readonly status?: EStatus;
+    private readonly status: EStatus;
     private readonly photo?: string;
 
     constructor(params: IUser) {

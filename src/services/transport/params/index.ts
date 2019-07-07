@@ -12,3 +12,4 @@ export { IVehicleBrandParams } from "./IVehicleBrandParams";
 export { IVehicleModelParams } from "./IVehicleModelParams";
 export { IVehicleDataCountParams } from "./IVehicleDataCountParams";
 export { IPromoCodeParams } from "./IPromoCodeParams";
+export { ITransactionParams } from "./ITransactionParams";

@@ -9,7 +9,8 @@ import { AppContext } from "@context";
 import { IListParams } from "@services/transport/params";
 import { ListActions } from "./ListActions";
 import "./List.scss";
-import { isNil, isNumber } from "lodash";
+import { isNil, isNumber, isEmpty } from "lodash";
+import { IRange } from "@components/table/store/IPaginationData";
 
 @autobind
 export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P> {
@@ -35,8 +36,8 @@ export abstract class List<T, P extends IList<T> = IList<T>> extends Component<P
         if (!!type && !isNil(type)) {
             this.store.setFilter(type);
         }
-        if (!!range && !isNil(range)) {
-            this.store.setDateRange(range);
+        if (!!range && !isNil(range) && !isEmpty(range)) {
+            this.store.setDateRange(range as IRange);
         }
         this.store.getListData$.subscribe(this.getListData);
         this.getListData();

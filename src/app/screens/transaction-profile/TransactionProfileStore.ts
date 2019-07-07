@@ -74,8 +74,6 @@ export class TransactionProfileStore extends Store {
 
     private onUpdateTransaction(response: TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>): void {
         console.info("[TransactionProfileStore.onUpdateTransaction]: ", response);
-        const data = _.get<TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.POST>, "data">(response, "data");
-        this.setData(data);
     }
 
     private onSuccessGetData(response: TAxiosResponse<EApiRoutes.TRANSACTION_DATA, EApiMethods.GET>): void {
