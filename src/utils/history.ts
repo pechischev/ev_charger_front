@@ -91,6 +91,7 @@ export function redirectOnAddTransactionForm(): void {
 export function redirectToPromoCodeList(): void {
     const link = `/${EPaths.PROMO_CODE_INFO}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectOnAddPromoCodeForm(): void {
@@ -106,6 +107,7 @@ export function redirectToPromoCodeProfile(promoCodeId: number): void {
 export function redirectToServiceRequest(): void {
     const link = `/${EPaths.SERVICE_REQUESTS}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectToServiceRequestProfile(requestId: number): void {
