@@ -26,6 +26,7 @@ export function redirectOnResidenceProfile(resideceId: number): void {
 export function redirectToResidenceList(): void {
     const link = `/${EPaths.RESIDENCE_LIST}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectToResidenceCreateForm(): void {
@@ -41,6 +42,7 @@ export function redirectToSettings(): void {
 export function redirectToWorkerList(): void {
     const link = `/${EPaths.WORKER_LIST}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectToWorkerForm(userId: number): void {
@@ -91,6 +93,7 @@ export function redirectOnAddTransactionForm(): void {
 export function redirectToPromoCodeList(): void {
     const link = `/${EPaths.PROMO_CODE_INFO}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectOnAddPromoCodeForm(): void {
@@ -106,6 +109,7 @@ export function redirectToPromoCodeProfile(promoCodeId: number): void {
 export function redirectToServiceRequest(): void {
     const link = `/${EPaths.SERVICE_REQUESTS}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectToServiceRequestProfile(requestId: number): void {
