@@ -77,7 +77,7 @@ export class ListStore<T> extends Store {
 
     setFilter(newType?: string): void {
         const { type } = this.listData;
-        this.setListData({ ...this.listData, type: newType });
+        this.setListData({ ...this.listData, type: newType, page: 0 });
         if (type !== newType) {
             this._getListData$.next();
         }

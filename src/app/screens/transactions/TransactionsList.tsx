@@ -44,6 +44,7 @@ export class TransactionsList extends List<TTransactionListItem> {
                     return formatDate(nextPaymentDate * milliseconds);
                 },
             },
+            { id: "residence.title", label: "Site" },
             {
                 id: "status", label: "Status", size: "0.5fr",
                 handler: (item: TTransactionListItem) => (

@@ -26,6 +26,7 @@ export function redirectOnResidenceProfile(resideceId: number): void {
 export function redirectToResidenceList(): void {
     const link = `/${EPaths.RESIDENCE_LIST}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectToResidenceCreateForm(): void {
@@ -41,6 +42,7 @@ export function redirectToSettings(): void {
 export function redirectToWorkerList(): void {
     const link = `/${EPaths.WORKER_LIST}`;
     AppContext.getHistory().push(link);
+    window.location.reload();
 }
 
 export function redirectToWorkerForm(userId: number): void {

@@ -7,7 +7,7 @@ import { EMessages } from "@utils/EMessage";
 import { Nullable } from "@app/config";
 import { formatValue } from "@utils";
 
-const MAX_COUNT_DIGITS_PHONE = 11;
+const MAX_COUNT_DIGITS_PHONE = 10;
 
 export const PhoneField: FC<IField> = ({ name, ...rest }) => {
     const validatePhoneValue = (value: string): Nullable<string> => {
@@ -15,7 +15,7 @@ export const PhoneField: FC<IField> = ({ name, ...rest }) => {
             return void 0;
         }
         const phone = value.replace(/[^\d]/g, "");
-        if (phone.length !== MAX_COUNT_DIGITS_PHONE || phone.charAt(0) !== "1") {
+        if (phone.length !== MAX_COUNT_DIGITS_PHONE) {
             return EMessages.PHONE_LENGTH;
         }
         const radix = 10;
