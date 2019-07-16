@@ -19,14 +19,10 @@ export class ProfileTabStore extends Store {
             { type: EUserFieldTypes.STATUS, codes: [] },
             { type: EUserFieldTypes.RESIDENCE, codes: [] },
             { type: EUserFieldTypes.ADDRESS, codes: [] },
-            { type: EUserFieldTypes.APT_UNIT, codes: [] },
-            { type: EUserFieldTypes.CITY, codes: [] },
             { type: EUserFieldTypes.ZIP_CODE, codes: [] },
             { type: EUserFieldTypes.STATE, codes: [] },
             { type: EUserFieldTypes.MAKES, codes: [] },
             { type: EUserFieldTypes.MODEL, codes: [] },
-            { type: EUserFieldTypes.YEAR, codes: [] },
-            { type: EUserFieldTypes.LICENSE_PLATE, codes: [] },
         ]);
     }
 
