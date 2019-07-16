@@ -17,14 +17,10 @@ export class AddUserFormStore extends Store {
             { type: EUserFieldTypes.PHONE, codes: [0, 19] },
             { type: EUserFieldTypes.RESIDENCE, codes: [] },
             { type: EUserFieldTypes.ADDRESS, codes: [] },
-            { type: EUserFieldTypes.APT_UNIT, codes: [] },
-            { type: EUserFieldTypes.CITY, codes: [] },
             { type: EUserFieldTypes.ZIP_CODE, codes: [] },
             { type: EUserFieldTypes.STATE, codes: [] },
             { type: EUserFieldTypes.MAKES, codes: [] },
             { type: EUserFieldTypes.MODEL, codes: [] },
-            { type: EUserFieldTypes.YEAR, codes: [] },
-            { type: EUserFieldTypes.LICENSE_PLATE, codes: [] },
             { type: EUserFieldTypes.PASSWORD, codes: [] },
         ];
         return fields;
